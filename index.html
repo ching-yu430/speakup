@@ -363,7 +363,7 @@
     <div class="ai-modal">
       <button class="ai-modal-close" id="closeAiModalBtn">×</button>
       <h2 style="margin-top:0; color:#8a2be2; font-size: 20px;">✨ AI 無限情境生成器</h2>
-      <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">利用最新 Gemini 1.5 Flash 模型，立刻為你生成專屬的實用對話與單字。</p>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">利用最新 Gemini 3.6 Flash 模型，立刻為你生成專屬的實用對話與單字。</p>
       <input type="password" id="apiKeyInput" placeholder="輸入你的 Gemini API Key (僅存在本地)" style="width:100%; margin-bottom: 8px; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
       <div style="display:flex; gap:8px; margin-bottom: 16px;">
         <input type="text" id="aiScenarioInput" placeholder="想練習的情境？例如：在機場跟地勤吵架" style="flex:1; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
@@ -1205,12 +1205,12 @@ zh (中文) 必須是繁體中文(台灣)。
 不要輸出任何 Markdown 語法（例如 \`\`\`json ），只要純 JSON 文字陣列即可。`;
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         contents: [{ parts: [{text: prompt}] }],
-        generationConfig: { response_mime_type: "application/json" }
+        generationConfig: { responseMimeType: "application/json" }
       })
     });
     if(!res.ok) throw new Error('API Error');
@@ -1285,7 +1285,7 @@ el('coachBtn').onclick = async () => {
   const prompt = `目標英文句子是: "${item.en}"\n使用者唸成了: "${heard}"\n請分析使用者可能的發音錯誤（例如母音發錯、連音沒處理、或是特定子音混淆）。請用簡單的繁體中文解釋，並給予一句實用的發音改善提示。限制在 3 句話以內，不要用太學術的音標術語。`;
   
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1337,7 +1337,7 @@ el('rpStartBtn').onclick = async () => {
 
 async function fetchRpResponse(contents) {
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
