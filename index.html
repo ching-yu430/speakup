@@ -242,6 +242,15 @@
     </div>
   </div>
 
+  <details class="ai-panel" style="margin-top: 1rem; background: rgba(138,43,226,0.1); border: 1px solid rgba(138,43,226,0.3); border-radius: 8px; padding: 0.5rem;">
+    <summary style="cursor:pointer; font-weight:600; color: #b77bff;">✨ AI 無限情境生成器 (Gemini)</summary>
+    <div style="padding: 1rem 0;">
+      <input type="password" id="apiKeyInput" placeholder="輸入你的 Gemini API Key (僅存在你的瀏覽器)" style="width:100%; margin-bottom: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius: 4px;">
+      <input type="text" id="aiScenarioInput" placeholder="想練習的情境？例如：在國外餐廳點餐、機場海關" style="width:100%; margin-bottom: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius: 4px;">
+      <button id="aiGenerateBtn" style="background: linear-gradient(135deg, #8a2be2, #4169e1); border:none; padding: 0.5rem 1rem; border-radius: 4px; color:white; cursor:pointer; width:100%; font-weight: bold;">🚀 立即生成題目</button>
+      <div id="aiStatus" style="margin-top: 0.5rem; font-size: 0.9rem; color: #ccc;"></div>
+    </div>
+  </details>
   <details class="add-panel">
     <summary>想加自己的內容?點這裡展開(選填,不影響上面的題庫)</summary>
     <div class="add-body">
@@ -340,6 +349,22 @@ const STAGES = [
   }
 ];
 
+/* ---------- 本地儲存進度記憶 ---------- */
+let savedStageIdx = localStorage.getItem('speakup_stageIdx');
+let savedCat = localStorage.getItem('speakup_cat');
+let savedItemIdx = localStorage.getItem('speakup_itemIdx');
+let geminiApiKey = localStorage.getItem('speakup_apikey') || '';
+
+let stageIdx = savedStageIdx ? parseInt(savedStageIdx, 10) : 0;
+let itemIdx = savedItemIdx ? parseInt(savedItemIdx, 10) : 0;
+let activeCat = savedCat || 'all';
+
+function saveProgress(){
+  localStorage.setItem('speakup_stageIdx', stageIdx);
+  localStorage.setItem('speakup_cat', activeCat);
+  localStorage.setItem('speakup_itemIdx', itemIdx);
+}
+
 /* ---------- 題庫擴充 ---------- */
 // 已存在的 en 集合（避免重複）
 function existingEnSet(stage){
@@ -363,13 +388,18 @@ function initBank(){
       });
     }
   });
+  
+  // 驗證 saved itemIdx 是否超出範圍，若超出則歸零
+  const stage = STAGES[stageIdx];
+  if(!stage) { stageIdx = 0; itemIdx = 0; activeCat = 'all'; }
+  else {
+    const items = activeCat === 'all' ? stage.items : stage.items.filter(it => it.cat === activeCat);
+    if(itemIdx >= items.length) itemIdx = 0;
+  }
 }
 
 const DICT_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
-let stageIdx = 0;
-let itemIdx = 0;
-let activeCat = 'all';
 let recognition = null;
 let isRecording = false;
 let accentPref = 'us';
@@ -439,7 +469,7 @@ function renderPhonetics(phon){
   const visual = el('phonVisual');
   if(!phon){ block.style.display = 'none'; visual.innerHTML = ''; return; }
   block.style.display = 'block';
-  const clean = phon.replace(/^\/|\/$/g,'').trim();
+  const clean = phon.replace(/^\/|\/$/g,'').trim().replace(/ɹ/g, 'r').replace(/ɡ/g, 'g');
 
   // 確保重音符號和句點都可以作為音節分隔
   // 先把重音符號替換成具有分隔功能的格式，例如在前面加上句點
@@ -487,7 +517,7 @@ function renderLadder(){
     const d = document.createElement('div');
     d.className = 'rung' + (i===stageIdx?' active':'');
     d.textContent = s.label;
-    d.onclick = () => { stageIdx = i; itemIdx = 0; activeCat = 'all'; render(); };
+    d.onclick = () => { stageIdx = i; itemIdx = 0; activeCat = 'all'; saveProgress(); render(); };
     ladder.appendChild(d);
   });
 }
@@ -499,13 +529,13 @@ function renderCats(){
   const allPill = document.createElement('div');
   allPill.className = 'cat-pill' + (activeCat==='all'?' active':'');
   allPill.textContent = '全部';
-  allPill.onclick = () => { activeCat='all'; itemIdx=0; render(); };
+  allPill.onclick = () => { activeCat='all'; itemIdx=0; saveProgress(); render(); };
   wrap.appendChild(allPill);
   cats.forEach(c => {
     const p = document.createElement('div');
     p.className = 'cat-pill' + (activeCat===c?' active':'');
     p.textContent = c;
-    p.onclick = () => { activeCat=c; itemIdx=0; render(); };
+    p.onclick = () => { activeCat=c; itemIdx=0; saveProgress(); render(); };
     wrap.appendChild(p);
   });
 }
@@ -810,6 +840,7 @@ recBtn.addEventListener('click', (e) => {
 el('skipBtn').onclick = () => {
   const items = filteredItems();
   itemIdx = (itemIdx+1) % items.length;
+  saveProgress();
   render();
 };
 
@@ -853,6 +884,78 @@ el('addBtn').onclick = async () => {
   addBtn.textContent = '已加入 ✓';
   setTimeout(()=>{ addBtn.textContent = '加入'; }, 1200);
   if(idx === stageIdx) render();
+};
+
+/* ---------- AI 情境生成器 ---------- */
+if(geminiApiKey) el('apiKeyInput').value = geminiApiKey;
+el('apiKeyInput').addEventListener('input', (e) => {
+  geminiApiKey = e.target.value.trim();
+  localStorage.setItem('speakup_apikey', geminiApiKey);
+});
+
+el('aiGenerateBtn').onclick = async () => {
+  const scenario = el('aiScenarioInput').value.trim();
+  if(!geminiApiKey){ el('aiStatus').textContent = '⚠️ 請先輸入 Gemini API Key'; return; }
+  if(!scenario){ el('aiStatus').textContent = '⚠️ 請輸入你想練習的情境'; return; }
+  
+  const btn = el('aiGenerateBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ 生成中，請稍候... (約需 5~10 秒)';
+  el('aiStatus').textContent = '';
+
+  const prompt = `你是一個專業的英文老師。請根據情境：「${scenario}」，生成相關的英文練習題目。
+請嚴格輸出 JSON 陣列，包含 10 個單字、5 個片語、5 個句子。每個物件必須有 en, zh, cat 三個屬性。cat 必須固定填入 "(AI) ${scenario}"。
+zh (中文) 必須是繁體中文(台灣)。
+格式範例：
+[
+  {"en":"passport", "zh":"護照", "cat":"(AI) ${scenario}"},
+  {"en":"check in", "zh":"報到", "cat":"(AI) ${scenario}"},
+  {"en":"Where is the boarding gate?", "zh":"登機門在哪裡？", "cat":"(AI) ${scenario}"}
+]
+不要輸出任何 Markdown 語法（例如 \`\`\`json ），只要純 JSON 文字陣列即可。`;
+
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        contents: [{ parts: [{text: prompt}] }],
+        generationConfig: { response_mime_type: "application/json" }
+      })
+    });
+    
+    if(!res.ok) throw new Error(`API 請求失敗 (${res.status})，請檢查 API Key 是否正確`);
+    const data = await res.json();
+    let resultText = data.candidates[0].content.parts[0].text;
+    resultText = resultText.replace(/```json/g, '').replace(/```/g, '').trim();
+    const items = JSON.parse(resultText);
+    
+    const catName = `(AI) ${scenario}`;
+    items.forEach(it => {
+      if(!it.en) return;
+      const wordCount = it.en.trim().split(/\s+/).length;
+      let targetKey = 'word';
+      if(wordCount > 3 || it.en.includes('?')) targetKey = 'sentence';
+      else if(wordCount > 1) targetKey = 'phrase';
+      
+      const stage = STAGES.find(s => s.key === targetKey);
+      if(stage) stage.items.push({ en: it.en, zh: it.zh, cat: catName });
+    });
+    
+    el('aiStatus').textContent = '✅ 生成成功！已幫你切換到新類別。';
+    el('aiScenarioInput').value = '';
+    
+    activeCat = catName;
+    itemIdx = 0;
+    saveProgress();
+    render();
+    
+  } catch(err) {
+    el('aiStatus').textContent = '❌ 生成失敗：' + err.message;
+  }
+  
+  btn.disabled = false;
+  btn.textContent = '🚀 立即生成題目';
 };
 
 checkMobile();
