@@ -336,6 +336,8 @@
 </div>
 
 <script>
+const el = id => document.getElementById(id);
+
 /* ---------- 題庫初始化 ---------- */
 const STAGES = [
   {
@@ -511,8 +513,6 @@ const DICT_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 let recognition = null;
 let isRecording = false;
 let accentPref = 'us';
-
-const el = id => document.getElementById(id);
 
 /* ---------- 字典 API 串接 (Free Dictionary API) ---------- */
 
