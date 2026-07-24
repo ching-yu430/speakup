@@ -434,9 +434,6 @@ function fetchAndEnrich(item){
 }
 
 // 把音標字串拆成音節，並把重音節放大加粗
-// 支援兩種格式：
-// 1. 有 . 分隔：/kəˈlæb.ə.reɪt/ (Cambridge 格式)
-// 2. 無 . 分隔：/kəˈlæbəˌreɪt/ (Free Dictionary 格式)
 function renderPhonetics(phon){
   const block = el('phonBlock');
   const visual = el('phonVisual');
@@ -444,32 +441,26 @@ function renderPhonetics(phon){
   block.style.display = 'block';
   const clean = phon.replace(/^\/|\/$/g,'').trim();
 
-  let syllables;
-  const dotParts = clean.split('.').filter(Boolean);
+  // 確保重音符號和句點都可以作為音節分隔
+  // 先把重音符號替換成具有分隔功能的格式，例如在前面加上句點
+  let marked = clean.replace(/([ˈˌ])/g, '.$1');
+  // 移除連續的句點（例如原本就有句點的地方變成 ..）
+  marked = marked.replace(/\.+/g, '.');
+  // 移除開頭的句點
+  marked = marked.replace(/^\./, '');
 
-  if(dotParts.length > 1){
-    // 格式 1: 用 . 分隔的音標
-    syllables = dotParts.map(syl => ({
-      text: syl.replace(/[ˈˌ]/g,''),
-      stressed: /ˈ/.test(syl),
-      secondary: /ˌ/.test(syl)
-    }));
-  } else {
-    // 格式 2: 用重音符號拆分 (ˈ 主重音, ˌ 次重音)
-    // 先在 ˈ 和 ˌ 前面插入分隔符，再拆分
-    const marked = clean.replace(/([ˈˌ])/g, '|$1');
-    const parts = marked.split('|').filter(Boolean);
-    if(parts.length <= 1){
-      // 單音節或無法拆分，直接顯示原始音標
-      visual.innerHTML = '<span class="phon-raw">/' + clean + '/</span>';
-      return;
-    }
-    syllables = parts.map(syl => ({
-      text: syl.replace(/[ˈˌ]/g,''),
-      stressed: syl.startsWith('ˈ'),
-      secondary: syl.startsWith('ˌ')
-    }));
+  const parts = marked.split('.').filter(Boolean);
+  if(parts.length <= 1){
+    // 單音節，直接顯示
+    visual.innerHTML = '<span class="phon-raw">/' + clean + '/</span>';
+    return;
   }
+
+  const syllables = parts.map(syl => ({
+    text: syl.replace(/[ˈˌ]/g,''),
+    stressed: syl.includes('ˈ'),
+    secondary: syl.includes('ˌ')
+  }));
 
   visual.innerHTML = syllables.map(s => {
     const cls = s.stressed ? ' stressed' : '';
@@ -560,19 +551,16 @@ function speak(text){
   speechSynthesis.speak(u);
 }
 
-// 雙軌發音：優先播放 Google 高音質 TTS，播放失敗就退回瀏覽器 TTS
+// 播放發音：改為全面使用瀏覽器內建 TTS (speechSynthesis)
+// 原因：1. 無雜音 (Free Dictionary 的 MP3 常有嚴重底噪)
+//       2. 同步執行 (iOS Safari 嚴格禁止非同步或 Promise catch 內的語音合成，導致先前音檔失效時連備援 TTS 都播不出來)
 function playAudio(item){
+  if(!('speechSynthesis' in window)) return;
   speechSynthesis.cancel(); // 確保不會有聲音重疊
-  
-  const text = encodeURIComponent(item.en);
-  const tl = accentPref === 'uk' ? 'en-GB' : 'en-US';
-  const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${tl}&client=tw-ob&q=${text}`;
-  
-  let fellBack = false;
-  const fallback = () => { if(!fellBack){ fellBack = true; speak(item.en); } };
-  const audio = new Audio(url);
-  audio.addEventListener('error', fallback);
-  audio.play().catch(fallback);
+  const u = new SpeechSynthesisUtterance(item.en);
+  u.lang = accentPref === 'uk' ? 'en-GB' : 'en-US';
+  u.rate = 0.9;
+  speechSynthesis.speak(u);
 }
 
 function levenshtein(a, b){
