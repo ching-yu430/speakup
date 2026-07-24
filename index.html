@@ -323,7 +323,10 @@
       <h2 style="margin-top:0; color:#8a2be2; font-size: 20px;">✨ AI 無限情境生成器</h2>
       <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">利用最新 Gemini 3.6 Flash 模型，立刻為你生成專屬的實用對話與單字。</p>
       <input type="password" id="apiKeyInput" placeholder="輸入你的 Gemini API Key (僅存在本地)" style="width:100%; margin-bottom: 8px; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
-      <input type="text" id="aiScenarioInput" placeholder="想練習的情境？例如：在機場跟地勤吵架" style="width:100%; margin-bottom: 16px; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
+      <div style="display:flex; gap:8px; margin-bottom: 16px;">
+        <input type="text" id="aiScenarioInput" placeholder="想練習的情境？例如：在機場跟地勤吵架" style="flex:1; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
+        <button id="aiRandomBtn" style="background:#f1f5f9; border:1px solid var(--line); padding:0 14px; border-radius:8px; cursor:pointer; color:var(--ink);" title="隨機情境">🎲 隨機</button>
+      </div>
       <button id="aiGenerateBtn" style="background: linear-gradient(135deg, #8a2be2, #4169e1); border:none; padding: 12px; border-radius: 8px; color:white; cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">🚀 立即生成題目</button>
       <div id="aiStatus" style="margin-top: 12px; font-size: 0.9rem; color: #c17a52; text-align: center;"></div>
     </div>
@@ -1046,6 +1049,25 @@ el('closeAiModalBtn').onclick = () => {
 el('aiModal').addEventListener('click', (e) => {
   if(e.target === el('aiModal')) el('aiModal').classList.remove('show');
 });
+
+const RANDOM_SCENARIOS = [
+  "在國外點麥當勞點不到薯條",
+  "跟外國同事解釋為什麼遲到",
+  "在路上被問路不知所措",
+  "在服飾店試穿衣服想換尺寸",
+  "遇到瘋狂推銷員想脫身",
+  "去藥局買感冒藥",
+  "搭Uber遇到健談的司機",
+  "在飯店櫃檯抱怨冷氣不冷",
+  "和外國朋友聊最近看的影集",
+  "在機場海關被詢問目的",
+  "在咖啡廳遇到外國人搭訕",
+  "去外國超市找不到雞蛋"
+];
+el('aiRandomBtn').onclick = () => {
+  const r = RANDOM_SCENARIOS[Math.floor(Math.random() * RANDOM_SCENARIOS.length)];
+  el('aiScenarioInput').value = r;
+};
 
 el('aiGenerateBtn').onclick = async () => {
   const scenario = el('aiScenarioInput').value.trim();
