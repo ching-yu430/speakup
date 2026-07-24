@@ -430,30 +430,68 @@ function showResult(heardText){
   }
 }
 
+let SRClass = null;
+let finalTranscript = '';
+let gotResult = false;
+
 function setupRecognition(){
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR){
+  SRClass = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SRClass){
     el('unsupported').style.display = 'block';
     el('recBtn').disabled = true;
     return;
   }
-  recognition = new SR();
-  recognition.lang = 'en-US';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
+}
 
-  recognition.onresult = (e) => {
-    const text = e.results[0][0].transcript;
-    showResult(text);
+function buildRecognition(){
+  const r = new SRClass();
+  r.lang = 'en-US';
+  r.interimResults = true;
+  r.continuous = false;
+  r.maxAlternatives = 1;
+
+  r.onresult = (e) => {
+    let text = '';
+    for(let i=0;i<e.results.length;i++){
+      text += e.results[i][0].transcript;
+    }
+    finalTranscript = text;
+    if(e.results[e.results.length-1].isFinal){
+      gotResult = true;
+    }
   };
-  recognition.onerror = () => {
-    showResult('');
+  r.onerror = (e) => {
+    gotResult = true;
+    const messages = {
+      'not-allowed':'麥克風權限被拒絕,請到設定 > Safari > 麥克風開啟權限。',
+      'no-speech':'沒偵測到說話聲,請靠近麥克風,按下按鈕後馬上開口。',
+      'audio-capture':'抓不到麥克風,請確認沒有其他 App 正在使用麥克風。',
+      'network':'網路連線問題,語音辨識需要網路連線。',
+      'aborted':''
+    };
+    const msg = messages[e.error];
+    if(msg) showErrorMsg(msg);
+    else if(e.error !== 'aborted') showErrorMsg('發生錯誤(' + e.error + '),再試一次看看。');
   };
-  recognition.onend = () => {
+  r.onend = () => {
     isRecording = false;
     el('recBtn').textContent = '🎙 按一下開始講';
     el('recBtn').classList.remove('recording');
+    if(gotResult && finalTranscript){
+      showResult(finalTranscript);
+    } else if(gotResult){
+      showResult('');
+    }
   };
+  return r;
+}
+
+function showErrorMsg(msg){
+  el('heard').textContent = '';
+  el('result').classList.add('show');
+  const fb = el('feedback');
+  fb.className = 'feedback retry';
+  fb.textContent = msg;
 }
 
 function checkMobile(){
@@ -473,15 +511,23 @@ function checkMobile(){
 el('playBtn').onclick = () => speak(currentItem().en);
 
 el('recBtn').onclick = () => {
-  if(!recognition) return;
+  if(!SRClass) return;
   if(isRecording){
-    recognition.stop();
+    if(recognition) recognition.stop();
     return;
   }
   isRecording = true;
+  gotResult = false;
+  finalTranscript = '';
   el('recBtn').textContent = '⏺ 錄音中... 再按一次停止';
   el('recBtn').classList.add('recording');
-  try{ recognition.start(); }catch(e){}
+  recognition = buildRecognition();
+  try{ recognition.start(); }catch(e){
+    isRecording = false;
+    el('recBtn').textContent = '🎙 按一下開始講';
+    el('recBtn').classList.remove('recording');
+    showErrorMsg('無法啟動麥克風,重新整理頁面後再試一次。');
+  }
 };
 
 el('skipBtn').onclick = () => {
