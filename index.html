@@ -378,8 +378,8 @@
     <div class="add-body">
       <div class="add-row">
         <select id="customStage"></select>
-        <input type="text" id="customEn" placeholder="英文,例如 catch up on(單字類會自動查字典)">
-        <input type="text" id="customZh" placeholder="中文意思(單字類可留空,自動帶入)">
+        <input type="text" id="customEn" placeholder="英文(單字會自動查音標)">
+        <input type="text" id="customZh" placeholder="中文(留空且已設定AI Key會自動翻譯)">
         <button id="addBtn">加入</button>
       </div>
     </div>
@@ -630,6 +630,25 @@ async function fetchWordData(word){
 function getVariant(item){
   if(!item || !item.variants) return null;
   return item.variants[accentPref] || item.variants.us || item.variants.uk || null;
+}
+
+/* ---------- 用 Gemini 自動翻譯中文(當使用者沒填中文時) ---------- */
+async function fetchZhViaGemini(text){
+  if(!geminiApiKey) return '';
+  const prompt = `請給出英文「${text}」最常用、最自然的繁體中文(台灣)翻譯。只要輸出翻譯本身,不要加任何解釋、標點或多餘文字,控制在12個字以內。`;
+  try{
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
+      body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }] })
+    });
+    if(!res.ok) return '';
+    const data = await res.json();
+    const text2 = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    return text2 ? text2.trim().replace(/^["「]|["」]$/g, '') : '';
+  }catch(e){
+    return '';
+  }
 }
 
 // 背景查詢單字資料（音檔、音標），完成後如果還在看同一題就重繪
@@ -1106,17 +1125,17 @@ function populateCustomStageSelect(){
 
 el('addBtn').onclick = async () => {
   const en = el('customEn').value.trim();
-  const zh = el('customZh').value.trim();
+  let zh = el('customZh').value.trim();
   const idx = parseInt(el('customStage').value, 10);
   if(!en) return;
   const stage = STAGES[idx];
   const item = { en, zh, cat:'自訂' };
   const isSingleWord = !/\s/.test(en);
   const addBtn = el('addBtn');
+  addBtn.disabled = true;
 
   if(isSingleWord){
-    addBtn.disabled = true;
-    addBtn.textContent = '查詢中...';
+    addBtn.textContent = '查詢音標中...';
     try{
       const data = await fetchWordData(en);
       item.variants = data.variants;
@@ -1124,9 +1143,18 @@ el('addBtn').onclick = async () => {
     }catch(err){
       item._fetched = true; // 查不到就交給 speechSynthesis,不擋住新增流程
     }
-    addBtn.disabled = false;
   }
 
+  if(!zh){
+    if(geminiApiKey){
+      addBtn.textContent = '翻譯中...';
+      const translated = await fetchZhViaGemini(en);
+      if(translated){ item.zh = translated; }
+    }
+    // 沒有 API Key 或翻譯失敗時,zh 保持空白,使用者仍可事後手動編輯題庫
+  }
+
+  addBtn.disabled = false;
   stage.items.push(item);
   el('customEn').value = '';
   el('customZh').value = '';
