@@ -242,6 +242,10 @@
     border-radius:12px;font-size:14px;margin-bottom:24px;
   }
 
+  .msg-ai { background: var(--sage-light); color: var(--sage-dark); padding: 12px 16px; border-radius: 12px 12px 12px 0; align-self: flex-start; max-width: 85%; font-size: 15px; line-height: 1.4; }
+  .msg-user { background: var(--clay-light); color: #8a4a26; padding: 12px 16px; border-radius: 12px 12px 0 12px; align-self: flex-end; max-width: 85%; font-size: 15px; line-height: 1.4; }
+  .msg-tip { font-size: 12px; color: #8a4a26; opacity: 0.8; margin-top: 6px; border-top: 1px dashed rgba(138,74,38,0.3); padding-top: 6px; }
+
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
 
   @media (max-width:520px){
@@ -272,10 +276,31 @@
   <nav class="app-tabs">
     <button class="app-tab active" id="tabGeneral">📚 系統題庫</button>
     <button class="app-tab" id="tabAI">✨ 專屬情境 (AI)</button>
+    <button class="app-tab" id="tabRoleplay">💬 實戰對話</button>
   </nav>
 
   <div class="ai-actions" id="aiActions" style="display:none;">
     <button class="ai-create-btn" id="openAiModalBtn">🚀 ＋ 請 AI 生成新情境...</button>
+  </div>
+
+  <div class="roleplay-container card" id="rpContainer" style="display:none; padding: 24px;">
+    <div class="rp-setup" id="rpSetup">
+      <div style="font-size:14px; margin-bottom:12px; color:var(--muted);">輸入你想練習的對話情境，AI 會開啟話題與你進行語音對談。</div>
+      <div style="display:flex; gap:8px; margin-bottom: 16px;">
+        <input type="text" id="rpScenarioInput" placeholder="例如：在速食店點餐" style="flex:1; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
+        <button id="rpRandomBtn" style="background:#f1f5f9; border:1px solid var(--line); padding:0 14px; border-radius:8px; cursor:pointer; color:var(--ink);" title="隨機情境">🎲 隨機</button>
+      </div>
+      <button id="rpStartBtn" style="background:var(--sage); border:none; padding: 12px; border-radius: 8px; color:white; cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">開啟對話</button>
+    </div>
+    
+    <div class="rp-chat" id="rpChat" style="display:none; flex-direction:column; gap:16px;">
+      <!-- Chat messages -->
+    </div>
+    
+    <div class="rp-controls" id="rpControls" style="display:none; margin-top:20px; border-top:1px solid var(--line); padding-top:20px; text-align:center;">
+      <div id="rpStatus" style="font-size:13px; color:var(--muted); margin-bottom:12px; min-height:18px;">請按下麥克風開始說話</div>
+      <button class="btn-mic" id="rpRecBtn" style="margin:0 auto;">🎙</button>
+    </div>
   </div>
 
   <div id="unsupported" class="no-support" style="display:none;">
@@ -289,7 +314,10 @@
   <div class="card">
     <div class="target-meta">
       <div class="target-label" id="targetLabel">跟著念</div>
-      <div class="target-cat" id="targetCat"></div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="target-cat" id="targetCat"></div>
+        <button id="favBtn" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);padding:0;line-height:1;" title="加入收藏">☆</button>
+      </div>
     </div>
     <div class="target" id="target">Loading...</div>
     <div class="target-zh" id="targetZh"></div>
@@ -315,6 +343,8 @@
       <div class="you-said">你講的是</div>
       <div class="heard" id="heard"></div>
       <div class="feedback" id="feedback"></div>
+      <button id="coachBtn" style="display:none; margin-top:12px; background:var(--sage); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">💡 請 AI 教練抓漏</button>
+      <div id="coachFeedback" style="display:none; margin-top:12px; font-size:14px; background:#f8fafc; border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); line-height:1.5;"></div>
     </div>
 
     <div class="nav-row">
@@ -358,7 +388,17 @@
 <script>
 const el = id => document.getElementById(id);
 
-/* ---------- 題庫初始化 ---------- */
+/* ---------- 收藏與初始化 ---------- */
+let favorites = [];
+try {
+  const f = localStorage.getItem('speakup_favorites');
+  if(f) favorites = JSON.parse(f);
+} catch(e){}
+
+function saveFavorites() {
+  localStorage.setItem('speakup_favorites', JSON.stringify(favorites));
+}
+
 const STAGES = [
   {
     key:'word', label:'單字', desc:'看到單字，念出聲就好——不用完美，只要開口。',
@@ -437,7 +477,8 @@ const STAGES = [
       {en:"Describe a challenge you faced during your research.", zh:'描述你在研究過程中遇到的一個挑戰。', cat:'學術'},
       {en:"Introduce yourself at a networking event.", zh:'想像在一場社交活動中自我介紹。', cat:'社交'}
     ]
-  }
+  },
+  { key:'favorites', label:'⭐ 收藏', desc:'你收藏的重點，隨時複習。', items: favorites }
 ];
 
 /* ---------- 本地儲存進度記憶 ---------- */
@@ -471,12 +512,17 @@ function setAppMode(mode, isInitial = false) {
   
   el('tabGeneral').classList.toggle('active', mode === 'general');
   el('tabAI').classList.toggle('active', mode === 'ai');
+  if(el('tabRoleplay')) el('tabRoleplay').classList.toggle('active', mode === 'roleplay');
   
   el('aiActions').style.display = mode === 'ai' ? 'block' : 'none';
-  el('ladder').style.display = mode === 'ai' ? 'none' : 'flex';
-  el('stageDesc').style.display = mode === 'ai' ? 'none' : 'block';
+  el('ladder').style.display = (mode === 'general') ? 'flex' : 'none';
+  el('stageDesc').style.display = (mode === 'general') ? 'block' : 'none';
+  el('cats').style.display = (mode === 'roleplay') ? 'none' : 'flex';
   
-  if(!isInitial) {
+  document.querySelector('.card').style.display = (mode === 'roleplay') ? 'none' : 'block';
+  if(el('rpContainer')) el('rpContainer').style.display = (mode === 'roleplay') ? 'block' : 'none';
+  
+  if(!isInitial && mode !== 'roleplay') {
     activeCat = 'all';
     itemIdx = getSavedItemIdx(stageIdx, activeCat);
     saveProgress();
@@ -486,6 +532,7 @@ function setAppMode(mode, isInitial = false) {
 
 el('tabGeneral').onclick = () => setAppMode('general');
 el('tabAI').onclick = () => setAppMode('ai');
+el('tabRoleplay').onclick = () => setAppMode('roleplay');
 
 let aiGeneratedItems = [];
 try {
@@ -698,6 +745,7 @@ function currentItem(){
 }
 
 function render(){
+  if(appMode === 'roleplay') return;
   renderLadder();
   const stage = currentStage();
   el('stageDesc').textContent = stage.desc;
@@ -729,7 +777,26 @@ function render(){
   el('targetZh').textContent = item.zh || '';
   el('targetCat').textContent = item.cat ? (item.cat.startsWith('(AI) ') ? item.cat.replace('(AI) ', '✨ ') : item.cat) : '';
   el('counter').textContent = (itemIdx+1) + ' / ' + items.length;
+
+  // Update Favorite Button
+  const isFav = favorites.some(f => f.en === item.en);
+  const favBtn = el('favBtn');
+  favBtn.textContent = isFav ? '⭐' : '☆';
+  favBtn.style.color = isFav ? '#f59e0b' : 'var(--muted)';
+  favBtn.onclick = () => {
+    if(isFav) {
+      favorites = favorites.filter(f => f.en !== item.en);
+    } else {
+      favorites.push({...item});
+    }
+    saveFavorites();
+    render();
+  };
+
   el('result').classList.remove('show');
+  el('coachBtn').style.display = 'none';
+  el('coachFeedback').style.display = 'none';
+  el('coachFeedback').textContent = '';
   
   el('recBtn').innerHTML = '🎙';
   el('recBtn').classList.remove('recording');
@@ -796,7 +863,8 @@ function showResult(heardText){
 
   if(!heardText){
     fb.className = 'feedback retry';
-    fb.textContent = '沒聽清楚,再按一次錄音試試看。';
+    fb.textContent = '沒聽清楚，請再試一次。';
+    el('coachBtn').style.display = 'none';
     return;
   }
 
@@ -807,13 +875,16 @@ function showResult(heardText){
 
   if(closeness > 0.85){
     fb.className = 'feedback';
-    fb.textContent = '很接近了,講得不錯!';
+    fb.textContent = '非常棒，完全正確！';
+    el('coachBtn').style.display = 'none';
   } else if(closeness > 0.5){
     fb.className = 'feedback retry';
-    fb.textContent = '有講到重點,但跟原句有點差距,可以再跟讀一次原音。';
+    fb.textContent = '抓到重點了，稍微有點差異，可以再聽一次看看。';
+    el('coachBtn').style.display = 'inline-block';
   } else {
     fb.className = 'feedback retry';
-    fb.textContent = '差距比較大,先聽一次發音,再慢慢跟讀試試。';
+    fb.textContent = '差異較大，別灰心，慢慢念再試一次。';
+    el('coachBtn').style.display = 'inline-block';
   }
 }
 
@@ -1191,7 +1262,168 @@ zh (中文) 必須是繁體中文(台灣)。
 
 checkMobile();
 initBank();
+
+el('coachBtn').onclick = async () => {
+  const item = currentItem();
+  const heard = el('heard').textContent;
+  if(!geminiApiKey) { alert('請先在「✨ 專屬情境 (AI)」輸入你的 Gemini API Key！'); return; }
+  
+  const btn = el('coachBtn');
+  btn.disabled = true;
+  btn.textContent = '教練分析中...';
+  
+  const prompt = `目標英文句子是: "${item.en}"\n使用者唸成了: "${heard}"\n請分析使用者可能的發音錯誤（例如母音發錯、連音沒處理、或是特定子音混淆）。請用簡單的繁體中文解釋，並給予一句實用的發音改善提示。限制在 3 句話以內，不要用太學術的音標術語。`;
+  
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: prompt }] }]
+      })
+    });
+    const data = await res.json();
+    let text = data.candidates[0].content.parts[0].text;
+    
+    el('coachFeedback').style.display = 'block';
+    el('coachFeedback').textContent = text;
+    btn.style.display = 'none';
+  } catch(e) {
+    alert('分析失敗，請檢查 API Key 或網路狀態。');
+    btn.textContent = '💡 請 AI 教練抓漏';
+  }
+  btn.disabled = false;
+};
+
 populateCustomStageSelect();
+/* ---------- 實戰對話模式 (Roleplay) ---------- */
+let rpHistory = [];
+let rpIsRecording = false;
+let rpSR = null;
+
+el('rpRandomBtn').onclick = () => {
+  const r = RANDOM_SCENARIOS[Math.floor(Math.random() * RANDOM_SCENARIOS.length)];
+  el('rpScenarioInput').value = r;
+};
+
+el('rpStartBtn').onclick = async () => {
+  if(!geminiApiKey) { alert('請先在「✨ 專屬情境 (AI)」輸入你的 Gemini API Key！'); return; }
+  const scenario = el('rpScenarioInput').value.trim();
+  if(!scenario) return;
+  
+  el('rpSetup').style.display = 'none';
+  el('rpChat').style.display = 'flex';
+  el('rpChat').innerHTML = '';
+  el('rpControls').style.display = 'block';
+  el('rpStatus').textContent = 'AI 思考中...';
+  
+  rpHistory = [];
+  
+  const prompt = `我們現在來進行英文對話演練。情境是：「${scenario}」。你先開始跟我對話，說第一句話。請強制回傳 JSON 格式：{"next_response_en": "英文回覆", "next_response_zh": "中文翻譯", "feedback": ""}`;
+  
+  await fetchRpResponse([{role: "user", parts: [{text: prompt}]}]);
+};
+
+async function fetchRpResponse(contents) {
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: contents
+      })
+    });
+    const data = await res.json();
+    let text = data.candidates[0].content.parts[0].text;
+    
+    // Clean up potential markdown formatting from JSON
+    text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+    const parsed = JSON.parse(text);
+    
+    // Add AI message to history
+    rpHistory.push(contents[contents.length-1]); 
+    rpHistory.push({role: "model", parts: [{text: text}]});
+    
+    // UI update
+    const div = document.createElement('div');
+    div.className = 'msg-ai';
+    div.innerHTML = `<strong>AI:</strong> ${parsed.next_response_en}<div style="font-size:12px;opacity:0.7;margin-top:4px;">${parsed.next_response_zh}</div>`;
+    if(parsed.feedback) {
+      div.innerHTML += `<div class="msg-tip">💡 教練提示：${parsed.feedback}</div>`;
+    }
+    el('rpChat').appendChild(div);
+    
+    // Auto scroll
+    el('rpChat').scrollTop = el('rpChat').scrollHeight;
+    
+    // Play audio
+    const u = new SpeechSynthesisUtterance(parsed.next_response_en);
+    u.lang = accentPref === 'uk' ? 'en-GB' : 'en-US';
+    u.rate = 0.9;
+    speechSynthesis.speak(u);
+    
+    el('rpStatus').textContent = '請按下麥克風開始說話';
+  } catch(e) {
+    el('rpStatus').textContent = 'API 錯誤，請檢查連線或 API Key。';
+  }
+}
+
+el('rpRecBtn').onclick = () => {
+  if(!SRClass) { alert('您的瀏覽器不支援語音辨識'); return; }
+  
+  if(rpIsRecording && rpSR) {
+    rpSR.stop();
+    return;
+  }
+  
+  warmUpMic();
+  try {
+    rpSR = new SRClass();
+    rpSR.lang = 'en-US';
+    rpSR.continuous = false;
+    rpSR.interimResults = false;
+    
+    rpSR.onstart = () => {
+      rpIsRecording = true;
+      el('rpRecBtn').classList.add('recording');
+      el('rpStatus').textContent = '聆聽中... (請說話)';
+    };
+    
+    rpSR.onresult = async (e) => {
+      const heard = e.results[0][0].transcript;
+      if(!heard) return;
+      
+      const div = document.createElement('div');
+      div.className = 'msg-user';
+      div.innerHTML = `<strong>你:</strong> ${heard}`;
+      el('rpChat').appendChild(div);
+      el('rpChat').scrollTop = el('rpChat').scrollHeight;
+      
+      el('rpStatus').textContent = 'AI 思考中...';
+      
+      const prompt = `我說了："${heard}"。請評估這句話是否符合情境與文法，給予簡單的繁體中文回饋(feedback)，並順著對話繼續回覆我(next_response_en)。請強制回傳 JSON 格式：{"next_response_en": "", "next_response_zh": "", "feedback": "中文提示"}`;
+      
+      await fetchRpResponse([...rpHistory, {role: "user", parts: [{text: prompt}]}]);
+    };
+    
+    rpSR.onerror = (e) => {
+      el('rpStatus').textContent = '聽不清楚，請再按一次麥克風。';
+    };
+    
+    rpSR.onend = () => {
+      rpIsRecording = false;
+      el('rpRecBtn').classList.remove('recording');
+      if(el('rpStatus').textContent.includes('聆聽中')) {
+        el('rpStatus').textContent = '請按下麥克風開始說話';
+      }
+    };
+    
+    rpSR.start();
+  } catch(e) {
+    console.error(e);
+  }
+};
+
 setupRecognition();
 // Initial App mode setup
 setAppMode(appMode, true);
