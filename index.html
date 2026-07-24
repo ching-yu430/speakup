@@ -1365,21 +1365,40 @@ el('rpStartBtn').onclick = async () => {
 
 async function fetchRpResponse(contents) {
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
       body: JSON.stringify({
         contents: contents,
         generationConfig: { responseMimeType: "application/json" }
       })
     });
-    if(!res.ok) throw new Error('API Error');
+
+    if(!res.ok){
+      let detail = res.statusText;
+      try{
+        const errJson = await res.json();
+        detail = errJson.error?.message || detail;
+      }catch(e){}
+      if(res.status === 400) throw new Error('請求格式錯誤或 API Key 無效(400):' + detail);
+      if(res.status === 403) throw new Error('API Key 沒有權限或被拒絕(403):' + detail);
+      if(res.status === 404) throw new Error('找不到這個模型(404),可能模型名稱已變更:' + detail);
+      if(res.status === 429) throw new Error('已達使用額度上限,請稍後再試(429):' + detail);
+      throw new Error('API 請求失敗(' + res.status + '):' + detail);
+    }
+
     const data = await res.json();
-    let text = data.candidates[0].content.parts[0].text;
-    
+    let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(!text) throw new Error('AI 回傳內容為空,可能是被安全機制擋下或觸發了長度上限。');
+
     // Clean up potential markdown formatting from JSON
     text = text.replace(/```json/g, '').replace(/```/g, '').trim();
-    const parsed = JSON.parse(text);
+    let parsed;
+    try{
+      parsed = JSON.parse(text);
+    }catch(e){
+      throw new Error('AI 回傳的內容不是有效 JSON,可能是模型格式跑掉了。原始內容:' + text.slice(0, 80));
+    }
     
     // Add AI message to history
     rpHistory.push(contents[contents.length-1]); 
@@ -1405,7 +1424,8 @@ async function fetchRpResponse(contents) {
     
     el('rpStatus').textContent = '請按下麥克風開始說話';
   } catch(e) {
-    el('rpStatus').textContent = 'API 錯誤，請檢查連線或 API Key。';
+    console.error('Roleplay API error:', e);
+    el('rpStatus').textContent = '⚠️ ' + e.message;
   }
 }
 
