@@ -30,15 +30,35 @@
   .wrap{max-width:720px;margin:0 auto;padding:40px 20px 100px;}
 
   header{margin-bottom:28px;}
+  .sub{color:var(--muted);font-size:15px;max-width:520px;}
+
   .eyebrow{
+    display: flex; justify-content: space-between; align-items: center;
     font-size:13px;letter-spacing:.12em;text-transform:uppercase;
     color:var(--sage-dark);font-weight:600;margin-bottom:8px;
   }
-  h1{
-    font-family:'Fraunces',serif;font-weight:600;font-size:34px;
-    margin:0 0 10px;letter-spacing:-.01em;
+  .ai-mode-btn {
+    background: linear-gradient(135deg, #8a2be2, #4169e1); color: white;
+    border: none; padding: 6px 12px; border-radius: 12px; font-size: 12px;
+    font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px;
+    transition: transform 0.2s;
   }
-  .sub{color:var(--muted);font-size:15px;max-width:520px;}
+  .ai-mode-btn:active { transform: scale(0.95); }
+  
+  .ai-modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6);
+    display: none; justify-content: center; align-items: center; z-index: 1000;
+    backdrop-filter: blur(4px);
+  }
+  .ai-modal-overlay.show { display: flex; }
+  .ai-modal {
+    background: var(--card); width: 90%; max-width: 400px; padding: 24px;
+    border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative;
+  }
+  .ai-modal-close {
+    position: absolute; top: 12px; right: 16px; background: none; border: none;
+    font-size: 24px; cursor: pointer; color: var(--muted);
+  }
 
   .ladder{
     display:flex;gap:6px;margin:24px 0 16px;
@@ -192,12 +212,14 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">Speak Up · 開口練習</div>
+    <div class="eyebrow">
+      <span>Speak Up · 開口練習</span>
+      <button class="ai-mode-btn" id="openAiModalBtn">✨ AI 模式</button>
+    </div>
     <h1>先開口,再求準。</h1>
     <div class="sub">從單字到片語、句子,一步步習慣「講出聲音」這件事。題目網頁幫你準備好了,選類別就能一直練下去。</div>
   </header>
 
-  <div class="mobile-note" id="mobileNote"></div>
   <div id="unsupported" class="no-support" style="display:none;">
     這個瀏覽器不支援語音辨識。iPhone 請用 Safari 開啟,Android 請用 Chrome 開啟;你還是可以看內容跟讀練習,只是沒辦法自動比對發音。
   </div>
@@ -238,19 +260,24 @@
 
     <div class="nav-row">
       <span class="counter" id="counter"></span>
-      <button class="skip" id="skipBtn">下一題 →</button>
+      <div>
+        <button class="skip" id="prevBtn" style="margin-right:8px;">← 上一題</button>
+        <button class="skip" id="skipBtn">下一題 →</button>
+      </div>
     </div>
   </div>
 
-  <details class="ai-panel" style="margin-top: 1rem; background: rgba(138,43,226,0.1); border: 1px solid rgba(138,43,226,0.3); border-radius: 8px; padding: 0.5rem;">
-    <summary style="cursor:pointer; font-weight:600; color: #b77bff;">✨ AI 無限情境生成器 (Gemini)</summary>
-    <div style="padding: 1rem 0;">
-      <input type="password" id="apiKeyInput" placeholder="輸入你的 Gemini API Key (僅存在你的瀏覽器)" style="width:100%; margin-bottom: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius: 4px;">
-      <input type="text" id="aiScenarioInput" placeholder="想練習的情境？例如：在國外餐廳點餐、機場海關" style="width:100%; margin-bottom: 0.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius: 4px;">
-      <button id="aiGenerateBtn" style="background: linear-gradient(135deg, #8a2be2, #4169e1); border:none; padding: 0.5rem 1rem; border-radius: 4px; color:white; cursor:pointer; width:100%; font-weight: bold;">🚀 立即生成題目</button>
-      <div id="aiStatus" style="margin-top: 0.5rem; font-size: 0.9rem; color: #ccc;"></div>
+  <div class="ai-modal-overlay" id="aiModal">
+    <div class="ai-modal">
+      <button class="ai-modal-close" id="closeAiModalBtn">×</button>
+      <h2 style="margin-top:0; color:#8a2be2; font-size: 20px;">✨ AI 無限情境生成器</h2>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">利用最新 Gemini 3.6 Flash 模型，立刻為你生成專屬的實用對話與單字。</p>
+      <input type="password" id="apiKeyInput" placeholder="輸入你的 Gemini API Key (僅存在本地)" style="width:100%; margin-bottom: 8px; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
+      <input type="text" id="aiScenarioInput" placeholder="想練習的情境？例如：在機場跟地勤吵架" style="width:100%; margin-bottom: 16px; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
+      <button id="aiGenerateBtn" style="background: linear-gradient(135deg, #8a2be2, #4169e1); border:none; padding: 12px; border-radius: 8px; color:white; cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">🚀 立即生成題目</button>
+      <div id="aiStatus" style="margin-top: 12px; font-size: 0.9rem; color: #c17a52; text-align: center;"></div>
     </div>
-  </details>
+  </div>
   <details class="add-panel">
     <summary>想加自己的內容?點這裡展開(選填,不影響上面的題庫)</summary>
     <div class="add-body">
@@ -352,18 +379,32 @@ const STAGES = [
 /* ---------- 本地儲存進度記憶 ---------- */
 let savedStageIdx = localStorage.getItem('speakup_stageIdx');
 let savedCat = localStorage.getItem('speakup_cat');
-let savedItemIdx = localStorage.getItem('speakup_itemIdx');
+let savedCatProgressStr = localStorage.getItem('speakup_cat_progress');
+let catProgress = savedCatProgressStr ? JSON.parse(savedCatProgressStr) : {};
 let geminiApiKey = localStorage.getItem('speakup_apikey') || '';
 
+function getSavedItemIdx(sIdx, cat) {
+  const key = `${sIdx}_${cat}`;
+  return catProgress[key] || 0;
+}
+
 let stageIdx = savedStageIdx ? parseInt(savedStageIdx, 10) : 0;
-let itemIdx = savedItemIdx ? parseInt(savedItemIdx, 10) : 0;
 let activeCat = savedCat || 'all';
+let itemIdx = getSavedItemIdx(stageIdx, activeCat);
 
 function saveProgress(){
   localStorage.setItem('speakup_stageIdx', stageIdx);
   localStorage.setItem('speakup_cat', activeCat);
-  localStorage.setItem('speakup_itemIdx', itemIdx);
+  const key = `${stageIdx}_${activeCat}`;
+  catProgress[key] = itemIdx;
+  localStorage.setItem('speakup_cat_progress', JSON.stringify(catProgress));
 }
+
+let aiGeneratedItems = [];
+try {
+  const savedAI = localStorage.getItem('speakup_ai_items');
+  if(savedAI) aiGeneratedItems = JSON.parse(savedAI);
+} catch(e) {}
 
 /* ---------- 題庫擴充 ---------- */
 // 已存在的 en 集合（避免重複）
@@ -376,6 +417,15 @@ function existingEnSet(stage){
 // 初始化時將 WORD_BANK 的所有內容載入，確保所有類別都會顯示
 function initBank(){
   if(typeof WORD_BANK === 'undefined') return;
+  
+  // 注入 AI 生成的題目
+  aiGeneratedItems.forEach(item => {
+    const targetKey = item._type || 'word';
+    if(WORD_BANK[targetKey]) {
+      WORD_BANK[targetKey].push(item);
+    }
+  });
+
   STAGES.forEach(stage => {
     const bankItems = WORD_BANK[stage.key];
     if(bankItems && bankItems.length){
@@ -517,7 +567,7 @@ function renderLadder(){
     const d = document.createElement('div');
     d.className = 'rung' + (i===stageIdx?' active':'');
     d.textContent = s.label;
-    d.onclick = () => { stageIdx = i; itemIdx = 0; activeCat = 'all'; saveProgress(); render(); };
+    d.onclick = () => { stageIdx = i; activeCat = 'all'; itemIdx = getSavedItemIdx(stageIdx, activeCat); saveProgress(); render(); };
     ladder.appendChild(d);
   });
 }
@@ -529,13 +579,13 @@ function renderCats(){
   const allPill = document.createElement('div');
   allPill.className = 'cat-pill' + (activeCat==='all'?' active':'');
   allPill.textContent = '全部';
-  allPill.onclick = () => { activeCat='all'; itemIdx=0; saveProgress(); render(); };
+  allPill.onclick = () => { activeCat='all'; itemIdx = getSavedItemIdx(stageIdx, 'all'); saveProgress(); render(); };
   wrap.appendChild(allPill);
   cats.forEach(c => {
     const p = document.createElement('div');
     p.className = 'cat-pill' + (activeCat===c?' active':'');
     p.textContent = c;
-    p.onclick = () => { activeCat=c; itemIdx=0; saveProgress(); render(); };
+    p.onclick = () => { activeCat=c; itemIdx = getSavedItemIdx(stageIdx, c); saveProgress(); render(); };
     wrap.appendChild(p);
   });
 }
@@ -764,14 +814,6 @@ function checkMobile(){
   const ua = navigator.userAgent;
   const isIOS = /iPhone|iPad|iPod/.test(ua);
   const isAndroid = /Android/.test(ua);
-  const note = el('mobileNote');
-  if(isIOS){
-    note.style.display = 'block';
-    note.textContent = 'iPhone 使用中：請確認是用 Safari 開啟這個頁面（不是 LINE 或 IG 內建瀏覽器），語音辨識才會正常運作。';
-  } else if(isAndroid){
-    note.style.display = 'block';
-    note.textContent = 'Android 使用中：請用 Chrome 開啟這個頁面，語音辨識才會正常運作。';
-  }
 }
 
 el('playBtn').onclick = () => playAudio(currentItem());
@@ -839,7 +881,14 @@ recBtn.addEventListener('click', (e) => {
 
 el('skipBtn').onclick = () => {
   const items = filteredItems();
-  itemIdx = (itemIdx+1) % items.length;
+  itemIdx = (itemIdx + 1) % items.length;
+  saveProgress();
+  render();
+};
+
+el('prevBtn').onclick = () => {
+  const items = filteredItems();
+  itemIdx = (itemIdx - 1 + items.length) % items.length;
   saveProgress();
   render();
 };
@@ -891,6 +940,16 @@ if(geminiApiKey) el('apiKeyInput').value = geminiApiKey;
 el('apiKeyInput').addEventListener('input', (e) => {
   geminiApiKey = e.target.value.trim();
   localStorage.setItem('speakup_apikey', geminiApiKey);
+});
+
+el('openAiModalBtn').onclick = () => {
+  el('aiModal').classList.add('show');
+};
+el('closeAiModalBtn').onclick = () => {
+  el('aiModal').classList.remove('show');
+};
+el('aiModal').addEventListener('click', (e) => {
+  if(e.target === el('aiModal')) el('aiModal').classList.remove('show');
 });
 
 el('aiGenerateBtn').onclick = async () => {
@@ -949,11 +1008,22 @@ zh (中文) 必須是繁體中文(台灣)。
       else if(wordCount > 1) targetKey = 'phrase';
       
       const stage = STAGES.find(s => s.key === targetKey);
-      if(stage) stage.items.push({ en: it.en, zh: it.zh, cat: catName });
+      if(stage) {
+        const newItem = { en: it.en, zh: it.zh, cat: catName, _type: targetKey };
+        stage.items.push(newItem);
+        aiGeneratedItems.push(newItem);
+        if(WORD_BANK[targetKey]) {
+          WORD_BANK[targetKey].push(newItem);
+        }
+      }
     });
     
+    localStorage.setItem('speakup_ai_items', JSON.stringify(aiGeneratedItems));
+    
     el('aiStatus').textContent = '✅ 生成成功！已幫你切換到新類別。';
-    el('aiScenarioInput').value = '';
+    setTimeout(() => {
+      el('aiModal').classList.remove('show');
+    }, 1500);
     
     activeCat = catName;
     itemIdx = 0;
