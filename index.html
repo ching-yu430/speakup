@@ -481,6 +481,8 @@ function buildRecognition(){
       showResult(finalTranscript);
     } else if(gotResult){
       showResult('');
+    } else {
+      showErrorMsg('完全沒收到聲音輸入。請確認:手機側邊靜音鍵沒有切到靜音、錄音時嘴巴靠近麥克風、按下按鈕後立刻開口。');
     }
   };
   return r;
@@ -516,18 +518,21 @@ el('recBtn').onclick = () => {
     if(recognition) recognition.stop();
     return;
   }
+  speechSynthesis.cancel();
   isRecording = true;
   gotResult = false;
   finalTranscript = '';
   el('recBtn').textContent = '⏺ 錄音中... 再按一次停止';
   el('recBtn').classList.add('recording');
-  recognition = buildRecognition();
-  try{ recognition.start(); }catch(e){
-    isRecording = false;
-    el('recBtn').textContent = '🎙 按一下開始講';
-    el('recBtn').classList.remove('recording');
-    showErrorMsg('無法啟動麥克風,重新整理頁面後再試一次。');
-  }
+  setTimeout(() => {
+    recognition = buildRecognition();
+    try{ recognition.start(); }catch(e){
+      isRecording = false;
+      el('recBtn').textContent = '🎙 按一下開始講';
+      el('recBtn').classList.remove('recording');
+      showErrorMsg('無法啟動麥克風,重新整理頁面後再試一次。');
+    }
+  }, 300);
 };
 
 el('skipBtn').onclick = () => {
