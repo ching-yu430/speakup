@@ -187,6 +187,8 @@
 </style>
 </head>
 <body>
+<script src="word_bank.js"></script>
+
 <div class="wrap">
 
   <header>
@@ -256,9 +258,10 @@
 </div>
 
 <script>
+/* ---------- 題庫初始化 ---------- */
 const STAGES = [
   {
-    key:'word', label:'單字', desc:'看到單字,念出聲就好——不用完美,只要開口。',
+    key:'word', label:'單字', desc:'看到單字，念出聲就好——不用完美，只要開口。',
     items:[
       {en:'candidate', zh:'應徵者、候選人', cat:'面試'},
       {en:'strength', zh:'優勢、強項', cat:'面試'},
@@ -283,7 +286,7 @@ const STAGES = [
     ]
   },
   {
-    key:'phrase', label:'片語', desc:'兩三個字一組,開始練習講話的節奏感。',
+    key:'phrase', label:'片語', desc:'兩三個字一組，開始練習講話的節奏感。',
     items:[
       {en:'apply for a position', zh:'應徵一個職缺', cat:'面試'},
       {en:'a good fit for', zh:'很適合...', cat:'面試'},
@@ -306,30 +309,30 @@ const STAGES = [
     ]
   },
   {
-    key:'sentence', label:'句子', desc:'完整句子,練語調跟停頓,講出一整句話。',
+    key:'sentence', label:'句子', desc:'完整句子，練語調跟停頓，講出一整句話。',
     items:[
-      {en:"Could you tell me a bit about yourself?", zh:'可以簡單自我介紹一下嗎?', cat:'面試'},
-      {en:"I'm currently finishing my master's degree in...", zh:'我目前正在完成...的碩士學位。', cat:'面試'},
+      {en:"Could you tell me a bit about yourself?", zh:'可以簡單自我介紹一下嗎？', cat:'面試'},
+      {en:"I'm currently finishing my master's degree in...", zh:'我目前正在完成…的碩士學位。', cat:'面試'},
       {en:"I believe my background makes me a strong fit for this role.", zh:'我相信我的背景讓我很適合這個職位。', cat:'面試'},
-      {en:"Can you tell me more about the team I'd be working with?", zh:'可以多說一些我會加入的團隊嗎?', cat:'面試'},
-      {en:"Could we push the meeting to tomorrow?", zh:'我們可以把會議延到明天嗎?', cat:'開會'},
-      {en:"I'm not sure, let me check and get back to you.", zh:'我不確定,讓我確認後回覆你。', cat:'開會'},
-      {en:"Could you clarify what the timeline looks like?", zh:'可以請你說明一下時程大概是怎樣嗎?', cat:'開會'},
+      {en:"Can you tell me more about the team I'd be working with?", zh:'可以多說一些我會加入的團隊嗎？', cat:'面試'},
+      {en:"Could we push the meeting to tomorrow?", zh:'我們可以把會議延到明天嗎？', cat:'開會'},
+      {en:"I'm not sure, let me check and get back to you.", zh:'我不確定，讓我確認後回覆你。', cat:'開會'},
+      {en:"Could you clarify what the timeline looks like?", zh:'可以請你說明一下時程大概是怎樣嗎？', cat:'開會'},
       {en:"I'd like to walk you through my results.", zh:'我想跟你說明一下我的研究結果。', cat:'學術'},
       {en:"My research focuses on how X affects Y.", zh:'我的研究聚焦在X如何影響Y。', cat:'學術'},
-      {en:"That's a great question, let me think about it.", zh:'這是個好問題,讓我想一下。', cat:'學術'},
-      {en:"So, what brings you to this event?", zh:'那,是什麼讓你來參加這個活動的呢?', cat:'社交'},
-      {en:"Thanks for your time, it was great talking to you.", zh:'謝謝你的時間,很高興跟你聊天。', cat:'社交'}
+      {en:"That's a great question, let me think about it.", zh:'這是個好問題，讓我想一下。', cat:'學術'},
+      {en:"So, what brings you to this event?", zh:'那，是什麼讓你來參加這個活動的呢？', cat:'社交'},
+      {en:"Thanks for your time, it was great talking to you.", zh:'謝謝你的時間，很高興跟你聊天。', cat:'社交'}
     ]
   },
   {
-    key:'free', label:'自由回答', desc:'看到情境,自己講一句——沒有標準答案,講出來就是贏。',
+    key:'free', label:'自由回答', desc:'看到情境，自己講一句——沒有標準答案，講出來就是贏。',
     items:[
-      {en:"Introduce yourself in 30 seconds, as if in a job interview.", zh:'用30秒自我介紹,想像是在面試場合。', cat:'面試'},
+      {en:"Introduce yourself in 30 seconds, as if in a job interview.", zh:'用30秒自我介紹，想像是在面試場合。', cat:'面試'},
       {en:"Tell me why you're interested in this industry.", zh:'說說你為什麼對這個產業有興趣。', cat:'面試'},
-      {en:"Describe a challenge you faced and how you handled it.", zh:'描述一個你遇到的挑戰,還有你怎麼處理的。', cat:'面試'},
+      {en:"Describe a challenge you faced and how you handled it.", zh:'描述一個你遇到的挑戰，還有你怎麼處理的。', cat:'面試'},
       {en:"Explain a time you worked in a team.", zh:'描述一次你在團隊中合作的經驗。', cat:'開會'},
-      {en:"Give a 1-minute status update on a made-up project.", zh:'假裝有個專案,做一分鐘的進度報告。', cat:'開會'},
+      {en:"Give a 1-minute status update on a made-up project.", zh:'假裝有個專案，做一分鐘的進度報告。', cat:'開會'},
       {en:"Explain your thesis topic to someone outside your field.", zh:'跟一個非本科系的人解釋你的論文主題。', cat:'學術'},
       {en:"Describe a challenge you faced during your research.", zh:'描述你在研究過程中遇到的一個挑戰。', cat:'學術'},
       {en:"Introduce yourself at a networking event.", zh:'想像在一場社交活動中自我介紹。', cat:'社交'}
@@ -337,7 +340,54 @@ const STAGES = [
   }
 ];
 
-const API_BASE = 'https://cambridge-dictionary-api-git-main-ching-yu430s-projects.vercel.app';
+/* ---------- 自動補充題目 ---------- */
+// 追蹤已從 WORD_BANK 載入過的索引
+const bankLoadedIdx = { word: 0, phrase: 0, sentence: 0 };
+const BATCH_SIZE = 10; // 每次自動補充的數量
+
+// 已存在的 en 集合（避免重複）
+function existingEnSet(stage){
+  const set = new Set();
+  stage.items.forEach(it => set.add(it.en.toLowerCase()));
+  return set;
+}
+
+// 從 WORD_BANK 載入下一批題目到指定 stage
+function loadMoreFromBank(stageKey){
+  if(typeof WORD_BANK === 'undefined') return 0;
+  const bankItems = WORD_BANK[stageKey];
+  if(!bankItems || !bankItems.length) return 0;
+  const stage = STAGES.find(s => s.key === stageKey);
+  if(!stage) return 0;
+  const existing = existingEnSet(stage);
+  let added = 0;
+  let idx = bankLoadedIdx[stageKey] || 0;
+  while(added < BATCH_SIZE && idx < bankItems.length){
+    const item = bankItems[idx];
+    idx++;
+    if(!existing.has(item.en.toLowerCase())){
+      stage.items.push({...item});
+      existing.add(item.en.toLowerCase());
+      added++;
+    }
+  }
+  bankLoadedIdx[stageKey] = idx;
+  return added;
+}
+
+// 檢查是否需要自動補充（當前題目接近尾端時）
+function checkAutoLoad(){
+  const stage = currentStage();
+  if(stage.key === 'free') return; // 自由回答不自動補充
+  const items = filteredItems();
+  // 剩餘不到 3 題時自動補充
+  if(itemIdx >= items.length - 3){
+    const added = loadMoreFromBank(stage.key);
+    if(added > 0) renderCats(); // 可能有新類別
+  }
+}
+
+const DICT_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
 let stageIdx = 0;
 let itemIdx = 0;
@@ -348,58 +398,41 @@ let accentPref = 'us';
 
 const el = id => document.getElementById(id);
 
-/* ---------- Cambridge Dictionary API 串接 ---------- */
-
-// 在任意深度的 JSON 中找出第一個含有中文字的字串(用來抓 en-tw 路由回傳的翻譯)
-function findChineseText(obj, depth){
-  depth = depth || 0;
-  if(depth > 6 || obj == null) return null;
-  if(typeof obj === 'string'){
-    return /[\u4e00-\u9fff]/.test(obj) ? obj.trim() : null;
-  }
-  if(Array.isArray(obj)){
-    for(const v of obj){ const r = findChineseText(v, depth+1); if(r) return r; }
-    return null;
-  }
-  if(typeof obj === 'object'){
-    for(const k of Object.keys(obj)){ const r = findChineseText(obj[k], depth+1); if(r) return r; }
-  }
-  return null;
-}
-
-// 在任意深度的 JSON 中收集英式/美式發音(音檔連結 + 音標),不依賴固定欄位順序
-function extractVariants(obj, depth){
-  depth = depth || 0;
-  const found = [];
-  (function walk(node, d){
-    if(d > 6 || node == null) return;
-    if(Array.isArray(node)){ node.forEach(v => walk(v, d+1)); return; }
-    if(typeof node === 'object'){
-      if(node.lang && node.url && /\.mp3($|\?)/i.test(node.url)){
-        found.push(node);
-      }
-      Object.keys(node).forEach(k => walk(node[k], d+1));
-    }
-  })(obj, depth);
-
-  const variants = {};
-  found.forEach(p => {
-    const lang = String(p.lang).toLowerCase();
-    const key = lang.includes('us') ? 'us' : lang.includes('uk') ? 'uk' : null;
-    if(key && !variants[key]){
-      variants[key] = { audio: p.url, phon: p.pron || p.phonetic || '' };
-    }
-  });
-  return variants;
-}
+/* ---------- 字典 API 串接 (Free Dictionary API) ---------- */
 
 async function fetchWordData(word){
   const clean = word.toLowerCase().trim();
-  const url = API_BASE + '/api/dictionary/en-tw/' + encodeURIComponent(clean);
+  const url = DICT_API + encodeURIComponent(clean);
   const res = await fetch(url);
   if(!res.ok) throw new Error('查詢失敗 (' + res.status + ')');
   const data = await res.json();
-  return { zh: findChineseText(data), variants: extractVariants(data) };
+  if(!Array.isArray(data) || !data.length) throw new Error('無資料');
+  const entry = data[0];
+  // 擷取音標與音檔
+  const variants = {};
+  const phonetics = entry.phonetics || [];
+  // 全局音標
+  const globalPhon = entry.phonetic || '';
+  phonetics.forEach(p => {
+    if(!p.audio) return;
+    const audioUrl = p.audio;
+    const isUS = audioUrl.includes('-us') || audioUrl.includes('_us');
+    const isUK = audioUrl.includes('-uk') || audioUrl.includes('_uk');
+    const key = isUS ? 'us' : isUK ? 'uk' : null;
+    if(key && !variants[key]){
+      variants[key] = { audio: audioUrl, phon: p.text || globalPhon };
+    }
+  });
+  // 如果只有一個音檔但沒被分類
+  if(!variants.us && !variants.uk && phonetics.length > 0){
+    const p = phonetics.find(x => x.audio) || phonetics[0];
+    variants.us = { audio: p.audio || '', phon: p.text || globalPhon };
+  }
+  // 如果連音檔都沒有，至少給音標
+  if(!variants.us && !variants.uk && globalPhon){
+    variants.us = { audio: '', phon: globalPhon };
+  }
+  return { zh: null, variants };
 }
 
 function getVariant(item){
@@ -407,38 +440,62 @@ function getVariant(item){
   return item.variants[accentPref] || item.variants.us || item.variants.uk || null;
 }
 
-// 背景查詢單字資料(音檔、音標、翻譯),完成後如果還在看同一題就重繪
+// 背景查詢單字資料（音檔、音標），完成後如果還在看同一題就重繪
 function fetchAndEnrich(item){
   if(item._fetching || item._fetched) return;
   item._fetching = true;
   fetchWordData(item.en).then(data => {
     item.variants = data.variants;
-    if(!item.zh && data.zh) item.zh = data.zh;
     item._fetched = true;
   }).catch(() => {
-    item._fetched = true; // 查不到就放棄,交給 speechSynthesis 顯示
+    item._fetched = true;
   }).finally(() => {
     item._fetching = false;
     if(currentItem() === item) render();
   });
 }
 
-// 把音標字串(例如 /kəˈlæb.ə.reɪt/)拆成音節,並把重音節放大加粗
+// 把音標字串拆成音節，並把重音節放大加粗
+// 支援兩種格式：
+// 1. 有 . 分隔：/kəˈlæb.ə.reɪt/ (Cambridge 格式)
+// 2. 無 . 分隔：/kəˈlæbəˌreɪt/ (Free Dictionary 格式)
 function renderPhonetics(phon){
   const block = el('phonBlock');
   const visual = el('phonVisual');
   if(!phon){ block.style.display = 'none'; visual.innerHTML = ''; return; }
   block.style.display = 'block';
   const clean = phon.replace(/^\/|\/$/g,'').trim();
-  const syllables = clean.split('.').filter(Boolean);
-  if(syllables.length <= 1){
-    visual.innerHTML = '<span class="phon-raw">/' + clean + '/</span>';
-    return;
+
+  let syllables;
+  const dotParts = clean.split('.').filter(Boolean);
+
+  if(dotParts.length > 1){
+    // 格式 1: 用 . 分隔的音標
+    syllables = dotParts.map(syl => ({
+      text: syl.replace(/[ˈˌ]/g,''),
+      stressed: /ˈ/.test(syl),
+      secondary: /ˌ/.test(syl)
+    }));
+  } else {
+    // 格式 2: 用重音符號拆分 (ˈ 主重音, ˌ 次重音)
+    // 先在 ˈ 和 ˌ 前面插入分隔符，再拆分
+    const marked = clean.replace(/([ˈˌ])/g, '|$1');
+    const parts = marked.split('|').filter(Boolean);
+    if(parts.length <= 1){
+      // 單音節或無法拆分，直接顯示原始音標
+      visual.innerHTML = '<span class="phon-raw">/' + clean + '/</span>';
+      return;
+    }
+    syllables = parts.map(syl => ({
+      text: syl.replace(/[ˈˌ]/g,''),
+      stressed: syl.startsWith('ˈ'),
+      secondary: syl.startsWith('ˌ')
+    }));
   }
-  visual.innerHTML = syllables.map(syl => {
-    const stressed = /[ˈˌ]/.test(syl);
-    const text = syl.replace(/[ˈˌ]/g,'');
-    return '<span class="syl' + (stressed ? ' stressed' : '') + '">' + text + '</span>';
+
+  visual.innerHTML = syllables.map(s => {
+    const cls = s.stressed ? ' stressed' : '';
+    return '<span class="syl' + cls + '">' + s.text + '</span>';
   }).join('<span class="dot"> · </span>');
 }
 
@@ -510,9 +567,13 @@ function render(){
 
   renderPhonetics(getVariant(item) ? getVariant(item).phon : null);
 
-  if(stage.key === 'word' && !/\s/.test(item.en) && !item._fetched && !item._fetching){
+  // 對所有單字（不含空格的英文）自動查字典取得音標和音檔
+  if(!/\s/.test(item.en) && !item._fetched && !item._fetching){
     fetchAndEnrich(item);
   }
+
+  // 檢查是否需要自動補充新題目
+  checkAutoLoad();
 }
 
 function speak(text){
@@ -806,7 +867,7 @@ el('addBtn').onclick = async () => {
   if(!en) return;
   const stage = STAGES[idx];
   const item = { en, zh, cat:'自訂' };
-  const isSingleWord = stage.key === 'word' && !/\s/.test(en);
+  const isSingleWord = !/\s/.test(en);
   const addBtn = el('addBtn');
 
   if(isSingleWord){
@@ -814,7 +875,6 @@ el('addBtn').onclick = async () => {
     addBtn.textContent = '查詢中...';
     try{
       const data = await fetchWordData(en);
-      if(!item.zh && data.zh) item.zh = data.zh;
       item.variants = data.variants;
       item._fetched = true;
     }catch(err){
