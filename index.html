@@ -79,6 +79,23 @@
   }
   .target-zh{color:var(--muted);font-size:15px;margin-bottom:24px;}
 
+  .phon-block{margin:-8px 0 22px;}
+  .phon-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .phon-visual{font-family:'Fraunces',serif;font-size:16px;color:var(--muted);letter-spacing:.02em;}
+  .phon-visual .syl{transition:all .15s;}
+  .phon-visual .syl.stressed{font-size:23px;font-weight:600;color:var(--clay);}
+  .phon-visual .dot{color:var(--line);padding:0 2px;}
+  .phon-visual .phon-raw{font-size:16px;color:var(--muted);}
+
+  .accent-row{display:flex;gap:6px;margin-bottom:2px;}
+  .accent-btn{
+    font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+    border-radius:999px;border:1px solid var(--line);background:#fff;
+    padding:6px 12px;cursor:pointer;color:var(--muted);
+    -webkit-user-select:none;user-select:none;
+  }
+  .accent-btn.active{background:var(--sage-light);color:var(--sage-dark);border-color:var(--sage);}
+
   .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
   button{
     font-family:'Inter',sans-serif;font-size:14px;font-weight:600;
@@ -93,6 +110,7 @@
   button.primary:hover{background:var(--sage-dark);}
   button.recording{background:var(--clay);color:#fff;border-color:var(--clay);}
   button:disabled{opacity:.45;cursor:not-allowed;}
+  #recBtn{touch-action:none;-webkit-user-select:none;user-select:none;}
 
   .result{
     margin-top:20px;padding-top:20px;border-top:1px solid var(--line);
@@ -180,9 +198,19 @@
     <div class="target" id="target">Loading...</div>
     <div class="target-zh" id="targetZh"></div>
 
+    <div class="phon-block" id="phonBlock" style="display:none;">
+      <div class="phon-label">音節與重音</div>
+      <div class="phon-visual" id="phonVisual"></div>
+    </div>
+
+    <div class="accent-row">
+      <button class="accent-btn active" id="accentUS" type="button">🇺🇸 美式</button>
+      <button class="accent-btn" id="accentUK" type="button">🇬🇧 英式</button>
+    </div>
+
     <div class="controls">
       <button class="primary" id="playBtn">🔊 播放發音</button>
-      <button id="recBtn">🎙 按一下開始講</button>
+      <button id="recBtn">🎙 按住講話,放開結束</button>
     </div>
 
     <div class="result" id="result">
@@ -202,8 +230,8 @@
     <div class="add-body">
       <div class="add-row">
         <select id="customStage"></select>
-        <input type="text" id="customEn" placeholder="英文,例如 catch up on">
-        <input type="text" id="customZh" placeholder="中文意思(選填)">
+        <input type="text" id="customEn" placeholder="英文,例如 catch up on(單字類會自動查字典)">
+        <input type="text" id="customZh" placeholder="中文意思(單字類可留空,自動帶入)">
         <button id="addBtn">加入</button>
       </div>
     </div>
@@ -294,13 +322,110 @@ const STAGES = [
   }
 ];
 
+const API_BASE = 'https://cambridge-dictionary-api-git-main-ching-yu430s-projects.vercel.app';
+
 let stageIdx = 0;
 let itemIdx = 0;
 let activeCat = 'all';
 let recognition = null;
 let isRecording = false;
+let accentPref = 'us';
 
 const el = id => document.getElementById(id);
+
+/* ---------- Cambridge Dictionary API 串接 ---------- */
+
+// 在任意深度的 JSON 中找出第一個含有中文字的字串(用來抓 en-tw 路由回傳的翻譯)
+function findChineseText(obj, depth){
+  depth = depth || 0;
+  if(depth > 6 || obj == null) return null;
+  if(typeof obj === 'string'){
+    return /[\u4e00-\u9fff]/.test(obj) ? obj.trim() : null;
+  }
+  if(Array.isArray(obj)){
+    for(const v of obj){ const r = findChineseText(v, depth+1); if(r) return r; }
+    return null;
+  }
+  if(typeof obj === 'object'){
+    for(const k of Object.keys(obj)){ const r = findChineseText(obj[k], depth+1); if(r) return r; }
+  }
+  return null;
+}
+
+// 在任意深度的 JSON 中收集英式/美式發音(音檔連結 + 音標),不依賴固定欄位順序
+function extractVariants(obj, depth){
+  depth = depth || 0;
+  const found = [];
+  (function walk(node, d){
+    if(d > 6 || node == null) return;
+    if(Array.isArray(node)){ node.forEach(v => walk(v, d+1)); return; }
+    if(typeof node === 'object'){
+      if(node.lang && node.url && /\.mp3($|\?)/i.test(node.url)){
+        found.push(node);
+      }
+      Object.keys(node).forEach(k => walk(node[k], d+1));
+    }
+  })(obj, depth);
+
+  const variants = {};
+  found.forEach(p => {
+    const lang = String(p.lang).toLowerCase();
+    const key = lang.includes('us') ? 'us' : lang.includes('uk') ? 'uk' : null;
+    if(key && !variants[key]){
+      variants[key] = { audio: p.url, phon: p.pron || p.phonetic || '' };
+    }
+  });
+  return variants;
+}
+
+async function fetchWordData(word){
+  const clean = word.toLowerCase().trim();
+  const url = API_BASE + '/api/dictionary/en-tw/' + encodeURIComponent(clean);
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('查詢失敗 (' + res.status + ')');
+  const data = await res.json();
+  return { zh: findChineseText(data), variants: extractVariants(data) };
+}
+
+function getVariant(item){
+  if(!item || !item.variants) return null;
+  return item.variants[accentPref] || item.variants.us || item.variants.uk || null;
+}
+
+// 背景查詢單字資料(音檔、音標、翻譯),完成後如果還在看同一題就重繪
+function fetchAndEnrich(item){
+  if(item._fetching || item._fetched) return;
+  item._fetching = true;
+  fetchWordData(item.en).then(data => {
+    item.variants = data.variants;
+    if(!item.zh && data.zh) item.zh = data.zh;
+    item._fetched = true;
+  }).catch(() => {
+    item._fetched = true; // 查不到就放棄,交給 speechSynthesis 顯示
+  }).finally(() => {
+    item._fetching = false;
+    if(currentItem() === item) render();
+  });
+}
+
+// 把音標字串(例如 /kəˈlæb.ə.reɪt/)拆成音節,並把重音節放大加粗
+function renderPhonetics(phon){
+  const block = el('phonBlock');
+  const visual = el('phonVisual');
+  if(!phon){ block.style.display = 'none'; visual.innerHTML = ''; return; }
+  block.style.display = 'block';
+  const clean = phon.replace(/^\/|\/$/g,'').trim();
+  const syllables = clean.split('.').filter(Boolean);
+  if(syllables.length <= 1){
+    visual.innerHTML = '<span class="phon-raw">/' + clean + '/</span>';
+    return;
+  }
+  visual.innerHTML = syllables.map(syl => {
+    const stressed = /[ˈˌ]/.test(syl);
+    const text = syl.replace(/[ˈˌ]/g,'');
+    return '<span class="syl' + (stressed ? ' stressed' : '') + '">' + text + '</span>';
+  }).join('<span class="dot"> · </span>');
+}
 
 function categoriesFor(stage){
   const set = [];
@@ -358,14 +483,20 @@ function render(){
   renderCats();
   el('targetLabel').textContent = stage.label === '自由回答' ? '看情境,講一句' : '跟著念';
   const item = currentItem();
-  if(!item){ el('target').textContent = '這個類別還沒有題目'; el('targetZh').textContent=''; el('targetCat').textContent=''; el('counter').textContent=''; return; }
+  if(!item){ el('target').textContent = '這個類別還沒有題目'; el('targetZh').textContent=''; el('targetCat').textContent=''; el('counter').textContent=''; renderPhonetics(null); return; }
   el('target').textContent = item.en;
   el('targetZh').textContent = item.zh || '';
   el('targetCat').textContent = item.cat || '';
   el('counter').textContent = (itemIdx+1) + ' / ' + filteredItems().length;
   el('result').classList.remove('show');
-  el('recBtn').textContent = '🎙 按一下開始講';
+  el('recBtn').textContent = '🎙 按住講話,放開結束';
   el('recBtn').classList.remove('recording');
+
+  renderPhonetics(getVariant(item) ? getVariant(item).phon : null);
+
+  if(stage.key === 'word' && !/\s/.test(item.en) && !item._fetched && !item._fetching){
+    fetchAndEnrich(item);
+  }
 }
 
 function speak(text){
@@ -375,6 +506,20 @@ function speak(text){
   u.rate = 0.9;
   speechSynthesis.cancel();
   speechSynthesis.speak(u);
+}
+
+// 雙軌發音:優先播放 Cambridge 真人 MP3,沒有音檔或播放失敗就退回瀏覽器 TTS
+function playAudio(item){
+  const variant = getVariant(item);
+  if(variant && variant.audio){
+    let fellBack = false;
+    const fallback = () => { if(!fellBack){ fellBack = true; speak(item.en); } };
+    const audio = new Audio(variant.audio);
+    audio.addEventListener('error', fallback);
+    audio.play().catch(fallback);
+  } else {
+    speak(item.en);
+  }
 }
 
 function levenshtein(a, b){
@@ -475,7 +620,7 @@ function buildRecognition(){
   };
   r.onend = () => {
     isRecording = false;
-    el('recBtn').textContent = '🎙 按一下開始講';
+    el('recBtn').textContent = '🎙 按住講話,放開結束';
     el('recBtn').classList.remove('recording');
     if(gotResult && finalTranscript){
       showResult(finalTranscript);
@@ -510,30 +655,46 @@ function checkMobile(){
   }
 }
 
-el('playBtn').onclick = () => speak(currentItem().en);
+el('playBtn').onclick = () => playAudio(currentItem());
 
-el('recBtn').onclick = () => {
-  if(!SRClass) return;
-  if(isRecording){
-    if(recognition) recognition.stop();
-    return;
-  }
+function updateAccentButtons(){
+  el('accentUS').classList.toggle('active', accentPref === 'us');
+  el('accentUK').classList.toggle('active', accentPref === 'uk');
+}
+el('accentUS').onclick = () => { accentPref = 'us'; updateAccentButtons(); const it=currentItem(); if(it) renderPhonetics(getVariant(it) ? getVariant(it).phon : null); };
+el('accentUK').onclick = () => { accentPref = 'uk'; updateAccentButtons(); const it=currentItem(); if(it) renderPhonetics(getVariant(it) ? getVariant(it).phon : null); };
+
+function startRecording(){
+  if(!SRClass || isRecording) return;
   speechSynthesis.cancel();
   isRecording = true;
   gotResult = false;
   finalTranscript = '';
-  el('recBtn').textContent = '⏺ 錄音中... 再按一次停止';
+  el('recBtn').textContent = '⏺ 錄音中...放開結束';
   el('recBtn').classList.add('recording');
-  setTimeout(() => {
-    recognition = buildRecognition();
-    try{ recognition.start(); }catch(e){
-      isRecording = false;
-      el('recBtn').textContent = '🎙 按一下開始講';
-      el('recBtn').classList.remove('recording');
-      showErrorMsg('無法啟動麥克風,重新整理頁面後再試一次。');
-    }
-  }, 300);
-};
+  recognition = buildRecognition();
+  try{ recognition.start(); }catch(e){
+    isRecording = false;
+    el('recBtn').textContent = '🎙 按住講話,放開結束';
+    el('recBtn').classList.remove('recording');
+    showErrorMsg('無法啟動麥克風,重新整理頁面後再試一次。');
+  }
+}
+
+function stopRecording(){
+  if(!isRecording) return;
+  if(recognition) recognition.stop();
+}
+
+const recBtn = el('recBtn');
+recBtn.addEventListener('contextmenu', e => e.preventDefault());
+recBtn.addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  try{ recBtn.setPointerCapture(e.pointerId); }catch(err){}
+  startRecording();
+});
+recBtn.addEventListener('pointerup', () => stopRecording());
+recBtn.addEventListener('pointercancel', () => stopRecording());
 
 el('skipBtn').onclick = () => {
   const items = filteredItems();
@@ -552,16 +713,35 @@ function populateCustomStageSelect(){
   });
 }
 
-el('addBtn').onclick = () => {
+el('addBtn').onclick = async () => {
   const en = el('customEn').value.trim();
   const zh = el('customZh').value.trim();
   const idx = parseInt(el('customStage').value, 10);
   if(!en) return;
-  STAGES[idx].items.push({en, zh, cat:'自訂'});
+  const stage = STAGES[idx];
+  const item = { en, zh, cat:'自訂' };
+  const isSingleWord = stage.key === 'word' && !/\s/.test(en);
+  const addBtn = el('addBtn');
+
+  if(isSingleWord){
+    addBtn.disabled = true;
+    addBtn.textContent = '查詢中...';
+    try{
+      const data = await fetchWordData(en);
+      if(!item.zh && data.zh) item.zh = data.zh;
+      item.variants = data.variants;
+      item._fetched = true;
+    }catch(err){
+      item._fetched = true; // 查不到就交給 speechSynthesis,不擋住新增流程
+    }
+    addBtn.disabled = false;
+  }
+
+  stage.items.push(item);
   el('customEn').value = '';
   el('customZh').value = '';
-  el('addBtn').textContent = '已加入 ✓';
-  setTimeout(()=>{ el('addBtn').textContent = '加入'; }, 1200);
+  addBtn.textContent = '已加入 ✓';
+  setTimeout(()=>{ addBtn.textContent = '加入'; }, 1200);
   if(idx === stageIdx) render();
 };
 
