@@ -108,9 +108,23 @@
   button:active{transform:scale(.97);}
   button.primary{background:var(--sage);color:#fff;border-color:var(--sage);}
   button.primary:hover{background:var(--sage-dark);}
-  button.recording{background:var(--clay);color:#fff;border-color:var(--clay);}
+  button.recording{
+    background:var(--clay);color:#fff;border-color:var(--clay);
+    animation:pulse-rec 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse-rec{
+    0%,100%{box-shadow:0 0 0 0 rgba(193,122,82,.5);}
+    50%{box-shadow:0 0 0 12px rgba(193,122,82,0);}
+  }
   button:disabled{opacity:.45;cursor:not-allowed;}
   #recBtn{touch-action:none;-webkit-user-select:none;user-select:none;}
+
+  .live-transcript{
+    margin-top:10px;font-size:14px;color:var(--muted);font-style:italic;
+    min-height:22px;transition:opacity .2s;
+  }
+  .live-transcript:empty{opacity:0;}
+  .live-transcript:not(:empty){opacity:1;}
 
   .result{
     margin-top:20px;padding-top:20px;border-top:1px solid var(--line);
@@ -210,8 +224,9 @@
 
     <div class="controls">
       <button class="primary" id="playBtn">🔊 播放發音</button>
-      <button id="recBtn">🎙 按住講話,放開結束</button>
+      <button id="recBtn">🎙 點擊開始錄音</button>
     </div>
+    <div class="live-transcript" id="liveTranscript"></div>
 
     <div class="result" id="result">
       <div class="you-said">你講的是</div>
@@ -489,8 +504,9 @@ function render(){
   el('targetCat').textContent = item.cat || '';
   el('counter').textContent = (itemIdx+1) + ' / ' + filteredItems().length;
   el('result').classList.remove('show');
-  el('recBtn').textContent = '🎙 按住講話,放開結束';
+  el('recBtn').textContent = '🎙 點擊開始錄音';
   el('recBtn').classList.remove('recording');
+  el('liveTranscript').textContent = '';
 
   renderPhonetics(getVariant(item) ? getVariant(item).phon : null);
 
@@ -578,6 +594,21 @@ function showResult(heardText){
 let SRClass = null;
 let finalTranscript = '';
 let gotResult = false;
+let recStartTime = 0;
+let recTimeoutTimer = null;
+let micReady = false;
+
+/* ---------- 麥克風預熱 ---------- */
+async function warmUpMic(){
+  if(micReady) return;
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    stream.getTracks().forEach(t => t.stop());
+    micReady = true;
+  }catch(e){
+    // 權限被拒或不支援,後續 SpeechRecognition 會處理
+  }
+}
 
 function setupRecognition(){
   SRClass = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -596,41 +627,74 @@ function buildRecognition(){
   r.maxAlternatives = 1;
 
   r.onresult = (e) => {
-    let text = '';
-    for(let i=0;i<e.results.length;i++){
-      text += e.results[i][0].transcript;
+    // 關鍵修正：iOS Safari 不一定送出 isFinal=true
+    // 因此持續儲存最新 transcript，不論 isFinal 狀態
+    let interim = '';
+    let final = '';
+    for(let i = 0; i < e.results.length; i++){
+      const t = e.results[i][0].transcript;
+      if(e.results[i].isFinal) final += t;
+      else interim += t;
     }
-    finalTranscript = text;
-    if(e.results[e.results.length-1].isFinal){
-      gotResult = true;
-    }
+    // 優先用 final，沒有就用 interim
+    finalTranscript = final || interim;
+    // 只要有任何內容就算有結果
+    if(finalTranscript) gotResult = true;
+    // 即時顯示辨識文字
+    el('liveTranscript').textContent = finalTranscript ? '聽到: ' + finalTranscript : '';
+    // 收到結果就重置超時
+    resetRecTimeout();
   };
+
+  r.onspeechstart = () => {
+    // 偵測到說話聲,重置超時
+    resetRecTimeout();
+  };
+
   r.onerror = (e) => {
-    gotResult = true;
+    clearTimeout(recTimeoutTimer);
     const messages = {
       'not-allowed':'麥克風權限被拒絕,請到設定 > Safari > 麥克風開啟權限。',
-      'no-speech':'沒偵測到說話聲,請靠近麥克風,按下按鈕後馬上開口。',
+      'no-speech':'沒偵測到說話聲,請靠近麥克風再試一次。',
       'audio-capture':'抓不到麥克風,請確認沒有其他 App 正在使用麥克風。',
       'network':'網路連線問題,語音辨識需要網路連線。',
       'aborted':''
     };
     const msg = messages[e.error];
-    if(msg) showErrorMsg(msg);
-    else if(e.error !== 'aborted') showErrorMsg('發生錯誤(' + e.error + '),再試一次看看。');
-  };
-  r.onend = () => {
-    isRecording = false;
-    el('recBtn').textContent = '🎙 按住講話,放開結束';
-    el('recBtn').classList.remove('recording');
-    if(gotResult && finalTranscript){
-      showResult(finalTranscript);
-    } else if(gotResult){
-      showResult('');
-    } else {
-      showErrorMsg('完全沒收到聲音輸入。請確認:手機側邊靜音鍵沒有切到靜音、錄音時嘴巴靠近麥克風、按下按鈕後立刻開口。');
+    if(msg){
+      // 標記已有結果以防 onend 重複處理
+      gotResult = true;
+      finalTranscript = '';
+      showErrorMsg(msg);
     }
   };
+
+  r.onend = () => {
+    clearTimeout(recTimeoutTimer);
+    isRecording = false;
+    el('recBtn').textContent = '🎙 點擊開始錄音';
+    el('recBtn').classList.remove('recording');
+    el('liveTranscript').textContent = '';
+    // 關鍵修正：只要 finalTranscript 有內容就視為成功
+    if(finalTranscript){
+      showResult(finalTranscript);
+    } else if(!gotResult){
+      // 真的完全沒收到任何東西
+      showErrorMsg('沒有聽到聲音。請確認麥克風正常,點擊錄音後立刻開口說話。');
+    }
+    // 如果 gotResult=true 但 finalTranscript='' → onerror 已經處理過了,不重複顯示
+  };
   return r;
+}
+
+function resetRecTimeout(){
+  clearTimeout(recTimeoutTimer);
+  // 8 秒無新結果就自動停止
+  recTimeoutTimer = setTimeout(() => {
+    if(isRecording && recognition){
+      try{ recognition.stop(); }catch(e){}
+    }
+  }, 8000);
 }
 
 function showErrorMsg(msg){
@@ -648,10 +712,10 @@ function checkMobile(){
   const note = el('mobileNote');
   if(isIOS){
     note.style.display = 'block';
-    note.textContent = 'iPhone 使用中:請確認是用 Safari 開啟這個頁面(不是 LINE 或 IG 內建瀏覽器),語音辨識才會正常運作。';
+    note.textContent = 'iPhone 使用中：請確認是用 Safari 開啟這個頁面（不是 LINE 或 IG 內建瀏覽器），語音辨識才會正常運作。';
   } else if(isAndroid){
     note.style.display = 'block';
-    note.textContent = 'Android 使用中:請用 Chrome 開啟這個頁面,語音辨識才會正常運作。';
+    note.textContent = 'Android 使用中：請用 Chrome 開啟這個頁面，語音辨識才會正常運作。';
   }
 }
 
@@ -664,37 +728,59 @@ function updateAccentButtons(){
 el('accentUS').onclick = () => { accentPref = 'us'; updateAccentButtons(); const it=currentItem(); if(it) renderPhonetics(getVariant(it) ? getVariant(it).phon : null); };
 el('accentUK').onclick = () => { accentPref = 'uk'; updateAccentButtons(); const it=currentItem(); if(it) renderPhonetics(getVariant(it) ? getVariant(it).phon : null); };
 
-function startRecording(){
-  if(!SRClass || isRecording) return;
+/* ---------- 錄音：點擊切換模式 ---------- */
+const MIN_REC_MS = 1500; // 最小錄音時間,防止太快 stop
+
+async function startRecording(){
+  if(!SRClass) return;
+  // 預熱麥克風（首次互動時取得權限）
+  await warmUpMic();
   speechSynthesis.cancel();
   isRecording = true;
   gotResult = false;
   finalTranscript = '';
-  el('recBtn').textContent = '⏺ 錄音中...放開結束';
+  recStartTime = Date.now();
+  el('recBtn').textContent = '⏹ 點擊結束錄音';
   el('recBtn').classList.add('recording');
+  el('liveTranscript').textContent = '正在聆聽...';
+  el('result').classList.remove('show');
   recognition = buildRecognition();
   try{ recognition.start(); }catch(e){
     isRecording = false;
-    el('recBtn').textContent = '🎙 按住講話,放開結束';
+    el('recBtn').textContent = '🎙 點擊開始錄音';
     el('recBtn').classList.remove('recording');
-    showErrorMsg('無法啟動麥克風,重新整理頁面後再試一次。');
+    el('liveTranscript').textContent = '';
+    showErrorMsg('無法啟動麥克風，重新整理頁面後再試一次。');
   }
+  // 啟動超時保護
+  resetRecTimeout();
 }
 
 function stopRecording(){
   if(!isRecording) return;
-  if(recognition) recognition.stop();
+  // 確保至少錄 MIN_REC_MS 毫秒
+  const elapsed = Date.now() - recStartTime;
+  if(elapsed < MIN_REC_MS){
+    setTimeout(() => {
+      if(isRecording && recognition){
+        try{ recognition.stop(); }catch(e){}
+      }
+    }, MIN_REC_MS - elapsed);
+  } else {
+    if(recognition) try{ recognition.stop(); }catch(e){}
+  }
 }
 
+/* ---------- 錄音按鈕：點擊切換 ---------- */
 const recBtn = el('recBtn');
-recBtn.addEventListener('contextmenu', e => e.preventDefault());
-recBtn.addEventListener('pointerdown', (e) => {
+recBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  try{ recBtn.setPointerCapture(e.pointerId); }catch(err){}
-  startRecording();
+  if(isRecording){
+    stopRecording();
+  } else {
+    startRecording();
+  }
 });
-recBtn.addEventListener('pointerup', () => stopRecording());
-recBtn.addEventListener('pointercancel', () => stopRecording());
 
 el('skipBtn').onclick = () => {
   const items = filteredItems();
