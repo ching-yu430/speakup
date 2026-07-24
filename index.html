@@ -340,11 +340,7 @@ const STAGES = [
   }
 ];
 
-/* ---------- 自動補充題目 ---------- */
-// 追蹤已從 WORD_BANK 載入過的索引
-const bankLoadedIdx = { word: 0, phrase: 0, sentence: 0 };
-const BATCH_SIZE = 10; // 每次自動補充的數量
-
+/* ---------- 題庫擴充 ---------- */
 // 已存在的 en 集合（避免重複）
 function existingEnSet(stage){
   const set = new Set();
@@ -352,39 +348,21 @@ function existingEnSet(stage){
   return set;
 }
 
-// 從 WORD_BANK 載入下一批題目到指定 stage
-function loadMoreFromBank(stageKey){
-  if(typeof WORD_BANK === 'undefined') return 0;
-  const bankItems = WORD_BANK[stageKey];
-  if(!bankItems || !bankItems.length) return 0;
-  const stage = STAGES.find(s => s.key === stageKey);
-  if(!stage) return 0;
-  const existing = existingEnSet(stage);
-  let added = 0;
-  let idx = bankLoadedIdx[stageKey] || 0;
-  while(added < BATCH_SIZE && idx < bankItems.length){
-    const item = bankItems[idx];
-    idx++;
-    if(!existing.has(item.en.toLowerCase())){
-      stage.items.push({...item});
-      existing.add(item.en.toLowerCase());
-      added++;
+// 初始化時將 WORD_BANK 的所有內容載入，確保所有類別都會顯示
+function initBank(){
+  if(typeof WORD_BANK === 'undefined') return;
+  STAGES.forEach(stage => {
+    const bankItems = WORD_BANK[stage.key];
+    if(bankItems && bankItems.length){
+      const existing = existingEnSet(stage);
+      bankItems.forEach(item => {
+        if(!existing.has(item.en.toLowerCase())){
+          stage.items.push({...item});
+          existing.add(item.en.toLowerCase());
+        }
+      });
     }
-  }
-  bankLoadedIdx[stageKey] = idx;
-  return added;
-}
-
-// 檢查是否需要自動補充（當前題目接近尾端時）
-function checkAutoLoad(){
-  const stage = currentStage();
-  if(stage.key === 'free') return; // 自由回答不自動補充
-  const items = filteredItems();
-  // 剩餘不到 3 題時自動補充
-  if(itemIdx >= items.length - 3){
-    const added = loadMoreFromBank(stage.key);
-    if(added > 0) renderCats(); // 可能有新類別
-  }
+  });
 }
 
 const DICT_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
@@ -567,13 +545,10 @@ function render(){
 
   renderPhonetics(getVariant(item) ? getVariant(item).phon : null);
 
-  // 對所有單字（不含空格的英文）自動查字典取得音標和音檔
+  // 對所有單字（不含空格的英文）自動查字典取得音標
   if(!/\s/.test(item.en) && !item._fetched && !item._fetching){
     fetchAndEnrich(item);
   }
-
-  // 檢查是否需要自動補充新題目
-  checkAutoLoad();
 }
 
 function speak(text){
@@ -585,18 +560,19 @@ function speak(text){
   speechSynthesis.speak(u);
 }
 
-// 雙軌發音:優先播放 Cambridge 真人 MP3,沒有音檔或播放失敗就退回瀏覽器 TTS
+// 雙軌發音：優先播放 Google 高音質 TTS，播放失敗就退回瀏覽器 TTS
 function playAudio(item){
-  const variant = getVariant(item);
-  if(variant && variant.audio){
-    let fellBack = false;
-    const fallback = () => { if(!fellBack){ fellBack = true; speak(item.en); } };
-    const audio = new Audio(variant.audio);
-    audio.addEventListener('error', fallback);
-    audio.play().catch(fallback);
-  } else {
-    speak(item.en);
-  }
+  speechSynthesis.cancel(); // 確保不會有聲音重疊
+  
+  const text = encodeURIComponent(item.en);
+  const tl = accentPref === 'uk' ? 'en-GB' : 'en-US';
+  const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${tl}&client=tw-ob&q=${text}`;
+  
+  let fellBack = false;
+  const fallback = () => { if(!fellBack){ fellBack = true; speak(item.en); } };
+  const audio = new Audio(url);
+  audio.addEventListener('error', fallback);
+  audio.play().catch(fallback);
 }
 
 function levenshtein(a, b){
@@ -792,10 +768,10 @@ el('accentUK').onclick = () => { accentPref = 'uk'; updateAccentButtons(); const
 /* ---------- 錄音：點擊切換模式 ---------- */
 const MIN_REC_MS = 1500; // 最小錄音時間,防止太快 stop
 
-async function startRecording(){
+function startRecording(){
   if(!SRClass) return;
-  // 預熱麥克風（首次互動時取得權限）
-  await warmUpMic();
+  // 預熱麥克風（不使用 await，讓 SpeechRecognition 在同一個同步執行緒中啟動，避免 iOS 阻擋）
+  warmUpMic();
   speechSynthesis.cancel();
   isRecording = true;
   gotResult = false;
@@ -892,6 +868,7 @@ el('addBtn').onclick = async () => {
 };
 
 checkMobile();
+initBank();
 populateCustomStageSelect();
 setupRecognition();
 render();
