@@ -915,7 +915,7 @@ zh (中文) 必須是繁體中文(台灣)。
 不要輸出任何 Markdown 語法（例如 \`\`\`json ），只要純 JSON 文字陣列即可。`;
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=${geminiApiKey}`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
