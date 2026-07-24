@@ -33,17 +33,28 @@
   .sub{color:var(--muted);font-size:15px;max-width:520px;}
 
   .eyebrow{
-    display: flex; justify-content: space-between; align-items: center;
     font-size:13px;letter-spacing:.12em;text-transform:uppercase;
     color:var(--sage-dark);font-weight:600;margin-bottom:8px;
   }
-  .ai-mode-btn {
-    background: linear-gradient(135deg, #8a2be2, #4169e1); color: white;
-    border: none; padding: 6px 12px; border-radius: 12px; font-size: 12px;
-    font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px;
-    transition: transform 0.2s;
+
+  .app-tabs {
+    display: flex; gap: 8px; margin-bottom: 24px; padding: 4px;
+    background: #e4ebe0; border-radius: 12px;
   }
-  .ai-mode-btn:active { transform: scale(0.95); }
+  .app-tab {
+    flex: 1; padding: 12px 0; border: none; background: transparent;
+    border-radius: 10px; font-weight: 600; font-size: 14px; color: var(--muted);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .app-tab.active { background: #fff; color: var(--sage-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+  .ai-actions { margin-bottom: 16px; }
+  .ai-create-btn {
+    width: 100%; padding: 14px; border-radius: 12px; border: 2px dashed #b77bff;
+    background: rgba(138,43,226,0.05); color: #8a2be2; font-weight: bold; font-size: 14px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .ai-create-btn:hover { background: rgba(138,43,226,0.1); }
   
   .ai-modal-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6);
@@ -77,8 +88,14 @@
     font-size:14px;color:var(--muted);margin-bottom:16px;padding-left:2px;
   }
 
-  .cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+  .cats{
+    display:flex;gap:8px;margin-bottom:24px;
+    overflow-x:auto; padding-bottom:4px; flex-wrap:nowrap;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .cats::-webkit-scrollbar { display:none; }
   .cat-pill{
+    flex-shrink:0;
     padding:7px 14px;border-radius:999px;border:1px solid var(--line);
     background:var(--card);font-size:13px;color:var(--muted);cursor:pointer;
     font-weight:500;transition:all .15s;
@@ -116,27 +133,43 @@
   }
   .accent-btn.active{background:var(--sage-light);color:var(--sage-dark);border-color:var(--sage);}
 
-  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
-  button{
+  .controls {
+    display: flex; justify-content: center; align-items: center; gap: 24px;
+    margin: 32px 0 24px;
+  }
+  .btn-mic {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--clay); color: #fff; border: none;
+    font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 15px rgba(193,122,82,0.3); transition: all 0.2s; padding: 0;
+  }
+  .btn-mic:hover { transform: scale(1.05); }
+  .btn-mic:active { transform: scale(0.95); }
+  .btn-mic.recording {
+    background: #e63946; box-shadow: 0 0 0 0 rgba(230,57,70,0.5);
+    animation: pulse-rec-new 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse-rec-new {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(230,57,70,0.5); }
+    50% { box-shadow: 0 0 0 16px rgba(230,57,70,0); }
+  }
+  .btn-play {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--sage-light); color: var(--sage-dark); border: none;
+    font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; padding: 0;
+  }
+  .btn-play:hover { background: var(--sage); color: #fff; }
+
+  button.skip {
     font-family:'Inter',sans-serif;font-size:14px;font-weight:600;
     border-radius:10px;border:1px solid var(--line);background:#fff;
     padding:13px 18px;cursor:pointer;color:var(--ink);
     display:inline-flex;align-items:center;gap:8px;
     transition:all .15s;-webkit-user-select:none;user-select:none;
   }
-  button:hover{border-color:var(--sage);}
-  button:active{transform:scale(.97);}
-  button.primary{background:var(--sage);color:#fff;border-color:var(--sage);}
-  button.primary:hover{background:var(--sage-dark);}
-  button.recording{
-    background:var(--clay);color:#fff;border-color:var(--clay);
-    animation:pulse-rec 1.2s ease-in-out infinite;
-  }
-  @keyframes pulse-rec{
-    0%,100%{box-shadow:0 0 0 0 rgba(193,122,82,.5);}
-    50%{box-shadow:0 0 0 12px rgba(193,122,82,0);}
-  }
-  button:disabled{opacity:.45;cursor:not-allowed;}
+  button.skip:hover { border-color:var(--sage); }
+  button.skip:active { transform:scale(.97); }
   #recBtn{touch-action:none;-webkit-user-select:none;user-select:none;}
 
   .live-transcript{
@@ -196,13 +229,16 @@
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
 
   @media (max-width:520px){
-    .wrap{padding:28px 14px 80px;}
-    h1{font-size:27px;}
-    .card{padding:22px 18px;}
-    .target{font-size:22px;}
+    .wrap{padding:20px 14px 80px;}
+    h1{font-size:24px;}
+    .card{padding:24px 16px;}
+    .target{font-size:24px;}
+    .target-zh{font-size:14px; margin-bottom:16px;}
     .rung{font-size:12px;padding:10px 4px;}
-    button{padding:14px 16px;width:100%;justify-content:center;}
-    .controls{flex-direction:column;}
+    
+    .nav-row { margin-top: 32px; }
+    .nav-row > div { display: flex; gap: 8px; width: 100%; justify-content: space-between; margin-top: 12px; }
+    button.skip { padding: 12px; flex: 1; justify-content: center; margin: 0 !important; }
   }
 </style>
 </head>
@@ -212,13 +248,19 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">
-      <span>Speak Up · 開口練習</span>
-      <button class="ai-mode-btn" id="openAiModalBtn">✨ AI 模式</button>
-    </div>
+    <div class="eyebrow">Speak Up · 開口練習</div>
     <h1>先開口,再求準。</h1>
     <div class="sub">從單字到片語、句子,一步步習慣「講出聲音」這件事。題目網頁幫你準備好了,選類別就能一直練下去。</div>
   </header>
+
+  <nav class="app-tabs">
+    <button class="app-tab active" id="tabGeneral">📚 系統題庫</button>
+    <button class="app-tab" id="tabAI">✨ 專屬情境 (AI)</button>
+  </nav>
+
+  <div class="ai-actions" id="aiActions" style="display:none;">
+    <button class="ai-create-btn" id="openAiModalBtn">🚀 ＋ 請 AI 生成新情境...</button>
+  </div>
 
   <div id="unsupported" class="no-support" style="display:none;">
     這個瀏覽器不支援語音辨識。iPhone 請用 Safari 開啟,Android 請用 Chrome 開啟;你還是可以看內容跟讀練習,只是沒辦法自動比對發音。
@@ -247,8 +289,8 @@
     </div>
 
     <div class="controls">
-      <button class="primary" id="playBtn">🔊 播放發音</button>
-      <button id="recBtn">🎙 點擊開始錄音</button>
+      <button class="btn-play" id="playBtn" title="播放發音">🔊</button>
+      <button class="btn-mic" id="recBtn" title="點擊錄音">🎙</button>
     </div>
     <div class="live-transcript" id="liveTranscript"></div>
 
@@ -382,6 +424,7 @@ let savedCat = localStorage.getItem('speakup_cat');
 let savedCatProgressStr = localStorage.getItem('speakup_cat_progress');
 let catProgress = savedCatProgressStr ? JSON.parse(savedCatProgressStr) : {};
 let geminiApiKey = localStorage.getItem('speakup_apikey') || '';
+let appMode = localStorage.getItem('speakup_appMode') || 'general';
 
 function getSavedItemIdx(sIdx, cat) {
   const key = `${sIdx}_${cat}`;
@@ -399,6 +442,26 @@ function saveProgress(){
   catProgress[key] = itemIdx;
   localStorage.setItem('speakup_cat_progress', JSON.stringify(catProgress));
 }
+
+function setAppMode(mode) {
+  appMode = mode;
+  localStorage.setItem('speakup_appMode', appMode);
+  
+  el('tabGeneral').classList.toggle('active', mode === 'general');
+  el('tabAI').classList.toggle('active', mode === 'ai');
+  
+  el('aiActions').style.display = mode === 'ai' ? 'block' : 'none';
+  el('ladder').style.display = mode === 'ai' ? 'none' : 'flex';
+  el('stageDesc').style.display = mode === 'ai' ? 'none' : 'block';
+  
+  activeCat = 'all';
+  itemIdx = getSavedItemIdx(stageIdx, activeCat);
+  saveProgress();
+  render();
+}
+
+el('tabGeneral').onclick = () => setAppMode('general');
+el('tabAI').onclick = () => setAppMode('ai');
 
 let aiGeneratedItems = [];
 try {
@@ -438,15 +501,8 @@ function initBank(){
       });
     }
   });
-  
-  // 驗證 saved itemIdx 是否超出範圍，若超出則歸零
-  const stage = STAGES[stageIdx];
-  if(!stage) { stageIdx = 0; itemIdx = 0; activeCat = 'all'; }
-  else {
-    const items = activeCat === 'all' ? stage.items : stage.items.filter(it => it.cat === activeCat);
-    if(itemIdx >= items.length) itemIdx = 0;
-  }
 }
+initBank();
 
 const DICT_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
@@ -548,16 +604,37 @@ function renderPhonetics(phon){
   }).join('<span class="dot"> · </span>');
 }
 
-function categoriesFor(stage){
-  const set = [];
-  stage.items.forEach(it => { if(it.cat && !set.includes(it.cat)) set.push(it.cat); });
-  return set;
+function categoriesForMode(mode) {
+  const set = new Set();
+  STAGES.forEach(stg => {
+    stg.items.forEach(it => {
+      if(it.cat) {
+        const isAI = it.cat.startsWith('(AI)');
+        if(mode === 'ai' && isAI) set.add(it.cat);
+        if(mode === 'general' && !isAI && stg === currentStage()) set.add(it.cat); // General mode is stage-specific
+      }
+    });
+  });
+  return Array.from(set);
 }
 
 function filteredItems(){
-  const stage = currentStage();
-  if(activeCat === 'all') return stage.items;
-  return stage.items.filter(it => it.cat === activeCat);
+  if(appMode === 'ai') {
+    let items = [];
+    STAGES.forEach(stg => {
+      stg.items.forEach(it => {
+        if(it.cat && it.cat.startsWith('(AI)')) {
+          if(activeCat === 'all' || it.cat === activeCat) items.push(it);
+        }
+      });
+    });
+    return items;
+  } else {
+    const stage = currentStage();
+    const items = stage.items.filter(it => !it.cat || !it.cat.startsWith('(AI)'));
+    if(activeCat === 'all') return items;
+    return items.filter(it => it.cat === activeCat);
+  }
 }
 
 function renderLadder(){
@@ -575,16 +652,17 @@ function renderLadder(){
 function renderCats(){
   const wrap = el('cats');
   wrap.innerHTML = '';
-  const cats = categoriesFor(currentStage());
+  const cats = categoriesForMode(appMode);
   const allPill = document.createElement('div');
   allPill.className = 'cat-pill' + (activeCat==='all'?' active':'');
   allPill.textContent = '全部';
   allPill.onclick = () => { activeCat='all'; itemIdx = getSavedItemIdx(stageIdx, 'all'); saveProgress(); render(); };
   wrap.appendChild(allPill);
   cats.forEach(c => {
+    const displayName = c.startsWith('(AI) ') ? c.replace('(AI) ', '✨ ') : c;
     const p = document.createElement('div');
     p.className = 'cat-pill' + (activeCat===c?' active':'');
-    p.textContent = c;
+    p.textContent = displayName;
     p.onclick = () => { activeCat=c; itemIdx = getSavedItemIdx(stageIdx, c); saveProgress(); render(); };
     wrap.appendChild(p);
   });
@@ -602,15 +680,20 @@ function render(){
   const stage = currentStage();
   el('stageDesc').textContent = stage.desc;
   renderCats();
-  el('targetLabel').textContent = stage.label === '自由回答' ? '看情境,講一句' : '跟著念';
-  const item = currentItem();
+  
+  el('targetLabel').textContent = appMode === 'ai' ? 'AI 專屬情境' : (stage.label === '自由回答' ? '看情境,講一句' : '跟著念');
+  
+  const items = filteredItems();
+  const item = items[itemIdx];
   if(!item){ el('target').textContent = '這個類別還沒有題目'; el('targetZh').textContent=''; el('targetCat').textContent=''; el('counter').textContent=''; renderPhonetics(null); return; }
+  
   el('target').textContent = item.en;
   el('targetZh').textContent = item.zh || '';
-  el('targetCat').textContent = item.cat || '';
-  el('counter').textContent = (itemIdx+1) + ' / ' + filteredItems().length;
+  el('targetCat').textContent = item.cat ? (item.cat.startsWith('(AI) ') ? item.cat.replace('(AI) ', '✨ ') : item.cat) : '';
+  el('counter').textContent = (itemIdx+1) + ' / ' + items.length;
   el('result').classList.remove('show');
-  el('recBtn').textContent = '🎙 點擊開始錄音';
+  
+  el('recBtn').innerHTML = '🎙';
   el('recBtn').classList.remove('recording');
   el('liveTranscript').textContent = '';
 
@@ -777,7 +860,7 @@ function buildRecognition(){
   r.onend = () => {
     clearTimeout(recTimeoutTimer);
     isRecording = false;
-    el('recBtn').textContent = '🎙 點擊開始錄音';
+    el('recBtn').innerHTML = '🎙';
     el('recBtn').classList.remove('recording');
     el('liveTranscript').textContent = '';
     // 關鍵修正：只要 finalTranscript 有內容就視為成功
@@ -830,21 +913,19 @@ const MIN_REC_MS = 1500; // 最小錄音時間,防止太快 stop
 
 function startRecording(){
   if(!SRClass) return;
-  // 預熱麥克風（不使用 await，讓 SpeechRecognition 在同一個同步執行緒中啟動，避免 iOS 阻擋）
   warmUpMic();
   speechSynthesis.cancel();
   isRecording = true;
   gotResult = false;
   finalTranscript = '';
   recStartTime = Date.now();
-  el('recBtn').textContent = '⏹ 點擊結束錄音';
   el('recBtn').classList.add('recording');
   el('liveTranscript').textContent = '正在聆聽...';
   el('result').classList.remove('show');
   recognition = buildRecognition();
   try{ recognition.start(); }catch(e){
     isRecording = false;
-    el('recBtn').textContent = '🎙 點擊開始錄音';
+    el('recBtn').innerHTML = '🎙';
     el('recBtn').classList.remove('recording');
     el('liveTranscript').textContent = '';
     showErrorMsg('無法啟動麥克風，重新整理頁面後再試一次。');
@@ -1042,7 +1123,8 @@ checkMobile();
 initBank();
 populateCustomStageSelect();
 setupRecognition();
-render();
+// Initial App mode setup
+setAppMode(appMode);
 </script>
 </body>
 </html>
