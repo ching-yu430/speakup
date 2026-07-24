@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>開口練習 Speak Up</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --ink:#20261f;
+    --paper:#f6f3ea;
+    --card:#ffffff;
+    --sage:#5c7a5e;
+    --sage-dark:#3c5a3e;
+    --sage-light:#e4ebe0;
+    --clay:#c17a52;
+    --clay-light:#f3e2d5;
+    --line:#dcd6c4;
+    --muted:#8a8577;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:40px 20px 100px;}
+
+  header{margin-bottom:28px;}
+  .eyebrow{
+    font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--sage-dark);font-weight:600;margin-bottom:8px;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-weight:600;font-size:34px;
+    margin:0 0 10px;letter-spacing:-.01em;
+  }
+  .sub{color:var(--muted);font-size:15px;max-width:520px;}
+
+  .ladder{
+    display:flex;gap:6px;margin:24px 0 16px;
+  }
+  .rung{
+    flex:1;padding:12px 6px;text-align:center;border-radius:10px;
+    border:1px solid var(--line);background:var(--card);
+    font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;
+    transition:all .2s;
+  }
+  .rung.active{
+    background:var(--sage);color:#fff;border-color:var(--sage);
+  }
+
+  .stage-desc{
+    font-size:14px;color:var(--muted);margin-bottom:16px;padding-left:2px;
+  }
+
+  .cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+  .cat-pill{
+    padding:7px 14px;border-radius:999px;border:1px solid var(--line);
+    background:var(--card);font-size:13px;color:var(--muted);cursor:pointer;
+    font-weight:500;transition:all .15s;
+  }
+  .cat-pill.active{background:var(--clay);color:#fff;border-color:var(--clay);}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:32px 28px;margin-bottom:20px;
+  }
+
+  .target-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .target-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .target-cat{font-size:12px;color:var(--clay);font-weight:600;}
+  .target{
+    font-family:'Fraunces',serif;font-size:27px;font-weight:500;
+    color:var(--ink);margin-bottom:6px;line-height:1.4;
+  }
+  .target-zh{color:var(--muted);font-size:15px;margin-bottom:24px;}
+
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px;}
+  button{
+    font-family:'Inter',sans-serif;font-size:14px;font-weight:600;
+    border-radius:10px;border:1px solid var(--line);background:#fff;
+    padding:13px 18px;cursor:pointer;color:var(--ink);
+    display:inline-flex;align-items:center;gap:8px;
+    transition:all .15s;-webkit-user-select:none;user-select:none;
+  }
+  button:hover{border-color:var(--sage);}
+  button:active{transform:scale(.97);}
+  button.primary{background:var(--sage);color:#fff;border-color:var(--sage);}
+  button.primary:hover{background:var(--sage-dark);}
+  button.recording{background:var(--clay);color:#fff;border-color:var(--clay);}
+  button:disabled{opacity:.45;cursor:not-allowed;}
+
+  .result{
+    margin-top:20px;padding-top:20px;border-top:1px solid var(--line);
+    display:none;
+  }
+  .result.show{display:block;}
+  .you-said{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .heard{font-size:18px;margin-bottom:14px;}
+  .feedback{
+    font-size:14px;padding:12px 16px;border-radius:10px;
+    background:var(--sage-light);color:var(--sage-dark);
+  }
+  .feedback.retry{background:var(--clay-light);color:#8a4a26;}
+
+  .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;flex-wrap:wrap;gap:10px;}
+  .counter{font-size:13px;color:var(--muted);}
+  .skip{background:none;border:none;color:var(--muted);text-decoration:underline;padding:4px;font-weight:400;}
+
+  details.add-panel{
+    margin-top:32px;
+  }
+  details.add-panel summary{
+    cursor:pointer;font-size:14px;color:var(--muted);text-decoration:underline;
+    list-style:none;-webkit-user-select:none;user-select:none;
+  }
+  details.add-panel summary::-webkit-details-marker{display:none;}
+  .add-body{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line);}
+  .add-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .add-row input{
+    flex:1;min-width:140px;padding:10px 12px;border-radius:10px;
+    border:1px solid var(--line);font-size:14px;font-family:'Inter',sans-serif;
+    background:#fff;color:var(--ink);
+  }
+  .add-row input:focus{outline:none;border-color:var(--sage);}
+  .add-row select{
+    padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+    font-size:14px;font-family:'Inter',sans-serif;background:#fff;color:var(--ink);
+  }
+
+  .mobile-note{
+    background:var(--sage-light);color:var(--sage-dark);padding:14px 18px;
+    border-radius:12px;font-size:13px;margin-bottom:20px;display:none;
+  }
+  .no-support{
+    background:var(--clay-light);color:#8a4a26;padding:16px 20px;
+    border-radius:12px;font-size:14px;margin-bottom:24px;
+  }
+
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
+
+  @media (max-width:520px){
+    .wrap{padding:28px 14px 80px;}
+    h1{font-size:27px;}
+    .card{padding:22px 18px;}
+    .target{font-size:22px;}
+    .rung{font-size:12px;padding:10px 4px;}
+    button{padding:14px 16px;width:100%;justify-content:center;}
+    .controls{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Speak Up · 開口練習</div>
+    <h1>先開口,再求準。</h1>
+    <div class="sub">從單字到片語、句子,一步步習慣「講出聲音」這件事。題目網頁幫你準備好了,選類別就能一直練下去。</div>
+  </header>
+
+  <div class="mobile-note" id="mobileNote"></div>
+  <div id="unsupported" class="no-support" style="display:none;">
+    這個瀏覽器不支援語音辨識。iPhone 請用 Safari 開啟,Android 請用 Chrome 開啟;你還是可以看內容跟讀練習,只是沒辦法自動比對發音。
+  </div>
+
+  <div class="ladder" id="ladder"></div>
+  <div class="stage-desc" id="stageDesc"></div>
+  <div class="cats" id="cats"></div>
+
+  <div class="card">
+    <div class="target-meta">
+      <div class="target-label" id="targetLabel">跟著念</div>
+      <div class="target-cat" id="targetCat"></div>
+    </div>
+    <div class="target" id="target">Loading...</div>
+    <div class="target-zh" id="targetZh"></div>
+
+    <div class="controls">
+      <button class="primary" id="playBtn">🔊 播放發音</button>
+      <button id="recBtn">🎙 按一下開始講</button>
+    </div>
+
+    <div class="result" id="result">
+      <div class="you-said">你講的是</div>
+      <div class="heard" id="heard"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <div class="nav-row">
+      <span class="counter" id="counter"></span>
+      <button class="skip" id="skipBtn">下一題 →</button>
+    </div>
+  </div>
+
+  <details class="add-panel">
+    <summary>想加自己的內容?點這裡展開(選填,不影響上面的題庫)</summary>
+    <div class="add-body">
+      <div class="add-row">
+        <select id="customStage"></select>
+        <input type="text" id="customEn" placeholder="英文,例如 catch up on">
+        <input type="text" id="customZh" placeholder="中文意思(選填)">
+        <button id="addBtn">加入</button>
+      </div>
+    </div>
+  </details>
+
+  <footer>沒有標準答案,只有講出口的你。</footer>
+</div>
+
+<script>
+const STAGES = [
+  {
+    key:'word', label:'單字', desc:'看到單字,念出聲就好——不用完美,只要開口。',
+    items:[
+      {en:'candidate', zh:'應徵者、候選人', cat:'面試'},
+      {en:'strength', zh:'優勢、強項', cat:'面試'},
+      {en:'weakness', zh:'弱點', cat:'面試'},
+      {en:'available', zh:'有空的、可到職的', cat:'面試'},
+      {en:'internship', zh:'實習', cat:'面試'},
+      {en:'agenda', zh:'議程', cat:'開會'},
+      {en:'deadline', zh:'截止日期', cat:'開會'},
+      {en:'collaborate', zh:'合作', cat:'開會'},
+      {en:'update', zh:'進度更新', cat:'開會'},
+      {en:'feedback', zh:'回饋、意見', cat:'開會'},
+      {en:'research', zh:'研究', cat:'學術'},
+      {en:'hypothesis', zh:'假設', cat:'學術'},
+      {en:'methodology', zh:'研究方法', cat:'學術'},
+      {en:'significant', zh:'顯著的', cat:'學術'},
+      {en:'literature', zh:'文獻', cat:'學術'},
+      {en:'introduce', zh:'介紹', cat:'社交'},
+      {en:'industry', zh:'產業', cat:'社交'},
+      {en:'network', zh:'建立人脈', cat:'社交'},
+      {en:'appreciate', zh:'感激', cat:'社交'},
+      {en:'colleague', zh:'同事', cat:'社交'}
+    ]
+  },
+  {
+    key:'phrase', label:'片語', desc:'兩三個字一組,開始練習講話的節奏感。',
+    items:[
+      {en:'apply for a position', zh:'應徵一個職缺', cat:'面試'},
+      {en:'a good fit for', zh:'很適合...', cat:'面試'},
+      {en:'work under pressure', zh:'在壓力下工作', cat:'面試'},
+      {en:'take the initiative', zh:'主動採取行動', cat:'面試'},
+      {en:'strengths and weaknesses', zh:'優點與缺點', cat:'面試'},
+      {en:'be responsible for', zh:'負責...', cat:'開會'},
+      {en:'follow up on', zh:'追蹤、後續跟進', cat:'開會'},
+      {en:'meet the deadline', zh:'趕上截止日期', cat:'開會'},
+      {en:'give an update on', zh:'報告...的進度', cat:'開會'},
+      {en:'run into an issue', zh:'遇到一個問題', cat:'開會'},
+      {en:'present my findings', zh:'發表我的研究結果', cat:'學術'},
+      {en:'based on the data', zh:'根據這些數據', cat:'學術'},
+      {en:'in terms of', zh:'就...方面而言', cat:'學術'},
+      {en:'further research is needed', zh:'需要進一步研究', cat:'學術'},
+      {en:'nice to meet you', zh:'很高興認識你', cat:'社交'},
+      {en:'what do you do', zh:'你是做什麼工作的', cat:'社交'},
+      {en:'keep in touch', zh:'保持聯絡', cat:'社交'},
+      {en:'look forward to', zh:'期待', cat:'社交'}
+    ]
+  },
+  {
+    key:'sentence', label:'句子', desc:'完整句子,練語調跟停頓,講出一整句話。',
+    items:[
+      {en:"Could you tell me a bit about yourself?", zh:'可以簡單自我介紹一下嗎?', cat:'面試'},
+      {en:"I'm currently finishing my master's degree in...", zh:'我目前正在完成...的碩士學位。', cat:'面試'},
+      {en:"I believe my background makes me a strong fit for this role.", zh:'我相信我的背景讓我很適合這個職位。', cat:'面試'},
+      {en:"Can you tell me more about the team I'd be working with?", zh:'可以多說一些我會加入的團隊嗎?', cat:'面試'},
+      {en:"Could we push the meeting to tomorrow?", zh:'我們可以把會議延到明天嗎?', cat:'開會'},
+      {en:"I'm not sure, let me check and get back to you.", zh:'我不確定,讓我確認後回覆你。', cat:'開會'},
+      {en:"Could you clarify what the timeline looks like?", zh:'可以請你說明一下時程大概是怎樣嗎?', cat:'開會'},
+      {en:"I'd like to walk you through my results.", zh:'我想跟你說明一下我的研究結果。', cat:'學術'},
+      {en:"My research focuses on how X affects Y.", zh:'我的研究聚焦在X如何影響Y。', cat:'學術'},
+      {en:"That's a great question, let me think about it.", zh:'這是個好問題,讓我想一下。', cat:'學術'},
+      {en:"So, what brings you to this event?", zh:'那,是什麼讓你來參加這個活動的呢?', cat:'社交'},
+      {en:"Thanks for your time, it was great talking to you.", zh:'謝謝你的時間,很高興跟你聊天。', cat:'社交'}
+    ]
+  },
+  {
+    key:'free', label:'自由回答', desc:'看到情境,自己講一句——沒有標準答案,講出來就是贏。',
+    items:[
+      {en:"Introduce yourself in 30 seconds, as if in a job interview.", zh:'用30秒自我介紹,想像是在面試場合。', cat:'面試'},
+      {en:"Tell me why you're interested in this industry.", zh:'說說你為什麼對這個產業有興趣。', cat:'面試'},
+      {en:"Describe a challenge you faced and how you handled it.", zh:'描述一個你遇到的挑戰,還有你怎麼處理的。', cat:'面試'},
+      {en:"Explain a time you worked in a team.", zh:'描述一次你在團隊中合作的經驗。', cat:'開會'},
+      {en:"Give a 1-minute status update on a made-up project.", zh:'假裝有個專案,做一分鐘的進度報告。', cat:'開會'},
+      {en:"Explain your thesis topic to someone outside your field.", zh:'跟一個非本科系的人解釋你的論文主題。', cat:'學術'},
+      {en:"Describe a challenge you faced during your research.", zh:'描述你在研究過程中遇到的一個挑戰。', cat:'學術'},
+      {en:"Introduce yourself at a networking event.", zh:'想像在一場社交活動中自我介紹。', cat:'社交'}
+    ]
+  }
+];
+
+let stageIdx = 0;
+let itemIdx = 0;
+let activeCat = 'all';
+let recognition = null;
+let isRecording = false;
+
+const el = id => document.getElementById(id);
+
+function categoriesFor(stage){
+  const set = [];
+  stage.items.forEach(it => { if(it.cat && !set.includes(it.cat)) set.push(it.cat); });
+  return set;
+}
+
+function filteredItems(){
+  const stage = currentStage();
+  if(activeCat === 'all') return stage.items;
+  return stage.items.filter(it => it.cat === activeCat);
+}
+
+function renderLadder(){
+  const ladder = el('ladder');
+  ladder.innerHTML = '';
+  STAGES.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'rung' + (i===stageIdx?' active':'');
+    d.textContent = s.label;
+    d.onclick = () => { stageIdx = i; itemIdx = 0; activeCat = 'all'; render(); };
+    ladder.appendChild(d);
+  });
+}
+
+function renderCats(){
+  const wrap = el('cats');
+  wrap.innerHTML = '';
+  const cats = categoriesFor(currentStage());
+  const allPill = document.createElement('div');
+  allPill.className = 'cat-pill' + (activeCat==='all'?' active':'');
+  allPill.textContent = '全部';
+  allPill.onclick = () => { activeCat='all'; itemIdx=0; render(); };
+  wrap.appendChild(allPill);
+  cats.forEach(c => {
+    const p = document.createElement('div');
+    p.className = 'cat-pill' + (activeCat===c?' active':'');
+    p.textContent = c;
+    p.onclick = () => { activeCat=c; itemIdx=0; render(); };
+    wrap.appendChild(p);
+  });
+}
+
+function currentStage(){ return STAGES[stageIdx]; }
+function currentItem(){
+  const items = filteredItems();
+  if(itemIdx >= items.length) itemIdx = 0;
+  return items[itemIdx];
+}
+
+function render(){
+  renderLadder();
+  const stage = currentStage();
+  el('stageDesc').textContent = stage.desc;
+  renderCats();
+  el('targetLabel').textContent = stage.label === '自由回答' ? '看情境,講一句' : '跟著念';
+  const item = currentItem();
+  if(!item){ el('target').textContent = '這個類別還沒有題目'; el('targetZh').textContent=''; el('targetCat').textContent=''; el('counter').textContent=''; return; }
+  el('target').textContent = item.en;
+  el('targetZh').textContent = item.zh || '';
+  el('targetCat').textContent = item.cat || '';
+  el('counter').textContent = (itemIdx+1) + ' / ' + filteredItems().length;
+  el('result').classList.remove('show');
+  el('recBtn').textContent = '🎙 按一下開始講';
+  el('recBtn').classList.remove('recording');
+}
+
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.9;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+function levenshtein(a, b){
+  const m = a.length, n = b.length;
+  const dp = Array.from({length:m+1}, () => new Array(n+1).fill(0));
+  for(let i=0;i<=m;i++) dp[i][0]=i;
+  for(let j=0;j<=n;j++) dp[0][j]=j;
+  for(let i=1;i<=m;i++){
+    for(let j=1;j<=n;j++){
+      dp[i][j] = a[i-1]===b[j-1] ? dp[i-1][j-1] : 1+Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+    }
+  }
+  return dp[m][n];
+}
+
+function normalize(s){
+  return s.toLowerCase().replace(/[^\w\s']/g,'').trim();
+}
+
+function showResult(heardText){
+  const item = currentItem();
+  const isFree = currentStage().key === 'free';
+  el('heard').textContent = heardText || '(沒聽到聲音)';
+  el('result').classList.add('show');
+  const fb = el('feedback');
+
+  if(isFree){
+    fb.className = 'feedback';
+    fb.textContent = heardText ? '你講出來了——這就是重點,內容不用完美。' : '再試一次,講出你想到的任何一句話就好。';
+    return;
+  }
+
+  if(!heardText){
+    fb.className = 'feedback retry';
+    fb.textContent = '沒聽清楚,再按一次錄音試試看。';
+    return;
+  }
+
+  const a = normalize(heardText);
+  const b = normalize(item.en);
+  const dist = levenshtein(a, b);
+  const closeness = 1 - dist / Math.max(a.length, b.length, 1);
+
+  if(closeness > 0.85){
+    fb.className = 'feedback';
+    fb.textContent = '很接近了,講得不錯!';
+  } else if(closeness > 0.5){
+    fb.className = 'feedback retry';
+    fb.textContent = '有講到重點,但跟原句有點差距,可以再跟讀一次原音。';
+  } else {
+    fb.className = 'feedback retry';
+    fb.textContent = '差距比較大,先聽一次發音,再慢慢跟讀試試。';
+  }
+}
+
+function setupRecognition(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){
+    el('unsupported').style.display = 'block';
+    el('recBtn').disabled = true;
+    return;
+  }
+  recognition = new SR();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onresult = (e) => {
+    const text = e.results[0][0].transcript;
+    showResult(text);
+  };
+  recognition.onerror = () => {
+    showResult('');
+  };
+  recognition.onend = () => {
+    isRecording = false;
+    el('recBtn').textContent = '🎙 按一下開始講';
+    el('recBtn').classList.remove('recording');
+  };
+}
+
+function checkMobile(){
+  const ua = navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/.test(ua);
+  const isAndroid = /Android/.test(ua);
+  const note = el('mobileNote');
+  if(isIOS){
+    note.style.display = 'block';
+    note.textContent = 'iPhone 使用中:請確認是用 Safari 開啟這個頁面(不是 LINE 或 IG 內建瀏覽器),語音辨識才會正常運作。';
+  } else if(isAndroid){
+    note.style.display = 'block';
+    note.textContent = 'Android 使用中:請用 Chrome 開啟這個頁面,語音辨識才會正常運作。';
+  }
+}
+
+el('playBtn').onclick = () => speak(currentItem().en);
+
+el('recBtn').onclick = () => {
+  if(!recognition) return;
+  if(isRecording){
+    recognition.stop();
+    return;
+  }
+  isRecording = true;
+  el('recBtn').textContent = '⏺ 錄音中... 再按一次停止';
+  el('recBtn').classList.add('recording');
+  try{ recognition.start(); }catch(e){}
+};
+
+el('skipBtn').onclick = () => {
+  const items = filteredItems();
+  itemIdx = (itemIdx+1) % items.length;
+  render();
+};
+
+function populateCustomStageSelect(){
+  const sel = el('customStage');
+  sel.innerHTML = '';
+  STAGES.forEach((s, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = s.label;
+    sel.appendChild(opt);
+  });
+}
+
+el('addBtn').onclick = () => {
+  const en = el('customEn').value.trim();
+  const zh = el('customZh').value.trim();
+  const idx = parseInt(el('customStage').value, 10);
+  if(!en) return;
+  STAGES[idx].items.push({en, zh, cat:'自訂'});
+  el('customEn').value = '';
+  el('customZh').value = '';
+  el('addBtn').textContent = '已加入 ✓';
+  setTimeout(()=>{ el('addBtn').textContent = '加入'; }, 1200);
+  if(idx === stageIdx) render();
+};
+
+checkMobile();
+populateCustomStageSelect();
+setupRecognition();
+render();
+</script>
+</body>
+</html>
