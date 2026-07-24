@@ -119,6 +119,15 @@
     font-family:'Fraunces',serif;font-size:27px;font-weight:500;
     color:var(--ink);margin-bottom:6px;line-height:1.4;
   }
+  .clickable-word {
+    cursor: pointer;
+    transition: color 0.15s;
+    border-bottom: 1px dashed transparent;
+  }
+  .clickable-word:hover {
+    color: var(--sage);
+    border-bottom: 1px dashed var(--sage);
+  }
   .target-zh{color:var(--muted);font-size:15px;margin-bottom:24px;}
 
   .phon-block{margin:-8px 0 22px;}
@@ -703,7 +712,20 @@ function render(){
     el('targetZh').textContent=''; el('targetCat').textContent=''; el('counter').textContent=''; renderPhonetics(null); return; 
   }
   
-  el('target').textContent = item.en;
+  el('target').innerHTML = '';
+  const words = item.en.split(' ');
+  words.forEach((w, i) => {
+    const span = document.createElement('span');
+    span.textContent = w;
+    span.className = 'clickable-word';
+    span.title = '點擊發音';
+    span.onclick = () => {
+      const cleanWord = w.replace(/[^a-zA-Z0-9'-]/g, '');
+      if(cleanWord) playAudio({en: cleanWord});
+    };
+    el('target').appendChild(span);
+    if(i < words.length - 1) el('target').appendChild(document.createTextNode(' '));
+  });
   el('targetZh').textContent = item.zh || '';
   el('targetCat').textContent = item.cat ? (item.cat.startsWith('(AI) ') ? item.cat.replace('(AI) ', '✨ ') : item.cat) : '';
   el('counter').textContent = (itemIdx+1) + ' / ' + items.length;
@@ -1062,7 +1084,19 @@ const RANDOM_SCENARIOS = [
   "和外國朋友聊最近看的影集",
   "在機場海關被詢問目的",
   "在咖啡廳遇到外國人搭訕",
-  "去外國超市找不到雞蛋"
+  "去外國超市找不到雞蛋",
+  "在酒吧不知道怎麼點調酒",
+  "打電話去診所預約看診",
+  "跟室友溝通打掃房間的問題",
+  "在火車上請別人讓座",
+  "參加國外派對跟陌生人破冰",
+  "去銀行開戶被問一堆問題",
+  "在租車公司租車遇到保險推銷",
+  "去超市結帳不知道怎麼用自助結帳機",
+  "在餐廳吃飯發現帳單算錯了",
+  "跟教授討論期末報告的題目",
+  "在遊樂園找不到廁所",
+  "搭飛機時想跟空服員多要一杯水"
 ];
 el('aiRandomBtn').onclick = () => {
   const r = RANDOM_SCENARIOS[Math.floor(Math.random() * RANDOM_SCENARIOS.length)];
