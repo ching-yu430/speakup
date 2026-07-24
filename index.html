@@ -314,7 +314,7 @@
   <div class="stage-desc" id="stageDesc"></div>
   <div class="cats" id="cats"></div>
 
-  <div class="card">
+  <div class="card" id="mainCard">
     <div class="target-meta">
       <div class="target-label" id="targetLabel">跟著念</div>
       <div style="display:flex; align-items:center; gap:8px;">
@@ -522,7 +522,7 @@ function setAppMode(mode, isInitial = false) {
   el('stageDesc').style.display = (mode === 'general') ? 'block' : 'none';
   el('cats').style.display = (mode === 'roleplay') ? 'none' : 'flex';
   
-  document.querySelector('.card').style.display = (mode === 'roleplay') ? 'none' : 'block';
+  if(el('mainCard')) el('mainCard').style.display = (mode === 'roleplay') ? 'none' : 'block';
   if(el('rpContainer')) el('rpContainer').style.display = (mode === 'roleplay') ? 'block' : 'none';
   
   const addPanel = document.querySelector('.add-panel');
@@ -1378,56 +1378,65 @@ async function fetchRpResponse(contents) {
   }
 }
 
+function initRpSR() {
+  if(!SRClass) return;
+  rpSR = new SRClass();
+  rpSR.lang = 'en-US';
+  rpSR.continuous = false;
+  rpSR.interimResults = false;
+  
+  rpSR.onstart = () => {
+    rpIsRecording = true;
+    el('rpRecBtn').classList.add('recording');
+    el('rpStatus').textContent = '聆聽中... (請說話)';
+  };
+  
+  rpSR.onresult = async (e) => {
+    const heard = e.results[0][0].transcript;
+    if(!heard) return;
+    
+    const div = document.createElement('div');
+    div.className = 'msg-user';
+    div.innerHTML = `<strong>你:</strong> ${heard}`;
+    el('rpChat').appendChild(div);
+    el('rpChat').scrollTop = el('rpChat').scrollHeight;
+    
+    el('rpStatus').textContent = 'AI 思考中...';
+    
+    const prompt = `我說了："${heard}"。請評估這句話是否符合情境與文法，給予簡單的繁體中文回饋(feedback)，並順著對話繼續回覆我(next_response_en)。請強制回傳 JSON 格式：{"next_response_en": "", "next_response_zh": "", "feedback": "中文提示"}`;
+    
+    await fetchRpResponse([...rpHistory, {role: "user", parts: [{text: prompt}]}]);
+  };
+  
+  rpSR.onerror = (e) => {
+    if(el('rpStatus').textContent !== 'AI 思考中...') {
+      el('rpStatus').textContent = '聽不清楚，請再按一次麥克風。';
+    }
+  };
+  
+  rpSR.onend = () => {
+    rpIsRecording = false;
+    el('rpRecBtn').classList.remove('recording');
+    if(el('rpStatus').textContent.includes('聆聽中')) {
+      el('rpStatus').textContent = '請按下麥克風開始說話';
+    }
+  };
+}
+
 el('rpRecBtn').onclick = () => {
   if(!SRClass) { alert('您的瀏覽器不支援語音辨識'); return; }
+  if(!rpSR) initRpSR();
+  
+  if(el('rpStatus').textContent === 'AI 思考中...') return;
   
   if(rpIsRecording && rpSR) {
-    rpSR.stop();
+    try { rpSR.stop(); } catch(e){}
+    rpIsRecording = false;
     return;
   }
   
   warmUpMic();
   try {
-    rpSR = new SRClass();
-    rpSR.lang = 'en-US';
-    rpSR.continuous = false;
-    rpSR.interimResults = false;
-    
-    rpSR.onstart = () => {
-      rpIsRecording = true;
-      el('rpRecBtn').classList.add('recording');
-      el('rpStatus').textContent = '聆聽中... (請說話)';
-    };
-    
-    rpSR.onresult = async (e) => {
-      const heard = e.results[0][0].transcript;
-      if(!heard) return;
-      
-      const div = document.createElement('div');
-      div.className = 'msg-user';
-      div.innerHTML = `<strong>你:</strong> ${heard}`;
-      el('rpChat').appendChild(div);
-      el('rpChat').scrollTop = el('rpChat').scrollHeight;
-      
-      el('rpStatus').textContent = 'AI 思考中...';
-      
-      const prompt = `我說了："${heard}"。請評估這句話是否符合情境與文法，給予簡單的繁體中文回饋(feedback)，並順著對話繼續回覆我(next_response_en)。請強制回傳 JSON 格式：{"next_response_en": "", "next_response_zh": "", "feedback": "中文提示"}`;
-      
-      await fetchRpResponse([...rpHistory, {role: "user", parts: [{text: prompt}]}]);
-    };
-    
-    rpSR.onerror = (e) => {
-      el('rpStatus').textContent = '聽不清楚，請再按一次麥克風。';
-    };
-    
-    rpSR.onend = () => {
-      rpIsRecording = false;
-      el('rpRecBtn').classList.remove('recording');
-      if(el('rpStatus').textContent.includes('聆聽中')) {
-        el('rpStatus').textContent = '請按下麥克風開始說話';
-      }
-    };
-    
     rpSR.start();
   } catch(e) {
     console.error(e);
