@@ -443,7 +443,7 @@ function saveProgress(){
   localStorage.setItem('speakup_cat_progress', JSON.stringify(catProgress));
 }
 
-function setAppMode(mode) {
+function setAppMode(mode, isInitial = false) {
   appMode = mode;
   localStorage.setItem('speakup_appMode', appMode);
   
@@ -454,9 +454,11 @@ function setAppMode(mode) {
   el('ladder').style.display = mode === 'ai' ? 'none' : 'flex';
   el('stageDesc').style.display = mode === 'ai' ? 'none' : 'block';
   
-  activeCat = 'all';
-  itemIdx = getSavedItemIdx(stageIdx, activeCat);
-  saveProgress();
+  if(!isInitial) {
+    activeCat = 'all';
+    itemIdx = getSavedItemIdx(stageIdx, activeCat);
+    saveProgress();
+  }
   render();
 }
 
@@ -685,7 +687,10 @@ function render(){
   
   const items = filteredItems();
   const item = items[itemIdx];
-  if(!item){ el('target').textContent = '這個類別還沒有題目'; el('targetZh').textContent=''; el('targetCat').textContent=''; el('counter').textContent=''; renderPhonetics(null); return; }
+  if(!item){ 
+    el('target').textContent = '找不到題庫資料，請確認是否已上傳 word_bank.js！'; 
+    el('targetZh').textContent=''; el('targetCat').textContent=''; el('counter').textContent=''; renderPhonetics(null); return; 
+  }
   
   el('target').textContent = item.en;
   el('targetZh').textContent = item.zh || '';
@@ -1124,7 +1129,7 @@ initBank();
 populateCustomStageSelect();
 setupRecognition();
 // Initial App mode setup
-setAppMode(appMode);
+setAppMode(appMode, true);
 </script>
 </body>
 </html>
