@@ -1061,23 +1061,18 @@ function renderReview(){
     // 其中一半刻意左右翻轉(scaleX(-1)),葉形不會全部一模一樣。
     let leavesHtml = '';
     if (flowersInThisVase > 0) {
-      // 葉子以瓶口為中心，扇形外展，transform-origin: bottom center，部份重疊
-      // 5片葉子，從左到右，角度範圍約 -45° ~ +45°，中間葉直立
-      const LEAF_COUNT = 5;
-      const LEAF_ANGLE_RANGE = 80; // 總扇形角度
-      const leaveDefs = Array.from({ length: LEAF_COUNT }, (_, li) => {
-        const progress = LEAF_COUNT > 1 ? li / (LEAF_COUNT - 1) : 0.5;
-        const angle = -LEAF_ANGLE_RANGE / 2 + progress * LEAF_ANGLE_RANGE;
-        // 葉片大小：中間略大，兩側略小
-        const distFromCenter = Math.abs(progress - 0.5) * 2;
-        const leafSize = 20 - distFromCenter * 3;
-        // 中間葉片稍微往上抬(ty負值)，兩側略低
-        const leafTy = -6 + distFromCenter * 3;
-        const zLeaf = 10 + li;
-        return { angle, leafSize, leafTy, zLeaf, flip: li % 2 === 1 };
-      });
-      leavesHtml = leaveDefs.map(lf =>
-        `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(lf.leafSize / 2)}px; font-size:${lf.leafSize}px; line-height:1; transform:translateY(${lf.leafTy}px) rotate(${lf.angle}deg)${lf.flip ? ' scaleX(-1)' : ''}; transform-origin:50% 100%; z-index:${lf.zLeaf}; opacity:0.92;">🌿</div>`
+      // 葉子：沿瓶口水平分散各自的起點，再各自傾斜向外，形成自然的部份重疊扇形
+      // 5 片葉子，水平間距 11px（葉寬 ~18px，所以相鄰葉子約重疊 7px）
+      const LEAF_SPREAD = 11;  // 相鄰葉子水平起點間距
+      const leafDefs = [
+        { tx: -22, angle: -38, size: 18, flip: false, ty: 0  },
+        { tx: -11, angle: -18, size: 19, flip: true,  ty: -3 },
+        { tx:   0, angle:   0, size: 20, flip: false, ty: -5 },
+        { tx:  11, angle:  18, size: 19, flip: true,  ty: -3 },
+        { tx:  22, angle:  38, size: 18, flip: false, ty: 0  }
+      ];
+      leavesHtml = leafDefs.map((lf, li) =>
+        `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${(lf.tx - lf.size / 2).toFixed(1)}px; font-size:${lf.size}px; line-height:1; transform:translateY(${lf.ty}px) rotate(${lf.angle}deg)${lf.flip ? ' scaleX(-1)' : ''}; transform-origin:50% 100%; z-index:${8 + li}; opacity:0.93;">🌿</div>`
       ).join('');
     }
 
