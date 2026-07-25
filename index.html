@@ -105,14 +105,23 @@
   .dropdown-panel .cats{margin-bottom:0;}
 
   .app-tabs {
-    display: flex; gap: 4px; padding: 4px;
+    display: flex; gap: 4px; padding: 4px 4px 8px 4px;
     background: var(--sage-light); border-radius: 12px;
-    overflow-x: auto; scrollbar-width: none;
+    overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
   }
-  .app-tabs::-webkit-scrollbar { display: none; }
+  .app-tabs::-webkit-scrollbar {
+    height: 6px;
+  }
+  .app-tabs::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  .app-tabs::-webkit-scrollbar-thumb {
+    background: rgba(139, 156, 142, 0.4); 
+    border-radius: 10px;
+  }
   .app-tab {
-    flex: 0 0 auto; min-height: 58px; padding: 6px 12px; border: none; background: transparent;
+    flex: 0 0 auto; min-height: 58px; padding: 6px 14px; border: none; background: transparent;
     border-radius: 10px; font-weight: 600; color: var(--muted);
     cursor: pointer; transition: all 0.2s; line-height: 1.2;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -120,8 +129,8 @@
     -webkit-user-select: none; user-select: none;
   }
   .app-tab.active { background: var(--card); color: var(--sage-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-  .tab-icon { font-size: 24px; line-height: 1; }
-  .tab-label { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
+  .tab-icon { font-size: 26px; line-height: 1; }
+  .tab-label { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
 
   .review-container{ margin-bottom:20px; }
   details.review-group{ margin-bottom:16px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:4px 14px; }
@@ -216,10 +225,12 @@
 
   .cats{
     display:flex;gap:8px;margin-bottom:14px;
-    overflow-x:auto; padding-bottom:4px; flex-wrap:nowrap;
-    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    overflow-x:auto; padding-bottom:8px; flex-wrap:nowrap;
+    -webkit-overflow-scrolling:touch;
   }
-  .cats::-webkit-scrollbar { display:none; }
+  .cats::-webkit-scrollbar { height: 6px; }
+  .cats::-webkit-scrollbar-track { background: transparent; }
+  .cats::-webkit-scrollbar-thumb { background: rgba(139, 156, 142, 0.4); border-radius: 10px; }
   .cat-pill{
     flex-shrink:0;min-height:38px;display:flex;align-items:center;
     padding:0 16px;border-radius:999px;border:1px solid var(--line);
@@ -475,12 +486,12 @@
 
   <div class="dropdown-panel" id="modeDropdown">
     <nav class="app-tabs">
-      <button class="app-tab active" id="tabGeneral"><span class="tab-icon">🌱</span><span class="tab-label">系統題庫</span></button>
-      <button class="app-tab" id="tabAI"><span class="tab-icon">🤖</span><span class="tab-label">AI 情境</span></button>
+      <button class="app-tab active" id="tabGeneral"><span class="tab-icon">📚</span><span class="tab-label">系統題庫</span></button>
+      <button class="app-tab" id="tabAI"><span class="tab-icon">✨</span><span class="tab-label">AI 情境</span></button>
       <button class="app-tab" id="tabNews"><span class="tab-icon">📰</span><span class="tab-label">每日新聞</span></button>
-      <button class="app-tab" id="tabRoleplay"><span class="tab-icon">🎭</span><span class="tab-label">實戰對話</span></button>
+      <button class="app-tab" id="tabRoleplay"><span class="tab-icon">💬</span><span class="tab-label">實戰對話</span></button>
       <button class="app-tab" id="tabCompleted"><span class="tab-icon">✅</span><span class="tab-label">已完成</span></button>
-      <button class="app-tab" id="tabRandom"><span class="tab-icon">🎲</span><span class="tab-label">隨機抽考</span></button>
+      <button class="app-tab" id="tabRandom"><span class="tab-icon">🔁</span><span class="tab-label">隨機抽考</span></button>
       <button class="app-tab" id="tabFavorites"><span class="tab-icon">⭐</span><span class="tab-label">收藏</span></button>
       <button class="app-tab" id="tabReview"><span class="tab-icon">🏺</span><span class="tab-label">語感花室</span></button>
     </nav>
@@ -716,7 +727,7 @@ function updateTriggerTexts(){
   if(appMode==='roleplay') modeName = '🎭 實戰對話';
   if(appMode==='favorites') modeName = '⭐ 我的收藏';
   if(appMode==='review') modeName = '✅ 已完成';
-  if(appMode==='news') modeName = '📰 新聞時事';
+  if(appMode==='news') modeName = '新聞時事';
   if(appMode==='random') modeName = '🔁 隨機抽考';
   
   el('modeTriggerText').textContent = modeName;
@@ -1089,7 +1100,7 @@ async function generateNewsVocab(idx) {
     
     if(!WORD_BANK.word) WORD_BANK.word = [];
     parsed.words.forEach(w => {
-      w.cat = "📰 新聞時事";
+      w.cat = "新聞時事";
       w._type = 'word';
       WORD_BANK.word.push(w);
       aiGeneratedItems.push(w);
@@ -1100,7 +1111,7 @@ async function generateNewsVocab(idx) {
     statusEl.textContent = '✅ 已加入題庫！';
     
     setAppMode('general');
-    activeCat = "📰 新聞時事";
+    activeCat = "新聞時事";
     itemIdx = 0;
     render();
     updateTriggerTexts();
@@ -1154,7 +1165,7 @@ function jumpToItem(en){
       activeCat = 'all';
       
       // 判斷該題目是否屬於純 AI 模式（例如角色扮演生成的，開頭是 '(AI)'）
-      // 注意：新聞時事是 "📰 新聞時事"，不含 "(AI)"，所以會歸類在 general 模式
+      // 例如：如果新聞時事是 "新聞時事"，無 "(AI)"，所以會落在 general 模式
       const isAI = item.cat && item.cat.startsWith('(AI)');
       const targetMode = isAI ? 'ai' : 'general';
       
