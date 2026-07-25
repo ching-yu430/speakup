@@ -69,13 +69,13 @@
   }
 
   .topbar{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;
-    margin-bottom:8px;
+    display:flex;flex-direction:column;gap:12px;
+    margin-bottom:14px;
   }
   .brand{
     font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;
-    font-size:16px;color:var(--sage-dark);white-space:nowrap;flex-shrink:0;
-    display:flex; align-items:center; gap:6px;
+    font-size:20px;color:var(--sage-dark);white-space:nowrap;flex-shrink:0;
+    display:flex; align-items:center; justify-content: space-between; width: 100%;
   }
   .triple-bar{
     display:flex;gap:6px;flex:1;min-width:0;
@@ -436,7 +436,7 @@
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
 
   @media (max-width:520px){
-    .brand{font-size:14px;}
+    .brand{font-size:18px;}
     .trigger-btn{font-size:13px;min-height:38px;padding:0 6px;}
     .wrap{
       padding-top:28px;padding-bottom:calc(64px + env(safe-area-inset-bottom));
@@ -468,8 +468,8 @@
 
   <div class="topbar">
     <div class="brand">
-      🗣️ Speak Up
-      <button id="settingsBtn" style="background:none; border:none; padding:4px; font-size:15px; cursor:pointer; color:var(--muted);" title="設定與資料">⚙️</button>
+      <span>🗣️ Speak Up</span>
+      <button id="settingsBtn" style="background:none; border:none; padding:4px; font-size:18px; cursor:pointer; color:var(--muted);" title="設定與資料">⚙️</button>
     </div>
     <div class="triple-bar">
       <button type="button" class="trigger-btn" id="modeTrigger" style="flex:1.5; padding:0 8px;">
