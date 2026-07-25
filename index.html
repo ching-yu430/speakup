@@ -1019,7 +1019,7 @@ function renderReview(){
     const LAYER_X_OFFSET = [0, 13, 0];     // 每層整體左右平移(px),讓奇數層跟偶數層交錯開來
     const LAYER_STEM = [30, 46, 62];       // 每層基準莖長(px),前短後長,拉開層與層的垂直距離
     const LAYER_STEM_JITTER = 5;
-    const LAYER_ARC = 10;                  // 同層內,越靠中間的花莖越長一點,呈現圓弧花型
+    const LAYER_ARC = 22;                  // 同層內,越靠中間的花莖越長,兩側越短——弧度加大,呈現明顯的圓弧花型
     const LAYER_SIZE = [21, 19, 17];       // 前層花朵略大(近),後層略小(遠),增加層次感
     const LAYER_SIZE_JITTER = 3;
 
@@ -1051,17 +1051,22 @@ function renderReview(){
       flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${rot.toFixed(1)}deg; animation:popIn 0.4s both; animation-delay:${delay}s; z-index:${zIdx};">${fType}</div>`;
     }
 
-    // 瓶口插幾片葉子,縮短花與瓶口之間的視覺空白,也讓整把花看起來更完整
-    // 其中兩片故意左右翻轉(scaleX(-1)),葉形不會全部一模一樣
+    // 瓶口插一整圈葉子,弧度跟著花朵的圓弧走,由瓶口一路墊到花朵底部,
+    // 填滿花跟瓶口之間原本空蕩蕩的區域,才有「插花」的過渡感。
+    // 其中一半刻意左右翻轉(scaleX(-1)),葉形不會全部一模一樣。
     let leavesHtml = '';
     if (flowersInThisVase > 0) {
       const leaves = [
-        { tx: -36, ty: -4,  rot: -50, size: 22, flip: false },
-        { tx: -19, ty: -13, rot: -20, size: 19, flip: true  },
-        { tx: 19,  ty: -13, rot: 20,  size: 19, flip: true  },
-        { tx: 36,  ty: -4,  rot: 50,  size: 22, flip: false }
+        { tx: -52, ty: -8,  rot: -60, size: 20, flip: false },
+        { tx: -38, ty: -16, rot: -42, size: 19, flip: true  },
+        { tx: -22, ty: -21, rot: -22, size: 18, flip: false },
+        { tx: -8,  ty: -24, rot: -8,  size: 17, flip: true  },
+        { tx: 8,   ty: -24, rot: 8,   size: 17, flip: false },
+        { tx: 22,  ty: -21, rot: 22,  size: 18, flip: true  },
+        { tx: 38,  ty: -16, rot: 42,  size: 19, flip: false },
+        { tx: 52,  ty: -8,  rot: 60,  size: 20, flip: true  }
       ];
-      leavesHtml = leaves.map((lf, li) => `<div style="position:absolute; bottom:${NECK_TOP_Y - 6}px; left:50%; margin-left:${-(lf.size / 2)}px; font-size:${lf.size}px; line-height:1; transform:translate(${lf.tx}px, ${lf.ty}px) rotate(${lf.rot}deg)${lf.flip ? ' scaleX(-1)' : ''}; z-index:${6 + li}; opacity:0.95;">🌿</div>`).join('');
+      leavesHtml = leaves.map((lf, li) => `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(lf.size / 2)}px; font-size:${lf.size}px; line-height:1; transform:translate(${lf.tx}px, ${lf.ty}px) rotate(${lf.rot}deg)${lf.flip ? ' scaleX(-1)' : ''}; z-index:${6 + li}; opacity:0.95;">🌿</div>`).join('');
     }
 
 
