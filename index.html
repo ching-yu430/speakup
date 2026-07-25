@@ -1176,32 +1176,34 @@ function renderReview(){
   let gardenHtml = `
   <style>.vase-carousel::-webkit-scrollbar { display: none; }</style>
   <div style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 16px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
-    <div style="display:flex; gap:10px; align-items:flex-start;">
-      <!-- 左欄：花瓶 -->
-      <div style="flex:1; min-width:0; display:flex; flex-direction:column; align-items:center;">
-        <div style="position:relative; display:flex; align-items:center; width:100%;">
-          <button id="vasePrevBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8249;</button>
-          <div id="vaseCarousel" class="vase-carousel" style="flex:1; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:0; scrollbar-width:none; scroll-behavior:smooth;">
-            ${vasesHtml}
+    <div style="display:flex; gap:12px; align-items:stretch;">
+      <!-- 左欄：標題 + 花瓶 -->
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
+        <div style="font-size:17px; color:var(--sage-dark); font-weight:800; text-align:left; letter-spacing:0.5px; padding-left:4px; padding-top:2px;">你的語言盆栽</div>
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; padding-bottom:10px;">
+          <div style="position:relative; display:flex; align-items:center; width:100%;">
+            <button id="vasePrevBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8249;</button>
+            <div id="vaseCarousel" class="vase-carousel" style="flex:1; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:0; scrollbar-width:none; scroll-behavior:smooth;">
+              ${vasesHtml}
+            </div>
+            <button id="vaseNextBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8250;</button>
           </div>
-          <button id="vaseNextBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8250;</button>
+          ${totalVases > 1 ? `<div style="font-size:10px; color:var(--sage); margin-top:4px;">共 ${totalVases} 瓶，滑動查看</div>` : ''}
         </div>
-        ${totalVases > 1 ? `<div style="font-size:10px; color:var(--sage); margin-top:2px;">共 ${totalVases} 瓶，滑動查看</div>` : ''}
       </div>
-      <!-- 右欄：標題 + 統計 -->
-      <div style="width:120px; flex-shrink:0; display:flex; flex-direction:column; gap:7px;">
-        <div style="font-size:15px; color:var(--sage-dark); font-weight:700; line-height:1.3; padding:2px 0 6px 0; border-bottom:1.5px solid var(--line);">你的<br>語言盆栽</div>
-        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:7px 10px;">
-          <div style="font-size:10px; color:var(--muted); margin-bottom:1px;">🌷 已掌握</div>
-          <div style="font-size:18px; font-weight:700; color:var(--sage-dark); line-height:1.2;">${list.length} <span style="font-size:12px; font-weight:500;">詞</span></div>
+      <!-- 右欄：統計 (4個卡片) -->
+      <div style="width:115px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px;">
+          <div style="font-size:10px; color:var(--muted); margin-bottom:2px;">🌷 已掌握</div>
+          <div style="font-size:18px; font-weight:700; color:var(--sage-dark); line-height:1.1;">${list.length} <span style="font-size:12px; font-weight:500;">詞</span></div>
         </div>
-        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:7px 10px;">
-          <div style="font-size:10px; color:var(--muted); margin-bottom:1px;">🌱 下一朵花</div>
-          <div style="font-size:14px; font-weight:700; color:#7BAE7F;">還需 ${toNextFlower} 詞</div>
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px;">
+          <div style="font-size:10px; color:var(--muted); margin-bottom:2px;">🌱 下一朵花</div>
+          <div style="font-size:13px; font-weight:700; color:#7BAE7F; line-height:1.2;">還需 ${toNextFlower} 詞</div>
         </div>
-        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:7px 10px;">
-          <div style="font-size:10px; color:var(--muted); margin-bottom:1px;">✏️ 今日練習</div>
-          <div style="font-size:14px; font-weight:700; color:#e8a24b;">${todayCount > 0 ? `+${todayCount} 題` : '尚未開始'}</div>
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px;">
+          <div style="font-size:10px; color:var(--muted); margin-bottom:2px;">✏️ 今日練習</div>
+          <div style="font-size:13px; font-weight:700; color:#e8a24b; line-height:1.2;">${todayCount > 0 ? `+${todayCount} 題` : '尚未開始'}</div>
         </div>
         ${levelCardHtml}
       </div>
