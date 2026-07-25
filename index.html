@@ -42,7 +42,7 @@
     padding-right:calc(20px + env(safe-area-inset-right));
   }
 
-  header{margin-bottom:28px;}
+  header{margin-bottom:18px;}
   h1{
     font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;
     font-size:clamp(24px, 6vw, 34px);
@@ -56,7 +56,7 @@
   }
 
   .app-tabs {
-    display: flex; gap: 6px; margin-bottom: 24px; padding: 4px;
+    display: flex; gap: 6px; margin-bottom: 16px; padding: 4px;
     background: #e4ebe0; border-radius: 12px;
   }
   .app-tab {
@@ -110,7 +110,7 @@
   }
 
   .ladder{
-    display:flex;gap:6px;margin:24px 0 16px;
+    display:flex;gap:6px;margin:16px 0 10px;
   }
   .rung{
     flex:1;padding:12px 6px;text-align:center;border-radius:10px;
@@ -123,11 +123,11 @@
   }
 
   .stage-desc{
-    font-size:14px;color:var(--muted);margin-bottom:16px;padding-left:2px;
+    font-size:13px;color:var(--muted);margin-bottom:10px;padding-left:2px;
   }
 
   .cats{
-    display:flex;gap:8px;margin-bottom:24px;
+    display:flex;gap:8px;margin-bottom:14px;
     overflow-x:auto; padding-bottom:4px; flex-wrap:nowrap;
     -webkit-overflow-scrolling:touch; scrollbar-width:none;
   }
@@ -163,13 +163,14 @@
   }
   .target-zh{color:var(--muted);font-size:15px;margin-bottom:24px;}
 
-  .phon-block{margin:-8px 0 22px;}
-  .phon-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-  .phon-visual{font-family:'Fraunces',serif;font-size:16px;color:var(--muted);letter-spacing:.02em;}
-  .phon-visual .syl{transition:all .15s;}
-  .phon-visual .syl.stressed{font-size:23px;font-weight:600;color:var(--clay);}
-  .phon-visual .dot{color:var(--line);padding:0 2px;}
-  .phon-visual .phon-raw{font-size:16px;color:var(--muted);}
+  .phon-block{margin:-8px 0 22px;background:var(--sage-light);border-radius:12px;padding:14px 16px;}
+  .phon-label{font-size:11px;letter-spacing:.04em;color:var(--sage-dark);margin-bottom:8px;font-weight:600;}
+  .phon-visual{font-family:'Fraunces',serif;font-size:17px;color:var(--sage-dark);letter-spacing:.02em;line-height:1.5;}
+  .phon-visual .syl{transition:all .15s;text-transform:lowercase;}
+  .phon-visual .syl.stressed{font-size:26px;font-weight:700;color:var(--clay);text-transform:uppercase;}
+  .phon-visual .syl.secondary{font-size:19px;font-weight:600;color:var(--sage-dark);}
+  .phon-visual .dot{color:var(--muted);padding:0 1px;font-size:14px;}
+  .phon-raw-row{font-size:12px;color:var(--muted);margin-top:6px;font-family:'Inter',sans-serif;}
 
   .accent-row{display:flex;gap:6px;margin-bottom:2px;}
   .accent-btn{
@@ -210,15 +211,19 @@
   .btn-play-slow { background: #f1f5f9; color: #475569; font-size: 24px; }
   .btn-play-slow:hover { background: #e2e8f0; color: #334155; }
 
-  button.skip {
-    font-family:'Inter',sans-serif;font-size:14px;font-weight:600;
-    border-radius:10px;border:1px solid var(--line);background:#fff;
-    padding:13px 18px;cursor:pointer;color:var(--ink);
-    display:inline-flex;align-items:center;gap:8px;
-    transition:all .15s;-webkit-user-select:none;user-select:none;
+  .quick-nav{
+    display:flex;align-items:center;justify-content:center;gap:16px;
+    margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--line);
   }
-  button.skip:hover { border-color:var(--sage); }
-  button.skip:active { transform:scale(.97); }
+  .nav-arrow{
+    width:38px;height:38px;border-radius:50%;
+    border:1px solid var(--line);background:#fff;color:var(--ink);
+    font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:all .15s;-webkit-user-select:none;user-select:none;padding:0;
+  }
+  .nav-arrow:hover{border-color:var(--sage);color:var(--sage-dark);}
+  .nav-arrow:active{transform:scale(.92);}
+  .quick-nav .counter{font-size:13px;color:var(--muted);min-width:64px;text-align:center;}
   #recBtn{touch-action:none;-webkit-user-select:none;user-select:none;}
 
   .live-transcript{
@@ -241,7 +246,6 @@
   }
   .feedback.retry{background:var(--clay-light);color:#8a4a26;}
 
-  .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;flex-wrap:wrap;gap:10px;}
   .counter{font-size:13px;color:var(--muted);}
   .skip{background:none;border:none;color:var(--muted);text-decoration:underline;padding:4px;font-weight:400;}
 
@@ -282,6 +286,8 @@
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
 
   @media (max-width:520px){
+    header{margin-bottom:14px;}
+    .sub{font-size:13px;}
     .wrap{
       padding-top:28px;padding-bottom:calc(64px + env(safe-area-inset-bottom));
       padding-left:calc(14px + env(safe-area-inset-left));
@@ -293,10 +299,6 @@
     .app-tab{font-size:12px;padding:8px 2px;}
     .btn-mic{width:76px;height:76px;font-size:32px;}
     .controls{gap:14px;}
-
-    .nav-row { margin-top: 32px; }
-    .nav-row > div { display: flex; gap: 8px; width: 100%; justify-content: space-between; margin-top: 12px; }
-    button.skip { padding: 12px; flex: 1; justify-content: center; margin: 0 !important; }
   }
 
   @media (max-width:360px){
@@ -360,6 +362,12 @@
   <div class="cats" id="cats"></div>
 
   <div class="card" id="mainCard">
+    <div class="quick-nav" id="quickNav">
+      <button class="nav-arrow" id="prevBtn" title="上一題">←</button>
+      <span class="counter" id="counter"></span>
+      <button class="nav-arrow" id="skipBtn" title="下一題">→</button>
+    </div>
+
     <div class="target-meta">
       <div class="target-label" id="targetLabel">跟著念</div>
       <div style="display:flex; align-items:center; gap:8px;">
@@ -371,8 +379,9 @@
     <div class="target-zh" id="targetZh"></div>
 
     <div class="phon-block" id="phonBlock" style="display:none;">
-      <div class="phon-label">發音提示 (自然發音)</div>
+      <div class="phon-label">怎麼唸(重音節放大,不是KK音標)</div>
       <div class="phon-visual" id="phonVisual"></div>
+      <div class="phon-raw-row" id="phonRawRow"></div>
     </div>
 
     <div class="accent-row">
@@ -393,14 +402,6 @@
       <div class="feedback" id="feedback"></div>
       <button id="coachBtn" style="display:none; margin-top:12px; background:var(--sage); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">💡 請 AI 教練抓漏</button>
       <div id="coachFeedback" style="display:none; margin-top:12px; font-size:14px; background:#f8fafc; border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); line-height:1.5;"></div>
-    </div>
-
-    <div class="nav-row">
-      <span class="counter" id="counter"></span>
-      <div>
-        <button class="skip" id="prevBtn" style="margin-right:8px;">← 上一題</button>
-        <button class="skip" id="skipBtn">下一題 →</button>
-      </div>
     </div>
   </div>
 
@@ -597,8 +598,8 @@ function setAppMode(mode, isInitial = false) {
   const addPanel = document.querySelector('.add-panel');
   if(addPanel) addPanel.style.display = (mode === 'roleplay' || mode === 'review') ? 'none' : 'block';
   
-  const navRow = document.querySelector('.nav-row');
-  if(navRow) navRow.style.display = (mode === 'roleplay' || mode === 'review') ? 'none' : 'flex';
+  const quickNav = el('quickNav');
+  if(quickNav) quickNav.style.display = (mode === 'roleplay' || mode === 'review') ? 'none' : 'flex';
   
   if(!isInitial && mode !== 'roleplay' && mode !== 'review') {
     activeCat = 'all';
@@ -792,39 +793,53 @@ function fetchAndEnrich(item){
   });
 }
 
-// 把音標字串拆成音節，並把重音節放大加粗
+// 把 IPA/KK 音標符號轉換成看得懂的英文字母拼法（近似值，幫助抓感覺，不是精確音標）
+const IPA_TO_PLAIN = [
+  ['tʃ','ch'], ['dʒ','j'],
+  ['eɪ','ay'], ['aɪ','ai'], ['ɔɪ','oy'], ['aʊ','ow'], ['oʊ','oh'],
+  ['ɜːr','er'], ['ɜː','er'], ['ɝ','er'], ['ər','er'], ['ɚ','er'],
+  ['ɔːr','or'], ['ɑːr','ar'], ['ɔː','aw'], ['ɑː','ah'],
+  ['iː','ee'], ['uː','oo'],
+  ['ʃ','sh'], ['ʒ','zh'], ['θ','th'], ['ð','th'], ['ŋ','ng'],
+  ['ɪ','i'], ['ɛ','e'], ['æ','a'], ['ɒ','ah'], ['ʌ','uh'], ['ʊ','u'], ['ə','uh'],
+  ['ɹ','r'], ['ɡ','g'], ['j','y']
+];
+
+function ipaToPlain(syl){
+  let s = syl;
+  IPA_TO_PLAIN.forEach(([ipa, plain]) => { s = s.split(ipa).join(plain); });
+  return s.replace(/[ːˑ]/g, '');
+}
+
+// 把音標字串拆成音節，轉換成白話拼音，並把重音節放大加粗
 function renderPhonetics(phon){
   const block = el('phonBlock');
   const visual = el('phonVisual');
-  if(!phon){ block.style.display = 'none'; visual.innerHTML = ''; return; }
+  const rawRow = el('phonRawRow');
+  if(!phon){ block.style.display = 'none'; visual.innerHTML = ''; if(rawRow) rawRow.textContent = ''; return; }
   block.style.display = 'block';
   const clean = phon.replace(/^\/|\/$/g,'').trim().replace(/ɹ/g, 'r').replace(/ɡ/g, 'g');
 
   // 確保重音符號和句點都可以作為音節分隔
-  // 先把重音符號替換成具有分隔功能的格式，例如在前面加上句點
   let marked = clean.replace(/([ˈˌ])/g, '.$1');
-  // 移除連續的句點（例如原本就有句點的地方變成 ..）
   marked = marked.replace(/\.+/g, '.');
-  // 移除開頭的句點
   marked = marked.replace(/^\./, '');
 
   const parts = marked.split('.').filter(Boolean);
-  if(parts.length <= 1){
-    // 單音節，直接顯示
-    visual.innerHTML = '<span class="phon-raw">/' + clean + '/</span>';
-    return;
-  }
 
   const syllables = parts.map(syl => ({
-    text: syl.replace(/[ˈˌ]/g,''),
+    raw: syl.replace(/[ˈˌ]/g,''),
     stressed: syl.includes('ˈ'),
     secondary: syl.includes('ˌ')
   }));
 
   visual.innerHTML = syllables.map(s => {
-    const cls = s.stressed ? ' stressed' : '';
-    return '<span class="syl' + cls + '">' + s.text + '</span>';
-  }).join('<span class="dot"> · </span>');
+    const cls = s.stressed ? ' stressed' : (s.secondary ? ' secondary' : '');
+    const plain = ipaToPlain(s.raw) || s.raw;
+    return '<span class="syl' + cls + '">' + plain + '</span>';
+  }).join('<span class="dot">·</span>');
+
+  if(rawRow) rawRow.textContent = '原始音標 /' + clean + '/';
 }
 
 function categoriesForMode(mode) {
