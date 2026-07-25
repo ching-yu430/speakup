@@ -54,11 +54,11 @@
     display:flex;gap:6px;flex:1;min-width:0;
   }
   .trigger-btn{
-    flex:1;min-width:0;min-height:38px;
+    flex:1;min-width:0;min-height:42px;
     display:flex;align-items:center;justify-content:center;gap:4px;
-    padding:0 8px;border-radius:999px;
+    padding:0 10px;border-radius:999px;
     border:1px solid var(--line);background:var(--card);
-    font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:var(--ink);
+    font-family:'Inter',sans-serif;font-size:14.5px;font-weight:700;color:var(--ink);
     cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;
   }
   .trigger-btn:hover{border-color:var(--sage);}
@@ -235,7 +235,7 @@
 
   .quick-nav{
     display:flex;align-items:center;justify-content:center;gap:16px;
-    margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--line);
+    margin-top:20px;padding-top:16px;border-top:1px solid var(--line);
   }
   .nav-arrow{
     width:38px;height:38px;border-radius:50%;
@@ -272,25 +272,35 @@
   .skip{background:none;border:none;color:var(--muted);text-decoration:underline;padding:4px;font-weight:400;}
 
   details.add-panel{
-    margin-top:32px;
+    margin-top:28px;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:14px 18px;
   }
   details.add-panel summary{
-    cursor:pointer;font-size:14px;color:var(--muted);text-decoration:underline;
+    cursor:pointer;font-size:13px;font-weight:600;color:var(--sage-dark);
     list-style:none;-webkit-user-select:none;user-select:none;
+    display:flex;align-items:center;gap:6px;
   }
+  details.add-panel summary::before{content:'✎';font-size:13px;}
   details.add-panel summary::-webkit-details-marker{display:none;}
-  .add-body{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line);}
-  .add-row{display:flex;gap:8px;flex-wrap:wrap;}
-  .add-row input{
-    flex:1;min-width:140px;padding:10px 12px;border-radius:10px;
+  .add-body{
+    margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .add-field{display:flex;flex-direction:column;gap:5px;}
+  .add-label{font-size:12px;color:var(--muted);font-weight:600;}
+  .add-field input, .add-field select{
+    width:100%;padding:10px 12px;border-radius:10px;
     border:1px solid var(--line);font-size:14px;font-family:'Inter',sans-serif;
     background:#fff;color:var(--ink);
   }
-  .add-row input:focus{outline:none;border-color:var(--sage);}
-  .add-row select{
-    padding:10px 12px;border-radius:10px;border:1px solid var(--line);
-    font-size:14px;font-family:'Inter',sans-serif;background:#fff;color:var(--ink);
+  .add-field input:focus, .add-field select:focus{outline:none;border-color:var(--sage);}
+  .add-submit-btn{
+    margin-top:2px;padding:12px;border:none;border-radius:10px;
+    background:var(--sage);color:#fff;font-weight:700;font-size:14px;
+    cursor:pointer;transition:background .15s;
   }
+  .add-submit-btn:hover{background:var(--sage-dark);}
+  .add-submit-btn:disabled{opacity:.7;cursor:default;}
 
   .mobile-note{
     background:var(--sage-light);color:var(--sage-dark);padding:14px 18px;
@@ -309,7 +319,7 @@
 
   @media (max-width:520px){
     .brand{font-size:14px;}
-    .trigger-btn{font-size:11.5px;min-height:34px;padding:0 6px;}
+    .trigger-btn{font-size:13px;min-height:38px;padding:0 6px;}
     .wrap{
       padding-top:28px;padding-bottom:calc(64px + env(safe-area-inset-bottom));
       padding-left:calc(14px + env(safe-area-inset-left));
@@ -325,6 +335,7 @@
 
   @media (max-width:360px){
     .app-tab{font-size:11px;}
+    .trigger-btn{font-size:11.5px;padding:0 4px;}
   }
 </style>
 </head>
@@ -408,12 +419,6 @@
     <div class="target" id="target">Loading...</div>
     <div class="target-zh" id="targetZh"></div>
 
-    <div class="quick-nav" id="quickNav">
-      <button class="nav-arrow" id="prevBtn" title="上一題">←</button>
-      <span class="counter" id="counter"></span>
-      <button class="nav-arrow" id="skipBtn" title="下一題">→</button>
-    </div>
-
     <div class="phon-block" id="phonBlock" style="display:none;">
       <div class="phon-label">怎麼唸(重音節放大,不是KK音標)</div>
       <div class="phon-visual" id="phonVisual"></div>
@@ -439,6 +444,12 @@
       <button id="coachBtn" style="display:none; margin-top:12px; background:var(--sage); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">💡 請 AI 教練抓漏</button>
       <div id="coachFeedback" style="display:none; margin-top:12px; font-size:14px; background:#f8fafc; border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); line-height:1.5;"></div>
     </div>
+
+    <div class="quick-nav" id="quickNav">
+      <button class="nav-arrow" id="prevBtn" title="上一題">←</button>
+      <span class="counter" id="counter"></span>
+      <button class="nav-arrow" id="skipBtn" title="下一題">→</button>
+    </div>
   </div>
 
   <div class="ai-modal-overlay" id="aiModal">
@@ -458,12 +469,19 @@
   <details class="add-panel">
     <summary>想加自己的內容?點這裡展開(選填,不影響上面的題庫)</summary>
     <div class="add-body">
-      <div class="add-row">
+      <div class="add-field">
+        <label class="add-label" for="customStage">加到哪個階段</label>
         <select id="customStage"></select>
-        <input type="text" id="customEn" placeholder="英文(單字會自動查音標)">
-        <input type="text" id="customZh" placeholder="中文(留空且已設定AI Key會自動翻譯)">
-        <button id="addBtn">加入</button>
       </div>
+      <div class="add-field">
+        <label class="add-label" for="customEn">英文</label>
+        <input type="text" id="customEn" placeholder="輸入英文,單字會自動查音標">
+      </div>
+      <div class="add-field">
+        <label class="add-label" for="customZh">中文(選填)</label>
+        <input type="text" id="customZh" placeholder="留空且已設定AI Key會自動翻譯">
+      </div>
+      <button id="addBtn" class="add-submit-btn">＋ 加入題庫</button>
     </div>
   </details>
 
@@ -714,7 +732,7 @@ el('tabReview').onclick = () => setAppMode('review');
 
 /* ---------- 已完成清單畫面 ---------- */
 function jumpToItem(en){
-  for(let i=0;i<4;i++){ // 只找 word/phrase/sentence/free 四個原始階段,不找 favorites
+  for(let i=0;i<STAGES.length;i++){ // 所有階段都要搜尋，包含⭐收藏，才能點回自訂加入的內容
     const idx = STAGES[i].items.findIndex(x => x.en === en);
     if(idx !== -1){
       stageIdx = i;
@@ -773,6 +791,26 @@ try {
   if(savedAI) aiGeneratedItems = JSON.parse(savedAI);
 } catch(e) {}
 
+// 使用者自訂加入的題目(透過「想加自己的內容」表單)，需另外持久化，
+// 不然重新整理頁面後「已完成」清單裡的自訂項目會找不到資料而點不回去。
+let customItems = [];
+try {
+  const savedCustom = localStorage.getItem('speakup_custom_items');
+  if(savedCustom) customItems = JSON.parse(savedCustom);
+} catch(e) {}
+function saveCustomItems(){
+  localStorage.setItem('speakup_custom_items', JSON.stringify(customItems));
+}
+function restoreCustomItems(){
+  customItems.forEach(saved => {
+    const stage = STAGES.find(s => s.key === saved._stageKey);
+    if(!stage) return;
+    if(stage.items.some(x => x.en === saved.en)) return; // 避免重複加入
+    const { _stageKey, ...item } = saved;
+    stage.items.push(item);
+  });
+}
+
 /* ---------- 題庫擴充 ---------- */
 // 已存在的 en 集合（避免重複）
 function existingEnSet(stage){
@@ -807,6 +845,7 @@ function initBank(){
   });
 }
 initBank();
+restoreCustomItems();
 
 const DICT_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
@@ -1402,10 +1441,12 @@ el('addBtn').onclick = async () => {
 
   addBtn.disabled = false;
   stage.items.push(item);
+  customItems.push({ _stageKey: stage.key, ...item });
+  saveCustomItems();
   el('customEn').value = '';
   el('customZh').value = '';
   addBtn.textContent = '已加入 ✓';
-  setTimeout(()=>{ addBtn.textContent = '加入'; }, 1200);
+  setTimeout(()=>{ addBtn.textContent = '＋ 加入題庫'; }, 1200);
   if(idx === stageIdx) render();
 };
 
