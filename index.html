@@ -314,6 +314,8 @@
   .msg-ai { background: var(--sage-light); color: var(--sage-dark); padding: 12px 16px; border-radius: 12px 12px 12px 0; align-self: flex-start; max-width: 85%; font-size: 15px; line-height: 1.4; }
   .msg-user { background: var(--clay-light); color: #8a4a26; padding: 12px 16px; border-radius: 12px 12px 0 12px; align-self: flex-end; max-width: 85%; font-size: 15px; line-height: 1.4; }
   .msg-tip { font-size: 12px; color: #8a4a26; opacity: 0.8; margin-top: 6px; border-top: 1px dashed rgba(138,74,38,0.3); padding-top: 6px; }
+  .rp-chat { max-height: 55vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .fav-remove-btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
 
@@ -364,6 +366,7 @@
       <button class="app-tab active" id="tabGeneral">📚 系統題庫</button>
       <button class="app-tab" id="tabAI">✨ AI情境</button>
       <button class="app-tab" id="tabRoleplay">💬 實戰對話</button>
+      <button class="app-tab" id="tabFavorites">⭐ 收藏</button>
       <button class="app-tab" id="tabReview">✅ 已完成</button>
     </nav>
   </div>
@@ -402,6 +405,7 @@
     </div>
   </div>
 
+  <div class="review-container" id="favoritesContainer" style="display:none;"></div>
   <div class="review-container" id="reviewContainer" style="display:none;"></div>
 
   <div id="unsupported" class="no-support" style="display:none;">
@@ -413,7 +417,7 @@
       <div class="target-label" id="targetLabel">跟著念</div>
       <div style="display:flex; align-items:center; gap:8px;">
         <div class="target-cat" id="targetCat"></div>
-        <button id="favBtn" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);padding:0;line-height:1;" title="加入收藏">☆</button>
+        <button id="favBtn" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);padding:8px;margin:-8px;line-height:1;min-width:44px;min-height:44px;" title="加入收藏">☆</button>
       </div>
     </div>
     <div class="target" id="target">Loading...</div>
@@ -527,7 +531,7 @@ el('catDropdown').addEventListener('click', (e) => {
 });
 
 function updateTriggerTexts(){
-  const modeLabels = { general:'📚 系統題庫', ai:'✨ AI情境', roleplay:'💬 實戰對話', review:'✅ 已完成' };
+  const modeLabels = { general:'📚 系統題庫', ai:'✨ AI情境', roleplay:'💬 實戰對話', favorites:'⭐ 收藏', review:'✅ 已完成' };
   el('modeTriggerText').textContent = modeLabels[appMode] || '📚 系統題庫';
 
   const showStageAndCat = (appMode === 'general' || appMode === 'ai');
@@ -672,7 +676,9 @@ let savedCat = localStorage.getItem('speakup_cat');
 let savedCatProgressStr = localStorage.getItem('speakup_cat_progress');
 let catProgress = savedCatProgressStr ? JSON.parse(savedCatProgressStr) : {};
 let geminiApiKey = localStorage.getItem('speakup_apikey') || '';
-let appMode = localStorage.getItem('speakup_appMode') || 'general';
+const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'review'];
+const savedMode = localStorage.getItem('speakup_appMode');
+let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
 function getSavedItemIdx(sIdx, cat) {
   const key = `${sIdx}_${cat}`;
@@ -698,29 +704,34 @@ function setAppMode(mode, isInitial = false) {
   el('tabGeneral').classList.toggle('active', mode === 'general');
   el('tabAI').classList.toggle('active', mode === 'ai');
   if(el('tabRoleplay')) el('tabRoleplay').classList.toggle('active', mode === 'roleplay');
+  if(el('tabFavorites')) el('tabFavorites').classList.toggle('active', mode === 'favorites');
   if(el('tabReview')) el('tabReview').classList.toggle('active', mode === 'review');
+  
+  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'favorites');
   
   el('aiActions').style.display = mode === 'ai' ? 'block' : 'none';
   el('ladder').style.display = (mode === 'general') ? 'flex' : 'none';
   el('stageDesc').style.display = (mode === 'general') ? 'block' : 'none';
-  el('cats').style.display = (mode === 'roleplay' || mode === 'review') ? 'none' : 'flex';
+  el('cats').style.display = isSpecialMode ? 'none' : 'flex';
   
-  if(el('mainCard')) el('mainCard').style.display = (mode === 'roleplay' || mode === 'review') ? 'none' : 'block';
+  if(el('mainCard')) el('mainCard').style.display = isSpecialMode ? 'none' : 'block';
   if(el('rpContainer')) el('rpContainer').style.display = (mode === 'roleplay') ? 'block' : 'none';
+  if(el('favoritesContainer')) el('favoritesContainer').style.display = (mode === 'favorites') ? 'block' : 'none';
   if(el('reviewContainer')) el('reviewContainer').style.display = (mode === 'review') ? 'block' : 'none';
   
   const addPanel = document.querySelector('.add-panel');
-  if(addPanel) addPanel.style.display = (mode === 'roleplay' || mode === 'review') ? 'none' : 'block';
+  if(addPanel) addPanel.style.display = isSpecialMode ? 'none' : 'block';
   
   const quickNav = el('quickNav');
-  if(quickNav) quickNav.style.display = (mode === 'roleplay' || mode === 'review') ? 'none' : 'flex';
+  if(quickNav) quickNav.style.display = isSpecialMode ? 'none' : 'flex';
   
-  if(!isInitial && mode !== 'roleplay' && mode !== 'review') {
+  if(!isInitial && !isSpecialMode) {
     activeCat = 'all';
     itemIdx = getSavedItemIdx(stageIdx, activeCat);
     saveProgress();
   }
   if(mode === 'review') renderReview();
+  if(mode === 'favorites') renderFavorites();
   render();
   updateTriggerTexts();
 }
@@ -728,11 +739,13 @@ function setAppMode(mode, isInitial = false) {
 el('tabGeneral').onclick = () => setAppMode('general');
 el('tabAI').onclick = () => setAppMode('ai');
 el('tabRoleplay').onclick = () => setAppMode('roleplay');
+el('tabFavorites').onclick = () => setAppMode('favorites');
 el('tabReview').onclick = () => setAppMode('review');
 
 /* ---------- 已完成清單畫面 ---------- */
 function jumpToItem(en){
-  for(let i=0;i<STAGES.length;i++){ // 所有階段都要搜尋，包含⭐收藏，才能點回自訂加入的內容
+  for(let i=0;i<STAGES.length;i++){
+    if(STAGES[i].key === 'favorites') continue; // skip the favorites pseudo-stage
     const idx = STAGES[i].items.findIndex(x => x.en === en);
     if(idx !== -1){
       stageIdx = i;
@@ -782,6 +795,64 @@ function renderReview(){
 
   container.querySelectorAll('.review-item').forEach(row => {
     row.onclick = () => jumpToItem(row.getAttribute('data-en'));
+  });
+}
+
+function renderFavorites(){
+  const container = el('favoritesContainer');
+  if(favorites.length === 0){
+    container.innerHTML = '<div class="review-empty">⭐ 還沒有收藏。<br>在練習卷片右上角點 <strong>☆</strong> 可以將題目加入收藏。</div>';
+    return;
+  }
+
+  const groups = {};
+  favorites.forEach(it => {
+    const cat = it.cat || '未分類';
+    const displayCat = cat.startsWith('(AI) ') ? cat.replace('(AI) ','✨ ') : cat;
+    if(!groups[displayCat]) groups[displayCat] = [];
+    groups[displayCat].push(it);
+  });
+
+  const sortedCats = Object.keys(groups).sort();
+  let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);">\u9ede项目可回到練習，點⭐可取消收藏。</div>';
+  sortedCats.forEach(cat => {
+    const items = groups[cat];
+    html += `<div class="review-group">
+      <div class="review-group-title"><span>${cat}</span><span class="review-group-count">${items.length} \u984c</span></div>`;
+    items.forEach(it => {
+      html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
+        <div style="flex:1;min-width:0;">
+          <div class="review-item-en">${it.en}</div>
+          ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+          <button class="fav-remove-btn" data-en="${it.en.replace(/"/g,'&quot;')}" title="\u53d6消收藏" style="background:none;border:none;cursor:pointer;font-size:20px;padding:6px;line-height:1;min-width:36px;min-height:36px;">⭐</button>
+          <span style="color:var(--muted);font-size:14px;">→</span>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  container.innerHTML = html;
+
+  container.querySelectorAll('.review-item').forEach(row => {
+    row.onclick = (e) => {
+      if(e.target.closest('.fav-remove-btn')) return;
+      jumpToItem(row.getAttribute('data-en'));
+    };
+  });
+
+  container.querySelectorAll('.fav-remove-btn').forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const en = btn.getAttribute('data-en');
+      favorites = favorites.filter(f => f.en !== en);
+      saveFavorites();
+      // Also update the favorites STAGE items
+      const favStage = STAGES.find(s => s.key === 'favorites');
+      if(favStage) favStage.items = favorites;
+      renderFavorites();
+    };
   });
 }
 
@@ -1015,6 +1086,7 @@ function renderLadder(){
   const ladder = el('ladder');
   ladder.innerHTML = '';
   STAGES.forEach((s, i) => {
+    if(s.key === 'favorites') return; // favorites is now a top-level mode tab
     const d = document.createElement('div');
     d.className = 'rung' + (i===stageIdx?' active':'');
     d.textContent = s.label;
@@ -1050,7 +1122,7 @@ function currentItem(){
 }
 
 function render(){
-  if(appMode === 'roleplay') return;
+  if(appMode === 'roleplay' || appMode === 'favorites' || appMode === 'review') return;
   renderLadder();
   const stage = currentStage();
   el('stageDesc').textContent = stage.desc;
@@ -1401,6 +1473,7 @@ function populateCustomStageSelect(){
   const sel = el('customStage');
   sel.innerHTML = '';
   STAGES.forEach((s, i) => {
+    if(s.key === 'favorites') return; // skip favorites in the add-content selector
     const opt = document.createElement('option');
     opt.value = i;
     opt.textContent = s.label;
@@ -1767,6 +1840,9 @@ function initRpSR() {
     if(el('rpStatus').textContent.includes('聆聽中')) {
       el('rpStatus').textContent = '請按下麥克風開始說話';
     }
+    // iOS fix: SpeechRecognition instance becomes unusable after onend,
+    // must create a new one before next start()
+    rpSR = null;
   };
 }
 
