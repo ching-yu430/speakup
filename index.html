@@ -654,6 +654,16 @@ function recordPracticed(item, stageIdx){
     stage: stageIdx
   };
   savePracticed();
+  // 追蹤今日練習題數
+  const today = new Date().toISOString().slice(0,10);
+  const stored = JSON.parse(localStorage.getItem('speakup_daily') || '{"date":"","count":0}');
+  if(stored.date === today) {
+    stored.count++;
+  } else {
+    stored.date = today;
+    stored.count = 1;
+  }
+  localStorage.setItem('speakup_daily', JSON.stringify(stored));
 }
 
 const STAGES = [
@@ -1098,19 +1108,65 @@ function renderReview(){
     `;
   }
 
+  // 等級系統（15 階，涵蓋 0–2000+ 詞）
+  const levelDefs = [
+    { min:0,    max:9,    label:'\ud83c\udf31 \u5a29\u82bd',     color:'#8fba6c' },
+    { min:10,   max:24,   label:'\ud83e\udeb4 \u5c0f\u82d7',     color:'#6dba8c' },
+    { min:25,   max:49,   label:'\ud83c\udf3f \u8449\u821f\u5c55',   color:'#5aaa82' },
+    { min:50,   max:79,   label:'\ud83c\udf3c \u521d\u7db3\u653e',   color:'#f0c040' },
+    { min:80,   max:119,  label:'\ud83c\udf38 \u5b0c\u5a29\u82b1',   color:'#e88fad' },
+    { min:120,  max:179,  label:'\ud83c\udf3a \u8263\u9e97\u82b1',   color:'#e05090' },
+    { min:180,  max:249,  label:'\ud83c\udf3b \u5411\u967d\u82b1',   color:'#f5a623' },
+    { min:250,  max:349,  label:'\ud83c\udf39 \u542b\u60c5\u73ab',   color:'#d63060' },
+    { min:350,  max:499,  label:'\ud83c\udf37 \u9鬱\u91d1\u9999',   color:'#9b59b6' },
+    { min:500,  max:699,  label:'\ud83e\udebb \u85f0\u8863\u8349',   color:'#7e57c2' },
+    { min:700,  max:999,  label:'\ud83c\udff5\ufe0f \u82b1\u85dd\u5e2b',  color:'#4caf8a' },
+    { min:1000, max:1299, label:'\ud83d\udc90 \u82b1\u675f\u5927\u5e2b', color:'#e67e22' },
+    { min:1300, max:1699, label:'\ud83c\udf33 \u8a9e\u8a00\u4e4b\u6a39', color:'#27ae60' },
+    { min:1700, max:1999, label:'\ud83c\udf32 \u767e\u5e74\u53e4\u6728', color:'#1a6b3a' },
+    { min:2000, max:Infinity, label:'\ud83d\udc51 \u82b1\u8a9e\u5b97\u5e2b', color:'#c0a000' }
+  ];
+  const level = levelDefs.find(l => list.length >= l.min && list.length <= l.max) || levelDefs[0];
+  const nextLevel = levelDefs[levelDefs.indexOf(level) + 1];
+
+  // 今日練習題數
+  const today = new Date().toISOString().slice(0,10);
+  const dailyStored = JSON.parse(localStorage.getItem('speakup_daily') || '{"date":"","count":0}');
+  const todayCount = (dailyStored.date === today) ? dailyStored.count : 0;
+
+  // 距離下一朵花
+  const toNextFlower = list.length % 5 === 0 ? 0 : (5 - (list.length % 5));
+
+  const statCard = (icon, label, value, color) =>
+    `<div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; text-align:left;">
+      <div style="font-size:10px; color:var(--muted); margin-bottom:2px;">${icon} ${label}</div>
+      <div style="font-size:15px; font-weight:700; color:${color || 'var(--sage-dark)'};">${value}</div>
+    </div>`;
+
   let gardenHtml = `
   <style>.vase-carousel::-webkit-scrollbar { display: none; }</style>
-  <div style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px 20px 20px; margin-bottom:20px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
-    <div style="font-size:14px; color:var(--sage-dark); font-weight:600; margin-bottom:16px;">你的語言盆栽 (已掌握 ${list.length} 詞)</div>
-    <div style="position:relative; display:flex; align-items:center; gap:4px;">
-      <button id="vasePrevBtn" style="flex-shrink:0; width:30px; height:30px; border-radius:50%; border:1px solid var(--line); background:#fff; color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:16px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>‹</button>
-      <div id="vaseCarousel" class="vase-carousel" style="flex:1; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:0; padding-bottom:10px; scrollbar-width:none; scroll-behavior:smooth;">
-        ${vasesHtml}
+  <div style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 16px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+    <div style="font-size:13px; color:var(--sage-dark); font-weight:600; margin-bottom:12px; text-align:center;">你的語言盆栽</div>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <!-- 左欄：花瓶 -->
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; align-items:center;">
+        <div style="position:relative; display:flex; align-items:center; width:100%;">
+          <button id="vasePrevBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8249;</button>
+          <div id="vaseCarousel" class="vase-carousel" style="flex:1; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:0; scrollbar-width:none; scroll-behavior:smooth;">
+            ${vasesHtml}
+          </div>
+          <button id="vaseNextBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8250;</button>
+        </div>
+        ${totalVases > 1 ? `<div style="font-size:10px; color:var(--sage); margin-top:2px;">共 ${totalVases} 瓶，滑動查看</div>` : ''}
       </div>
-      <button id="vaseNextBtn" style="flex-shrink:0; width:30px; height:30px; border-radius:50%; border:1px solid var(--line); background:#fff; color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:16px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>›</button>
+      <!-- 右欄：統計 -->
+      <div style="width:108px; flex-shrink:0; display:flex; flex-direction:column; gap:7px;">
+        ${statCard('🌷', '已掌握', `${list.length} 詞`, 'var(--sage-dark)')}
+        ${statCard('🌱', '下一朵花', toNextFlower === 0 ? '满瓶了！' : `還需 ${toNextFlower} 詞`, '#7BAE7F')}
+        ${statCard('✏️', '今日練習', todayCount > 0 ? `+${todayCount} 題` : '尚未開始', '#e8a24b')}
+        ${statCard('🏅', '等級', level.label, level.color)}
+      </div>
     </div>
-    ${totalVases > 1 ? `<div style="font-size:11px; color:var(--sage); margin-top:2px;">花瓶 ${totalVases} 個,點左右箭頭或滑動查看之前的花瓶</div>` : ''}
-    ${totalFlowers >= 0 ? `<div style="font-size:12px; color:var(--muted); margin-top:12px;">距離下一朵花還需練習 ${5 - (list.length % 5)} 詞</div>` : ''}
   </div>`;
 
   let html = gardenHtml;
