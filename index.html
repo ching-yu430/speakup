@@ -684,6 +684,13 @@
 </div>
 
 <script>
+function lsGet(key, defVal = null) {
+  try { return localStorage.getItem(key) || defVal; } catch(e) { return defVal; }
+}
+function lsSet(key, val) {
+  try { localStorage.setItem(key, val); } catch(e) {}
+}
+
 const el = id => document.getElementById(id);
 
 /* ---------- 頂部三顆選單按鈕：各自獨立展開/收合 ---------- */
@@ -764,28 +771,28 @@ function updateTriggerTexts(){
 /* ---------- 收藏與初始化 ---------- */
 let favorites = [];
 try {
-  const f = localStorage.getItem('speakup_favorites');
+  const f = lsGet('speakup_favorites');
   if(f) favorites = JSON.parse(f);
 } catch(e){}
 
 function saveFavorites() {
-  localStorage.setItem('speakup_favorites', JSON.stringify(favorites));
+  lsSet('speakup_favorites', JSON.stringify(favorites));
 }
 
 /* ---------- 已完成題目記錄(記憶功能) ---------- */
 let practiced = {};
 try {
-  const p = localStorage.getItem('speakup_practiced');
+  const p = lsGet('speakup_practiced');
   if(p) practiced = JSON.parse(p);
 } catch(e){}
 
 function savePracticed() {
-  localStorage.setItem('speakup_practiced', JSON.stringify(practiced));
+  lsSet('speakup_practiced', JSON.stringify(practiced));
 }
 
 let streakData = { count: 0, lastActive: '' };
 try {
-  const s = localStorage.getItem('speakup_streak');
+  const s = lsGet('speakup_streak');
   if(s) streakData = JSON.parse(s);
 } catch(e){}
 
@@ -801,7 +808,7 @@ function updateStreak(todayStr) {
     streakData.count = 1;
   }
   streakData.lastActive = todayStr;
-  localStorage.setItem('speakup_streak', JSON.stringify(streakData));
+  lsSet('speakup_streak', JSON.stringify(streakData));
 }
 
 function recordPracticed(item, stageIdx){
@@ -815,14 +822,14 @@ function recordPracticed(item, stageIdx){
   };
   savePracticed();
   const today = new Date().toISOString().slice(0,10);
-  const stored = JSON.parse(localStorage.getItem('speakup_daily') || '{"date":"","count":0}');
+  const stored = JSON.parse(lsGet('speakup_daily') || '{"date":"","count":0}');
   if(stored.date === today) {
     stored.count++;
   } else {
     stored.date = today;
     stored.count = 1;
   }
-  localStorage.setItem('speakup_daily', JSON.stringify(stored));
+  lsSet('speakup_daily', JSON.stringify(stored));
   updateStreak(today);
 }
 
@@ -915,12 +922,12 @@ let savedCatProgressStr = null;
 let geminiApiKey = '';
 let savedMode = null;
 try {
-  savedStageIdx = localStorage.getItem('speakup_stageIdx');
-  savedCat = localStorage.getItem('speakup_cat');
+  savedStageIdx = lsGet('speakup_stageIdx');
+  savedCat = lsGet('speakup_cat');
   if(savedCat === '📰 新聞時事') savedCat = '新聞時事';
-  savedCatProgressStr = localStorage.getItem('speakup_cat_progress');
-  geminiApiKey = localStorage.getItem('speakup_apikey') || '';
-  savedMode = localStorage.getItem('speakup_appMode');
+  savedCatProgressStr = lsGet('speakup_cat_progress');
+  geminiApiKey = lsGet('speakup_apikey') || '';
+  savedMode = lsGet('speakup_appMode');
 } catch(e) {
   console.warn("localStorage not accessible", e);
 }
@@ -939,11 +946,11 @@ let itemIdx = getSavedItemIdx(stageIdx, activeCat);
 let randomReviewItems = [];
 
 function saveProgress(){
-  localStorage.setItem('speakup_stageIdx', stageIdx);
-  localStorage.setItem('speakup_cat', activeCat);
+  lsSet('speakup_stageIdx', stageIdx);
+  lsSet('speakup_cat', activeCat);
   const key = `${stageIdx}_${activeCat}`;
   catProgress[key] = itemIdx;
-  localStorage.setItem('speakup_cat_progress', JSON.stringify(catProgress));
+  lsSet('speakup_cat_progress', JSON.stringify(catProgress));
 }
 
 function generateRandomReview() {
@@ -966,7 +973,7 @@ function generateRandomReview() {
 
 function setAppMode(mode, isInitial = false) {
   appMode = mode;
-  localStorage.setItem('speakup_appMode', appMode);
+  lsSet('speakup_appMode', appMode);
   
   el('tabGeneral').classList.toggle('active', mode === 'general');
   el('tabAI').classList.toggle('active', mode === 'ai');
@@ -1119,7 +1126,7 @@ async function generateNewsVocab(idx) {
       WORD_BANK.word.push(w);
       aiGeneratedItems.push(w);
     });
-    localStorage.setItem('speakup_ai_items', JSON.stringify(aiGeneratedItems));
+    lsSet('speakup_ai_items', JSON.stringify(aiGeneratedItems));
     
     initBank();
     statusEl.textContent = '✅ 已加入題庫！';
@@ -1420,7 +1427,7 @@ function renderReview(){
 
   // 今日練習題數
   const today = new Date().toISOString().slice(0,10);
-  const dailyStored = JSON.parse(localStorage.getItem('speakup_daily') || '{"date":"","count":0}');
+  const dailyStored = JSON.parse(lsGet('speakup_daily') || '{"date":"","count":0}');
   const todayCount = (dailyStored.date === today) ? dailyStored.count : 0;
 
   // 距離下一朵花：永遠算「還差幾詞才會長出下一朵」
@@ -1579,7 +1586,7 @@ function renderFavorites(){
 
 let aiGeneratedItems = [];
 try {
-  const savedAI = localStorage.getItem('speakup_ai_items');
+  const savedAI = lsGet('speakup_ai_items');
   if(savedAI) aiGeneratedItems = JSON.parse(savedAI);
 } catch(e) {}
 
@@ -1587,11 +1594,11 @@ try {
 // 不然重新整理頁面後「已完成」清單裡的自訂項目會找不到資料而點不回去。
 let customItems = [];
 try {
-  const savedCustom = localStorage.getItem('speakup_custom_items');
+  const savedCustom = lsGet('speakup_custom_items');
   if(savedCustom) customItems = JSON.parse(savedCustom);
 } catch(e) {}
 function saveCustomItems(){
-  localStorage.setItem('speakup_custom_items', JSON.stringify(customItems));
+  lsSet('speakup_custom_items', JSON.stringify(customItems));
 }
 function restoreCustomItems(){
   customItems.forEach(saved => {
@@ -2301,7 +2308,7 @@ el('addBtn').onclick = async () => {
 if(geminiApiKey) el('apiKeyInput').value = geminiApiKey;
 el('apiKeyInput').addEventListener('input', (e) => {
   geminiApiKey = e.target.value.trim();
-  localStorage.setItem('speakup_apikey', geminiApiKey);
+  lsSet('speakup_apikey', geminiApiKey);
 });
 
 el('openAiModalBtn').onclick = () => {
@@ -2402,7 +2409,7 @@ zh (中文) 必須是繁體中文(台灣)。
       }
     });
     
-    localStorage.setItem('speakup_ai_items', JSON.stringify(aiGeneratedItems));
+    lsSet('speakup_ai_items', JSON.stringify(aiGeneratedItems));
     
     el('aiStatus').textContent = '✅ 生成成功！已幫你切換到新類別。';
     setTimeout(() => {
@@ -2474,7 +2481,7 @@ if(el('settingsBtn')) {
 
   el('clearDataBtn').onclick = () => {
     if(confirm('⚠️ 確定要清除所有學習紀錄、收藏與快取單字嗎？\n如果你沒有點擊上方按鈕匯出，你的自訂與 AI 生成單字將會永久遺失！')) {
-      localStorage.clear();
+      try{localStorage.clear()}catch(e){};
       alert('已清除所有資料，網頁即將重新載入。');
       location.reload();
     }
@@ -2525,7 +2532,7 @@ el('coachBtn').onclick = async () => {
           if (!WORD_BANK.word) WORD_BANK.word = [];
           WORD_BANK.word.unshift(v);
         });
-        localStorage.setItem('speakup_custom', JSON.stringify(WORD_BANK));
+        lsSet('speakup_custom', JSON.stringify(WORD_BANK));
         if (typeof generateRandomReview === 'function') generateRandomReview();
         vocabArea.innerHTML = `<div style="text-align:center; color:var(--sage); font-size:13px; font-weight:bold; padding:8px;">✅ 已成功加入你的專屬題庫！</div>`;
       };
