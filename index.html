@@ -26,19 +26,21 @@
     --ai:#8c5f8a;
     --ai-dark:#6b4569;
   }
-  [data-theme="dark"] {
-    --ink:#e4ebe0;
-    --paper:#121412;
-    --card:#1e221e;
-    --sage:#729274;
-    --sage-dark:#98b89a;
-    --sage-light:#2c362d;
-    --clay:#d88f68;
-    --clay-light:#3d2719;
-    --line:#2e362f;
-    --muted:#899189;
-    --ai:#b485b2;
-    --ai-dark:#d9add7;
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #e8ede5;
+      --paper: #161815;
+      --card: #20241f;
+      --sage: #7da080;
+      --sage-dark: #a8cdab;
+      --sage-light: #2c362d;
+      --clay: #d6956e;
+      --clay-light: #4a3020;
+      --line: #373e35;
+      --muted: #8b968a;
+      --ai: #c494c2;
+      --ai-dark: #e8bce6;
+    }
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{ -webkit-text-size-adjust:100%; }
@@ -388,10 +390,7 @@
 <div class="wrap">
 
   <div class="topbar">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <div class="brand">🗣️ Speak Up</div>
-      <button id="themeToggle" style="background:transparent; border:none; cursor:pointer; font-size:18px; padding:2px; line-height:1;">🌙</button>
-    </div>
+    <div class="brand">🗣️ Speak Up</div>
     <div class="triple-bar">
       <button type="button" class="trigger-btn" id="modeTrigger">
         <span id="modeTriggerText">📚 系統題庫</span><span class="trigger-caret">▾</span>
@@ -713,18 +712,6 @@ const STAGES = [
   },
   { key:'favorites', label:'⭐ 收藏', desc:'你收藏的重點，隨時複習。', items: favorites }
 ];
-
-/* ---------- 主題切換 (Dark Mode) ---------- */
-let currentTheme = localStorage.getItem('speakup_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-document.documentElement.setAttribute('data-theme', currentTheme);
-el('themeToggle').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-
-el('themeToggle').onclick = () => {
-  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-  document.documentElement.setAttribute('data-theme', currentTheme);
-  localStorage.setItem('speakup_theme', currentTheme);
-  el('themeToggle').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-};
 
 /* ---------- 本地儲存進度記憶 ---------- */
 let savedStageIdx = localStorage.getItem('speakup_stageIdx');
@@ -1614,30 +1601,20 @@ el('aiModal').addEventListener('click', (e) => {
 });
 
 const RANDOM_SCENARIOS = [
-  "在國外點麥當勞點不到薯條",
-  "跟外國同事解釋為什麼遲到",
-  "在路上被問路不知所措",
-  "在服飾店試穿衣服想換尺寸",
-  "遇到瘋狂推銷員想脫身",
-  "去藥局買感冒藥",
-  "搭Uber遇到健談的司機",
-  "在飯店櫃檯抱怨冷氣不冷",
-  "和外國朋友聊最近看的影集",
-  "在機場海關被詢問目的",
-  "在咖啡廳遇到外國人搭訕",
-  "去外國超市找不到雞蛋",
-  "在酒吧不知道怎麼點調酒",
-  "打電話去診所預約看診",
-  "跟室友溝通打掃房間的問題",
-  "在火車上請別人讓座",
-  "參加國外派對跟陌生人破冰",
-  "去銀行開戶被問一堆問題",
-  "在租車公司租車遇到保險推銷",
-  "去超市結帳不知道怎麼用自助結帳機",
-  "在餐廳吃飯發現帳單算錯了",
-  "跟教授討論期末報告的題目",
-  "在遊樂園找不到廁所",
-  "搭飛機時想跟空服員多要一杯水"
+  "在國外點麥當勞點不到薯條", "跟外國同事解釋為什麼遲到", "在路上被問路不知所措",
+  "在服飾店試穿衣服想換尺寸", "遇到瘋狂推銷員想脫身", "去藥局買感冒藥",
+  "搭Uber遇到健談的司機", "在飯店櫃檯抱怨冷氣不冷", "和外國朋友聊最近看的影集",
+  "在機場海關被詢問目的", "在咖啡廳遇到外國人搭訕", "去外國超市找不到雞蛋",
+  "在酒吧不知道怎麼點調酒", "打電話去診所預約看診", "跟室友溝通打掃房間的問題",
+  "在火車上請別人讓座", "參加國外派對跟陌生人破冰", "去銀行開戶被問一堆問題",
+  "在租車公司租車遇到保險推銷", "去超市結帳不知道怎麼用自助結帳機", "在餐廳吃飯發現帳單算錯了",
+  "跟教授討論期末報告的題目", "在遊樂園找不到廁所", "搭飛機時想跟空服員多要一杯水",
+  "在國外弄丟護照去警局報案", "向老闆報告專案進度落後", "與客戶開會討論合約細節",
+  "去健身房詢問會員方案", "在捷運上被人踩到腳", "去美髮院想剪一個新髮型",
+  "向店員詢問這件衣服有沒有別的顏色", "打電話叫外送披薩", "向朋友推薦一家超讚的餐廳",
+  "抱怨昨晚失眠睡不好", "討論哪裡有不錯的約會地點", "在書店詢問某本暢銷書",
+  "請外國朋友推薦當地的私房景點", "在路上遇到外國人搭訕推銷", "搭計程車司機繞路",
+  "買錯電影票想退票", "在郵局寄包裹到台灣", "向房東抱怨馬桶不通"
 ];
 el('aiRandomBtn').onclick = () => {
   const r = RANDOM_SCENARIOS[Math.floor(Math.random() * RANDOM_SCENARIOS.length)];
