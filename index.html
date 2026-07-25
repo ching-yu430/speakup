@@ -1011,24 +1011,34 @@ function renderReview(){
     let flowersHtml = '';
     const n = flowersInThisVase;
 
+    // 先把花朵依左右交替分邊,分完邊之後在「同一側」內部依序排開(不是各自亂數),
+    // 這樣不管隨機數手氣好壞,同一側的花一定會有固定的角度間距,不會擠成一團。
+    const leftIdx = [], rightIdx = [];
+    for (let i = 0; i < n; i++) { (i % 2 === 0 ? leftIdx : rightIdx).push(i); }
+
     for (let i = 0; i < flowersInThisVase; i++) {
       const globalIdx = v * VASE_CAPACITY + i;
       const fType = getFlowerType(globalIdx);
 
-      // 花朵不再排在同一條弧線上(那樣會變成一道彩虹弧形),而是先強制左右交替分邊,
-      // 確保不管幾朵花視覺上都左右平衡,再各自在自己那一側的角度/莖長範圍內隨機分佈,
-      // 有前後層次、看起來像一把插好的花而不是一條線或全部偏向一邊。
-      const maxSpread = Math.min(64, 36 + n * 1.8); // 花越多,扇形展開越寬
       const side = (i % 2 === 0) ? -1 : 1;
-      const withinT = hash01(globalIdx * 2);
-      const angle = side * (0.12 + withinT * 0.88) * maxSpread;
-      const stemLen = 16 + hash01(globalIdx * 2 + 1) * 32; // 16~48px,深淺不一
+      const sideList = side === -1 ? leftIdx : rightIdx;
+      const slot = sideList.indexOf(i);
+      const sideCount = sideList.length;
+
+      const minAngle = 12, maxAngle = Math.min(66, 40 + n * 1.6); // 花越多,扇形展開越寬
+      const slotT = sideCount > 1 ? slot / (sideCount - 1) : 0.5;
+      const jitterA = (hash01(globalIdx * 2) - 0.5) * ((maxAngle - minAngle) / Math.max(sideCount, 2)); // 只在自己的格子內小幅抖動,不會跳到別格造成重疊
+      const angle = side * (minAngle + slotT * (maxAngle - minAngle)) + jitterA;
+
+      // 花莖長度依插槽交錯長短(前後層次),同樣只做小幅抖動
+      const baseStem = 20 + (slot % 2 === 0 ? 0 : 12);
+      const stemLen = baseStem + hash01(globalIdx * 2 + 1) * 10; // 小範圍抖動,不會蓋掉層次結構
       const rad = angle * Math.PI / 180;
 
       const tx = Math.sin(rad) * stemLen;
       const ty = -Math.cos(rad) * stemLen; // 往上長,負值
-      const rot = angle * 0.28 + (hash01(globalIdx * 3 + 7) - 0.5) * 10; // 只做輕微傾斜,避免表情符號轉太大角度變形
-      const size = 20 + hash01(globalIdx * 5 + 11) * 8; // 20~28px,增加層次感
+      const rot = angle * 0.28 + (hash01(globalIdx * 3 + 7) - 0.5) * 8; // 只做輕微傾斜,避免表情符號轉太大角度變形
+      const size = 19 + hash01(globalIdx * 5 + 11) * 6; // 19~25px,稍微縮小避免花朵本身太胖互相蓋住
       const zIdx = Math.round(stemLen * 2 + size); // 莖長+花朵越大越靠前景
       const delay = (i * 0.03).toFixed(2);
 
@@ -1040,17 +1050,15 @@ function renderReview(){
         ${flowersHtml}
         <svg viewBox="0 0 60 100" width="58" height="${VASE_H}" style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); z-index:1; overflow:visible;">
           <defs>
-            <linearGradient id="vaseGrad${v}" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="28%" stop-color="#e9e6df"/>
-              <stop offset="48%" stop-color="#ffffff"/>
-              <stop offset="74%" stop-color="#ffffff"/>
-              <stop offset="100%" stop-color="#dedad0"/>
-            </linearGradient>
+            <filter id="vaseShadow${v}" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.12"/>
+            </filter>
           </defs>
+          <ellipse cx="30" cy="98" rx="19" ry="3" fill="#000000" opacity="0.08"/>
           <path d="M24,1 C20,3 21,12 23,22 C25,32 26,40 27,46 C15,54 8,64 8,77 C8,90 14,97 22,99 L38,99 C46,97 52,90 52,77 C52,64 45,54 33,46 C34,40 35,32 37,22 C39,12 40,3 36,1 C33,-0.6 27,-0.6 24,1 Z"
-                fill="url(#vaseGrad${v})" stroke="#ded9cc" stroke-width="1"/>
-          <ellipse cx="30" cy="2" rx="6.2" ry="1.7" fill="#e6e2d6" stroke="#d9d4c6" stroke-width="0.6"/>
+                fill="#fdfcfa" stroke="#ddd7c9" stroke-width="1.2" filter="url(#vaseShadow${v})"/>
+          <path d="M24,1 C20,3 21,12 23,22 C25,32 26,40 27,46 C18,53 11,61 9,72" fill="none" stroke="#00000008" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="30" cy="2" rx="6.2" ry="1.7" fill="#efece3" stroke="#ddd7c9" stroke-width="0.6"/>
         </svg>
         ${flowersInThisVase === 0 ? `<div style="font-size:13px; color:var(--muted); position:absolute; top:15px; width:100%; text-align:center; z-index:2;">🌱 再練 ${5 - (list.length % 5)} 詞<br>會開出第一朵花</div>` : ''}
       </div>
