@@ -78,16 +78,20 @@
   .dropdown-panel .cats{margin-bottom:0;}
 
   .app-tabs {
-    display: flex; gap: 6px; padding: 4px;
+    display: flex; gap: 4px; padding: 4px;
     background: #e4ebe0; border-radius: 12px;
   }
   .app-tab {
-    flex: 1; min-height:44px; padding: 8px 4px; border: none; background: transparent;
-    border-radius: 10px; font-weight: 600; font-size: 13px; color: var(--muted);
-    cursor: pointer; transition: all 0.2s; line-height:1.3;
-    display:flex; align-items:center; justify-content:center; text-align:center;
+    flex: 1; min-height: 58px; padding: 6px 2px; border: none; background: transparent;
+    border-radius: 10px; font-weight: 600; color: var(--muted);
+    cursor: pointer; transition: all 0.2s; line-height: 1.2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; gap: 2px;
+    -webkit-user-select: none; user-select: none;
   }
-  .app-tab.active { background: #fff; color: var(--sage-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .app-tab.active { background: #fff; color: var(--sage-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .tab-icon { font-size: 20px; line-height: 1; }
+  .tab-label { font-size: 10.5px; font-weight: 700; letter-spacing: -0.01em; }
 
   .review-container{ margin-bottom:20px; }
   .review-group{ margin-bottom:24px; }
@@ -185,14 +189,17 @@
   }
   .target-zh{color:var(--muted);font-size:15px;margin-bottom:24px;}
 
-  .phon-block{margin:-8px 0 22px;background:var(--sage-light);border-radius:12px;padding:12px 16px;}
-  .phon-label{font-size:11px;letter-spacing:.04em;color:var(--sage-dark);margin-bottom:6px;font-weight:600;}
-  .phon-visual{font-family:'Fraunces',serif;font-size:14px;color:var(--sage-dark);letter-spacing:.02em;line-height:1.5;}
+  .phon-block{margin:-8px 0 22px;background:var(--sage-light);border-radius:12px;padding:14px 16px;}
+  .phon-label{font-size:11px;letter-spacing:.05em;color:var(--sage-dark);margin-bottom:8px;font-weight:700;text-transform:uppercase;}
+  .phon-visual{font-family:'Fraunces',serif;font-size:15px;color:var(--sage-dark);letter-spacing:.04em;line-height:1.8;}
   .phon-visual .syl{transition:all .15s;text-transform:lowercase;}
-  .phon-visual .syl.stressed{font-size:17px;font-weight:700;color:var(--clay);text-transform:uppercase;}
-  .phon-visual .syl.secondary{font-size:15px;font-weight:600;color:var(--sage-dark);}
-  .phon-visual .dot{color:var(--muted);padding:0 1px;font-size:12px;}
-  .phon-raw-row{font-size:12px;color:var(--muted);margin-top:6px;font-family:'Inter',sans-serif;}
+  .phon-visual .syl.stressed{
+    font-size:19px;font-weight:700;color:var(--clay);text-transform:uppercase;
+    background:rgba(193,122,82,0.1);border-radius:4px;padding:0 2px;
+  }
+  .phon-visual .syl.secondary{font-size:16px;font-weight:600;color:var(--sage-dark);}
+  .phon-visual .dot{color:var(--muted);padding:0 3px;font-size:13px;font-weight:400;opacity:0.7;}
+  .phon-raw-row{font-size:11px;color:var(--muted);margin-top:8px;font-family:'Inter',sans-serif;border-top:1px dashed rgba(92,122,94,0.2);padding-top:6px;}
 
   .accent-row{display:flex;gap:6px;margin-bottom:2px;}
   .accent-btn{
@@ -330,13 +337,17 @@
     .card{padding:22px 16px;}
     .target-zh{font-size:14px; margin-bottom:16px;}
     .rung{font-size:12px;padding:10px 4px;}
-    .app-tab{font-size:12px;padding:8px 2px;}
+    .app-tab{ min-height: 52px; }
+    .tab-icon{ font-size: 18px; }
+    .tab-label{ font-size: 9.5px; }
     .btn-mic{width:76px;height:76px;font-size:32px;}
     .controls{gap:14px;}
   }
 
   @media (max-width:360px){
-    .app-tab{font-size:11px;}
+    .app-tab{ min-height: 48px; }
+    .tab-icon{ font-size: 16px; }
+    .tab-label{ font-size: 9px; }
     .trigger-btn{font-size:11.5px;padding:0 4px;}
   }
 </style>
@@ -363,11 +374,11 @@
 
   <div class="dropdown-panel" id="modeDropdown">
     <nav class="app-tabs">
-      <button class="app-tab active" id="tabGeneral">📚 系統題庫</button>
-      <button class="app-tab" id="tabAI">✨ AI情境</button>
-      <button class="app-tab" id="tabRoleplay">💬 實戰對話</button>
-      <button class="app-tab" id="tabFavorites">⭐ 收藏</button>
-      <button class="app-tab" id="tabReview">✅ 已完成</button>
+      <button class="app-tab active" id="tabGeneral"><span class="tab-icon">📚</span><span class="tab-label">系統題庫</span></button>
+      <button class="app-tab" id="tabAI"><span class="tab-icon">✨</span><span class="tab-label">AI 情境</span></button>
+      <button class="app-tab" id="tabRoleplay"><span class="tab-icon">💬</span><span class="tab-label">實戰對話</span></button>
+      <button class="app-tab" id="tabFavorites"><span class="tab-icon">⭐</span><span class="tab-label">收藏</span></button>
+      <button class="app-tab" id="tabReview"><span class="tab-icon">✅</span><span class="tab-label">已完成</span></button>
     </nav>
   </div>
   <div class="dropdown-panel" id="stageDropdown">
@@ -424,7 +435,7 @@
     <div class="target-zh" id="targetZh"></div>
 
     <div class="phon-block" id="phonBlock" style="display:none;">
-      <div class="phon-label">怎麼唸(重音節放大,不是KK音標)</div>
+      <div class="phon-label">🔊 自然發音拼法 · 大寫 = 重音節</div>
       <div class="phon-visual" id="phonVisual"></div>
       <div class="phon-raw-row" id="phonRawRow"></div>
     </div>
@@ -1001,15 +1012,31 @@ function fetchAndEnrich(item){
 }
 
 // 把 IPA/KK 音標符號轉換成看得懂的英文字母拼法（近似值，幫助抓感覺，不是精確音標）
+// IPA → 白話英文拼法對照表（讓台灣人直覺讀出英文發音）
 const IPA_TO_PLAIN = [
+  // 子音組合（優先處理，避免被單音節拆散）
   ['tʃ','ch'], ['dʒ','j'],
+  // 雙母音（Diphthongs）
   ['eɪ','ay'], ['aɪ','ai'], ['ɔɪ','oy'], ['aʊ','ow'], ['oʊ','oh'],
+  // R音化母音
   ['ɜːr','er'], ['ɜː','er'], ['ɝ','er'], ['ər','er'], ['ɚ','er'],
-  ['ɔːr','or'], ['ɑːr','ar'], ['ɔː','aw'], ['ɑː','ah'],
-  ['iː','ee'], ['uː','oo'],
+  ['ɔːr','or'], ['ɑːr','ar'],
+  // 長母音
+  ['ɔː','aw'], ['ɑː','ah'], ['iː','ee'], ['uː','oo'],
+  // 特殊子音
   ['ʃ','sh'], ['ʒ','zh'], ['θ','th'], ['ð','th'], ['ŋ','ng'],
-  ['ɪ','i'], ['ɛ','e'], ['æ','a'], ['ɒ','ah'], ['ʌ','uh'], ['ʊ','u'], ['ə','uh'],
-  ['ɹ','r'], ['ɡ','g'], ['j','y']
+  // 短母音（schwa ə 放最後，因為它很常見且不能覆蓋其他音）
+  ['ɪ','i'],   // bit → bit
+  ['ɛ','e'],   // bed → bed
+  ['æ','a'],   // cat → cat
+  ['ɒ','ah'],  // lot → laht（英式）
+  ['ʌ','u'],   // cup → cup（比 uh 更直覺）
+  ['ʊ','oo'],  // book → book（短oo）
+  ['ə','uh'],  // schwa，輕讀音節
+  // 其他符號標準化
+  ['ɹ','r'], ['ɡ','g'], ['j','y'],
+  ['x','k'],   // loch → lock
+  ['ʔ',''],    // 喉塞音，略去
 ];
 
 function ipaToPlain(syl){
@@ -1044,9 +1071,9 @@ function renderPhonetics(phon){
     const cls = s.stressed ? ' stressed' : (s.secondary ? ' secondary' : '');
     const plain = ipaToPlain(s.raw) || s.raw;
     return '<span class="syl' + cls + '">' + plain + '</span>';
-  }).join('<span class="dot">·</span>');
+  }).join('<span class="dot">-</span>');
 
-  if(rawRow) rawRow.textContent = '原始音標 /' + clean + '/';
+  if(rawRow) rawRow.textContent = '音標參考：/' + clean + '/';
 }
 
 function categoriesForMode(mode) {
