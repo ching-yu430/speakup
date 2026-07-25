@@ -1134,13 +1134,43 @@ function renderReview(){
   const dailyStored = JSON.parse(localStorage.getItem('speakup_daily') || '{"date":"","count":0}');
   const todayCount = (dailyStored.date === today) ? dailyStored.count : 0;
 
-  // 距離下一朵花
-  const toNextFlower = list.length % 5 === 0 ? 0 : (5 - (list.length % 5));
+  // 距離下一朵花：永遠算「還差幾詞才會長出下一朵」
+  // 30 % 5 === 0 代表剛好整數朵，但下一朵還需要再練 5 詞
+  const remainder = list.length % 5;
+  const toNextFlower = remainder === 0 ? 5 : (5 - remainder);
 
   const statCard = (icon, label, value, color) =>
     `<div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; text-align:left;">
       <div style="font-size:10px; color:var(--muted); margin-bottom:2px;">${icon} ${label}</div>
       <div style="font-size:15px; font-weight:700; color:${color || 'var(--sage-dark)'};">${value}</div>
+    </div>`;
+
+  const levelModalRows = levelDefs.map((l, i) => {
+    const isCurrent = list.length >= l.min && list.length <= l.max;
+    return `<tr style="background:${isCurrent ? 'rgba(123,174,127,0.12)' : 'transparent'}; font-weight:${isCurrent ? '700' : '400'}">
+      <td style="padding:5px 8px; font-size:13px;">${l.label}</td>
+      <td style="padding:5px 8px; font-size:12px; color:var(--muted); text-align:right;">${l.max === Infinity ? `${l.min}+` : `${l.min}–${l.max}`} 詞</td>
+      ${isCurrent ? `<td style="padding:5px 4px; font-size:11px; color:#7BAE7F;">← 你在這</td>` : '<td></td>'}
+    </tr>`;
+  }).join('');
+
+  const levelCardHtml = `
+    <div id="levelStatCard" onclick="el('levelModal').style.display='flex'" style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; text-align:left; cursor:pointer; user-select:none;">
+      <div style="font-size:10px; color:var(--muted); margin-bottom:2px;">🏅 等級 <span style="font-size:9px; opacity:0.6;">（點擊查看）</span></div>
+      <div style="font-size:14px; font-weight:700; color:${level.color};">${level.label}</div>
+      ${nextLevel ? `<div style="font-size:9px; color:var(--muted); margin-top:1px;">下一階：${nextLevel.label}</div>` : `<div style="font-size:9px; color:#c0a000; margin-top:1px;">已達最高階！</div>`}
+    </div>
+    <div id="levelModal" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+      <div style="background:var(--card); border-radius:16px; padding:20px; max-width:320px; width:100%; max-height:80vh; overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <div style="font-size:15px; font-weight:700; color:var(--sage-dark);">🌸 等級表</div>
+          <button onclick="el('levelModal').style.display='none'" style="border:none; background:none; font-size:20px; color:var(--muted); cursor:pointer; line-height:1;">×</button>
+        </div>
+        <table style="width:100%; border-collapse:collapse;">
+          ${levelModalRows}
+        </table>
+        <div style="margin-top:12px; font-size:11px; color:var(--muted); text-align:center;">目前已掌握 ${list.length} 詞</div>
+      </div>
     </div>`;
 
   let gardenHtml = `
@@ -1162,9 +1192,9 @@ function renderReview(){
       <!-- 右欄：統計 -->
       <div style="width:108px; flex-shrink:0; display:flex; flex-direction:column; gap:7px;">
         ${statCard('🌷', '已掌握', `${list.length} 詞`, 'var(--sage-dark)')}
-        ${statCard('🌱', '下一朵花', toNextFlower === 0 ? '满瓶了！' : `還需 ${toNextFlower} 詞`, '#7BAE7F')}
+        ${statCard('🌱', '下一朵花', `還需 ${toNextFlower} 詞`, '#7BAE7F')}
         ${statCard('✏️', '今日練習', todayCount > 0 ? `+${todayCount} 題` : '尚未開始', '#e8a24b')}
-        ${statCard('🏅', '等級', level.label, level.color)}
+        ${levelCardHtml}
       </div>
     </div>
   </div>`;
