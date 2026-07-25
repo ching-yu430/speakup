@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Speak Up">
 <link rel="apple-touch-icon" href="apple-touch-icon.jpg">
 <link rel="icon" href="apple-touch-icon.jpg">
+<link rel="manifest" href="manifest.json">
 <title>開口練習 Speak Up</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
@@ -442,8 +443,10 @@
     <div class="rp-controls" id="rpControls" style="display:none; margin-top:20px; border-top:1px solid var(--line); padding-top:20px; text-align:center;">
       <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px;">
         <button id="rpRestartBtn" style="background:transparent; border:1px solid var(--line); color:var(--muted); padding:6px 10px; border-radius:6px; cursor:pointer; font-size:12px;">↺ 重啟對話</button>
-        <div id="rpStatus" style="font-size:13px; color:var(--muted); text-align:right;">請按下麥克風開始說話</div>
+        <button id="rpHintBtn" style="background:var(--sage-light); border:1px solid var(--sage); color:var(--sage-dark); padding:6px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:600;">💡 提示怎麼回</button>
       </div>
+      <div id="rpHintBox" style="display:none; margin-bottom:12px; text-align:left; background:var(--card); border:1px dashed var(--sage); border-radius:8px; padding:10px; font-size:13px; color:var(--ink); line-height:1.5;"></div>
+      <div id="rpStatus" style="font-size:13px; color:var(--muted); text-align:center; margin-bottom:8px;">請按下麥克風開始說話</div>
       <button class="btn-mic" id="rpRecBtn" style="margin:0 auto;">🎙</button>
     </div>
   </div>
@@ -817,8 +820,28 @@ function renderReview(){
     groups[cat].push(it);
   });
 
+  const numFlowers = Math.floor(list.length / 5);
+  const types = ['🌷', '🌹', '🌻', '🌼', '🌸', '🌺', '🪻'];
+  let gardenHtml = `
+  <div style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; margin-bottom:20px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+    <div style="font-size:14px; color:var(--sage-dark); font-weight:600; margin-bottom:12px;">你的語言花瓶 (已掌握 ${list.length} 詞)</div>
+    <div style="font-size:32px; line-height:1.2; display:flex; justify-content:center; flex-wrap:wrap-reverse; max-width:220px; margin:0 auto; padding-bottom:4px; gap:0px; position:relative; z-index:2;">
+  `;
+  if (numFlowers === 0) {
+    gardenHtml += `<div style="font-size:13px; color:var(--muted); padding:10px 0; width:100%;">🌱 再練習 ${5 - (list.length % 5)} 個單字，就會開出一朵新花！</div>`;
+  } else {
+    for (let i = 0; i < numFlowers; i++) {
+      gardenHtml += `<span style="transform: rotate(${(i * 13) % 40 - 20}deg); margin: -4px;">${types[i % types.length]}</span>`;
+    }
+  }
+  gardenHtml += `
+    </div>
+    <div style="font-size:42px; margin-top:-14px; position:relative; z-index:1;">🏺</div>
+    ${numFlowers > 0 ? `<div style="font-size:12px; color:var(--muted); margin-top:8px;">再練 ${5 - (list.length % 5)} 詞解鎖下一朵花</div>` : ''}
+  </div>`;
+
+  let html = gardenHtml;
   const sortedCats = Object.keys(groups).sort();
-  let html = '';
   sortedCats.forEach(cat => {
     const items = groups[cat];
     html += `<details class="review-group">
@@ -1842,9 +1865,11 @@ async function fetchRpResponse(contents) {
     speechSynthesis.speak(u);
     
     el('rpStatus').textContent = '請按下麥克風開始說話';
-  } catch(e) {
-    console.error('Roleplay API error:', e);
-    el('rpStatus').textContent = '⚠️ ' + e.message;
+    el('rpHintBox').style.display = 'none';
+    el('rpHintBox').innerHTML = '';
+  } catch(err) {
+    console.error('Roleplay API error:', err);
+    el('rpStatus').textContent = '⚠️ ' + err.message;
   }
 }
 
@@ -1916,6 +1941,39 @@ el('rpRecBtn').onclick = () => {
   }
 };
 
+el('rpHintBtn').onclick = async () => {
+  if(!rpHistory.length) return;
+  const hintBtn = el('rpHintBtn');
+  const hintBox = el('rpHintBox');
+  hintBtn.disabled = true;
+  hintBtn.textContent = '思考中...';
+  
+  try {
+    const prompt = `請根據我們以上的對話，提供 3 個簡短、口語化的英文回覆選項（附帶中文翻譯），讓使用者可以直接照著念來推進對話。回傳 JSON 格式：{"hints": [{"en":"...", "zh":"..."}, ...]}`;
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
+      body: JSON.stringify({
+        contents: [...rpHistory, {role: "user", parts: [{text: prompt}]}],
+        generationConfig: { responseMimeType: "application/json" }
+      })
+    });
+    const data = await res.json();
+    const resultText = data.candidates[0].content.parts[0].text;
+    const parsed = JSON.parse(resultText);
+    
+    hintBox.style.display = 'block';
+    hintBox.innerHTML = '<div style="color:var(--sage-dark); font-weight:bold; margin-bottom:6px;">你可以這樣說：</div>' + 
+      parsed.hints.map(h => `<div style="margin-bottom:6px;">• <b>${h.en}</b> <br><span style="color:var(--muted); font-size:12px;">(${h.zh})</span></div>`).join('');
+  } catch(e) {
+    hintBox.style.display = 'block';
+    hintBox.textContent = '無法取得提示，請稍後再試。';
+  }
+  
+  hintBtn.disabled = false;
+  hintBtn.textContent = '💡 提示怎麼回';
+};
+
 el('rpRestartBtn').onclick = () => {
   if(rpIsRecording && rpSR) {
     try { rpSR.stop(); } catch(e){}
@@ -1925,6 +1983,7 @@ el('rpRestartBtn').onclick = () => {
   el('rpChat').innerHTML = '';
   el('rpChat').style.display = 'none';
   el('rpControls').style.display = 'none';
+  el('rpHintBox').style.display = 'none';
   el('rpSetup').style.display = 'block';
   el('rpStatus').textContent = '';
   el('rpRecBtn').classList.remove('recording');
