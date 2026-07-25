@@ -237,7 +237,7 @@
   .accent-row{display:flex;gap:6px;margin-bottom:2px;}
   .accent-btn{
     font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
-    border-radius:999px;border:1px solid var(--line);background:#fff;
+    border-radius:999px;border:1px solid var(--line);background:var(--card);
     min-height:36px;padding:0 14px;cursor:pointer;color:var(--muted);
     -webkit-user-select:none;user-select:none;
   }
@@ -269,9 +269,9 @@
     font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
     transition: all 0.2s; padding: 0;
   }
-  .btn-play:hover { background: var(--sage); color: #fff; }
-  .btn-play-slow { background: #f1f5f9; color: #475569; font-size: 24px; }
-  .btn-play-slow:hover { background: #e2e8f0; color: #334155; }
+  .btn-play:hover { background: var(--sage); color: var(--paper); }
+  .btn-play-slow { background: var(--card); color: var(--ink); font-size: 24px; border: 1px solid var(--line); }
+  .btn-play-slow:hover { background: var(--sage-light); color: var(--sage-dark); }
 
   .quick-nav{
     display:flex;align-items:center;justify-content:center;gap:16px;
@@ -279,7 +279,7 @@
   }
   .nav-arrow{
     width:38px;height:38px;border-radius:50%;
-    border:1px solid var(--line);background:#fff;color:var(--ink);
+    border:1px solid var(--line);background:var(--card);color:var(--ink);
     font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;
     transition:all .15s;-webkit-user-select:none;user-select:none;padding:0;
   }
@@ -430,9 +430,9 @@
       <div style="font-size:14px; margin-bottom:12px; color:var(--muted);">輸入你想練習的對話情境，AI 會開啟話題與你進行語音對談。</div>
       <div style="display:flex; gap:8px; margin-bottom: 16px;">
         <input type="text" id="rpScenarioInput" placeholder="例如：在速食店點餐" style="flex:1; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
-        <button id="rpRandomBtn" style="background:#f1f5f9; border:1px solid var(--line); padding:0 14px; border-radius:8px; cursor:pointer; color:var(--ink);" title="隨機情境">🎲 隨機</button>
+        <button id="rpRandomBtn" style="background:var(--sage-light); border:1px solid var(--line); padding:0 14px; border-radius:8px; cursor:pointer; color:var(--ink);" title="隨機情境">🎲 隨機</button>
       </div>
-      <button id="rpStartBtn" style="background:var(--sage); border:none; padding: 12px; border-radius: 8px; color:white; cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">開啟對話</button>
+      <button id="rpStartBtn" style="background:var(--sage); border:none; padding: 12px; border-radius: 8px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">開啟對話</button>
     </div>
     
     <div class="rp-chat" id="rpChat" style="display:none; flex-direction:column; gap:16px;">
@@ -488,8 +488,8 @@
       <div class="you-said">你講的是</div>
       <div class="heard" id="heard"></div>
       <div class="feedback" id="feedback"></div>
-      <button id="coachBtn" style="display:none; margin-top:12px; background:var(--sage); color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">💡 請 AI 教練抓漏</button>
-      <div id="coachFeedback" style="display:none; margin-top:12px; font-size:14px; background:#f8fafc; border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); line-height:1.5;"></div>
+      <button id="coachBtn" style="display:none; margin-top:12px; background:var(--sage); color:var(--card); border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">✨ 請 AI 教練抓漏</button>
+      <div id="coachFeedback" style="display:none; margin-top:12px; font-size:14px; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); line-height:1.5;"></div>
     </div>
 
     <div class="quick-nav" id="quickNav">
@@ -507,9 +507,9 @@
       <input type="password" id="apiKeyInput" placeholder="輸入你的 Gemini API Key (僅存在本地)" style="width:100%; margin-bottom: 8px; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
       <div style="display:flex; gap:8px; margin-bottom: 16px;">
         <input type="text" id="aiScenarioInput" placeholder="想練習的情境？例如：在機場跟地勤吵架" style="flex:1; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
-        <button id="aiRandomBtn" style="background:#f1f5f9; border:1px solid var(--line); padding:0 14px; border-radius:8px; cursor:pointer; color:var(--ink);" title="隨機情境">🎲 隨機</button>
+        <button id="aiRandomBtn" style="background:var(--sage-light); border:1px solid var(--line); padding:0 14px; border-radius:8px; cursor:pointer; color:var(--ink);" title="隨機情境">🎲 隨機</button>
       </div>
-      <button id="aiGenerateBtn" style="background: linear-gradient(135deg, var(--ai), var(--ai-dark)); border:none; padding: 12px; border-radius: 10px; color:white; cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">🚀 立即生成題目</button>
+      <button id="aiGenerateBtn" style="background: linear-gradient(135deg, var(--ai), var(--ai-dark)); border:none; padding: 12px; border-radius: 10px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">🚀 立即生成題目</button>
       <div id="aiStatus" style="margin-top: 12px; font-size: 0.9rem; color: #c17a52; text-align: center;"></div>
     </div>
   </div>
