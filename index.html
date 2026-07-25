@@ -1011,35 +1011,30 @@ function renderReview(){
     let flowersHtml = '';
     const n = flowersInThisVase;
 
-    // 先把花朵依左右交替分邊,分完邊之後在「同一側」內部依序排開(不是各自亂數),
-    // 這樣不管隨機數手氣好壞,同一側的花一定會有固定的角度間距,不會擠成一團。
-    const leftIdx = [], rightIdx = [];
-    for (let i = 0; i < n; i++) { (i % 2 === 0 ? leftIdx : rightIdx).push(i); }
+    // 直接用「固定水平間距的槽位」排花,不再用角度+莖長去反推位置——
+    // 角度分開、莖長不同時,投影到平面上還是有機會撞在一起(這正是上一版仍然重疊的原因)。
+    // 改成先保證每朵花的水平間距一定 >= minGap,絕對不會疊在同一個點上;
+    // 高度用拋物線做出中間高、兩側低的圓弧花型,看起來像插好的一把花。
+    const minGap = 20; // 相鄰兩朵花水平最小間距(px),加大確保不會貼在一起
+    const maxTotalWidth = Math.min(158, (n - 1) * minGap); // 花越多整體越寬,但有上限避免超出花瓶太多
+    const spacing = n > 1 ? maxTotalWidth / (n - 1) : 0;
 
     for (let i = 0; i < flowersInThisVase; i++) {
       const globalIdx = v * VASE_CAPACITY + i;
       const fType = getFlowerType(globalIdx);
 
-      const side = (i % 2 === 0) ? -1 : 1;
-      const sideList = side === -1 ? leftIdx : rightIdx;
-      const slot = sideList.indexOf(i);
-      const sideCount = sideList.length;
+      const xSlot = (i - (n - 1) / 2) * spacing; // 由左到右均勻排開,絕對不重疊
+      const jitterX = (hash01(globalIdx * 2) - 0.5) * (spacing * 0.22); // 抖動幅度遠小於間距,不會吃掉安全距離
+      const tx = xSlot + jitterX;
 
-      const minAngle = 12, maxAngle = Math.min(66, 40 + n * 1.6); // 花越多,扇形展開越寬
-      const slotT = sideCount > 1 ? slot / (sideCount - 1) : 0.5;
-      const jitterA = (hash01(globalIdx * 2) - 0.5) * ((maxAngle - minAngle) / Math.max(sideCount, 2)); // 只在自己的格子內小幅抖動,不會跳到別格造成重疊
-      const angle = side * (minAngle + slotT * (maxAngle - minAngle)) + jitterA;
+      const normalized = maxTotalWidth > 0 ? Math.abs(tx) / (maxTotalWidth / 2 + 1) : 0; // 0(中央)~1(兩側)
+      const baseHeight = 46 - normalized * 18; // 中間的花莖比較長,兩側略短,呈現圓弧花型
+      const jitterY = (hash01(globalIdx * 2 + 1) - 0.5) * 10;
+      const ty = -(baseHeight + jitterY);
 
-      // 花莖長度依插槽交錯長短(前後層次),同樣只做小幅抖動
-      const baseStem = 20 + (slot % 2 === 0 ? 0 : 12);
-      const stemLen = baseStem + hash01(globalIdx * 2 + 1) * 10; // 小範圍抖動,不會蓋掉層次結構
-      const rad = angle * Math.PI / 180;
-
-      const tx = Math.sin(rad) * stemLen;
-      const ty = -Math.cos(rad) * stemLen; // 往上長,負值
-      const rot = angle * 0.28 + (hash01(globalIdx * 3 + 7) - 0.5) * 8; // 只做輕微傾斜,避免表情符號轉太大角度變形
-      const size = 19 + hash01(globalIdx * 5 + 11) * 6; // 19~25px,稍微縮小避免花朵本身太胖互相蓋住
-      const zIdx = Math.round(stemLen * 2 + size); // 莖長+花朵越大越靠前景
+      const rot = (tx / (maxTotalWidth / 2 + 1)) * 16 + (hash01(globalIdx * 3 + 7) - 0.5) * 6; // 依水平位置微微朝外傾斜,幅度不大
+      const size = 17 + hash01(globalIdx * 5 + 11) * 5; // 17~22px,縮小一些留更多安全間隔
+      const zIdx = 100 + Math.round(-ty) - Math.round(size); // 莖越短(越靠近瓶口/前景)疊在越上層
       const delay = (i * 0.03).toFixed(2);
 
       flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${rot.toFixed(1)}deg; animation:popIn 0.4s both; animation-delay:${delay}s; z-index:${zIdx};">${fType}</div>`;
