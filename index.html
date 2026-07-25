@@ -694,6 +694,16 @@ function lsSet(key, val) {
   try { localStorage.setItem(key, val); } catch(e) {}
 }
 
+// 用「使用者所在時區」的日期,而不是 UTC 日期。
+// toISOString() 會用 UTC 時間,對台灣(UTC+8)來說,每天 00:00~08:00 之間
+// 算出來的日期其實還是「昨天」,導致連續天數/今日題數在這段時間算錯。
+function localDateStr(d = new Date()){
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
 const el = id => document.getElementById(id);
 
 /* ---------- 頂部三顆選單按鈕：各自獨立展開/收合 ---------- */
@@ -824,7 +834,7 @@ function recordPracticed(item, stageIdx){
     lastPracticed: new Date().getTime()
   };
   savePracticed();
-  const today = new Date().toISOString().slice(0,10);
+  const today = localDateStr();
   const stored = JSON.parse(lsGet('speakup_daily') || '{"date":"","count":0}');
   if(stored.date === today) {
     stored.count++;
@@ -1043,13 +1053,17 @@ el('refreshNewsBtn').onclick = () => fetchBBCNews();
 async function fetchBBCNews() {
   const listEl = el('newsList');
   const statusEl = el('newsStatus');
+  if(!geminiApiKey){
+    listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--muted);">請先在「✨ AI情境」設定 Gemini API Key,才能使用新聞雙語翻譯功能。</div>';
+    return;
+  }
   listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--muted);">🌍 正在抓取 BBC 最新頭條...</div>';
   statusEl.textContent = '';
   try {
     const rssUrl = encodeURIComponent('http://feeds.bbci.co.uk/news/rss.xml');
     const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
     const data = await res.json();
-    if(data.status !== 'ok') throw new Error('RSS fetch failed');
+    if(data.status !== 'ok') throw new Error('抓取 BBC 新聞來源失敗,該服務可能暫時無法使用。');
     const items = data.items.slice(0, 5);
     
     listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--sage); font-weight:600;">✨ AI 正在幫您雙語翻譯今日新聞...</div>';
@@ -1068,13 +1082,20 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
         generationConfig: { responseMimeType: "application/json" }
       })
     });
+    if(!aiRes.ok){
+      let detail = aiRes.statusText;
+      try{ const errJson = await aiRes.json(); detail = errJson.error?.message || detail; }catch(e){}
+      if(aiRes.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約台灣下午3點)重置。');
+      throw new Error('AI 翻譯請求失敗(' + aiRes.status + '):' + detail);
+    }
     const aiData = await aiRes.json();
-    let text = aiData.candidates[0].content.parts[0].text;
+    let text = aiData.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(!text) throw new Error('AI 沒有回傳內容,可能被安全機制擋下。');
     text = text.replace(/```json/g, '').replace(/```/g, '').trim();
     const translatedItems = JSON.parse(text);
     
     let html = '';
-    const makeClickable = (txt) => txt.split(' ').map(w => `<span class="clickable-word" style="cursor:pointer;" onclick="playAudio({en:'${w.replace(/[^a-zA-Z0-9'-]/g, '')}'})">${w}</span>`).join(' ');
+    const makeClickable = (txt) => txt.split(' ').map(w => `<span class="clickable-word" style="cursor:pointer;" onclick="playAudio({en:'${w.replace(/[^a-zA-Z0-9'-]/g, '').replace(/'/g, "\\'")}'})">${w}</span>`).join(' ');
     
     translatedItems.forEach((item, idx) => {
       html += `
@@ -1094,7 +1115,7 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
     window.currentNewsItems = translatedItems;
     
   } catch (e) {
-    listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--muted);">無法抓取新聞，請稍後再試。</div>';
+    listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:#8a4a26;">⚠️ ' + e.message + '</div>';
     console.error(e);
   }
 }
@@ -1102,6 +1123,7 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
 async function generateNewsVocab(idx) {
   const item = window.currentNewsItems[idx];
   const statusEl = el('newsStatus');
+  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先在「✨ AI情境」設定 Gemini API Key'; return; }
   statusEl.textContent = '📝 AI 正在萃取單字與句型...';
   try {
     const prompt = `請根據以下新聞，萃取 3 個重要單字與 2 個實用句型。
@@ -1117,8 +1139,15 @@ async function generateNewsVocab(idx) {
         generationConfig: { responseMimeType: "application/json" }
       })
     });
+    if(!res.ok){
+      let detail = res.statusText;
+      try{ const errJson = await res.json(); detail = errJson.error?.message || detail; }catch(e){}
+      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約台灣下午3點)重置。');
+      throw new Error('API 請求失敗(' + res.status + '):' + detail);
+    }
     const data = await res.json();
-    let text = data.candidates[0].content.parts[0].text;
+    let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(!text) throw new Error('AI 沒有回傳內容,可能被安全機制擋下。');
     text = text.replace(/```json/g, '').replace(/```/g, '').trim();
     const parsed = JSON.parse(text);
     
@@ -1140,7 +1169,7 @@ async function generateNewsVocab(idx) {
     render();
     updateTriggerTexts();
   } catch(e) {
-    statusEl.textContent = '⚠️ AI 處理失敗，請重試。';
+    statusEl.textContent = '⚠️ ' + e.message;
     console.error(e);
   }
 }
@@ -1148,6 +1177,7 @@ async function generateNewsVocab(idx) {
 async function generateNewsRP(idx) {
   const item = window.currentNewsItems[idx];
   const statusEl = el('newsStatus');
+  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先在「✨ AI情境」設定 Gemini API Key'; return; }
   statusEl.textContent = '💬 AI 正在設計實戰對話情境...';
   try {
     const prompt = `請根據這則新聞，設計一個日常口語的「實戰對話情境」描述 (例如：你正在和朋友聊這則新聞...)。
@@ -1163,8 +1193,15 @@ async function generateNewsRP(idx) {
         generationConfig: { responseMimeType: "application/json" }
       })
     });
+    if(!res.ok){
+      let detail = res.statusText;
+      try{ const errJson = await res.json(); detail = errJson.error?.message || detail; }catch(e){}
+      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約台灣下午3點)重置。');
+      throw new Error('API 請求失敗(' + res.status + '):' + detail);
+    }
     const data = await res.json();
-    let text = data.candidates[0].content.parts[0].text;
+    let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(!text) throw new Error('AI 沒有回傳內容,可能被安全機制擋下。');
     text = text.replace(/```json/g, '').replace(/```/g, '').trim();
     const parsed = JSON.parse(text);
     
@@ -1173,7 +1210,7 @@ async function generateNewsRP(idx) {
     el('rpStartBtn').click();
     statusEl.textContent = '';
   } catch(e) {
-    statusEl.textContent = '⚠️ AI 處理失敗，請重試。';
+    statusEl.textContent = '⚠️ ' + e.message;
     console.error(e);
   }
 }
@@ -1387,7 +1424,7 @@ function renderReview(){
     `;
   }
 
-  const todayStr = new Date().toISOString().slice(0,10);
+  const todayStr = localDateStr();
   let renderStreak = streakData.count;
   if(streakData.lastActive && streakData.lastActive !== todayStr) {
     const diff = Math.floor((new Date(todayStr) - new Date(streakData.lastActive)) / (1000*60*60*24));
@@ -1429,7 +1466,7 @@ function renderReview(){
   const nextLevel = levelDefs[levelDefs.indexOf(level) + 1];
 
   // 今日練習題數
-  const today = new Date().toISOString().slice(0,10);
+  const today = localDateStr();
   const dailyStored = JSON.parse(lsGet('speakup_daily') || '{"date":"","count":0}');
   const todayCount = (dailyStored.date === today) ? dailyStored.count : 0;
 
@@ -1623,11 +1660,12 @@ function existingEnSet(stage){
 function initBank(){
   if(typeof WORD_BANK === 'undefined') return;
   
-  // 注入 AI 生成的題目
+  // 注入 AI 生成的題目(先檢查是否已經在裡面,避免 initBank 被重複呼叫時無限疊加)
   aiGeneratedItems.forEach(item => {
     const targetKey = item._type || 'word';
     if(WORD_BANK[targetKey]) {
-      WORD_BANK[targetKey].push(item);
+      const alreadyIn = WORD_BANK[targetKey].some(x => x.en === item.en);
+      if(!alreadyIn) WORD_BANK[targetKey].push(item);
     }
   });
 
@@ -2732,8 +2770,15 @@ el('rpHintBtn').onclick = async () => {
         generationConfig: { responseMimeType: "application/json" }
       })
     });
+    if(!res.ok){
+      let detail = res.statusText;
+      try{ const errJson = await res.json(); detail = errJson.error?.message || detail; }catch(e){}
+      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約台灣下午3點)重置。');
+      throw new Error('API 請求失敗(' + res.status + '):' + detail);
+    }
     const data = await res.json();
-    const resultText = data.candidates[0].content.parts[0].text;
+    const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if(!resultText) throw new Error('AI 沒有回傳內容,可能被安全機制擋下。');
     const parsed = JSON.parse(resultText);
     
     hintBox.style.display = 'block';
@@ -2741,7 +2786,7 @@ el('rpHintBtn').onclick = async () => {
       parsed.hints.map(h => `<div style="margin-bottom:6px;">• <b>${h.en}</b> <br><span style="color:var(--muted); font-size:12px;">(${h.zh})</span></div>`).join('');
   } catch(e) {
     hintBox.style.display = 'block';
-    hintBox.textContent = '無法取得提示，請稍後再試。';
+    hintBox.textContent = '⚠️ ' + e.message;
   }
   
   hintBtn.disabled = false;
