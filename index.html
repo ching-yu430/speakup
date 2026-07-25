@@ -364,7 +364,10 @@
   .rp-chat::-webkit-scrollbar{width:6px;}
   .fav-remove-btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
-  @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes popIn {
+    0% { transform: translate(var(--tx,0px), var(--ty,0px)) rotate(var(--rot,0deg)) scale(0); opacity: 0; }
+    100% { transform: translate(var(--tx,0px), var(--ty,0px)) rotate(var(--rot,0deg)) scale(1); opacity: 1; }
+  }
 
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
 
@@ -985,41 +988,55 @@ function renderReview(){
   const totalFlowers = Math.floor(list.length / 5);
   const types = ['🌷', '🌹', '🌻', '🌼', '🌸', '🌺', '🪻'];
   const getFlowerType = (idx) => types[(idx * 13 + 7) % types.length];
-  
+
   const VASE_CAPACITY = 15;
   const totalVases = Math.max(1, Math.ceil(totalFlowers / VASE_CAPACITY));
-  
+
   let vasesHtml = '';
   for (let v = totalVases - 1; v >= 0; v--) {
     const flowersInThisVase = Math.min(totalFlowers - v * VASE_CAPACITY, VASE_CAPACITY);
     let flowersHtml = '';
-    
+
     for (let i = 0; i < flowersInThisVase; i++) {
       const globalIdx = v * VASE_CAPACITY + i;
       const fType = getFlowerType(globalIdx);
-      
-      const progress = (flowersInThisVase > 1) ? (i / (flowersInThisVase - 1)) : 0.5;
-      const angle = -35 + (progress * 70);
-      const distFromCenter = Math.abs(progress - 0.5) * 2;
-      const yOffset = distFromCenter * 15;
-      const zIdx = Math.round((1 - distFromCenter) * 10);
-      
-      const randAngle = ((globalIdx * 7) % 15) - 7;
-      const randY = ((globalIdx * 11) % 10) - 5;
-      const finalAngle = angle + randAngle;
-      const finalY = yOffset + randY;
-      
-      flowersHtml += `<div style="position:absolute; bottom:55px; left:50%; margin-left:-12px; font-size:26px; line-height:1; transform:translateY(${finalY}px) rotate(${finalAngle}deg); transform-origin:bottom center; animation:popIn 0.4s both; z-index:${zIdx};">${fType}</div>`;
+
+      // 每朵花都是從花瓶瓶口同一個定點,像真的插花一樣用不同角度/長度的「花莖」向外輻射,
+      // 而不是全部堆疊在正中央,才不會重疊在一起。
+      const n = flowersInThisVase;
+      const progress = (n > 1) ? (i / (n - 1)) : 0.5; // 0~1
+      const spread = Math.min(58, 30 + n * 2); // 花越多,扇形展開角度越大
+      const angleDeg = (n > 1) ? (-spread + progress * spread * 2) : 0;
+
+      // 決定性的「隨機」抖動,讓每次呈現一致但看起來自然不規則
+      const jitterAngle = ((globalIdx * 37) % 13) - 6;   // -6~6 度
+      const jitterStem = ((globalIdx * 19) % 13) - 6;    // -6~6 px
+      const jitterSize = ((globalIdx * 23) % 6);          // 0~5 px
+
+      const distFromCenter = Math.abs(progress - 0.5) * 2; // 0(中央)~1(兩側)
+      const stemLen = 30 + (1 - distFromCenter) * 13 + jitterStem; // 中間的花莖較長,呈現圓弧花型
+      const finalAngle = angleDeg + jitterAngle;
+      const rad = finalAngle * Math.PI / 180;
+
+      const tx = Math.sin(rad) * stemLen;
+      const ty = -Math.cos(rad) * stemLen; // 往上長,所以是負值
+      const rot = finalAngle * 0.45 + (jitterAngle * 0.5); // 花朵略朝外傾斜,不是垂直躺平
+      const size = 22 + jitterSize;
+      const zIdx = Math.round(stemLen); // 花莖越長(越靠前景)疊在越上層
+      const delay = (i * 0.03).toFixed(2);
+
+      flowersHtml += `<div style="position:absolute; bottom:52px; left:50%; margin-left:${-(size/2)}px; font-size:${size}px; line-height:1; --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${rot.toFixed(1)}deg; animation:popIn 0.4s both; animation-delay:${delay}s; z-index:${zIdx};">${fType}</div>`;
     }
-    
+
     vasesHtml += `
-      <div style="flex:0 0 100%; scroll-snap-align:center; position:relative; width:120px; height:130px;">
+      <div class="vase-slide" style="flex:0 0 100%; scroll-snap-align:center; position:relative; width:100%; height:150px;">
         ${flowersHtml}
-        <div style="position:absolute; bottom:0; left:50%; margin-left:-25px; width:50px; height:60px; background:#f8fafc; border:2px solid var(--line); border-radius:8px 8px 20px 20px; box-shadow:0 4px 8px rgba(0,0,0,0.05); z-index:100;">
-          <div style="position:absolute; top:-3px; left:-6px; right:-6px; height:6px; background:#fff; border:2px solid var(--line); border-radius:3px;"></div>
-          <div style="position:absolute; bottom:10px; left:10px; right:10px; height:2px; background:var(--line); opacity:0.3; border-radius:1px;"></div>
+        <div class="vase-shape" style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:58px; height:70px; z-index:1;">
+          <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:16px; height:34px; background:linear-gradient(100deg,#ffffff 0%, #f0f0ee 45%, #ffffff 65%, #e8e7e2 100%); border:1.5px solid #e3e0d8; border-bottom:none; border-radius:4px 4px 0 0;"></div>
+          <div style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:58px; height:46px; background:linear-gradient(100deg,#ffffff 0%, #f5f5f2 40%, #ffffff 60%, #eae9e4 100%); border:1.5px solid #e3e0d8; border-radius:14px 14px 26px 26px / 16px 16px 30px 30px; box-shadow:0 4px 10px rgba(0,0,0,0.08);"></div>
+          <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:16px; height:5px; background:#fff; border:1.5px solid #e3e0d8; border-radius:8px/3px;"></div>
         </div>
-        ${flowersInThisVase === 0 ? `<div style="font-size:13px; color:var(--muted); position:absolute; top:15px; width:100%; text-align:center;">🌱 再練 ${5 - (list.length % 5)} 詞<br>會開出第一朵花</div>` : ''}
+        ${flowersInThisVase === 0 ? `<div style="font-size:13px; color:var(--muted); position:absolute; top:15px; width:100%; text-align:center; z-index:2;">🌱 再練 ${5 - (list.length % 5)} 詞<br>會開出第一朵花</div>` : ''}
       </div>
     `;
   }
@@ -1028,10 +1045,14 @@ function renderReview(){
   <style>.vase-carousel::-webkit-scrollbar { display: none; }</style>
   <div style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px 20px 20px; margin-bottom:20px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
     <div style="font-size:14px; color:var(--sage-dark); font-weight:600; margin-bottom:16px;">你的語言盆栽 (已掌握 ${list.length} 詞)</div>
-    <div id="vaseCarousel" class="vase-carousel" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:20px; padding-bottom:10px; scrollbar-width:none; scroll-behavior:smooth;">
-      ${vasesHtml}
+    <div style="position:relative; display:flex; align-items:center; gap:4px;">
+      <button id="vasePrevBtn" style="flex-shrink:0; width:30px; height:30px; border-radius:50%; border:1px solid var(--line); background:#fff; color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:16px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>‹</button>
+      <div id="vaseCarousel" class="vase-carousel" style="flex:1; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:0; padding-bottom:10px; scrollbar-width:none; scroll-behavior:smooth;">
+        ${vasesHtml}
+      </div>
+      <button id="vaseNextBtn" style="flex-shrink:0; width:30px; height:30px; border-radius:50%; border:1px solid var(--line); background:#fff; color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:16px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>›</button>
     </div>
-    ${totalVases > 1 ? `<div style="font-size:11px; color:var(--sage); margin-top:4px;">(向右滑動查看先前的花瓶 👉)</div>` : ''}
+    ${totalVases > 1 ? `<div style="font-size:11px; color:var(--sage); margin-top:2px;">花瓶 ${totalVases} 個,點左右箭頭或滑動查看之前的花瓶</div>` : ''}
     ${totalFlowers >= 0 ? `<div style="font-size:12px; color:var(--muted); margin-top:12px;">距離下一朵花還需練習 ${5 - (list.length % 5)} 詞</div>` : ''}
   </div>`;
 
@@ -1058,6 +1079,19 @@ function renderReview(){
   container.querySelectorAll('.review-item').forEach(row => {
     row.onclick = () => jumpToItem(row.getAttribute('data-en'));
   });
+
+  const vaseCarousel = container.querySelector('#vaseCarousel');
+  const vasePrevBtn = container.querySelector('#vasePrevBtn');
+  const vaseNextBtn = container.querySelector('#vaseNextBtn');
+  if(vaseCarousel && vasePrevBtn && vaseNextBtn){
+    const scrollByOneVase = (dir) => {
+      const slide = vaseCarousel.querySelector('.vase-slide');
+      const step = slide ? slide.getBoundingClientRect().width : vaseCarousel.clientWidth;
+      vaseCarousel.scrollBy({ left: dir * step, behavior: 'smooth' });
+    };
+    vasePrevBtn.onclick = () => scrollByOneVase(-1);
+    vaseNextBtn.onclick = () => scrollByOneVase(1);
+  }
 }
 
 function renderFavorites(){
