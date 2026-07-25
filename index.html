@@ -107,18 +107,21 @@
   .app-tabs {
     display: flex; gap: 4px; padding: 4px;
     background: var(--sage-light); border-radius: 12px;
+    overflow-x: auto; scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
+  .app-tabs::-webkit-scrollbar { display: none; }
   .app-tab {
-    flex: 1; min-height: 58px; padding: 6px 0px; border: none; background: transparent;
+    flex: 0 0 auto; min-height: 58px; padding: 6px 12px; border: none; background: transparent;
     border-radius: 10px; font-weight: 600; color: var(--muted);
     cursor: pointer; transition: all 0.2s; line-height: 1.2;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; gap: 2px;
+    text-align: center; gap: 4px;
     -webkit-user-select: none; user-select: none;
   }
   .app-tab.active { background: var(--card); color: var(--sage-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-  .tab-icon { font-size: 20px; line-height: 1; }
-  .tab-label { font-size: 10.5px; font-weight: 700; letter-spacing: -0.01em; }
+  .tab-icon { font-size: 24px; line-height: 1; }
+  .tab-label { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
 
   .review-container{ margin-bottom:20px; }
   details.review-group{ margin-bottom:16px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:4px 14px; }
@@ -472,13 +475,14 @@
 
   <div class="dropdown-panel" id="modeDropdown">
     <nav class="app-tabs">
-      <button class="app-tab active" id="tabGeneral"><span class="tab-icon">📚</span><span class="tab-label">系統題庫</span></button>
-      <button class="app-tab" id="tabAI"><span class="tab-icon">✨</span><span class="tab-label">AI 情境</span></button>
-      <button class="app-tab" id="tabRoleplay"><span class="tab-icon">💬</span><span class="tab-label">實戰對話</span></button>
+      <button class="app-tab active" id="tabGeneral"><span class="tab-icon">🌱</span><span class="tab-label">系統題庫</span></button>
+      <button class="app-tab" id="tabAI"><span class="tab-icon">🤖</span><span class="tab-label">AI 情境</span></button>
       <button class="app-tab" id="tabNews"><span class="tab-icon">📰</span><span class="tab-label">每日新聞</span></button>
+      <button class="app-tab" id="tabRoleplay"><span class="tab-icon">🎭</span><span class="tab-label">實戰對話</span></button>
+      <button class="app-tab" id="tabCompleted"><span class="tab-icon">✅</span><span class="tab-label">已完成</span></button>
+      <button class="app-tab" id="tabRandom"><span class="tab-icon">🎲</span><span class="tab-label">隨機抽考</span></button>
       <button class="app-tab" id="tabFavorites"><span class="tab-icon">⭐</span><span class="tab-label">收藏</span></button>
-      <button class="app-tab" id="tabReview"><span class="tab-icon">✅</span><span class="tab-label">已完成</span></button>
-      <button class="app-tab" id="tabRandom"><span class="tab-icon">🔁</span><span class="tab-label">隨機抽考</span></button>
+      <button class="app-tab" id="tabReview"><span class="tab-icon">🏺</span><span class="tab-label">語感花室</span></button>
     </nav>
   </div>
   <div class="dropdown-panel" id="stageDropdown">
@@ -519,6 +523,7 @@
   </div>
 
   <div class="review-container" id="favoritesContainer" style="display:none;"></div>
+  <div class="review-container" id="completedContainer" style="display:none;"></div>
   <div class="review-container" id="reviewContainer" style="display:none;"></div>
   
   <div class="card" id="newsContainer" style="display:none; padding:20px;">
@@ -895,7 +900,7 @@ try {
   console.warn("localStorage not accessible", e);
 }
 let catProgress = (savedCatProgressStr ? JSON.parse(savedCatProgressStr) : null) || {};
-const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'review', 'random'];
+const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'completed', 'review', 'random'];
 let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
 function getSavedItemIdx(sIdx, cat) {
@@ -943,10 +948,11 @@ function setAppMode(mode, isInitial = false) {
   if(el('tabRoleplay')) el('tabRoleplay').classList.toggle('active', mode === 'roleplay');
   if(el('tabNews')) el('tabNews').classList.toggle('active', mode === 'news');
   if(el('tabFavorites')) el('tabFavorites').classList.toggle('active', mode === 'favorites');
+  if(el('tabCompleted')) el('tabCompleted').classList.toggle('active', mode === 'completed');
   if(el('tabReview')) el('tabReview').classList.toggle('active', mode === 'review');
   if(el('tabRandom')) el('tabRandom').classList.toggle('active', mode === 'random');
   
-  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'favorites' || mode === 'news');
+  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'completed' || mode === 'favorites' || mode === 'news');
   
   el('aiActions').style.display = mode === 'ai' ? 'block' : 'none';
   el('ladder').style.display = (mode === 'general') ? 'flex' : 'none';
@@ -957,6 +963,7 @@ function setAppMode(mode, isInitial = false) {
   if(el('rpContainer')) el('rpContainer').style.display = (mode === 'roleplay') ? 'block' : 'none';
   if(el('newsContainer')) el('newsContainer').style.display = (mode === 'news') ? 'block' : 'none';
   if(el('favoritesContainer')) el('favoritesContainer').style.display = (mode === 'favorites') ? 'block' : 'none';
+  if(el('completedContainer')) el('completedContainer').style.display = (mode === 'completed') ? 'block' : 'none';
   if(el('reviewContainer')) el('reviewContainer').style.display = (mode === 'review') ? 'block' : 'none';
   
   if(mode === 'news' && el('newsList').innerHTML === '載入中...') {
@@ -975,6 +982,7 @@ function setAppMode(mode, isInitial = false) {
     saveProgress();
   }
   if(mode === 'review') renderReview();
+  if(mode === 'completed') renderCompleted();
   if(mode === 'favorites') renderFavorites();
   render();
   updateTriggerTexts();
@@ -984,6 +992,7 @@ el('tabGeneral').onclick = () => setAppMode('general');
 el('tabAI').onclick = () => setAppMode('ai');
 el('tabRoleplay').onclick = () => setAppMode('roleplay');
 el('tabFavorites').onclick = () => setAppMode('favorites');
+el('tabCompleted').onclick = () => setAppMode('completed');
 el('tabReview').onclick = () => setAppMode('review');
 el('tabNews').onclick = () => setAppMode('news');
 el('tabRandom').onclick = () => {
@@ -1171,6 +1180,46 @@ function jumpToItem(en){
       return;
     }
   }
+}
+
+function renderCompleted(){
+  const container = el('completedContainer');
+  const list = Object.values(practiced);
+  if(list.length === 0){
+    container.innerHTML = '<div class="review-empty">還沒有練習紀錄喔。<br>在「系統題庫」開始練習，這裡會自動列出！</div>';
+    return;
+  }
+
+  const groups = {};
+  list.forEach(it => {
+    const cat = it.cat || '未分類';
+    if(!groups[cat]) groups[cat] = [];
+    groups[cat].push(it);
+  });
+
+  const sortedCats = Object.keys(groups).sort();
+  let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);text-align:center;">這裡是你所有練習過的單字與句子</div>';
+  sortedCats.forEach(cat => {
+    const items = groups[cat];
+    html += `<details class="review-group" open>
+      <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
+      <div class="review-group-items">`;
+    items.forEach(it => {
+      html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
+        <div>
+          <div class="review-item-en">${it.en}</div>
+          ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
+        </div>
+        <div style="color:var(--muted);">▶</div>
+      </div>`;
+    });
+    html += `</div></details>`;
+  });
+  container.innerHTML = html;
+
+  container.querySelectorAll('.review-item').forEach(row => {
+    row.onclick = () => jumpToItem(row.getAttribute('data-en'));
+  });
 }
 
 function renderReview(){
@@ -1429,28 +1478,7 @@ function renderReview(){
   </div>`;
 
   let html = gardenHtml;
-  const sortedCats = Object.keys(groups).sort();
-  sortedCats.forEach(cat => {
-    const items = groups[cat];
-    html += `<details class="review-group">
-      <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
-      <div class="review-group-items">`;
-    items.forEach(it => {
-      html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
-        <div>
-          <div class="review-item-en">${it.en}</div>
-          ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
-        </div>
-        <div style="color:var(--muted);">→</div>
-      </div>`;
-    });
-    html += `</div></details>`;
-  });
   container.innerHTML = html;
-
-  container.querySelectorAll('.review-item').forEach(row => {
-    row.onclick = () => jumpToItem(row.getAttribute('data-en'));
-  });
 
   const vaseCarousel = container.querySelector('#vaseCarousel');
   const vasePrevBtn = container.querySelector('#vasePrevBtn');
@@ -1818,7 +1846,7 @@ function currentItem(){
 }
 
 function render(){
-  if(appMode === 'roleplay' || appMode === 'favorites' || appMode === 'review') return;
+  if(appMode === 'roleplay' || appMode === 'favorites' || appMode === 'review' || appMode === 'completed') return;
   renderLadder();
   const stage = currentStage();
   el('stageDesc').textContent = stage.desc;
