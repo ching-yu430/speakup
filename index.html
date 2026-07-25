@@ -44,34 +44,38 @@
 
   .topbar{
     display:flex;align-items:center;justify-content:space-between;gap:10px;
-    margin-bottom:10px;
+    margin-bottom:8px;
   }
   .brand{
     font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;
     font-size:16px;color:var(--sage-dark);white-space:nowrap;flex-shrink:0;
   }
-  .selector-bar{
-    flex:1;min-width:0;min-height:40px;
-    display:flex;align-items:center;justify-content:space-between;gap:6px;
-    padding:0 14px;border-radius:999px;
+  .triple-bar{
+    display:flex;gap:6px;flex:1;min-width:0;
+  }
+  .trigger-btn{
+    flex:1;min-width:0;min-height:38px;
+    display:flex;align-items:center;justify-content:center;gap:4px;
+    padding:0 8px;border-radius:999px;
     border:1px solid var(--line);background:var(--card);
-    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--ink);
+    font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:var(--ink);
     cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;
   }
-  .selector-bar:hover{border-color:var(--sage);}
-  .selector-bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .selector-caret{color:var(--muted);font-size:11px;flex-shrink:0;transition:transform .2s;}
-  .selector-bar.open .selector-caret{transform:rotate(180deg);}
+  .trigger-btn:hover{border-color:var(--sage);}
+  .trigger-btn.open{background:var(--sage);color:#fff;border-color:var(--sage);}
+  .trigger-btn span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .trigger-caret{font-size:10px;flex-shrink:0;transition:transform .2s;opacity:.7;}
+  .trigger-btn.open .trigger-caret{transform:rotate(180deg);}
 
-  .selector-panel{
+  .dropdown-panel{
     display:none;margin-bottom:6px;padding:12px;
     background:var(--sage-light);border-radius:14px;
   }
-  .selector-panel.open{display:block;}
-  .selector-panel .app-tabs{margin-bottom:10px;}
-  .selector-panel .ladder{margin:0 0 8px;}
-  .selector-panel .stage-desc{margin-bottom:8px;}
-  .selector-panel .cats{margin-bottom:0;}
+  .dropdown-panel.open{display:block;}
+  .dropdown-panel .app-tabs{margin-bottom:0;}
+  .dropdown-panel .ladder{margin:0 0 8px;}
+  .dropdown-panel .stage-desc{margin-bottom:0;}
+  .dropdown-panel .cats{margin-bottom:0;}
 
   .app-tabs {
     display: flex; gap: 6px; padding: 4px;
@@ -305,7 +309,7 @@
 
   @media (max-width:520px){
     .brand{font-size:14px;}
-    .selector-bar{font-size:12px;min-height:36px;padding:0 10px;}
+    .trigger-btn{font-size:11.5px;min-height:34px;padding:0 6px;}
     .wrap{
       padding-top:28px;padding-bottom:calc(64px + env(safe-area-inset-bottom));
       padding-left:calc(14px + env(safe-area-inset-left));
@@ -331,21 +335,32 @@
 
   <div class="topbar">
     <div class="brand">🗣️ Speak Up</div>
-    <button type="button" class="selector-bar" id="selectorBar">
-      <span id="selectorBarText">📚 系統題庫</span>
-      <span class="selector-caret">▾</span>
-    </button>
+    <div class="triple-bar">
+      <button type="button" class="trigger-btn" id="modeTrigger">
+        <span id="modeTriggerText">📚 系統題庫</span><span class="trigger-caret">▾</span>
+      </button>
+      <button type="button" class="trigger-btn" id="stageTrigger">
+        <span id="stageTriggerText">單字</span><span class="trigger-caret">▾</span>
+      </button>
+      <button type="button" class="trigger-btn" id="catTrigger">
+        <span id="catTriggerText">全部</span><span class="trigger-caret">▾</span>
+      </button>
+    </div>
   </div>
 
-  <div class="selector-panel" id="selectorPanel">
+  <div class="dropdown-panel" id="modeDropdown">
     <nav class="app-tabs">
       <button class="app-tab active" id="tabGeneral">📚 系統題庫</button>
       <button class="app-tab" id="tabAI">✨ AI情境</button>
       <button class="app-tab" id="tabRoleplay">💬 實戰對話</button>
       <button class="app-tab" id="tabReview">✅ 已完成</button>
     </nav>
+  </div>
+  <div class="dropdown-panel" id="stageDropdown">
     <div class="ladder" id="ladder"></div>
     <div class="stage-desc" id="stageDesc"></div>
+  </div>
+  <div class="dropdown-panel" id="catDropdown">
     <div class="cats" id="cats"></div>
   </div>
 
@@ -383,12 +398,6 @@
   </div>
 
   <div class="card" id="mainCard">
-    <div class="quick-nav" id="quickNav">
-      <button class="nav-arrow" id="prevBtn" title="上一題">←</button>
-      <span class="counter" id="counter"></span>
-      <button class="nav-arrow" id="skipBtn" title="下一題">→</button>
-    </div>
-
     <div class="target-meta">
       <div class="target-label" id="targetLabel">跟著念</div>
       <div style="display:flex; align-items:center; gap:8px;">
@@ -398,6 +407,12 @@
     </div>
     <div class="target" id="target">Loading...</div>
     <div class="target-zh" id="targetZh"></div>
+
+    <div class="quick-nav" id="quickNav">
+      <button class="nav-arrow" id="prevBtn" title="上一題">←</button>
+      <span class="counter" id="counter"></span>
+      <button class="nav-arrow" id="skipBtn" title="下一題">→</button>
+    </div>
 
     <div class="phon-block" id="phonBlock" style="display:none;">
       <div class="phon-label">怎麼唸(重音節放大,不是KK音標)</div>
@@ -458,36 +473,64 @@
 <script>
 const el = id => document.getElementById(id);
 
-/* ---------- 頂部選單條：展開/收合 ---------- */
-function closeSelectorPanel(){
-  el('selectorPanel').classList.remove('open');
-  el('selectorBar').classList.remove('open');
+/* ---------- 頂部三顆選單按鈕：各自獨立展開/收合 ---------- */
+const DROPDOWNS = {
+  mode:  { panel: 'modeDropdown',  trigger: 'modeTrigger'  },
+  stage: { panel: 'stageDropdown', trigger: 'stageTrigger' },
+  cat:   { panel: 'catDropdown',   trigger: 'catTrigger'   }
+};
+
+function closeDropdown(name){
+  const d = DROPDOWNS[name];
+  el(d.panel).classList.remove('open');
+  el(d.trigger).classList.remove('open');
 }
-function toggleSelectorPanel(){
-  el('selectorPanel').classList.toggle('open');
-  el('selectorBar').classList.toggle('open');
-}
-el('selectorBar').onclick = toggleSelectorPanel;
-// 在面板內點了模式/階段/分類之後，短暫停留讓使用者看到選取狀態，再自動收合
-el('selectorPanel').addEventListener('click', (e) => {
-  if(e.target.closest('.app-tab, .rung, .cat-pill')){
-    setTimeout(closeSelectorPanel, 150);
+function toggleDropdown(name){
+  const wasOpen = el(DROPDOWNS[name].panel).classList.contains('open');
+  Object.keys(DROPDOWNS).forEach(closeDropdown);
+  if(!wasOpen){
+    el(DROPDOWNS[name].panel).classList.add('open');
+    el(DROPDOWNS[name].trigger).classList.add('open');
   }
+}
+el('modeTrigger').onclick = () => toggleDropdown('mode');
+el('stageTrigger').onclick = () => toggleDropdown('stage');
+el('catTrigger').onclick = () => toggleDropdown('cat');
+
+// 選了模式/階段/分類之後，短暫停留讓使用者看到選取狀態，再自動收合該面板
+el('modeDropdown').addEventListener('click', (e) => {
+  if(e.target.closest('.app-tab')) setTimeout(() => closeDropdown('mode'), 150);
+});
+el('stageDropdown').addEventListener('click', (e) => {
+  if(e.target.closest('.rung')) setTimeout(() => closeDropdown('stage'), 150);
+});
+el('catDropdown').addEventListener('click', (e) => {
+  if(e.target.closest('.cat-pill')) setTimeout(() => closeDropdown('cat'), 150);
 });
 
-function updateSelectorBarText(){
+function updateTriggerTexts(){
   const modeLabels = { general:'📚 系統題庫', ai:'✨ AI情境', roleplay:'💬 實戰對話', review:'✅ 已完成' };
-  let text = modeLabels[appMode] || '📚 系統題庫';
-  if(appMode === 'general' || appMode === 'ai'){
+  el('modeTriggerText').textContent = modeLabels[appMode] || '📚 系統題庫';
+
+  const showStageAndCat = (appMode === 'general' || appMode === 'ai');
+  el('stageTrigger').style.display = showStageAndCat ? 'flex' : 'none';
+  el('catTrigger').style.display = showStageAndCat ? 'flex' : 'none';
+  if(!showStageAndCat){
+    closeDropdown('stage');
+    closeDropdown('cat');
+  }
+
+  if(showStageAndCat){
     const stage = (typeof currentStage === 'function') ? currentStage() : null;
-    if(stage) text += ' · ' + stage.label;
+    if(stage) el('stageTriggerText').textContent = stage.label;
+
     if(typeof activeCat !== 'undefined' && activeCat && activeCat !== 'all'){
       const catDisplay = activeCat.startsWith('(AI) ') ? activeCat.replace('(AI) ','✨ ') : activeCat;
-      text += ' · ' + catDisplay;
+      el('catTriggerText').textContent = catDisplay;
+    } else {
+      el('catTriggerText').textContent = '全部';
     }
   }
-  const barText = el('selectorBarText');
-  if(barText) barText.textContent = text;
 }
 
 /* ---------- 收藏與初始化 ---------- */
@@ -661,7 +704,7 @@ function setAppMode(mode, isInitial = false) {
   }
   if(mode === 'review') renderReview();
   render();
-  updateSelectorBarText();
+  updateTriggerTexts();
 }
 
 el('tabGeneral').onclick = () => setAppMode('general');
@@ -973,7 +1016,7 @@ function render(){
   const stage = currentStage();
   el('stageDesc').textContent = stage.desc;
   renderCats();
-  updateSelectorBarText();
+  updateTriggerTexts();
   
   el('targetLabel').textContent = appMode === 'ai' ? 'AI 專屬情境' : (stage.label === '自由回答' ? '看情境,講一句' : '跟著念');
   
