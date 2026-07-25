@@ -1016,12 +1016,11 @@ function renderReview(){
     // 層與層之間再用高度(莖長)差 + 左右錯位,做出交錯又不重疊的層次感。
     // 莖長整體壓低,即使三層都滿(15朵)也確保不會超出容器範圍,且花會更靠近瓶口的葉子。
     const PER_LAYER = 5;
-    const SLOT_GAP = 13;                   // 縮小 → 整束花更緊密，扇形不再散開
-    const LAYER_X_OFFSET = [0, 10, 0];
-    // 三層第一層都下移靠近葉叢，層間莖長差縮小讓莖弁微微重疊
-    const LAYER_STEM = [6, 13, 21];       // 大幅下移：第一層從14降八6，聖鴎嵐加葉叢更緊密
-    const LAYER_STEM_JITTER = 2;           // 抖動縮小，防止下移後陽入瓶口
-    const LAYER_ARC = 18;
+    const SLOT_GAP = 9;                    // 張開用 slotX 計算：5朵的總寬度 = 4×9 = 36px，最外側共±18px
+    const LAYER_X_OFFSET = [0, 6, -3];    // 層間微下错位仳防止完全重疊，但不冺天偏很遠
+    const LAYER_STEM = [6, 13, 21];
+    const LAYER_STEM_JITTER = 2;
+    const LAYER_ARC = 15;                  // 微縮弧幅，不讓中間花跟外側花建差太大
     const LAYER_SIZE = [21, 19, 17];
     const LAYER_SIZE_JITTER = 2;
 
@@ -1034,7 +1033,7 @@ function renderReview(){
       const flowersInLayer = Math.min(PER_LAYER, flowersInThisVase - layer * PER_LAYER);
 
       const slotX = (slot - (flowersInLayer - 1) / 2) * SLOT_GAP;
-      const jitterX = (hash01(globalIdx * 2) - 0.5) * (SLOT_GAP * 0.15);
+      const jitterX = (hash01(globalIdx * 2) - 0.5) * 2; // 抖動改為固定小値，不隨 SLOT_GAP 放大
       const tx = slotX + LAYER_X_OFFSET[layer] + jitterX;
 
       const halfWidth = ((flowersInLayer - 1) / 2) * SLOT_GAP + 1;
@@ -1044,11 +1043,10 @@ function renderReview(){
       const stem = LAYER_STEM[layer] + (hash01(globalIdx * 4 + 3) - 0.5) * LAYER_STEM_JITTER;
       const ty = -(stem + arcBoost + jitterY);
 
-      // 花朵旋轉：以莖根(bottom-center)為軸，依花朵相對於瓶口的方向計算角度
-      // atan2(tx, -ty) = 莖方向角(莖根在瓶口，花朵在tx,ty方向)
-      const stemAngleDeg = Math.atan2(tx, -ty) * (180 / Math.PI);
-      // 加上小量隨機抖動讓每朵花有點不同的歪斜感
-      const flowerRot = stemAngleDeg + (hash01(globalIdx * 7 + 3) - 0.5) * 6;
+      // 花朵旋轉：用 atan2 計算莖方向角，強制限制在±28°以內，就算兩側花也不會倒得太夠去
+      const rawAngle = Math.atan2(tx, -ty) * (180 / Math.PI);
+      const clampedAngle = Math.max(-28, Math.min(28, rawAngle)); // 強制不超過±28°
+      const flowerRot = clampedAngle + (hash01(globalIdx * 7 + 3) - 0.5) * 4;
 
       const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
       // 層次 z-index：第一層(靠近瓶口)最大、第三層最小，但全部都大於葉子(8~12)，確保花永遠不會被葉子避擋
