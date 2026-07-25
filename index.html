@@ -1011,38 +1011,62 @@ function renderReview(){
     let flowersHtml = '';
     const n = flowersInThisVase;
 
-    // 直接用「固定水平間距的槽位」排花,不再用角度+莖長去反推位置——
-    // 角度分開、莖長不同時,投影到平面上還是有機會撞在一起(這正是上一版仍然重疊的原因)。
-    // 改成先保證每朵花的水平間距一定 >= minGap,絕對不會疊在同一個點上;
-    // 高度用拋物線做出中間高、兩側低的圓弧花型,看起來像插好的一把花。
-    const minGap = 20; // 相鄰兩朵花水平最小間距(px),加大確保不會貼在一起
-    const maxTotalWidth = Math.min(158, (n - 1) * minGap); // 花越多整體越寬,但有上限避免超出花瓶太多
-    const spacing = n > 1 ? maxTotalWidth / (n - 1) : 0;
+    // 扇形三層排列:由靠近花瓶開始算第一層,每層最多5朵花。
+    // 三層的「扇形張角」由窄到寬(前層窄、後層寬),加上每層一點角度位移做交錯,
+    // 同時前層莖短、後層莖長,靠「高度差」確保三層彼此不會疊在一起。
+    const PER_LAYER = 5;
+    const LAYER_SPREAD = [64, 86, 108];   // 每層扇形總張角(度),前窄後寬
+    const LAYER_OFFSET = [0, 10, -7];     // 每層角度位移(度),讓三層交錯而非直上直下對齊
+    const LAYER_STEM = [30, 45, 60];      // 每層基準莖長(px),前短後長
+    const LAYER_STEM_JITTER = 7;
+    const LAYER_SIZE = [21, 19, 17];      // 前層花朵略大(近),後層略小(遠),增加層次感
+    const LAYER_SIZE_JITTER = 3;
 
     for (let i = 0; i < flowersInThisVase; i++) {
       const globalIdx = v * VASE_CAPACITY + i;
       const fType = getFlowerType(globalIdx);
 
-      const xSlot = (i - (n - 1) / 2) * spacing; // 由左到右均勻排開,絕對不重疊
-      const jitterX = (hash01(globalIdx * 2) - 0.5) * (spacing * 0.22); // 抖動幅度遠小於間距,不會吃掉安全距離
-      const tx = xSlot + jitterX;
+      const layer = Math.min(Math.floor(i / PER_LAYER), LAYER_SPREAD.length - 1);
+      const slot = i - layer * PER_LAYER;
+      const flowersInLayer = Math.min(PER_LAYER, flowersInThisVase - layer * PER_LAYER);
 
-      const normalized = maxTotalWidth > 0 ? Math.abs(tx) / (maxTotalWidth / 2 + 1) : 0; // 0(中央)~1(兩側)
-      const baseHeight = 46 - normalized * 18; // 中間的花莖比較長,兩側略短,呈現圓弧花型
-      const jitterY = (hash01(globalIdx * 2 + 1) - 0.5) * 10;
-      const ty = -(baseHeight + jitterY);
+      const spread = LAYER_SPREAD[layer];
+      const baseAngle = flowersInLayer > 1
+        ? (-spread / 2 + slot * (spread / (flowersInLayer - 1)))
+        : 0;
+      const angleJitter = (hash01(globalIdx * 3 + 7) - 0.5) * 6; // 小幅度隨機,避免每朵花位置死板
+      const angle = baseAngle + LAYER_OFFSET[layer] + angleJitter;
+      const rad = angle * Math.PI / 180;
 
-      const rot = (tx / (maxTotalWidth / 2 + 1)) * 16 + (hash01(globalIdx * 3 + 7) - 0.5) * 6; // 依水平位置微微朝外傾斜,幅度不大
-      const size = 17 + hash01(globalIdx * 5 + 11) * 5; // 17~22px,縮小一些留更多安全間隔
-      const zIdx = 100 + Math.round(-ty) - Math.round(size); // 莖越短(越靠近瓶口/前景)疊在越上層
+      const stem = LAYER_STEM[layer] + (hash01(globalIdx * 2 + 1) - 0.5) * LAYER_STEM_JITTER;
+      const tx = Math.sin(rad) * stem;
+      const ty = -Math.cos(rad) * stem; // 負值=往上
+
+      const rot = angle * 0.4 + (hash01(globalIdx * 7 + 3) - 0.5) * 5; // 花朵本身依角度微微傾斜
+      const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
+      const zIdx = 130 - layer * 10 + slot; // 第一層(靠近花瓶)在最前面,第三層在最後面
       const delay = (i * 0.03).toFixed(2);
 
       flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${rot.toFixed(1)}deg; animation:popIn 0.4s both; animation-delay:${delay}s; z-index:${zIdx};">${fType}</div>`;
     }
 
+    // 瓶口插幾片葉子,縮短花與瓶口之間的視覺空白,也讓整把花看起來更完整
+    let leavesHtml = '';
+    if (flowersInThisVase > 0) {
+      const leaves = [
+        { tx: -36, ty: -4,  rot: -50, size: 22 },
+        { tx: -19, ty: -13, rot: -20, size: 19 },
+        { tx: 19,  ty: -13, rot: 20,  size: 19 },
+        { tx: 36,  ty: -4,  rot: 50,  size: 22 }
+      ];
+      leavesHtml = leaves.map((lf, li) => `<div style="position:absolute; bottom:${NECK_TOP_Y - 6}px; left:50%; margin-left:${-(lf.size / 2)}px; font-size:${lf.size}px; line-height:1; transform:translate(${lf.tx}px, ${lf.ty}px) rotate(${lf.rot}deg); z-index:${6 + li}; opacity:0.95;">🍃</div>`).join('');
+    }
+
+
     vasesHtml += `
       <div class="vase-slide" style="flex:0 0 100%; scroll-snap-align:center; position:relative; width:100%; height:165px;">
         ${flowersHtml}
+        ${leavesHtml}
         <svg viewBox="0 0 60 100" width="58" height="${VASE_H}" style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); z-index:1; overflow:visible;">
           <defs>
             <filter id="vaseShadow${v}" x="-50%" y="-50%" width="200%" height="200%">
