@@ -80,3 +80,92 @@
 ---
 
 **準備好讓你的英文口說突飛猛進了嗎？現在就開口 Speak Up！**
+
+<br>
+<br>
+
+---
+---
+
+# 🗣️ Speak Up - Your Personal English Speaking & Listening Coach
+
+**Speak Up** is a lightweight, powerful Single-Page Application (SPA) designed as an interactive English speaking and listening practice tool. With zero installation and no backend database required, all your learning progress is safely stored locally in your browser. It integrates the powerful **Google Gemini API** to provide infinite custom scenarios and real-time news roleplay exercises.
+
+---
+
+## ✨ Core Features
+
+### 1. 📚 System Vocabulary Bank
+Includes a rich set of built-in vocabulary, phrases, and practical sentence patterns. Learn progressively through a "staged learning" approach:
+- **Stages**: Start from Words, advance to Phrases, and master full Sentences.
+- **Blind Test Mode**: Hide Chinese translations to train your brain to connect English directly with contexts without relying on rote memorization.
+
+### 2. ✨ AI Scenario Generation
+Need more specific practice? Simply enter a "custom scenario" (e.g., asking for a gym membership, lost luggage at the airport), and the system will instantly call the Gemini API to generate custom vocabulary, phrases, and dialogue sentences tailored exactly to your real-life needs.
+
+### 3. 📰 Daily News Learning (BBC News)
+The system automatically fetches the latest international headlines from BBC News via RSS. Through real-time AI translation and processing, it extracts "core vocabulary" and "roleplay scenarios" from each news piece, allowing you to discuss global events in authentic English every day.
+
+### 4. 💬 Roleplay Conversation
+An interactive interface that simulates real conversations. Whether you are ordering food, in a job interview, or making small talk, you can use the built-in "Speech-to-Text" feature to speak into your microphone. The AI will act as your conversation partner and provide instant feedback.
+
+### 5. 🏺 Streak Garden
+A visual achievement system! By logging in and practicing consistently every day, your "Streak Garden" will grow your very own streak plants. Paired with a soothing, earthy gradient background, you can watch your efforts bloom in a stress-free environment.
+
+### 6. 🔁 Spaced Repetition & Random Review
+Automatically and randomly draws from your past "Completed" items (including both the system word bank and your AI-generated scenarios). Review and reinforce your memory randomly without any expected pressure.
+
+---
+
+## 🛠️ Technology Stack
+
+This project embraces the principle of "Minimalist yet Powerful" and requires absolutely no backend server:
+- **Frontend Core**: Pure HTML5 + CSS3 (Custom Design System) + Vanilla JavaScript.
+- **Data Storage**: Heavily utilizes the browser's `localStorage`. All user progress, streaks, AI-generated items, and favorite lists are stored locally. Fully equipped with crash-prevention wrappers (`try...catch`) to ensure stable operation even in iOS Safari's restricted private mode.
+- **AI Driven**: Directly interfaces with Google Gemini (Generative Language API) via fetch.
+- **Speech System**: Deep integration with the browser's native `Web Speech API` (including `SpeechSynthesisUtterance` and `webkitSpeechRecognition`), supporting cross-platform text-to-speech and microphone input (including iOS / Safari).
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/speak-up.git
+   cd speak-up
+   ```
+
+2. **Prepare Your Gemini API Key**
+   - Go to [Google AI Studio](https://aistudio.google.com/) to apply for a free API Key.
+
+3. **Run the Project**
+   - Since this is a purely static web application, you only need to open `index.html` directly in any web browser (Chrome or Safari recommended) to run it!
+   - *(If using on a mobile device, it is highly recommended to "Add to Home Screen" for the perfect, borderless, full-screen immersive experience.)*
+
+4. **Enter Your API Key**
+   - Click the ⚙️ (Settings) button in the top left corner of the app.
+   - Paste your Gemini API Key into the input field and save.
+   - Congratulations! You have unlocked all AI scenario generation and roleplay features!
+
+---
+
+## 📂 File Structure
+
+```text
+/
+├── index.html       # Main application (contains all UI, CSS, and core logic)
+├── word_bank.js     # Default system vocabulary bank (supports dynamic expansion)
+└── README.md        # Project documentation
+```
+
+---
+
+## 💡 Tips
+
+- **Auto-Pronunciation**: Click the 🔊 icon on the right side of any flashcard, and the system will demonstrate standard English pronunciation.
+- **My Favorites**: When you encounter unfamiliar words during practice, click the ⭐ icon to favorite them, and do concentrated training in the "Favorites" tab later.
+- **Protect Your API Key**: Your API Key is only stored locally in your personal browser and is NEVER sent to any third-party servers. Use it with peace of mind.
+
+---
+
+**Ready to level up your spoken English? Let's Speak Up!**
