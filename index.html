@@ -1633,7 +1633,7 @@ async function fetchZhViaGemini(text){
     });
     if(!res.ok) return '';
     const data = await res.json();
-    const text2 = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const text2 = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) ? data.candidates[0].content.parts[0].text : '';
     return text2 ? text2.trim().replace(/^["「]|["」]$/g, '') : '';
   }catch(e){
     return '';
@@ -2312,7 +2312,7 @@ zh (中文) 必須是繁體中文(台灣)。
       let errText = '';
       try {
         const errJson = await res.json();
-        errText = errJson.error?.message || res.statusText;
+        errText = (errJson.error && errJson.error.message) ? errJson.error.message : res.statusText;
       } catch(e) {
         errText = res.statusText;
       }
@@ -2444,11 +2444,11 @@ el('coachBtn').onclick = async () => {
     });
     if(!res.ok){
       let detail = res.statusText;
-      try{ const errJson = await res.json(); detail = errJson.error?.message || detail; }catch(e){}
+      try{ const errJson = await res.json(); detail = (errJson.error && errJson.error.message) ? errJson.error.message : detail; }catch(e){}
       throw new Error('API 錯誤: ' + detail);
     }
     const data = await res.json();
-    let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    let text = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) ? data.candidates[0].content.parts[0].text : '';
     if(!text) throw new Error('AI 回傳為空');
     
     text = text.replace(/```json/g, '').replace(/```/g, '').trim();
@@ -2530,7 +2530,7 @@ async function fetchRpResponse(contents) {
       let detail = res.statusText;
       try{
         const errJson = await res.json();
-        detail = errJson.error?.message || detail;
+        detail = (errJson.error && errJson.error.message) ? errJson.error.message : detail;
       }catch(e){}
       if(res.status === 400) throw new Error('請求格式錯誤或 API Key 無效(400):' + detail);
       if(res.status === 403) throw new Error('API Key 沒有權限或被拒絕(403):' + detail);
@@ -2540,7 +2540,7 @@ async function fetchRpResponse(contents) {
     }
 
     const data = await res.json();
-    let text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    let text = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) ? data.candidates[0].content.parts[0].text : '';
     if(!text) throw new Error('AI 回傳內容為空,可能是被安全機制擋下或觸發了長度上限。');
 
     // Clean up potential markdown formatting from JSON
