@@ -79,21 +79,18 @@
   }
   .triple-bar{
     display:flex;gap:6px;flex:1;min-width:0;
-    overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
-    padding-bottom: 2px;
   }
-  .triple-bar::-webkit-scrollbar { display:none; }
   .trigger-btn{
-    flex:0 0 auto;min-width:0;min-height:42px;
+    flex:1;min-width:0;min-height:42px;
     display:flex;align-items:center;justify-content:center;gap:4px;
-    padding:0 12px;border-radius:999px;
+    padding:0 10px;border-radius:999px;
     border:1px solid var(--line);background:var(--card);
     font-family:'Inter',sans-serif;font-size:14.5px;font-weight:700;color:var(--ink);
     cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;
   }
   .trigger-btn:hover{border-color:var(--sage);}
   .trigger-btn.open{background:var(--sage);color:#fff;border-color:var(--sage);}
-  .trigger-btn span:first-child{white-space:nowrap;}
+  .trigger-btn span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .trigger-caret{font-size:10px;flex-shrink:0;transition:transform .2s;opacity:.7;}
   .trigger-btn.open .trigger-caret{transform:rotate(180deg);}
 
@@ -475,13 +472,13 @@
       <button id="settingsBtn" style="background:none; border:none; padding:4px; font-size:15px; cursor:pointer; color:var(--muted);" title="設定與資料">⚙️</button>
     </div>
     <div class="triple-bar">
-      <button type="button" class="trigger-btn" id="modeTrigger">
+      <button type="button" class="trigger-btn" id="modeTrigger" style="flex:1.5; padding:0 8px;">
         <span id="modeTriggerText">📚 系統題庫</span><span class="trigger-caret">▾</span>
       </button>
-      <button type="button" class="trigger-btn" id="stageTrigger">
+      <button type="button" class="trigger-btn" id="stageTrigger" style="flex:0.9; padding:0 4px;">
         <span id="stageTriggerText">單字</span><span class="trigger-caret">▾</span>
       </button>
-      <button type="button" class="trigger-btn" id="catTrigger">
+      <button type="button" class="trigger-btn" id="catTrigger" style="flex:1.1; padding:0 8px; background: var(--sage); color: #fff; border-color:var(--sage);">
         <span id="catTriggerText">全部</span><span class="trigger-caret">▾</span>
       </button>
     </div>
@@ -746,6 +743,16 @@ function updateTriggerTexts(){
   const showStageAndCat = (appMode === 'general' || appMode === 'ai');
   el('stageTrigger').style.display = (appMode === 'general') ? 'block' : 'none';
   el('catTrigger').style.display = showStageAndCat ? 'block' : 'none';
+  
+  // Dynamically adjust widths based on mode
+  if (appMode === 'ai') {
+    el('modeTrigger').style.flex = '0 0 auto';
+    el('catTrigger').style.flex = '1 1 0';
+  } else {
+    el('modeTrigger').style.flex = '1.5';
+    el('catTrigger').style.flex = '1.1';
+  }
+  
   if(!showStageAndCat){
     closeDropdown('stage');
     closeDropdown('cat');
