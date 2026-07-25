@@ -94,20 +94,28 @@
   .tab-label { font-size: 10.5px; font-weight: 700; letter-spacing: -0.01em; }
 
   .review-container{ margin-bottom:20px; }
-  .review-group{ margin-bottom:24px; }
-  .review-group-title{
-    font-size:13px; font-weight:700; color:var(--sage-dark); margin-bottom:8px;
+  details.review-group{ margin-bottom:16px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:4px 14px; }
+  details.review-group summary{
+    font-size:14px; font-weight:700; color:var(--sage-dark); padding:12px 0;
     display:flex; justify-content:space-between; align-items:center;
+    cursor: pointer; list-style: none; -webkit-user-select: none; user-select: none;
   }
-  .review-group-count{ color:var(--muted); font-weight:500; }
+  details.review-group summary::-webkit-details-marker { display: none; }
+  .review-group-title-left { display:flex; align-items:center; gap:8px; }
+  .review-group-title-left::before {
+    content: '▶'; font-size: 10px; color:var(--muted); transition: transform 0.2s; display:inline-block;
+  }
+  details.review-group[open] .review-group-title-left::before { transform: rotate(90deg); }
+  .review-group-items { padding-top:4px; padding-bottom:12px; border-top:1px dashed var(--line); margin-top:4px; }
+  .review-group-count{ color:var(--muted); font-weight:500; font-size:13px; }
   .review-item{
-    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    background:#fff; border:1px solid var(--line); border-radius:10px;
     padding:12px 14px; margin-bottom:8px; cursor:pointer; transition:all .15s;
     display:flex; justify-content:space-between; align-items:center; gap:10px;
   }
   .review-item:hover{ border-color:var(--sage); }
-  .review-item-en{ font-weight:600; font-size:15px; }
-  .review-item-zh{ font-size:13px; color:var(--muted); margin-top:2px; }
+  .review-item-en{ font-weight:600; font-size:14px; }
+  .review-item-zh{ font-size:12px; color:var(--muted); margin-top:2px; }
   .review-empty{
     text-align:center; color:var(--muted); font-size:14px; padding:40px 20px;
   }
@@ -789,8 +797,9 @@ function renderReview(){
   let html = '';
   sortedCats.forEach(cat => {
     const items = groups[cat];
-    html += `<div class="review-group">
-      <div class="review-group-title"><span>${cat}</span><span class="review-group-count">${items.length} 題</span></div>`;
+    html += `<details class="review-group">
+      <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
+      <div class="review-group-items">`;
     items.forEach(it => {
       html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
         <div>
@@ -800,7 +809,7 @@ function renderReview(){
         <div style="color:var(--muted);">→</div>
       </div>`;
     });
-    html += `</div>`;
+    html += `</div></details>`;
   });
   container.innerHTML = html;
 
