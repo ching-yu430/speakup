@@ -426,13 +426,13 @@
       <button id="settingsBtn" style="background:none; border:none; padding:4px; font-size:15px; cursor:pointer; color:var(--muted);" title="設定與資料">⚙️</button>
     </div>
     <div class="triple-bar">
-      <button type="button" class="trigger-btn" id="modeTrigger">
+      <button type="button" class="trigger-btn" id="modeTrigger" style="flex:1.5; padding:0 8px;">
         <span id="modeTriggerText">📚 系統題庫</span><span class="trigger-caret">▾</span>
       </button>
-      <button type="button" class="trigger-btn" id="stageTrigger">
+      <button type="button" class="trigger-btn" id="stageTrigger" style="flex:0.9; padding:0 4px;">
         <span id="stageTriggerText">單字</span><span class="trigger-caret">▾</span>
       </button>
-      <button type="button" class="trigger-btn" id="catTrigger">
+      <button type="button" class="trigger-btn" id="catTrigger" style="flex:0.9; padding:0 4px;">
         <span id="catTriggerText">全部</span><span class="trigger-caret">▾</span>
       </button>
     </div>
@@ -524,7 +524,10 @@
       <button class="accent-btn" id="accentUK" type="button">🇬🇧 英式</button>
     </div>
 
-    <div class="controls">
+    <div class="controls" style="position:relative;">
+      <div style="position:absolute; left:0; display:flex; align-items:center;">
+        <input type="range" id="speedSlider" min="0.1" max="0.9" step="0.1" value="0.5" style="width:50px; cursor:pointer;" title="慢速發音速度">
+      </div>
       <button class="btn-play btn-play-slow" id="slowPlayBtn" title="慢速發音">🐢</button>
       <button class="btn-mic" id="recBtn" title="點擊錄音">🎙</button>
       <button class="btn-play" id="playBtn" title="正常發音">🔊</button>
@@ -579,26 +582,25 @@
     </div>
   </details>
 
-  <div class="modal-overlay" id="settingsModal">
-    <div class="modal">
-      <div class="modal-title">⚙️ 設定與資料管理</div>
-      <div style="font-size:14px; color:var(--muted); margin-bottom:15px;">管理你的學習資料與系統設定。</div>
+  <div class="ai-modal-overlay" id="settingsModal">
+    <div class="ai-modal">
+      <button class="ai-modal-close" id="settingsCloseBtn">×</button>
+      <h2 style="margin-top:0; color:var(--sage-dark); font-size: 20px;">⚙️ 設定與資料管理</h2>
+      <div style="font-size:13px; color:var(--muted); margin-bottom:15px;">管理你的學習資料與系統設定。</div>
       
       <div style="margin-bottom:12px;">
         <div style="font-weight:600; margin-bottom:6px; font-size:15px;">💾 備份與匯出題庫</div>
-        <button class="primary-btn" id="exportBtn" style="width:100%; margin-bottom:8px; font-size:14px; background:var(--sage); color:var(--card); border:none;">📥 下載 word_bank.js</button>
+        <button id="exportBtn" style="background: var(--sage); border:none; padding: 12px; border-radius: 10px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">📥 下載 word_bank.js</button>
         <div style="font-size:12px; color:var(--muted); line-height:1.4;">這將合併系統原始題庫與你所有的 AI 生成/自訂單字，打包下載。下載後請覆蓋舊檔即可永久保存。</div>
       </div>
       
-      <hr style="border:none; border-top:1px solid var(--line); margin:15px 0;">
+      <hr style="border:none; border-top:1px dashed var(--line); margin:15px 0;">
       
       <div style="margin-bottom:12px;">
         <div style="font-weight:600; margin-bottom:6px; font-size:15px; color:#e74c3c;">🗑️ 清除快取資料</div>
-        <button class="primary-btn" id="clearDataBtn" style="width:100%; font-size:14px; background:#fceceb; color:#e74c3c; border:1px solid #f5b7b1;">清除所有學習紀錄與單字</button>
+        <button id="clearDataBtn" style="background: #fceceb; border: 1px solid #f5b7b1; padding: 12px; border-radius: 10px; color:#e74c3c; cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">清除所有學習紀錄與單字</button>
         <div style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4;">⚠️ 將刪除「已完成」、「收藏」及所有未下載的 AI 單字，動作無法復原！</div>
       </div>
-      
-      <button class="cancel-btn" id="settingsCloseBtn" style="width:100%; margin-top:15px;">關閉</button>
     </div>
   </div>
 
@@ -1957,7 +1959,10 @@ function checkMobile(){
 }
 
 el('playBtn').onclick = () => playAudio(currentItem());
-el('slowPlayBtn').onclick = () => playAudio(currentItem(), 0.5);
+el('slowPlayBtn').onclick = () => {
+  const speed = parseFloat(el('speedSlider').value) || 0.5;
+  playAudio(currentItem(), speed);
+};
 
 function updateAccentButtons(){
   el('accentUS').classList.toggle('active', accentPref === 'us');
