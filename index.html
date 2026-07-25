@@ -1110,21 +1110,21 @@ function renderReview(){
 
   // 等級系統（15 階，涵蓋 0–2000+ 詞）
   const levelDefs = [
-    { min:0,    max:9,    label:'\ud83c\udf31 \u5a29\u82bd',     color:'#8fba6c' },
-    { min:10,   max:24,   label:'\ud83e\udeb4 \u5c0f\u82d7',     color:'#6dba8c' },
-    { min:25,   max:49,   label:'\ud83c\udf3f \u8449\u821f\u5c55',   color:'#5aaa82' },
-    { min:50,   max:79,   label:'\ud83c\udf3c \u521d\u7db3\u653e',   color:'#f0c040' },
-    { min:80,   max:119,  label:'\ud83c\udf38 \u5b0c\u5a29\u82b1',   color:'#e88fad' },
-    { min:120,  max:179,  label:'\ud83c\udf3a \u8263\u9e97\u82b1',   color:'#e05090' },
-    { min:180,  max:249,  label:'\ud83c\udf3b \u5411\u967d\u82b1',   color:'#f5a623' },
-    { min:250,  max:349,  label:'\ud83c\udf39 \u542b\u60c5\u73ab',   color:'#d63060' },
-    { min:350,  max:499,  label:'\ud83c\udf37 \u9鬱\u91d1\u9999',   color:'#9b59b6' },
-    { min:500,  max:699,  label:'\ud83e\udebb \u85f0\u8863\u8349',   color:'#7e57c2' },
-    { min:700,  max:999,  label:'\ud83c\udff5\ufe0f \u82b1\u85dd\u5e2b',  color:'#4caf8a' },
-    { min:1000, max:1299, label:'\ud83d\udc90 \u82b1\u675f\u5927\u5e2b', color:'#e67e22' },
-    { min:1300, max:1699, label:'\ud83c\udf33 \u8a9e\u8a00\u4e4b\u6a39', color:'#27ae60' },
-    { min:1700, max:1999, label:'\ud83c\udf32 \u767e\u5e74\u53e4\u6728', color:'#1a6b3a' },
-    { min:2000, max:Infinity, label:'\ud83d\udc51 \u82b1\u8a9e\u5b97\u5e2b', color:'#c0a000' }
+    { min:0,    max:9,    label:'🌱 嫩芽',     color:'#8fba6c' },
+    { min:10,   max:24,   label:'🪴 小苗',     color:'#6dba8c' },
+    { min:25,   max:49,   label:'🌿 葉舒展',   color:'#5aaa82' },
+    { min:50,   max:79,   label:'🌼 初綻放',   color:'#f0c040' },
+    { min:80,   max:119,  label:'🌸 嬌嫩花',   color:'#e88fad' },
+    { min:120,  max:179,  label:'🌺 豔麗花',   color:'#e05090' },
+    { min:180,  max:249,  label:'🌻 向陽花',   color:'#f5a623' },
+    { min:250,  max:349,  label:'🌹 含情玫',   color:'#d63060' },
+    { min:350,  max:499,  label:'🌷 鬱金香',   color:'#9b59b6' },
+    { min:500,  max:699,  label:'🪻 薰衣草',   color:'#7e57c2' },
+    { min:700,  max:999,  label:'🏵️ 花藝師',  color:'#4caf8a' },
+    { min:1000, max:1299, label:'💐 花束大師', color:'#e67e22' },
+    { min:1300, max:1699, label:'🌳 語言之樹', color:'#27ae60' },
+    { min:1700, max:1999, label:'🌲 百年古木', color:'#1a6b3a' },
+    { min:2000, max:Infinity, label:'👑 花語宗師', color:'#c0a000' }
   ];
   const level = levelDefs.find(l => list.length >= l.min && list.length <= l.max) || levelDefs[0];
   const nextLevel = levelDefs[levelDefs.indexOf(level) + 1];
