@@ -908,8 +908,21 @@ function saveProgress(){
 }
 
 function generateRandomReview() {
-  const allItems = STAGES.flatMap(s => s.items);
-  randomReviewItems = allItems.sort(() => 0.5 - Math.random()).slice(0, 20);
+  const list = Object.values(practiced);
+  if (list.length === 0) {
+    randomReviewItems = [{en: 'Practice more', zh: '請先在其他模式練習', cat: '提示'}];
+    return;
+  }
+  list.sort((a,b) => (b.lastPracticed || 0) - (a.lastPracticed || 0));
+  const recentCount = Math.ceil(list.length * 0.3);
+  const recent = list.slice(0, recentCount);
+  const older = list.slice(recentCount);
+  const shuffle = arr => arr.sort(() => 0.5 - Math.random());
+  shuffle(recent);
+  shuffle(older);
+  let picked = [...recent.slice(0,10), ...older.slice(0,10)];
+  shuffle(picked);
+  randomReviewItems = picked;
 }
 
 function setAppMode(mode, isInitial = false) {
@@ -1734,24 +1747,7 @@ function categoriesForMode(mode) {
   return Array.from(set);
 }
 
-let randomReviewItems = [];
-function generateRandomReview() {
-  const list = Object.values(practiced);
-  if (list.length === 0) {
-    randomReviewItems = [{en: 'Practice more', zh: '請先在其他模式練習', cat: '提示'}];
-    return;
-  }
-  list.sort((a,b) => (b.lastPracticed || 0) - (a.lastPracticed || 0));
-  const recentCount = Math.ceil(list.length * 0.3);
-  const recent = list.slice(0, recentCount);
-  const older = list.slice(recentCount);
-  const shuffle = arr => arr.sort(() => 0.5 - Math.random());
-  shuffle(recent);
-  shuffle(older);
-  let picked = [...recent.slice(0,10), ...older.slice(0,10)];
-  shuffle(picked);
-  randomReviewItems = picked;
-}
+
 
 function filteredItems(){
   if(appMode === 'random') return randomReviewItems;
