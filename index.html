@@ -2192,7 +2192,6 @@ const MIN_REC_MS = 1500; // 最小錄音時間,防止太快 stop
 
 function startRecording(){
   if(!SRClass) return;
-  warmUpMic();
   speechSynthesis.cancel();
   isRecording = true;
   gotResult = false;
@@ -2711,7 +2710,6 @@ el('rpRecBtn').onclick = () => {
     return;
   }
   
-  warmUpMic();
   try {
     rpSR.start();
   } catch(e) {
