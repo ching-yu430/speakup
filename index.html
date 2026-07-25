@@ -364,33 +364,6 @@
   .rp-chat::-webkit-scrollbar{width:6px;}
   .fav-remove-btn { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
-  /* Gamification Pot */
-  .css-pot {
-    width: 70px; height: 50px; background: var(--clay);
-    border-radius: 4px 4px 24px 24px; margin: 0 auto;
-    position: relative;
-    box-shadow: inset -8px -4px 12px rgba(0,0,0,0.15), 0 6px 12px rgba(0,0,0,0.08);
-    z-index: 3;
-  }
-  .css-pot::before {
-    content: ''; position: absolute; top: -6px; left: -4px; right: -4px;
-    height: 12px; background: var(--clay-light); border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  .css-pot::after {
-    content: ''; position: absolute; top: -3px; left: 2px; right: 2px;
-    height: 6px; background: rgba(0,0,0,0.15); border-radius: 50%;
-  }
-  .garden-grid {
-    display: grid; grid-template-columns: repeat(5, 1fr);
-    gap: 2px; justify-content: center; align-items: end;
-    margin: 0 auto -8px auto; max-width: 160px;
-    position: relative; z-index: 1; min-height: 40px;
-  }
-  .flower-item {
-    font-size: 24px; text-align: center; line-height: 1;
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-  }
   @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
@@ -850,17 +823,16 @@ async function fetchBBCNews() {
   statusEl.textContent = '';
   try {
     const rssUrl = encodeURIComponent('http://feeds.bbci.co.uk/news/rss.xml');
-    const res = await fetch(`https://api.allorigins.win/get?url=${rssUrl}`);
+    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
     const data = await res.json();
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(data.contents, "application/xml");
-    const items = xml.querySelectorAll("item");
+    if(data.status !== 'ok') throw new Error('RSS fetch failed');
+    const items = data.items;
     
     let html = '';
     const maxItems = Math.min(items.length, 5);
     for(let i=0; i<maxItems; i++) {
-      const title = items[i].querySelector("title")?.textContent || '';
-      const desc = items[i].querySelector("description")?.textContent || '';
+      const title = items[i].title || '';
+      const desc = items[i].description || '';
       html += `
         <div class="news-item" data-title="${title.replace(/"/g, '&quot;')}" data-desc="${desc.replace(/"/g, '&quot;')}">
           <div class="news-title">${title}</div>
@@ -953,19 +925,24 @@ function renderReview(){
   let gardenHtml = `
   <div style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px 20px 20px; margin-bottom:20px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
     <div style="font-size:14px; color:var(--sage-dark); font-weight:600; margin-bottom:16px;">你的語言盆栽 (已掌握 ${list.length} 詞)</div>
-    <div class="garden-grid">
+    <div style="position:relative; width:120px; min-height:80px; margin:0 auto;">
+      <div style="display:flex; flex-wrap:wrap-reverse; justify-content:center; align-items:flex-end; align-content:flex-end; gap:2px; position:absolute; bottom:24px; left:-20px; right:-20px; z-index:1;">
   `;
   if (numFlowers === 0) {
-    gardenHtml += `<div style="font-size:13px; color:var(--muted); padding:10px 0; grid-column: span 5;">🌱 再練 ${5 - (list.length % 5)} 詞，就會長出第一朵花！</div>`;
+    gardenHtml += `<div style="font-size:13px; color:var(--muted); padding:10px 0; width:100%;">🌱 再練 ${5 - (list.length % 5)} 詞，會開出第一朵花</div>`;
   } else {
     for (let i = 0; i < numFlowers; i++) {
-      gardenHtml += `<div class="flower-item">${types[i % types.length]}</div>`;
+      gardenHtml += `<div style="font-size:24px; line-height:1; animation:popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;">${types[i % types.length]}</div>`;
     }
   }
   gardenHtml += `
+      </div>
+      <div style="position:absolute; bottom:0; left:20px; right:20px; height:35px; background:var(--clay); border-radius:4px 4px 16px 16px; box-shadow:inset -4px -2px 6px rgba(0,0,0,0.15); z-index:2; display:flex; justify-content:center;">
+        <div style="position:absolute; top:-4px; width:100%; height:8px; background:#e6a57e; border-radius:50%;"></div>
+        <div style="position:absolute; top:-1px; width:70%; height:4px; background:rgba(0,0,0,0.2); border-radius:50%;"></div>
+      </div>
     </div>
-    <div class="css-pot"></div>
-    ${numFlowers > 0 ? `<div style="font-size:12px; color:var(--muted); margin-top:16px;">距離下一朵花還需練習 ${5 - (list.length % 5)} 詞</div>` : ''}
+    ${numFlowers > 0 ? `<div style="font-size:12px; color:var(--muted); margin-top:20px;">距離下一朵花還需練習 ${5 - (list.length % 5)} 詞</div>` : ''}
   </div>`;
 
   let html = gardenHtml;
