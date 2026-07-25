@@ -724,9 +724,10 @@ el('catDropdown').addEventListener('click', (e) => {
 function updateTriggerTexts(){
   let modeName = '📚 系統題庫';
   if(appMode==='ai') modeName = '✨ AI 情境';
-  if(appMode==='roleplay') modeName = '🎭 實戰對話';
-  if(appMode==='favorites') modeName = '⭐ 我的收藏';
-  if(appMode==='review') modeName = '✅ 已完成';
+  if(appMode==='roleplay') modeName = '💬 實戰對話';
+  if(appMode==='completed') modeName = '✅ 已完成';
+  if(appMode==='favorites') modeName = '⭐ 收藏';
+  if(appMode==='review') modeName = '🏺 語感花室';
   if(appMode==='news') modeName = '新聞時事';
   if(appMode==='random') modeName = '🔁 隨機抽考';
   
@@ -740,8 +741,8 @@ function updateTriggerTexts(){
   }
   
   const showStageAndCat = (appMode === 'general' || appMode === 'ai');
-  el('stageTrigger').style.display = (appMode==='ai' || appMode==='random') ? 'none' : 'block';
-  el('catTrigger').style.display = (appMode==='random') ? 'none' : 'block';
+  el('stageTrigger').style.display = (appMode === 'general') ? 'block' : 'none';
+  el('catTrigger').style.display = showStageAndCat ? 'block' : 'none';
   if(!showStageAndCat){
     closeDropdown('stage');
     closeDropdown('cat');
@@ -904,6 +905,7 @@ let savedMode = null;
 try {
   savedStageIdx = localStorage.getItem('speakup_stageIdx');
   savedCat = localStorage.getItem('speakup_cat');
+  if(savedCat === '📰 新聞時事') savedCat = '新聞時事';
   savedCatProgressStr = localStorage.getItem('speakup_cat_progress');
   geminiApiKey = localStorage.getItem('speakup_apikey') || '';
   savedMode = localStorage.getItem('speakup_appMode');
@@ -1212,7 +1214,7 @@ function renderCompleted(){
   let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);text-align:center;">這裡是你所有練習過的單字與句子</div>';
   sortedCats.forEach(cat => {
     const items = groups[cat];
-    html += `<details class="review-group" open>
+    html += `<details class="review-group">
       <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
       <div class="review-group-items">`;
     items.forEach(it => {
