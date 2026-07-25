@@ -674,6 +674,16 @@
       </div>
       
       <hr style="border:none; border-top:1px dashed var(--line); margin:15px 0;">
+
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:600; margin-bottom:6px; font-size:15px;">☁️ 完整備份與還原</div>
+        <button id="exportBackupBtn" style="background: var(--sage); border:none; padding: 12px; border-radius: 10px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">📦 匯出完整備份 (.json)</button>
+        <button id="importBackupBtn" style="background: #eef2f5; border: 1px solid #cfdbe6; padding: 12px; border-radius: 10px; color:#4a657a; cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">📤 匯入備份還原</button>
+        <input type="file" id="importBackupFile" accept="application/json,.json" style="display:none;">
+        <div style="font-size:12px; color:var(--muted); line-height:1.4; margin-top:6px;">會把收藏、已完成紀錄、自訂與 AI 單字、連續天數、目前進度、API Key 等所有本機資料打包成一個檔案，換手機/瀏覽器時可以還原，平常也建議自己留一份。⚠️ 匯入會覆蓋這台裝置上目前的資料，且檔案內含 API Key，請自行妥善保存不要外流。</div>
+      </div>
+
+      <hr style="border:none; border-top:1px dashed var(--line); margin:15px 0;">
       
       <div style="margin-bottom:12px;">
         <div style="font-weight:600; margin-bottom:6px; font-size:15px; color:#e74c3c;">🗑️ 清除快取資料</div>
@@ -932,6 +942,7 @@ const STAGES = [
 let savedStageIdx = null;
 let savedCat = null;
 let savedCatProgressStr = null;
+let savedLastCatStr = null;
 let geminiApiKey = '';
 let savedMode = null;
 try {
@@ -939,12 +950,16 @@ try {
   savedCat = lsGet('speakup_cat');
   if(savedCat === '📰 新聞時事') savedCat = '新聞時事';
   savedCatProgressStr = lsGet('speakup_cat_progress');
+  savedLastCatStr = lsGet('speakup_last_cat');
   geminiApiKey = lsGet('speakup_apikey') || '';
   savedMode = lsGet('speakup_appMode');
 } catch(e) {
   console.warn("localStorage not accessible", e);
 }
 let catProgress = (savedCatProgressStr ? JSON.parse(savedCatProgressStr) : null) || {};
+// 記住「每個模式(或模式+階段)上次選的分類」,切換分頁/階段時才能還原到原本選的分類,
+// 而不是每次都被重置回「全部」。
+let lastCat = (savedLastCatStr ? JSON.parse(savedLastCatStr) : null) || {};
 const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'completed', 'review', 'random'];
 let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
@@ -964,6 +979,14 @@ function saveProgress(){
   const key = `${stageIdx}_${activeCat}`;
   catProgress[key] = itemIdx;
   lsSet('speakup_cat_progress', JSON.stringify(catProgress));
+
+  // 記住這個模式(一般模式再細分到每個階段)上次選的分類,
+  // 下次切回來才能還原,而不是每次都跳回「全部」。
+  if(appMode === 'general' || appMode === 'ai'){
+    const catKey = (appMode === 'ai') ? 'ai' : `general_${stageIdx}`;
+    lastCat[catKey] = activeCat;
+    lsSet('speakup_last_cat', JSON.stringify(lastCat));
+  }
 }
 
 function generateRandomReview() {
@@ -1022,7 +1045,8 @@ function setAppMode(mode, isInitial = false) {
   if(quickNav) quickNav.style.display = isSpecialMode ? 'none' : 'flex';
   
   if(!isInitial && !isSpecialMode) {
-    activeCat = 'all';
+    const catKey = (mode === 'ai') ? 'ai' : `general_${stageIdx}`;
+    activeCat = lastCat[catKey] || 'all';
     itemIdx = getSavedItemIdx(stageIdx, activeCat);
     saveProgress();
   }
@@ -1885,7 +1909,13 @@ function renderLadder(){
     const d = document.createElement('div');
     d.className = 'rung' + (i===stageIdx?' active':'');
     d.textContent = s.label;
-    d.onclick = () => { stageIdx = i; activeCat = 'all'; itemIdx = getSavedItemIdx(stageIdx, activeCat); saveProgress(); render(); };
+    d.onclick = () => {
+      stageIdx = i;
+      activeCat = lastCat[`general_${stageIdx}`] || 'all';
+      itemIdx = getSavedItemIdx(stageIdx, activeCat);
+      saveProgress();
+      render();
+    };
     ladder.appendChild(d);
   });
 }
@@ -2495,6 +2525,67 @@ if(el('settingsBtn')) {
   el('settingsBtn').onclick = () => el('settingsModal').classList.add('show');
   el('settingsCloseBtn').onclick = () => el('settingsModal').classList.remove('show');
   
+  // 所有需要納入「完整備份」的 localStorage key(不包含 speakup_custom,
+  // 因為那是舊版題庫覆寫用的快取,匯入時交給 word_bank.js 本身管理即可)
+  const BACKUP_KEYS = [
+    'speakup_ai_items', 'speakup_apikey', 'speakup_appMode', 'speakup_cat',
+    'speakup_cat_progress', 'speakup_custom_items', 'speakup_daily',
+    'speakup_favorites', 'speakup_practiced', 'speakup_stageIdx',
+    'speakup_streak', 'speakup_last_cat'
+  ];
+
+  el('exportBackupBtn').onclick = () => {
+    const data = {};
+    BACKUP_KEYS.forEach(k => {
+      const v = lsGet(k);
+      if(v !== null && v !== undefined) data[k] = v;
+    });
+    const payload = { app: 'SpeakUp', version: 1, exportedAt: new Date().toISOString(), data };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = `speakup_backup_${stamp}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  el('importBackupBtn').onclick = () => el('importBackupFile').click();
+
+  el('importBackupFile').addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = ''; // 清空,讓同一個檔案下次還能重新選取
+    if(!file) return;
+    if(!confirm('匯入備份會覆蓋這台裝置上目前的學習進度與資料,確定要繼續嗎？')) return;
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target.result);
+        const data = (parsed && typeof parsed === 'object' && parsed.data) ? parsed.data : parsed;
+        if(!data || typeof data !== 'object') throw new Error('empty');
+
+        let count = 0;
+        BACKUP_KEYS.forEach(k => {
+          if(Object.prototype.hasOwnProperty.call(data, k)){
+            lsSet(k, data[k]);
+            count++;
+          }
+        });
+        if(count === 0){
+          alert('這個檔案裡沒有找到可以還原的備份資料,請確認選的是「匯出完整備份」下載的 .json 檔。');
+          return;
+        }
+        alert(`已還原 ${count} 項備份資料,頁面即將重新整理套用。`);
+        location.reload();
+      } catch(err) {
+        alert('匯入失敗:檔案格式不正確或已損毀,請確認選的是「匯出完整備份」下載的 .json 檔。');
+      }
+    };
+    reader.readAsText(file);
+  });
+
   el('exportBtn').onclick = () => {
     const combinedBank = {};
     for (let key in WORD_BANK) {
