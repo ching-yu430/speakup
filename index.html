@@ -623,7 +623,7 @@ el('catDropdown').addEventListener('click', (e) => {
 });
 
 function updateTriggerTexts(){
-  const modeLabels = { general:'📚 系統題庫', ai:'✨ AI情境', roleplay:'💬 實戰對話', favorites:'⭐ 收藏', review:'✅ 已完成' };
+  const modeLabels = { general:'📚 系統題庫', ai:'✨ AI情境', roleplay:'💬 實戰對話', news:'📰 每日新聞', favorites:'⭐ 收藏', review:'✅ 已完成' };
   el('modeTriggerText').textContent = modeLabels[appMode] || '📚 系統題庫';
 
   const showStageAndCat = (appMode === 'general' || appMode === 'ai');
@@ -796,10 +796,11 @@ function setAppMode(mode, isInitial = false) {
   el('tabGeneral').classList.toggle('active', mode === 'general');
   el('tabAI').classList.toggle('active', mode === 'ai');
   if(el('tabRoleplay')) el('tabRoleplay').classList.toggle('active', mode === 'roleplay');
+  if(el('tabNews')) el('tabNews').classList.toggle('active', mode === 'news');
   if(el('tabFavorites')) el('tabFavorites').classList.toggle('active', mode === 'favorites');
   if(el('tabReview')) el('tabReview').classList.toggle('active', mode === 'review');
   
-  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'favorites');
+  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'favorites' || mode === 'news');
   
   el('aiActions').style.display = mode === 'ai' ? 'block' : 'none';
   el('ladder').style.display = (mode === 'general') ? 'flex' : 'none';
@@ -808,8 +809,13 @@ function setAppMode(mode, isInitial = false) {
   
   if(el('mainCard')) el('mainCard').style.display = isSpecialMode ? 'none' : 'block';
   if(el('rpContainer')) el('rpContainer').style.display = (mode === 'roleplay') ? 'block' : 'none';
+  if(el('newsContainer')) el('newsContainer').style.display = (mode === 'news') ? 'block' : 'none';
   if(el('favoritesContainer')) el('favoritesContainer').style.display = (mode === 'favorites') ? 'block' : 'none';
   if(el('reviewContainer')) el('reviewContainer').style.display = (mode === 'review') ? 'block' : 'none';
+  
+  if(mode === 'news' && el('newsList').innerHTML === '載入中...') {
+    if(typeof fetchBBCNews === 'function') fetchBBCNews();
+  }
   
   const addPanel = document.querySelector('.add-panel');
   if(addPanel) addPanel.style.display = isSpecialMode ? 'none' : 'block';
