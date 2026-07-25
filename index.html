@@ -1012,37 +1012,38 @@ function renderReview(){
     const n = flowersInThisVase;
 
     // 扇形三層排列:由靠近花瓶開始算第一層,每層最多5朵花。
-    // 三層的「扇形張角」由窄到寬(前層窄、後層寬),加上每層一點角度位移做交錯,
-    // 同時前層莖短、後層莖長,靠「高度差」確保三層彼此不會疊在一起。
+    // 同一層內用「固定水平間距的格子」排花,保證同層絕對不會疊在一起;
+    // 層與層之間再用高度(莖長)差 + 左右錯位,做出交錯又不重疊的層次感。
     const PER_LAYER = 5;
-    const LAYER_SPREAD = [64, 86, 108];   // 每層扇形總張角(度),前窄後寬
-    const LAYER_OFFSET = [0, 10, -7];     // 每層角度位移(度),讓三層交錯而非直上直下對齊
-    const LAYER_STEM = [30, 45, 60];      // 每層基準莖長(px),前短後長
-    const LAYER_STEM_JITTER = 7;
-    const LAYER_SIZE = [21, 19, 17];      // 前層花朵略大(近),後層略小(遠),增加層次感
+    const SLOT_GAP = 26;                  // 同層內相鄰花朵的水平間距(px),足夠大絕對不會疊在一起
+    const LAYER_X_OFFSET = [0, 13, 0];     // 每層整體左右平移(px),讓奇數層跟偶數層交錯開來
+    const LAYER_STEM = [30, 46, 62];       // 每層基準莖長(px),前短後長,拉開層與層的垂直距離
+    const LAYER_STEM_JITTER = 5;
+    const LAYER_ARC = 10;                  // 同層內,越靠中間的花莖越長一點,呈現圓弧花型
+    const LAYER_SIZE = [21, 19, 17];       // 前層花朵略大(近),後層略小(遠),增加層次感
     const LAYER_SIZE_JITTER = 3;
 
     for (let i = 0; i < flowersInThisVase; i++) {
       const globalIdx = v * VASE_CAPACITY + i;
       const fType = getFlowerType(globalIdx);
 
-      const layer = Math.min(Math.floor(i / PER_LAYER), LAYER_SPREAD.length - 1);
+      const layer = Math.min(Math.floor(i / PER_LAYER), LAYER_STEM.length - 1);
       const slot = i - layer * PER_LAYER;
       const flowersInLayer = Math.min(PER_LAYER, flowersInThisVase - layer * PER_LAYER);
 
-      const spread = LAYER_SPREAD[layer];
-      const baseAngle = flowersInLayer > 1
-        ? (-spread / 2 + slot * (spread / (flowersInLayer - 1)))
-        : 0;
-      const angleJitter = (hash01(globalIdx * 3 + 7) - 0.5) * 6; // 小幅度隨機,避免每朵花位置死板
-      const angle = baseAngle + LAYER_OFFSET[layer] + angleJitter;
-      const rad = angle * Math.PI / 180;
+      // 同層內用固定格子排開,slotX 彼此一定間隔 SLOT_GAP,不會重疊
+      const slotX = (slot - (flowersInLayer - 1) / 2) * SLOT_GAP;
+      const jitterX = (hash01(globalIdx * 2) - 0.5) * (SLOT_GAP * 0.18); // 抖動遠小於間距,不會吃掉安全距離
+      const tx = slotX + LAYER_X_OFFSET[layer] + jitterX;
 
-      const stem = LAYER_STEM[layer] + (hash01(globalIdx * 2 + 1) - 0.5) * LAYER_STEM_JITTER;
-      const tx = Math.sin(rad) * stem;
-      const ty = -Math.cos(rad) * stem; // 負值=往上
+      const halfWidth = ((flowersInLayer - 1) / 2) * SLOT_GAP + 1;
+      const normalized = Math.abs(slotX) / halfWidth; // 0(該層中央)~1(該層兩側)
+      const arcBoost = LAYER_ARC * (1 - normalized); // 中間花莖略長,兩側略短,呈現圓弧花型
+      const jitterY = (hash01(globalIdx * 2 + 1) - 0.5) * 8;
+      const stem = LAYER_STEM[layer] + (hash01(globalIdx * 4 + 3) - 0.5) * LAYER_STEM_JITTER;
+      const ty = -(stem + arcBoost + jitterY);
 
-      const rot = angle * 0.4 + (hash01(globalIdx * 7 + 3) - 0.5) * 5; // 花朵本身依角度微微傾斜
+      const rot = (tx / 60) * 14 + (hash01(globalIdx * 7 + 3) - 0.5) * 5; // 依水平位置微微朝外傾斜
       const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
       const zIdx = 130 - layer * 10 + slot; // 第一層(靠近花瓶)在最前面,第三層在最後面
       const delay = (i * 0.03).toFixed(2);
@@ -1051,15 +1052,16 @@ function renderReview(){
     }
 
     // 瓶口插幾片葉子,縮短花與瓶口之間的視覺空白,也讓整把花看起來更完整
+    // 其中兩片故意左右翻轉(scaleX(-1)),葉形不會全部一模一樣
     let leavesHtml = '';
     if (flowersInThisVase > 0) {
       const leaves = [
-        { tx: -36, ty: -4,  rot: -50, size: 22 },
-        { tx: -19, ty: -13, rot: -20, size: 19 },
-        { tx: 19,  ty: -13, rot: 20,  size: 19 },
-        { tx: 36,  ty: -4,  rot: 50,  size: 22 }
+        { tx: -36, ty: -4,  rot: -50, size: 22, flip: false },
+        { tx: -19, ty: -13, rot: -20, size: 19, flip: true  },
+        { tx: 19,  ty: -13, rot: 20,  size: 19, flip: true  },
+        { tx: 36,  ty: -4,  rot: 50,  size: 22, flip: false }
       ];
-      leavesHtml = leaves.map((lf, li) => `<div style="position:absolute; bottom:${NECK_TOP_Y - 6}px; left:50%; margin-left:${-(lf.size / 2)}px; font-size:${lf.size}px; line-height:1; transform:translate(${lf.tx}px, ${lf.ty}px) rotate(${lf.rot}deg); z-index:${6 + li}; opacity:0.95;">🍃</div>`).join('');
+      leavesHtml = leaves.map((lf, li) => `<div style="position:absolute; bottom:${NECK_TOP_Y - 6}px; left:50%; margin-left:${-(lf.size / 2)}px; font-size:${lf.size}px; line-height:1; transform:translate(${lf.tx}px, ${lf.ty}px) rotate(${lf.rot}deg)${lf.flip ? ' scaleX(-1)' : ''}; z-index:${6 + li}; opacity:0.95;">🌿</div>`).join('');
     }
 
 
