@@ -42,21 +42,39 @@
     padding-right:calc(20px + env(safe-area-inset-right));
   }
 
-  header{margin-bottom:18px;}
-  h1{
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    margin-bottom:10px;
+  }
+  .brand{
     font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;
-    font-size:clamp(24px, 6vw, 34px);
-    line-height:1.25;margin:0 0 10px;
+    font-size:16px;color:var(--sage-dark);white-space:nowrap;flex-shrink:0;
   }
-  .sub{color:var(--muted);font-size:15px;max-width:520px;}
+  .selector-bar{
+    flex:1;min-width:0;min-height:40px;
+    display:flex;align-items:center;justify-content:space-between;gap:6px;
+    padding:0 14px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);
+    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--ink);
+    cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;
+  }
+  .selector-bar:hover{border-color:var(--sage);}
+  .selector-bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .selector-caret{color:var(--muted);font-size:11px;flex-shrink:0;transition:transform .2s;}
+  .selector-bar.open .selector-caret{transform:rotate(180deg);}
 
-  .eyebrow{
-    font-size:13px;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--sage-dark);font-weight:600;margin-bottom:8px;
+  .selector-panel{
+    display:none;margin-bottom:6px;padding:12px;
+    background:var(--sage-light);border-radius:14px;
   }
+  .selector-panel.open{display:block;}
+  .selector-panel .app-tabs{margin-bottom:10px;}
+  .selector-panel .ladder{margin:0 0 8px;}
+  .selector-panel .stage-desc{margin-bottom:8px;}
+  .selector-panel .cats{margin-bottom:0;}
 
   .app-tabs {
-    display: flex; gap: 6px; margin-bottom: 16px; padding: 4px;
+    display: flex; gap: 6px; padding: 4px;
     background: #e4ebe0; border-radius: 12px;
   }
   .app-tab {
@@ -149,7 +167,7 @@
   .target-label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
   .target-cat{font-size:12px;color:var(--clay);font-weight:600;}
   .target{
-    font-family:'Fraunces',serif;font-size:clamp(21px, 5.5vw, 27px);font-weight:500;
+    font-family:'Fraunces',serif;font-size:clamp(24px, 6.5vw, 32px);font-weight:500;
     color:var(--ink);margin-bottom:6px;line-height:1.4;
   }
   .clickable-word {
@@ -163,13 +181,13 @@
   }
   .target-zh{color:var(--muted);font-size:15px;margin-bottom:24px;}
 
-  .phon-block{margin:-8px 0 22px;background:var(--sage-light);border-radius:12px;padding:14px 16px;}
-  .phon-label{font-size:11px;letter-spacing:.04em;color:var(--sage-dark);margin-bottom:8px;font-weight:600;}
-  .phon-visual{font-family:'Fraunces',serif;font-size:17px;color:var(--sage-dark);letter-spacing:.02em;line-height:1.5;}
+  .phon-block{margin:-8px 0 22px;background:var(--sage-light);border-radius:12px;padding:12px 16px;}
+  .phon-label{font-size:11px;letter-spacing:.04em;color:var(--sage-dark);margin-bottom:6px;font-weight:600;}
+  .phon-visual{font-family:'Fraunces',serif;font-size:14px;color:var(--sage-dark);letter-spacing:.02em;line-height:1.5;}
   .phon-visual .syl{transition:all .15s;text-transform:lowercase;}
-  .phon-visual .syl.stressed{font-size:26px;font-weight:700;color:var(--clay);text-transform:uppercase;}
-  .phon-visual .syl.secondary{font-size:19px;font-weight:600;color:var(--sage-dark);}
-  .phon-visual .dot{color:var(--muted);padding:0 1px;font-size:14px;}
+  .phon-visual .syl.stressed{font-size:17px;font-weight:700;color:var(--clay);text-transform:uppercase;}
+  .phon-visual .syl.secondary{font-size:15px;font-weight:600;color:var(--sage-dark);}
+  .phon-visual .dot{color:var(--muted);padding:0 1px;font-size:12px;}
   .phon-raw-row{font-size:12px;color:var(--muted);margin-top:6px;font-family:'Inter',sans-serif;}
 
   .accent-row{display:flex;gap:6px;margin-bottom:2px;}
@@ -286,8 +304,8 @@
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
 
   @media (max-width:520px){
-    header{margin-bottom:14px;}
-    .sub{font-size:13px;}
+    .brand{font-size:14px;}
+    .selector-bar{font-size:12px;min-height:36px;padding:0 10px;}
     .wrap{
       padding-top:28px;padding-bottom:calc(64px + env(safe-area-inset-bottom));
       padding-left:calc(14px + env(safe-area-inset-left));
@@ -311,18 +329,25 @@
 
 <div class="wrap">
 
-  <header>
-    <div class="eyebrow">Speak Up · 開口練習</div>
-    <h1>先開口,再求準。</h1>
-    <div class="sub">從單字到片語、句子,一步步習慣「講出聲音」這件事。題目網頁幫你準備好了,選類別就能一直練下去。</div>
-  </header>
+  <div class="topbar">
+    <div class="brand">🗣️ Speak Up</div>
+    <button type="button" class="selector-bar" id="selectorBar">
+      <span id="selectorBarText">📚 系統題庫</span>
+      <span class="selector-caret">▾</span>
+    </button>
+  </div>
 
-  <nav class="app-tabs">
-    <button class="app-tab active" id="tabGeneral">📚 系統題庫</button>
-    <button class="app-tab" id="tabAI">✨ AI情境</button>
-    <button class="app-tab" id="tabRoleplay">💬 實戰對話</button>
-    <button class="app-tab" id="tabReview">✅ 已完成</button>
-  </nav>
+  <div class="selector-panel" id="selectorPanel">
+    <nav class="app-tabs">
+      <button class="app-tab active" id="tabGeneral">📚 系統題庫</button>
+      <button class="app-tab" id="tabAI">✨ AI情境</button>
+      <button class="app-tab" id="tabRoleplay">💬 實戰對話</button>
+      <button class="app-tab" id="tabReview">✅ 已完成</button>
+    </nav>
+    <div class="ladder" id="ladder"></div>
+    <div class="stage-desc" id="stageDesc"></div>
+    <div class="cats" id="cats"></div>
+  </div>
 
   <div class="ai-actions" id="aiActions" style="display:none;">
     <button class="ai-create-btn" id="openAiModalBtn">🚀 ＋ 請 AI 生成新情境...</button>
@@ -356,10 +381,6 @@
   <div id="unsupported" class="no-support" style="display:none;">
     這個瀏覽器不支援語音辨識。iPhone 請用 Safari 開啟,Android 請用 Chrome 開啟;你還是可以看內容跟讀練習,只是沒辦法自動比對發音。
   </div>
-
-  <div class="ladder" id="ladder"></div>
-  <div class="stage-desc" id="stageDesc"></div>
-  <div class="cats" id="cats"></div>
 
   <div class="card" id="mainCard">
     <div class="quick-nav" id="quickNav">
@@ -436,6 +457,38 @@
 
 <script>
 const el = id => document.getElementById(id);
+
+/* ---------- 頂部選單條：展開/收合 ---------- */
+function closeSelectorPanel(){
+  el('selectorPanel').classList.remove('open');
+  el('selectorBar').classList.remove('open');
+}
+function toggleSelectorPanel(){
+  el('selectorPanel').classList.toggle('open');
+  el('selectorBar').classList.toggle('open');
+}
+el('selectorBar').onclick = toggleSelectorPanel;
+// 在面板內點了模式/階段/分類之後，短暫停留讓使用者看到選取狀態，再自動收合
+el('selectorPanel').addEventListener('click', (e) => {
+  if(e.target.closest('.app-tab, .rung, .cat-pill')){
+    setTimeout(closeSelectorPanel, 150);
+  }
+});
+
+function updateSelectorBarText(){
+  const modeLabels = { general:'📚 系統題庫', ai:'✨ AI情境', roleplay:'💬 實戰對話', review:'✅ 已完成' };
+  let text = modeLabels[appMode] || '📚 系統題庫';
+  if(appMode === 'general' || appMode === 'ai'){
+    const stage = (typeof currentStage === 'function') ? currentStage() : null;
+    if(stage) text += ' · ' + stage.label;
+    if(typeof activeCat !== 'undefined' && activeCat && activeCat !== 'all'){
+      const catDisplay = activeCat.startsWith('(AI) ') ? activeCat.replace('(AI) ','✨ ') : activeCat;
+      text += ' · ' + catDisplay;
+    }
+  }
+  const barText = el('selectorBarText');
+  if(barText) barText.textContent = text;
+}
 
 /* ---------- 收藏與初始化 ---------- */
 let favorites = [];
@@ -608,6 +661,7 @@ function setAppMode(mode, isInitial = false) {
   }
   if(mode === 'review') renderReview();
   render();
+  updateSelectorBarText();
 }
 
 el('tabGeneral').onclick = () => setAppMode('general');
@@ -919,6 +973,7 @@ function render(){
   const stage = currentStage();
   el('stageDesc').textContent = stage.desc;
   renderCats();
+  updateSelectorBarText();
   
   el('targetLabel').textContent = appMode === 'ai' ? 'AI 專屬情境' : (stage.label === '自由回答' ? '看情境,講一句' : '跟著念');
   
