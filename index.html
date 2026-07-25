@@ -973,11 +973,33 @@ function jumpToItem(en){
     if(STAGES[i].key === 'favorites') continue; // skip the favorites pseudo-stage
     const idx = STAGES[i].items.findIndex(x => x.en === en);
     if(idx !== -1){
+      const item = STAGES[i].items[idx];
       stageIdx = i;
       activeCat = 'all';
-      itemIdx = idx;
+      
+      // 判斷該題目是否屬於純 AI 模式（例如角色扮演生成的，開頭是 '(AI)'）
+      // 注意：新聞時事是 "📰 新聞時事"，不含 "(AI)"，所以會歸類在 general 模式
+      const isAI = item.cat && item.cat.startsWith('(AI)');
+      const targetMode = isAI ? 'ai' : 'general';
+      
+      // 計算在目標模式的過濾陣列中，真實的 index
+      let filtered;
+      if (isAI) {
+        filtered = [];
+        STAGES.forEach(stg => {
+          stg.items.forEach(it => {
+            if(it.cat && it.cat.startsWith('(AI)')) filtered.push(it);
+          });
+        });
+      } else {
+        filtered = STAGES[i].items.filter(it => !it.cat || !it.cat.startsWith('(AI)'));
+      }
+      
+      const fIdx = filtered.findIndex(x => x.en === en);
+      itemIdx = fIdx !== -1 ? fIdx : 0;
+      
       saveProgress();
-      setAppMode('general');
+      setAppMode(targetMode);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
