@@ -75,6 +75,7 @@
   .brand{
     font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;
     font-size:16px;color:var(--sage-dark);white-space:nowrap;flex-shrink:0;
+    display:flex; align-items:center; gap:6px;
   }
   .triple-bar{
     display:flex;gap:6px;flex:1;min-width:0;
@@ -142,6 +143,23 @@
   .review-item:hover{ border-color:var(--sage); }
   .review-item-en{ font-weight:600; font-size:14px; }
   .review-item-zh{ font-size:12px; color:var(--muted); margin-top:2px; }
+
+  /* Blind Mode */
+  #target.blind {
+    color: transparent;
+    text-shadow: 0 0 12px rgba(89, 106, 92, 0.4);
+    cursor: pointer;
+    transition: text-shadow 0.3s, color 0.3s;
+  }
+  #target.blind:hover {
+    text-shadow: 0 0 8px rgba(89, 106, 92, 0.5);
+  }
+  #target.blind.revealed {
+    color: var(--ink);
+    text-shadow: none;
+    cursor: default;
+  }
+
   .news-item {
     background: var(--card); border: 1px solid var(--line); border-radius: 10px;
     padding: 14px; margin-bottom: 12px; cursor: pointer; transition: all 0.15s;
@@ -403,7 +421,10 @@
 <div class="wrap">
 
   <div class="topbar">
-    <div class="brand">🗣️ Speak Up</div>
+    <div class="brand">
+      🗣️ Speak Up
+      <button id="settingsBtn" style="background:none; border:none; padding:4px; font-size:15px; cursor:pointer; color:var(--muted);" title="設定與資料">⚙️</button>
+    </div>
     <div class="triple-bar">
       <button type="button" class="trigger-btn" id="modeTrigger">
         <span id="modeTriggerText">📚 系統題庫</span><span class="trigger-caret">▾</span>
@@ -484,6 +505,7 @@
     <div class="target-meta">
       <div class="target-label" id="targetLabel">跟著念</div>
       <div style="display:flex; align-items:center; gap:8px;">
+        <button id="blindToggleBtn" style="background:var(--card); border:1px solid var(--line); border-radius:12px; font-size:12px; padding:2px 8px; cursor:pointer; color:var(--muted); font-weight:600;" title="隱藏英文單字">👁️ 盲測: 關</button>
         <div class="target-cat" id="targetCat"></div>
         <button id="favBtn" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);padding:8px;margin:-8px;line-height:1;min-width:44px;min-height:44px;" title="加入收藏">☆</button>
       </div>
@@ -556,6 +578,29 @@
       <button id="addBtn" class="add-submit-btn">＋ 加入題庫</button>
     </div>
   </details>
+
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <div class="modal-title">⚙️ 設定與資料管理</div>
+      <div style="font-size:14px; color:var(--muted); margin-bottom:15px;">管理你的學習資料與系統設定。</div>
+      
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:600; margin-bottom:6px; font-size:15px;">💾 備份與匯出題庫</div>
+        <button class="primary-btn" id="exportBtn" style="width:100%; margin-bottom:8px; font-size:14px; background:var(--sage); color:var(--card); border:none;">📥 下載 word_bank.js</button>
+        <div style="font-size:12px; color:var(--muted); line-height:1.4;">這將合併系統原始題庫與你所有的 AI 生成/自訂單字，打包下載。下載後請覆蓋舊檔即可永久保存。</div>
+      </div>
+      
+      <hr style="border:none; border-top:1px solid var(--line); margin:15px 0;">
+      
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:600; margin-bottom:6px; font-size:15px; color:#e74c3c;">🗑️ 清除快取資料</div>
+        <button class="primary-btn" id="clearDataBtn" style="width:100%; font-size:14px; background:#fceceb; color:#e74c3c; border:1px solid #f5b7b1;">清除所有學習紀錄與單字</button>
+        <div style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4;">⚠️ 將刪除「已完成」、「收藏」及所有未下載的 AI 單字，動作無法復原！</div>
+      </div>
+      
+      <button class="cancel-btn" id="settingsCloseBtn" style="width:100%; margin-top:15px;">關閉</button>
+    </div>
+  </div>
 
   <footer>沒有標準答案,只有講出口的你。</footer>
 </div>
@@ -1649,12 +1694,26 @@ function render(){
     span.className = 'clickable-word';
     span.title = '點擊發音';
     span.onclick = () => {
+      if(typeof isBlindMode !== 'undefined' && isBlindMode && !el('target').classList.contains('revealed')) return;
       const cleanWord = w.replace(/[^a-zA-Z0-9'-]/g, '');
       if(cleanWord) playAudio({en: cleanWord});
     };
     el('target').appendChild(span);
     if(i < words.length - 1) el('target').appendChild(document.createTextNode(' '));
   });
+  
+  if(typeof isBlindMode !== 'undefined' && isBlindMode) {
+    el('target').classList.add('blind');
+    el('target').classList.remove('revealed');
+  } else {
+    el('target').classList.remove('blind', 'revealed');
+  }
+  
+  el('target').onclick = () => {
+    if(typeof isBlindMode !== 'undefined' && isBlindMode) {
+      el('target').classList.add('revealed');
+    }
+  };
   el('targetZh').textContent = item.zh || '';
   el('targetCat').textContent = item.cat ? (item.cat.startsWith('(AI) ') ? item.cat.replace('(AI) ', '✨ ') : item.cat) : '';
   el('counter').textContent = (itemIdx+1) + ' / ' + items.length;
@@ -1765,6 +1824,7 @@ function showResult(heardText){
     fb.className = 'feedback';
     fb.textContent = '非常棒，完全正確！';
     el('coachBtn').style.display = 'none';
+    if(typeof isBlindMode !== 'undefined' && isBlindMode) el('target').classList.add('revealed');
   } else if(closeness > 0.5){
     fb.className = 'feedback retry';
     fb.textContent = '抓到重點了，稍微有點差異，可以再聽一次看看。';
@@ -2153,6 +2213,62 @@ zh (中文) 必須是繁體中文(台灣)。
 
 checkMobile();
 initBank();
+
+/* ---------- 盲測模式與設定管理 ---------- */
+let isBlindMode = false;
+if(el('blindToggleBtn')) {
+  el('blindToggleBtn').onclick = () => {
+    isBlindMode = !isBlindMode;
+    el('blindToggleBtn').textContent = isBlindMode ? '👁️ 盲測: 開' : '👁️ 盲測: 關';
+    if(isBlindMode) {
+      el('blindToggleBtn').style.background = 'var(--sage)';
+      el('blindToggleBtn').style.color = '#fff';
+      el('blindToggleBtn').style.borderColor = 'var(--sage)';
+      el('target').classList.add('blind');
+      el('target').classList.remove('revealed');
+    } else {
+      el('blindToggleBtn').style.background = 'var(--card)';
+      el('blindToggleBtn').style.color = 'var(--muted)';
+      el('blindToggleBtn').style.borderColor = 'var(--line)';
+      el('target').classList.remove('blind', 'revealed');
+    }
+  };
+}
+
+if(el('settingsBtn')) {
+  el('settingsBtn').onclick = () => el('settingsModal').classList.add('show');
+  el('settingsCloseBtn').onclick = () => el('settingsModal').classList.remove('show');
+  
+  el('exportBtn').onclick = () => {
+    const combinedBank = {};
+    for (let key in WORD_BANK) {
+      combinedBank[key] = WORD_BANK[key].map(item => ({
+        en: item.en,
+        zh: item.zh,
+        cat: item.cat,
+        enDesc: item.enDesc,
+        zhDesc: item.zhDesc
+      }));
+    }
+    const jsContent = `const WORD_BANK = ${JSON.stringify(combinedBank, null, 2)};`;
+    const blob = new Blob([jsContent], { type: 'text/javascript' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'word_bank.js';
+    a.click();
+    URL.revokeObjectURL(url);
+    alert('匯出成功！請將下載的「word_bank.js」覆蓋你原本資料夾裡的舊檔。');
+  };
+
+  el('clearDataBtn').onclick = () => {
+    if(confirm('⚠️ 確定要清除所有學習紀錄、收藏與快取單字嗎？\n如果你沒有點擊上方按鈕匯出，你的自訂與 AI 生成單字將會永久遺失！')) {
+      localStorage.clear();
+      alert('已清除所有資料，網頁即將重新載入。');
+      location.reload();
+    }
+  };
+}
 
 el('coachBtn').onclick = async () => {
   const item = currentItem();
