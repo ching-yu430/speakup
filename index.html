@@ -1016,12 +1016,13 @@ function renderReview(){
     // 層與層之間再用高度(莖長)差 + 左右錯位,做出交錯又不重疊的層次感。
     // 莖長整體壓低,即使三層都滿(15朵)也確保不會超出容器範圍,且花會更靠近瓶口的葉子。
     const PER_LAYER = 5;
-    const SLOT_GAP = 19;                   // 縮小間距 → 整束花更緊密，扇形弧度更內斂
-    const LAYER_X_OFFSET = [0, 10, 0];     // 奇數層微移，讓三層交錯不重疊
-    const LAYER_STEM = [14, 22, 30];       // 壓低整體莖長，確保三層滿開也不超出容器
-    const LAYER_STEM_JITTER = 3;
-    const LAYER_ARC = 20;                  // 增大中央拱起幅度 → 弧度更彎更飽滿
-    const LAYER_SIZE = [21, 19, 17];       // 前層較大，後層較小，增加層次感
+    const SLOT_GAP = 19;
+    const LAYER_X_OFFSET = [0, 10, 0];
+    // 三層第一層都下移靠近葉叢，層間莖長差縮小讓莖弁微微重疊
+    const LAYER_STEM = [6, 13, 21];       // 大幅下移：第一層從14降八6，聖鴎嵐加葉叢更緊密
+    const LAYER_STEM_JITTER = 2;           // 抖動縮小，防止下移後陽入瓶口
+    const LAYER_ARC = 18;
+    const LAYER_SIZE = [21, 19, 17];
     const LAYER_SIZE_JITTER = 2;
 
     for (let i = 0; i < flowersInThisVase; i++) {
@@ -1050,7 +1051,8 @@ function renderReview(){
       const flowerRot = stemAngleDeg + (hash01(globalIdx * 7 + 3) - 0.5) * 6;
 
       const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
-      const zIdx = 130 - layer * 10 + slot;
+      // 層次 z-index：第一層(靠近瓶口)最大、第三層最小，但全部都大於葉子(8~12)，確保花永遠不會被葉子避擋
+      const zIdx = 50 - layer * 8 + slot;  // layer0=50~54, layer1=42~46, layer2=34~38，都遠大於葉子的最大z=12
       const delay = (i * 0.03).toFixed(2);
 
       // transform-origin 設為 bottom center，讓旋轉軸心落在「莖底部」(瓶口方向)
