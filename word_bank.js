@@ -2,11336 +2,11336 @@ const WORD_BANK = {
   word: [
   {
     "en": "candidate",
-    "zh": "應徵者",
-    "cat": "多益必考"
+    "zh": "\u61c9\u5fb5\u8005",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "resume",
-    "zh": "履歷",
-    "cat": "多益必考"
+    "zh": "\u5c65\u6b77",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "interview",
-    "zh": "面試",
-    "cat": "多益必考"
+    "zh": "\u9762\u8a66",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "contract",
-    "zh": "合約",
-    "cat": "多益必考"
+    "zh": "\u5408\u7d04",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "negotiation",
-    "zh": "談判",
-    "cat": "多益必考"
+    "zh": "\u8ac7\u5224",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "revenue",
-    "zh": "營收",
-    "cat": "多益必考"
+    "zh": "\u71df\u6536",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "profit",
-    "zh": "利潤",
-    "cat": "多益必考"
+    "zh": "\u5229\u6f64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "budget",
-    "zh": "預算",
-    "cat": "多益必考"
+    "zh": "\u9810\u7b97",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "schedule",
-    "zh": "時程",
-    "cat": "多益必考"
+    "zh": "\u6642\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "proposal",
-    "zh": "提案",
-    "cat": "多益必考"
+    "zh": "\u63d0\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "meeting",
-    "zh": "會議",
-    "cat": "商業"
+    "zh": "\u6703\u8b70",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "colleague",
-    "zh": "同事",
-    "cat": "商業"
+    "zh": "\u540c\u4e8b",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "manager",
-    "zh": "經理",
-    "cat": "商業"
+    "zh": "\u7d93\u7406",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "strategy",
-    "zh": "策略",
-    "cat": "商業"
+    "zh": "\u7b56\u7565",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "marketing",
-    "zh": "行銷",
-    "cat": "商業"
+    "zh": "\u884c\u92b7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "investment",
-    "zh": "投資",
-    "cat": "商業"
+    "zh": "\u6295\u8cc7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "partnership",
-    "zh": "合作關係",
-    "cat": "商業"
+    "zh": "\u5408\u4f5c\u95dc\u4fc2",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "client",
-    "zh": "客戶",
-    "cat": "商業"
+    "zh": "\u5ba2\u6236",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "presentation",
-    "zh": "簡報",
-    "cat": "商業"
+    "zh": "\u7c21\u5831",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "deadline",
-    "zh": "截止日期",
-    "cat": "商業"
+    "zh": "\u622a\u6b62\u65e5\u671f",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "flight",
-    "zh": "航班",
-    "cat": "旅遊"
+    "zh": "\u822a\u73ed",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "baggage",
-    "zh": "行李",
-    "cat": "旅遊"
+    "zh": "\u884c\u674e",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "passport",
-    "zh": "護照",
-    "cat": "旅遊"
+    "zh": "\u8b77\u7167",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "accommodation",
-    "zh": "住宿",
-    "cat": "旅遊"
+    "zh": "\u4f4f\u5bbf",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "destination",
-    "zh": "目的地",
-    "cat": "旅遊"
+    "zh": "\u76ee\u7684\u5730",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "itinerary",
-    "zh": "行程",
-    "cat": "旅遊"
+    "zh": "\u884c\u7a0b",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tourist",
-    "zh": "遊客",
-    "cat": "旅遊"
+    "zh": "\u904a\u5ba2",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "souvenir",
-    "zh": "紀念品",
-    "cat": "旅遊"
+    "zh": "\u7d00\u5ff5\u54c1",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "customs",
-    "zh": "海關",
-    "cat": "旅遊"
+    "zh": "\u6d77\u95dc",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "boarding",
-    "zh": "登機",
-    "cat": "旅遊"
+    "zh": "\u767b\u6a5f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "symptom",
-    "zh": "症狀",
-    "cat": "醫療"
+    "zh": "\u75c7\u72c0",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "prescription",
-    "zh": "處方",
-    "cat": "醫療"
+    "zh": "\u8655\u65b9",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "pharmacy",
-    "zh": "藥局",
-    "cat": "醫療"
+    "zh": "\u85e5\u5c40",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "surgery",
-    "zh": "手術",
-    "cat": "醫療"
+    "zh": "\u624b\u8853",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "clinic",
-    "zh": "診所",
-    "cat": "醫療"
+    "zh": "\u8a3a\u6240",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "diagnosis",
-    "zh": "診斷",
-    "cat": "醫療"
+    "zh": "\u8a3a\u65b7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "treatment",
-    "zh": "治療",
-    "cat": "醫療"
+    "zh": "\u6cbb\u7642",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "vaccine",
-    "zh": "疫苗",
-    "cat": "醫療"
+    "zh": "\u75ab\u82d7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "infection",
-    "zh": "感染",
-    "cat": "醫療"
+    "zh": "\u611f\u67d3",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "emergency",
-    "zh": "急診",
-    "cat": "醫療"
+    "zh": "\u6025\u8a3a",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "grocery",
-    "zh": "雜貨",
-    "cat": "日常生活"
+    "zh": "\u96dc\u8ca8",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "laundry",
-    "zh": "洗衣",
-    "cat": "日常生活"
+    "zh": "\u6d17\u8863",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "commute",
-    "zh": "通勤",
-    "cat": "日常生活"
+    "zh": "\u901a\u52e4",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "recipe",
-    "zh": "食譜",
-    "cat": "日常生活"
+    "zh": "\u98df\u8b5c",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "appliance",
-    "zh": "家電",
-    "cat": "日常生活"
+    "zh": "\u5bb6\u96fb",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "furniture",
-    "zh": "家具",
-    "cat": "日常生活"
+    "zh": "\u5bb6\u5177",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "neighborhood",
-    "zh": "社區",
-    "cat": "日常生活"
+    "zh": "\u793e\u5340",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "chore",
-    "zh": "家務",
-    "cat": "日常生活"
+    "zh": "\u5bb6\u52d9",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "habit",
-    "zh": "習慣",
-    "cat": "日常生活"
+    "zh": "\u7fd2\u6163",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "routine",
-    "zh": "日常作息",
-    "cat": "日常生活"
+    "zh": "\u65e5\u5e38\u4f5c\u606f",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "software",
-    "zh": "軟體",
-    "cat": "科技"
+    "zh": "\u8edf\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "hardware",
-    "zh": "硬體",
-    "cat": "科技"
+    "zh": "\u786c\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "database",
-    "zh": "資料庫",
-    "cat": "科技"
+    "zh": "\u8cc7\u6599\u5eab",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "network",
-    "zh": "網路",
-    "cat": "科技"
+    "zh": "\u7db2\u8def",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "algorithm",
-    "zh": "演算法",
-    "cat": "科技"
+    "zh": "\u6f14\u7b97\u6cd5",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "developer",
-    "zh": "開發者",
-    "cat": "科技"
+    "zh": "\u958b\u767c\u8005",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "application",
-    "zh": "應用程式",
-    "cat": "科技"
+    "zh": "\u61c9\u7528\u7a0b\u5f0f",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "server",
-    "zh": "伺服器",
-    "cat": "科技"
+    "zh": "\u4f3a\u670d\u5668",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "cloud",
-    "zh": "雲端",
-    "cat": "科技"
+    "zh": "\u96f2\u7aef",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "security",
-    "zh": "安全",
-    "cat": "科技"
+    "zh": "\u5b89\u5168",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "chill",
-    "zh": "放鬆",
-    "cat": "俚語"
+    "zh": "\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "flex",
-    "zh": "炫耀",
-    "cat": "俚語"
+    "zh": "\u70ab\u8000",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "ghost",
-    "zh": "神隱",
-    "cat": "俚語"
+    "zh": "\u795e\u96b1",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "salty",
-    "zh": "惱羞",
-    "cat": "俚語"
+    "zh": "\u60f1\u7f9e",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "shady",
-    "zh": "可疑的",
-    "cat": "俚語"
+    "zh": "\u53ef\u7591\u7684",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "lit",
-    "zh": "超讚",
-    "cat": "俚語"
+    "zh": "\u8d85\u8b9a",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "dope",
-    "zh": "酷",
-    "cat": "俚語"
+    "zh": "\u9177",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "goat",
-    "zh": "史上最棒",
-    "cat": "俚語"
+    "zh": "\u53f2\u4e0a\u6700\u68d2",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "cringe",
-    "zh": "尷尬",
-    "cat": "俚語"
+    "zh": "\u5c37\u5c2c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "bet",
-    "zh": "沒問題",
-    "cat": "俚語"
+    "zh": "\u6c92\u554f\u984c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "anxious",
-    "zh": "焦慮的",
-    "cat": "情緒"
+    "zh": "\u7126\u616e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "thrilled",
-    "zh": "非常興奮的",
-    "cat": "情緒"
+    "zh": "\u975e\u5e38\u8208\u596e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "depressed",
-    "zh": "沮喪的",
-    "cat": "情緒"
+    "zh": "\u6cae\u55aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "grateful",
-    "zh": "感激的",
-    "cat": "情緒"
+    "zh": "\u611f\u6fc0\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "frustrated",
-    "zh": "挫折的",
-    "cat": "情緒"
+    "zh": "\u632b\u6298\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overwhelmed",
-    "zh": "不知所措的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u77e5\u6240\u63aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "relieved",
-    "zh": "鬆了一口氣的",
-    "cat": "情緒"
+    "zh": "\u9b06\u4e86\u4e00\u53e3\u6c23\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "jealous",
-    "zh": "嫉妒的",
-    "cat": "情緒"
+    "zh": "\u5ac9\u5992\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "furious",
-    "zh": "狂怒的",
-    "cat": "情緒"
+    "zh": "\u72c2\u6012\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "sympathetic",
-    "zh": "有同情心的",
-    "cat": "情緒"
+    "zh": "\u6709\u540c\u60c5\u5fc3\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tournament",
-    "zh": "錦標賽",
-    "cat": "運動"
+    "zh": "\u9326\u6a19\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "athlete",
-    "zh": "運動員",
-    "cat": "運動"
+    "zh": "\u904b\u52d5\u54e1",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "stadium",
-    "zh": "體育場",
-    "cat": "運動"
+    "zh": "\u9ad4\u80b2\u5834",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "championship",
-    "zh": "冠軍賽",
-    "cat": "運動"
+    "zh": "\u51a0\u8ecd\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "referee",
-    "zh": "裁判",
-    "cat": "運動"
+    "zh": "\u88c1\u5224",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "coach",
-    "zh": "教練",
-    "cat": "運動"
+    "zh": "\u6559\u7df4",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "defense",
-    "zh": "防守",
-    "cat": "運動"
+    "zh": "\u9632\u5b88",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "offense",
-    "zh": "進攻",
-    "cat": "運動"
+    "zh": "\u9032\u653b",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "penalty",
-    "zh": "罰則",
-    "cat": "運動"
+    "zh": "\u7f70\u5247",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "tackle",
-    "zh": "擒抱/抄截",
-    "cat": "運動"
+    "zh": "\u64d2\u62b1/\u6284\u622a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "discount",
-    "zh": "折扣",
-    "cat": "購物"
+    "zh": "\u6298\u6263",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "receipt",
-    "zh": "收據",
-    "cat": "購物"
+    "zh": "\u6536\u64da",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "refund",
-    "zh": "退款",
-    "cat": "購物"
+    "zh": "\u9000\u6b3e",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "cashier",
-    "zh": "收銀員",
-    "cat": "購物"
+    "zh": "\u6536\u9280\u54e1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "cart",
-    "zh": "購物車",
-    "cat": "購物"
+    "zh": "\u8cfc\u7269\u8eca",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "aisle",
-    "zh": "走道",
-    "cat": "購物"
+    "zh": "\u8d70\u9053",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "bargain",
-    "zh": "特價品",
-    "cat": "購物"
+    "zh": "\u7279\u50f9\u54c1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "voucher",
-    "zh": "折價券",
-    "cat": "購物"
+    "zh": "\u6298\u50f9\u5238",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "warranty",
-    "zh": "保固",
-    "cat": "購物"
+    "zh": "\u4fdd\u56fa",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "inventory",
-    "zh": "庫存",
-    "cat": "購物"
+    "zh": "\u5eab\u5b58",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "uncandidate",
-    "zh": "不應徵者",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u61c9\u5fb5\u8005",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "recandidate",
-    "zh": "重新應徵者",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u61c9\u5fb5\u8005",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "precandidate",
-    "zh": "預先應徵者",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u61c9\u5fb5\u8005",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postcandidate",
-    "zh": "後應徵者",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u61c9\u5fb5\u8005",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overcandidate",
-    "zh": "過度應徵者",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u61c9\u5fb5\u8005",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "undercandidate",
-    "zh": "不足應徵者",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u61c9\u5fb5\u8005",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subcandidate",
-    "zh": "次/亞應徵者",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u61c9\u5fb5\u8005",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "supercandidate",
-    "zh": "超級應徵者",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u61c9\u5fb5\u8005",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "unresume",
-    "zh": "不履歷",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u5c65\u6b77",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "reresume",
-    "zh": "重新履歷",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u5c65\u6b77",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "preresume",
-    "zh": "預先履歷",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u5c65\u6b77",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postresume",
-    "zh": "後履歷",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u5c65\u6b77",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overresume",
-    "zh": "過度履歷",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u5c65\u6b77",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "underresume",
-    "zh": "不足履歷",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u5c65\u6b77",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subresume",
-    "zh": "次/亞履歷",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u5c65\u6b77",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "superresume",
-    "zh": "超級履歷",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u5c65\u6b77",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "uninterview",
-    "zh": "不面試",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u9762\u8a66",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "reinterview",
-    "zh": "重新面試",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u9762\u8a66",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "preinterview",
-    "zh": "預先面試",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u9762\u8a66",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postinterview",
-    "zh": "後面試",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u9762\u8a66",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overinterview",
-    "zh": "過度面試",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u9762\u8a66",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "underinterview",
-    "zh": "不足面試",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u9762\u8a66",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subinterview",
-    "zh": "次/亞面試",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u9762\u8a66",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "superinterview",
-    "zh": "超級面試",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u9762\u8a66",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "uncontract",
-    "zh": "不合約",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u5408\u7d04",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "recontract",
-    "zh": "重新合約",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u5408\u7d04",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "precontract",
-    "zh": "預先合約",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u5408\u7d04",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postcontract",
-    "zh": "後合約",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u5408\u7d04",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overcontract",
-    "zh": "過度合約",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u5408\u7d04",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "undercontract",
-    "zh": "不足合約",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u5408\u7d04",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subcontract",
-    "zh": "次/亞合約",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u5408\u7d04",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "supercontract",
-    "zh": "超級合約",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u5408\u7d04",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "unnegotiation",
-    "zh": "不談判",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8ac7\u5224",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "renegotiation",
-    "zh": "重新談判",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u8ac7\u5224",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "prenegotiation",
-    "zh": "預先談判",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u8ac7\u5224",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postnegotiation",
-    "zh": "後談判",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u8ac7\u5224",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overnegotiation",
-    "zh": "過度談判",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u8ac7\u5224",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "undernegotiation",
-    "zh": "不足談判",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u8ac7\u5224",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subnegotiation",
-    "zh": "次/亞談判",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u8ac7\u5224",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "supernegotiation",
-    "zh": "超級談判",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u8ac7\u5224",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "unrevenue",
-    "zh": "不營收",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u71df\u6536",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "rerevenue",
-    "zh": "重新營收",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u71df\u6536",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "prerevenue",
-    "zh": "預先營收",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u71df\u6536",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postrevenue",
-    "zh": "後營收",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u71df\u6536",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overrevenue",
-    "zh": "過度營收",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u71df\u6536",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "underrevenue",
-    "zh": "不足營收",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u71df\u6536",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subrevenue",
-    "zh": "次/亞營收",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u71df\u6536",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "superrevenue",
-    "zh": "超級營收",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u71df\u6536",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "unprofit",
-    "zh": "不利潤",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u5229\u6f64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "reprofit",
-    "zh": "重新利潤",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u5229\u6f64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "preprofit",
-    "zh": "預先利潤",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u5229\u6f64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postprofit",
-    "zh": "後利潤",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u5229\u6f64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overprofit",
-    "zh": "過度利潤",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u5229\u6f64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "underprofit",
-    "zh": "不足利潤",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u5229\u6f64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subprofit",
-    "zh": "次/亞利潤",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u5229\u6f64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "superprofit",
-    "zh": "超級利潤",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u5229\u6f64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "unbudget",
-    "zh": "不預算",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u9810\u7b97",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "rebudget",
-    "zh": "重新預算",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u9810\u7b97",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "prebudget",
-    "zh": "預先預算",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u9810\u7b97",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postbudget",
-    "zh": "後預算",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u9810\u7b97",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overbudget",
-    "zh": "過度預算",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u9810\u7b97",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "underbudget",
-    "zh": "不足預算",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u9810\u7b97",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subbudget",
-    "zh": "次/亞預算",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u9810\u7b97",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "superbudget",
-    "zh": "超級預算",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u9810\u7b97",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "unschedule",
-    "zh": "不時程",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u6642\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "reschedule",
-    "zh": "重新時程",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u6642\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "preschedule",
-    "zh": "預先時程",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u6642\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postschedule",
-    "zh": "後時程",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u6642\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overschedule",
-    "zh": "過度時程",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u6642\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "underschedule",
-    "zh": "不足時程",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u6642\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subschedule",
-    "zh": "次/亞時程",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u6642\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "superschedule",
-    "zh": "超級時程",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u6642\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "unproposal",
-    "zh": "不提案",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u63d0\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "reproposal",
-    "zh": "重新提案",
-    "cat": "多益必考"
+    "zh": "\u91cd\u65b0\u63d0\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "preproposal",
-    "zh": "預先提案",
-    "cat": "多益必考"
+    "zh": "\u9810\u5148\u63d0\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "postproposal",
-    "zh": "後提案",
-    "cat": "多益必考"
+    "zh": "\u5f8c\u63d0\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "overproposal",
-    "zh": "過度提案",
-    "cat": "多益必考"
+    "zh": "\u904e\u5ea6\u63d0\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "underproposal",
-    "zh": "不足提案",
-    "cat": "多益必考"
+    "zh": "\u4e0d\u8db3\u63d0\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "subproposal",
-    "zh": "次/亞提案",
-    "cat": "多益必考"
+    "zh": "\u6b21/\u4e9e\u63d0\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "superproposal",
-    "zh": "超級提案",
-    "cat": "多益必考"
+    "zh": "\u8d85\u7d1a\u63d0\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "unmeeting",
-    "zh": "不會議",
-    "cat": "商業"
+    "zh": "\u4e0d\u6703\u8b70",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "remeeting",
-    "zh": "重新會議",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u6703\u8b70",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "premeeting",
-    "zh": "預先會議",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u6703\u8b70",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "postmeeting",
-    "zh": "後會議",
-    "cat": "商業"
+    "zh": "\u5f8c\u6703\u8b70",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overmeeting",
-    "zh": "過度會議",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u6703\u8b70",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "undermeeting",
-    "zh": "不足會議",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u6703\u8b70",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "submeeting",
-    "zh": "次/亞會議",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u6703\u8b70",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "supermeeting",
-    "zh": "超級會議",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u6703\u8b70",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "uncolleague",
-    "zh": "不同事",
-    "cat": "商業"
+    "zh": "\u4e0d\u540c\u4e8b",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "recolleague",
-    "zh": "重新同事",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u540c\u4e8b",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "precolleague",
-    "zh": "預先同事",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u540c\u4e8b",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "postcolleague",
-    "zh": "後同事",
-    "cat": "商業"
+    "zh": "\u5f8c\u540c\u4e8b",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overcolleague",
-    "zh": "過度同事",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u540c\u4e8b",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "undercolleague",
-    "zh": "不足同事",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u540c\u4e8b",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "subcolleague",
-    "zh": "次/亞同事",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u540c\u4e8b",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "supercolleague",
-    "zh": "超級同事",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u540c\u4e8b",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "unmanager",
-    "zh": "不經理",
-    "cat": "商業"
+    "zh": "\u4e0d\u7d93\u7406",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "remanager",
-    "zh": "重新經理",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u7d93\u7406",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "premanager",
-    "zh": "預先經理",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u7d93\u7406",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "postmanager",
-    "zh": "後經理",
-    "cat": "商業"
+    "zh": "\u5f8c\u7d93\u7406",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overmanager",
-    "zh": "過度經理",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u7d93\u7406",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "undermanager",
-    "zh": "不足經理",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u7d93\u7406",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "submanager",
-    "zh": "次/亞經理",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u7d93\u7406",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "supermanager",
-    "zh": "超級經理",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u7d93\u7406",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "unstrategy",
-    "zh": "不策略",
-    "cat": "商業"
+    "zh": "\u4e0d\u7b56\u7565",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "restrategy",
-    "zh": "重新策略",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u7b56\u7565",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "prestrategy",
-    "zh": "預先策略",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u7b56\u7565",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "poststrategy",
-    "zh": "後策略",
-    "cat": "商業"
+    "zh": "\u5f8c\u7b56\u7565",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overstrategy",
-    "zh": "過度策略",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u7b56\u7565",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "understrategy",
-    "zh": "不足策略",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u7b56\u7565",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "substrategy",
-    "zh": "次/亞策略",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u7b56\u7565",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "superstrategy",
-    "zh": "超級策略",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u7b56\u7565",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "unmarketing",
-    "zh": "不行銷",
-    "cat": "商業"
+    "zh": "\u4e0d\u884c\u92b7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "remarketing",
-    "zh": "重新行銷",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u884c\u92b7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "premarketing",
-    "zh": "預先行銷",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u884c\u92b7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "postmarketing",
-    "zh": "後行銷",
-    "cat": "商業"
+    "zh": "\u5f8c\u884c\u92b7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overmarketing",
-    "zh": "過度行銷",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u884c\u92b7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "undermarketing",
-    "zh": "不足行銷",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u884c\u92b7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "submarketing",
-    "zh": "次/亞行銷",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u884c\u92b7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "supermarketing",
-    "zh": "超級行銷",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u884c\u92b7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "uninvestment",
-    "zh": "不投資",
-    "cat": "商業"
+    "zh": "\u4e0d\u6295\u8cc7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "reinvestment",
-    "zh": "重新投資",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u6295\u8cc7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "preinvestment",
-    "zh": "預先投資",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u6295\u8cc7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "postinvestment",
-    "zh": "後投資",
-    "cat": "商業"
+    "zh": "\u5f8c\u6295\u8cc7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overinvestment",
-    "zh": "過度投資",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u6295\u8cc7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "underinvestment",
-    "zh": "不足投資",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u6295\u8cc7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "subinvestment",
-    "zh": "次/亞投資",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u6295\u8cc7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "superinvestment",
-    "zh": "超級投資",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u6295\u8cc7",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "unpartnership",
-    "zh": "不合作關係",
-    "cat": "商業"
+    "zh": "\u4e0d\u5408\u4f5c\u95dc\u4fc2",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "repartnership",
-    "zh": "重新合作關係",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u5408\u4f5c\u95dc\u4fc2",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "prepartnership",
-    "zh": "預先合作關係",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u5408\u4f5c\u95dc\u4fc2",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "postpartnership",
-    "zh": "後合作關係",
-    "cat": "商業"
+    "zh": "\u5f8c\u5408\u4f5c\u95dc\u4fc2",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overpartnership",
-    "zh": "過度合作關係",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u5408\u4f5c\u95dc\u4fc2",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "underpartnership",
-    "zh": "不足合作關係",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u5408\u4f5c\u95dc\u4fc2",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "subpartnership",
-    "zh": "次/亞合作關係",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u5408\u4f5c\u95dc\u4fc2",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "superpartnership",
-    "zh": "超級合作關係",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u5408\u4f5c\u95dc\u4fc2",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "unclient",
-    "zh": "不客戶",
-    "cat": "商業"
+    "zh": "\u4e0d\u5ba2\u6236",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "reclient",
-    "zh": "重新客戶",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u5ba2\u6236",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "preclient",
-    "zh": "預先客戶",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u5ba2\u6236",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "postclient",
-    "zh": "後客戶",
-    "cat": "商業"
+    "zh": "\u5f8c\u5ba2\u6236",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overclient",
-    "zh": "過度客戶",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u5ba2\u6236",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "underclient",
-    "zh": "不足客戶",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u5ba2\u6236",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "subclient",
-    "zh": "次/亞客戶",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u5ba2\u6236",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "superclient",
-    "zh": "超級客戶",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u5ba2\u6236",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "unpresentation",
-    "zh": "不簡報",
-    "cat": "商業"
+    "zh": "\u4e0d\u7c21\u5831",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "representation",
-    "zh": "重新簡報",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u7c21\u5831",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "prepresentation",
-    "zh": "預先簡報",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u7c21\u5831",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "postpresentation",
-    "zh": "後簡報",
-    "cat": "商業"
+    "zh": "\u5f8c\u7c21\u5831",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overpresentation",
-    "zh": "過度簡報",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u7c21\u5831",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "underpresentation",
-    "zh": "不足簡報",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u7c21\u5831",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "subpresentation",
-    "zh": "次/亞簡報",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u7c21\u5831",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "superpresentation",
-    "zh": "超級簡報",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u7c21\u5831",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "undeadline",
-    "zh": "不截止日期",
-    "cat": "商業"
+    "zh": "\u4e0d\u622a\u6b62\u65e5\u671f",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "redeadline",
-    "zh": "重新截止日期",
-    "cat": "商業"
+    "zh": "\u91cd\u65b0\u622a\u6b62\u65e5\u671f",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "predeadline",
-    "zh": "預先截止日期",
-    "cat": "商業"
+    "zh": "\u9810\u5148\u622a\u6b62\u65e5\u671f",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "postdeadline",
-    "zh": "後截止日期",
-    "cat": "商業"
+    "zh": "\u5f8c\u622a\u6b62\u65e5\u671f",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "overdeadline",
-    "zh": "過度截止日期",
-    "cat": "商業"
+    "zh": "\u904e\u5ea6\u622a\u6b62\u65e5\u671f",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "underdeadline",
-    "zh": "不足截止日期",
-    "cat": "商業"
+    "zh": "\u4e0d\u8db3\u622a\u6b62\u65e5\u671f",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "subdeadline",
-    "zh": "次/亞截止日期",
-    "cat": "商業"
+    "zh": "\u6b21/\u4e9e\u622a\u6b62\u65e5\u671f",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "superdeadline",
-    "zh": "超級截止日期",
-    "cat": "商業"
+    "zh": "\u8d85\u7d1a\u622a\u6b62\u65e5\u671f",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "unflight",
-    "zh": "不航班",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u822a\u73ed",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "reflight",
-    "zh": "重新航班",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u822a\u73ed",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "preflight",
-    "zh": "預先航班",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u822a\u73ed",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "postflight",
-    "zh": "後航班",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u822a\u73ed",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "overflight",
-    "zh": "過度航班",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u822a\u73ed",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "underflight",
-    "zh": "不足航班",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u822a\u73ed",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subflight",
-    "zh": "次/亞航班",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u822a\u73ed",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "superflight",
-    "zh": "超級航班",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u822a\u73ed",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "unbaggage",
-    "zh": "不行李",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u884c\u674e",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "rebaggage",
-    "zh": "重新行李",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u884c\u674e",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "prebaggage",
-    "zh": "預先行李",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u884c\u674e",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "postbaggage",
-    "zh": "後行李",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u884c\u674e",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "overbaggage",
-    "zh": "過度行李",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u884c\u674e",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "underbaggage",
-    "zh": "不足行李",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u884c\u674e",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subbaggage",
-    "zh": "次/亞行李",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u884c\u674e",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "superbaggage",
-    "zh": "超級行李",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u884c\u674e",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "unpassport",
-    "zh": "不護照",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8b77\u7167",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "repassport",
-    "zh": "重新護照",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u8b77\u7167",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "prepassport",
-    "zh": "預先護照",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u8b77\u7167",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "postpassport",
-    "zh": "後護照",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u8b77\u7167",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "overpassport",
-    "zh": "過度護照",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u8b77\u7167",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "underpassport",
-    "zh": "不足護照",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u8b77\u7167",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subpassport",
-    "zh": "次/亞護照",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u8b77\u7167",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "superpassport",
-    "zh": "超級護照",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u8b77\u7167",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "unaccommodation",
-    "zh": "不住宿",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u4f4f\u5bbf",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "reaccommodation",
-    "zh": "重新住宿",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u4f4f\u5bbf",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "preaccommodation",
-    "zh": "預先住宿",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u4f4f\u5bbf",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "postaccommodation",
-    "zh": "後住宿",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u4f4f\u5bbf",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "overaccommodation",
-    "zh": "過度住宿",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u4f4f\u5bbf",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "underaccommodation",
-    "zh": "不足住宿",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u4f4f\u5bbf",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subaccommodation",
-    "zh": "次/亞住宿",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u4f4f\u5bbf",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "superaccommodation",
-    "zh": "超級住宿",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u4f4f\u5bbf",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "undestination",
-    "zh": "不目的地",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u76ee\u7684\u5730",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "redestination",
-    "zh": "重新目的地",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u76ee\u7684\u5730",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "predestination",
-    "zh": "預先目的地",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u76ee\u7684\u5730",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "postdestination",
-    "zh": "後目的地",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u76ee\u7684\u5730",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "overdestination",
-    "zh": "過度目的地",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u76ee\u7684\u5730",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "underdestination",
-    "zh": "不足目的地",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u76ee\u7684\u5730",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subdestination",
-    "zh": "次/亞目的地",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u76ee\u7684\u5730",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "superdestination",
-    "zh": "超級目的地",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u76ee\u7684\u5730",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "unitinerary",
-    "zh": "不行程",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u884c\u7a0b",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "reitinerary",
-    "zh": "重新行程",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u884c\u7a0b",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "preitinerary",
-    "zh": "預先行程",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u884c\u7a0b",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "postitinerary",
-    "zh": "後行程",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u884c\u7a0b",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "overitinerary",
-    "zh": "過度行程",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u884c\u7a0b",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "underitinerary",
-    "zh": "不足行程",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u884c\u7a0b",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subitinerary",
-    "zh": "次/亞行程",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u884c\u7a0b",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "superitinerary",
-    "zh": "超級行程",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u884c\u7a0b",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "untourist",
-    "zh": "不遊客",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u904a\u5ba2",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "retourist",
-    "zh": "重新遊客",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u904a\u5ba2",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "pretourist",
-    "zh": "預先遊客",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u904a\u5ba2",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "posttourist",
-    "zh": "後遊客",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u904a\u5ba2",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "overtourist",
-    "zh": "過度遊客",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u904a\u5ba2",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "undertourist",
-    "zh": "不足遊客",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u904a\u5ba2",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subtourist",
-    "zh": "次/亞遊客",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u904a\u5ba2",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "supertourist",
-    "zh": "超級遊客",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u904a\u5ba2",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "unsouvenir",
-    "zh": "不紀念品",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u7d00\u5ff5\u54c1",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "resouvenir",
-    "zh": "重新紀念品",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u7d00\u5ff5\u54c1",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "presouvenir",
-    "zh": "預先紀念品",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u7d00\u5ff5\u54c1",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "postsouvenir",
-    "zh": "後紀念品",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u7d00\u5ff5\u54c1",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "oversouvenir",
-    "zh": "過度紀念品",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u7d00\u5ff5\u54c1",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "undersouvenir",
-    "zh": "不足紀念品",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u7d00\u5ff5\u54c1",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subsouvenir",
-    "zh": "次/亞紀念品",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u7d00\u5ff5\u54c1",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "supersouvenir",
-    "zh": "超級紀念品",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u7d00\u5ff5\u54c1",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "uncustoms",
-    "zh": "不海關",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u6d77\u95dc",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "recustoms",
-    "zh": "重新海關",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u6d77\u95dc",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "precustoms",
-    "zh": "預先海關",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u6d77\u95dc",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "postcustoms",
-    "zh": "後海關",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u6d77\u95dc",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "overcustoms",
-    "zh": "過度海關",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u6d77\u95dc",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "undercustoms",
-    "zh": "不足海關",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u6d77\u95dc",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subcustoms",
-    "zh": "次/亞海關",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u6d77\u95dc",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "supercustoms",
-    "zh": "超級海關",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u6d77\u95dc",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "unboarding",
-    "zh": "不登機",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u767b\u6a5f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "reboarding",
-    "zh": "重新登機",
-    "cat": "旅遊"
+    "zh": "\u91cd\u65b0\u767b\u6a5f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "preboarding",
-    "zh": "預先登機",
-    "cat": "旅遊"
+    "zh": "\u9810\u5148\u767b\u6a5f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "postboarding",
-    "zh": "後登機",
-    "cat": "旅遊"
+    "zh": "\u5f8c\u767b\u6a5f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "overboarding",
-    "zh": "過度登機",
-    "cat": "旅遊"
+    "zh": "\u904e\u5ea6\u767b\u6a5f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "underboarding",
-    "zh": "不足登機",
-    "cat": "旅遊"
+    "zh": "\u4e0d\u8db3\u767b\u6a5f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "subboarding",
-    "zh": "次/亞登機",
-    "cat": "旅遊"
+    "zh": "\u6b21/\u4e9e\u767b\u6a5f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "superboarding",
-    "zh": "超級登機",
-    "cat": "旅遊"
+    "zh": "\u8d85\u7d1a\u767b\u6a5f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "unsymptom",
-    "zh": "不症狀",
-    "cat": "醫療"
+    "zh": "\u4e0d\u75c7\u72c0",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "resymptom",
-    "zh": "重新症狀",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u75c7\u72c0",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "presymptom",
-    "zh": "預先症狀",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u75c7\u72c0",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "postsymptom",
-    "zh": "後症狀",
-    "cat": "醫療"
+    "zh": "\u5f8c\u75c7\u72c0",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "oversymptom",
-    "zh": "過度症狀",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u75c7\u72c0",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "undersymptom",
-    "zh": "不足症狀",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u75c7\u72c0",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subsymptom",
-    "zh": "次/亞症狀",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u75c7\u72c0",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "supersymptom",
-    "zh": "超級症狀",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u75c7\u72c0",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "unprescription",
-    "zh": "不處方",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8655\u65b9",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "represcription",
-    "zh": "重新處方",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u8655\u65b9",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "preprescription",
-    "zh": "預先處方",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u8655\u65b9",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "postprescription",
-    "zh": "後處方",
-    "cat": "醫療"
+    "zh": "\u5f8c\u8655\u65b9",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "overprescription",
-    "zh": "過度處方",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u8655\u65b9",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "underprescription",
-    "zh": "不足處方",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u8655\u65b9",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subprescription",
-    "zh": "次/亞處方",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u8655\u65b9",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "superprescription",
-    "zh": "超級處方",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u8655\u65b9",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "unpharmacy",
-    "zh": "不藥局",
-    "cat": "醫療"
+    "zh": "\u4e0d\u85e5\u5c40",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "repharmacy",
-    "zh": "重新藥局",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u85e5\u5c40",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "prepharmacy",
-    "zh": "預先藥局",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u85e5\u5c40",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "postpharmacy",
-    "zh": "後藥局",
-    "cat": "醫療"
+    "zh": "\u5f8c\u85e5\u5c40",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "overpharmacy",
-    "zh": "過度藥局",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u85e5\u5c40",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "underpharmacy",
-    "zh": "不足藥局",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u85e5\u5c40",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subpharmacy",
-    "zh": "次/亞藥局",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u85e5\u5c40",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "superpharmacy",
-    "zh": "超級藥局",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u85e5\u5c40",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "unsurgery",
-    "zh": "不手術",
-    "cat": "醫療"
+    "zh": "\u4e0d\u624b\u8853",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "resurgery",
-    "zh": "重新手術",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u624b\u8853",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "presurgery",
-    "zh": "預先手術",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u624b\u8853",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "postsurgery",
-    "zh": "後手術",
-    "cat": "醫療"
+    "zh": "\u5f8c\u624b\u8853",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "oversurgery",
-    "zh": "過度手術",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u624b\u8853",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "undersurgery",
-    "zh": "不足手術",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u624b\u8853",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subsurgery",
-    "zh": "次/亞手術",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u624b\u8853",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "supersurgery",
-    "zh": "超級手術",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u624b\u8853",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "unclinic",
-    "zh": "不診所",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8a3a\u6240",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "reclinic",
-    "zh": "重新診所",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u8a3a\u6240",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "preclinic",
-    "zh": "預先診所",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u8a3a\u6240",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "postclinic",
-    "zh": "後診所",
-    "cat": "醫療"
+    "zh": "\u5f8c\u8a3a\u6240",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "overclinic",
-    "zh": "過度診所",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u8a3a\u6240",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "underclinic",
-    "zh": "不足診所",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u8a3a\u6240",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subclinic",
-    "zh": "次/亞診所",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u8a3a\u6240",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "superclinic",
-    "zh": "超級診所",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u8a3a\u6240",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "undiagnosis",
-    "zh": "不診斷",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8a3a\u65b7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "rediagnosis",
-    "zh": "重新診斷",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u8a3a\u65b7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "prediagnosis",
-    "zh": "預先診斷",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u8a3a\u65b7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "postdiagnosis",
-    "zh": "後診斷",
-    "cat": "醫療"
+    "zh": "\u5f8c\u8a3a\u65b7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "overdiagnosis",
-    "zh": "過度診斷",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u8a3a\u65b7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "underdiagnosis",
-    "zh": "不足診斷",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u8a3a\u65b7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subdiagnosis",
-    "zh": "次/亞診斷",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u8a3a\u65b7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "superdiagnosis",
-    "zh": "超級診斷",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u8a3a\u65b7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "untreatment",
-    "zh": "不治療",
-    "cat": "醫療"
+    "zh": "\u4e0d\u6cbb\u7642",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "retreatment",
-    "zh": "重新治療",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u6cbb\u7642",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "pretreatment",
-    "zh": "預先治療",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u6cbb\u7642",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "posttreatment",
-    "zh": "後治療",
-    "cat": "醫療"
+    "zh": "\u5f8c\u6cbb\u7642",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "overtreatment",
-    "zh": "過度治療",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u6cbb\u7642",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "undertreatment",
-    "zh": "不足治療",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u6cbb\u7642",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subtreatment",
-    "zh": "次/亞治療",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u6cbb\u7642",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "supertreatment",
-    "zh": "超級治療",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u6cbb\u7642",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "unvaccine",
-    "zh": "不疫苗",
-    "cat": "醫療"
+    "zh": "\u4e0d\u75ab\u82d7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "revaccine",
-    "zh": "重新疫苗",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u75ab\u82d7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "prevaccine",
-    "zh": "預先疫苗",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u75ab\u82d7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "postvaccine",
-    "zh": "後疫苗",
-    "cat": "醫療"
+    "zh": "\u5f8c\u75ab\u82d7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "overvaccine",
-    "zh": "過度疫苗",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u75ab\u82d7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "undervaccine",
-    "zh": "不足疫苗",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u75ab\u82d7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subvaccine",
-    "zh": "次/亞疫苗",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u75ab\u82d7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "supervaccine",
-    "zh": "超級疫苗",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u75ab\u82d7",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "uninfection",
-    "zh": "不感染",
-    "cat": "醫療"
+    "zh": "\u4e0d\u611f\u67d3",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "reinfection",
-    "zh": "重新感染",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u611f\u67d3",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "preinfection",
-    "zh": "預先感染",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u611f\u67d3",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "postinfection",
-    "zh": "後感染",
-    "cat": "醫療"
+    "zh": "\u5f8c\u611f\u67d3",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "overinfection",
-    "zh": "過度感染",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u611f\u67d3",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "underinfection",
-    "zh": "不足感染",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u611f\u67d3",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subinfection",
-    "zh": "次/亞感染",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u611f\u67d3",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "superinfection",
-    "zh": "超級感染",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u611f\u67d3",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "unemergency",
-    "zh": "不急診",
-    "cat": "醫療"
+    "zh": "\u4e0d\u6025\u8a3a",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "reemergency",
-    "zh": "重新急診",
-    "cat": "醫療"
+    "zh": "\u91cd\u65b0\u6025\u8a3a",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "preemergency",
-    "zh": "預先急診",
-    "cat": "醫療"
+    "zh": "\u9810\u5148\u6025\u8a3a",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "postemergency",
-    "zh": "後急診",
-    "cat": "醫療"
+    "zh": "\u5f8c\u6025\u8a3a",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "overemergency",
-    "zh": "過度急診",
-    "cat": "醫療"
+    "zh": "\u904e\u5ea6\u6025\u8a3a",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "underemergency",
-    "zh": "不足急診",
-    "cat": "醫療"
+    "zh": "\u4e0d\u8db3\u6025\u8a3a",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "subemergency",
-    "zh": "次/亞急診",
-    "cat": "醫療"
+    "zh": "\u6b21/\u4e9e\u6025\u8a3a",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "superemergency",
-    "zh": "超級急診",
-    "cat": "醫療"
+    "zh": "\u8d85\u7d1a\u6025\u8a3a",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "ungrocery",
-    "zh": "不雜貨",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u96dc\u8ca8",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "regrocery",
-    "zh": "重新雜貨",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u96dc\u8ca8",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "pregrocery",
-    "zh": "預先雜貨",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u96dc\u8ca8",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "postgrocery",
-    "zh": "後雜貨",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u96dc\u8ca8",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overgrocery",
-    "zh": "過度雜貨",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u96dc\u8ca8",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "undergrocery",
-    "zh": "不足雜貨",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u96dc\u8ca8",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "subgrocery",
-    "zh": "次/亞雜貨",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u96dc\u8ca8",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "supergrocery",
-    "zh": "超級雜貨",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u96dc\u8ca8",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "unlaundry",
-    "zh": "不洗衣",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u6d17\u8863",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "relaundry",
-    "zh": "重新洗衣",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u6d17\u8863",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "prelaundry",
-    "zh": "預先洗衣",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u6d17\u8863",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "postlaundry",
-    "zh": "後洗衣",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u6d17\u8863",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overlaundry",
-    "zh": "過度洗衣",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u6d17\u8863",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "underlaundry",
-    "zh": "不足洗衣",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u6d17\u8863",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "sublaundry",
-    "zh": "次/亞洗衣",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u6d17\u8863",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "superlaundry",
-    "zh": "超級洗衣",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u6d17\u8863",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "uncommute",
-    "zh": "不通勤",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u901a\u52e4",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "recommute",
-    "zh": "重新通勤",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u901a\u52e4",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "precommute",
-    "zh": "預先通勤",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u901a\u52e4",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "postcommute",
-    "zh": "後通勤",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u901a\u52e4",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overcommute",
-    "zh": "過度通勤",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u901a\u52e4",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "undercommute",
-    "zh": "不足通勤",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u901a\u52e4",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "subcommute",
-    "zh": "次/亞通勤",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u901a\u52e4",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "supercommute",
-    "zh": "超級通勤",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u901a\u52e4",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "unrecipe",
-    "zh": "不食譜",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u98df\u8b5c",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "rerecipe",
-    "zh": "重新食譜",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u98df\u8b5c",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "prerecipe",
-    "zh": "預先食譜",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u98df\u8b5c",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "postrecipe",
-    "zh": "後食譜",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u98df\u8b5c",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overrecipe",
-    "zh": "過度食譜",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u98df\u8b5c",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "underrecipe",
-    "zh": "不足食譜",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u98df\u8b5c",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "subrecipe",
-    "zh": "次/亞食譜",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u98df\u8b5c",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "superrecipe",
-    "zh": "超級食譜",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u98df\u8b5c",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "unappliance",
-    "zh": "不家電",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u5bb6\u96fb",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "reappliance",
-    "zh": "重新家電",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u5bb6\u96fb",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "preappliance",
-    "zh": "預先家電",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u5bb6\u96fb",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "postappliance",
-    "zh": "後家電",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u5bb6\u96fb",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overappliance",
-    "zh": "過度家電",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u5bb6\u96fb",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "underappliance",
-    "zh": "不足家電",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u5bb6\u96fb",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "subappliance",
-    "zh": "次/亞家電",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u5bb6\u96fb",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "superappliance",
-    "zh": "超級家電",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u5bb6\u96fb",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "unfurniture",
-    "zh": "不家具",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u5bb6\u5177",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "refurniture",
-    "zh": "重新家具",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u5bb6\u5177",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "prefurniture",
-    "zh": "預先家具",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u5bb6\u5177",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "postfurniture",
-    "zh": "後家具",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u5bb6\u5177",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overfurniture",
-    "zh": "過度家具",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u5bb6\u5177",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "underfurniture",
-    "zh": "不足家具",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u5bb6\u5177",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "subfurniture",
-    "zh": "次/亞家具",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u5bb6\u5177",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "superfurniture",
-    "zh": "超級家具",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u5bb6\u5177",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "unneighborhood",
-    "zh": "不社區",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u793e\u5340",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "reneighborhood",
-    "zh": "重新社區",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u793e\u5340",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "preneighborhood",
-    "zh": "預先社區",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u793e\u5340",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "postneighborhood",
-    "zh": "後社區",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u793e\u5340",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overneighborhood",
-    "zh": "過度社區",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u793e\u5340",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "underneighborhood",
-    "zh": "不足社區",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u793e\u5340",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "subneighborhood",
-    "zh": "次/亞社區",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u793e\u5340",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "superneighborhood",
-    "zh": "超級社區",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u793e\u5340",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "unchore",
-    "zh": "不家務",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u5bb6\u52d9",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "rechore",
-    "zh": "重新家務",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u5bb6\u52d9",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "prechore",
-    "zh": "預先家務",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u5bb6\u52d9",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "postchore",
-    "zh": "後家務",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u5bb6\u52d9",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overchore",
-    "zh": "過度家務",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u5bb6\u52d9",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "underchore",
-    "zh": "不足家務",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u5bb6\u52d9",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "subchore",
-    "zh": "次/亞家務",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u5bb6\u52d9",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "superchore",
-    "zh": "超級家務",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u5bb6\u52d9",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "unhabit",
-    "zh": "不習慣",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u7fd2\u6163",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "rehabit",
-    "zh": "重新習慣",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u7fd2\u6163",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "prehabit",
-    "zh": "預先習慣",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u7fd2\u6163",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "posthabit",
-    "zh": "後習慣",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u7fd2\u6163",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overhabit",
-    "zh": "過度習慣",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u7fd2\u6163",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "underhabit",
-    "zh": "不足習慣",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u7fd2\u6163",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "subhabit",
-    "zh": "次/亞習慣",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u7fd2\u6163",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "superhabit",
-    "zh": "超級習慣",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u7fd2\u6163",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "unroutine",
-    "zh": "不日常作息",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u65e5\u5e38\u4f5c\u606f",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "reroutine",
-    "zh": "重新日常作息",
-    "cat": "日常生活"
+    "zh": "\u91cd\u65b0\u65e5\u5e38\u4f5c\u606f",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "preroutine",
-    "zh": "預先日常作息",
-    "cat": "日常生活"
+    "zh": "\u9810\u5148\u65e5\u5e38\u4f5c\u606f",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "postroutine",
-    "zh": "後日常作息",
-    "cat": "日常生活"
+    "zh": "\u5f8c\u65e5\u5e38\u4f5c\u606f",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "overroutine",
-    "zh": "過度日常作息",
-    "cat": "日常生活"
+    "zh": "\u904e\u5ea6\u65e5\u5e38\u4f5c\u606f",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "underroutine",
-    "zh": "不足日常作息",
-    "cat": "日常生活"
+    "zh": "\u4e0d\u8db3\u65e5\u5e38\u4f5c\u606f",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "subroutine",
-    "zh": "次/亞日常作息",
-    "cat": "日常生活"
+    "zh": "\u6b21/\u4e9e\u65e5\u5e38\u4f5c\u606f",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "superroutine",
-    "zh": "超級日常作息",
-    "cat": "日常生活"
+    "zh": "\u8d85\u7d1a\u65e5\u5e38\u4f5c\u606f",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "unsoftware",
-    "zh": "不軟體",
-    "cat": "科技"
+    "zh": "\u4e0d\u8edf\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "resoftware",
-    "zh": "重新軟體",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u8edf\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "presoftware",
-    "zh": "預先軟體",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u8edf\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "postsoftware",
-    "zh": "後軟體",
-    "cat": "科技"
+    "zh": "\u5f8c\u8edf\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "oversoftware",
-    "zh": "過度軟體",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u8edf\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "undersoftware",
-    "zh": "不足軟體",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u8edf\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subsoftware",
-    "zh": "次/亞軟體",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u8edf\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "supersoftware",
-    "zh": "超級軟體",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u8edf\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "unhardware",
-    "zh": "不硬體",
-    "cat": "科技"
+    "zh": "\u4e0d\u786c\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "rehardware",
-    "zh": "重新硬體",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u786c\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "prehardware",
-    "zh": "預先硬體",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u786c\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "posthardware",
-    "zh": "後硬體",
-    "cat": "科技"
+    "zh": "\u5f8c\u786c\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "overhardware",
-    "zh": "過度硬體",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u786c\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "underhardware",
-    "zh": "不足硬體",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u786c\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subhardware",
-    "zh": "次/亞硬體",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u786c\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "superhardware",
-    "zh": "超級硬體",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u786c\u9ad4",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "undatabase",
-    "zh": "不資料庫",
-    "cat": "科技"
+    "zh": "\u4e0d\u8cc7\u6599\u5eab",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "redatabase",
-    "zh": "重新資料庫",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u8cc7\u6599\u5eab",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "predatabase",
-    "zh": "預先資料庫",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u8cc7\u6599\u5eab",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "postdatabase",
-    "zh": "後資料庫",
-    "cat": "科技"
+    "zh": "\u5f8c\u8cc7\u6599\u5eab",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "overdatabase",
-    "zh": "過度資料庫",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u8cc7\u6599\u5eab",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "underdatabase",
-    "zh": "不足資料庫",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u8cc7\u6599\u5eab",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subdatabase",
-    "zh": "次/亞資料庫",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u8cc7\u6599\u5eab",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "superdatabase",
-    "zh": "超級資料庫",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u8cc7\u6599\u5eab",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "unnetwork",
-    "zh": "不網路",
-    "cat": "科技"
+    "zh": "\u4e0d\u7db2\u8def",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "renetwork",
-    "zh": "重新網路",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u7db2\u8def",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "prenetwork",
-    "zh": "預先網路",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u7db2\u8def",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "postnetwork",
-    "zh": "後網路",
-    "cat": "科技"
+    "zh": "\u5f8c\u7db2\u8def",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "overnetwork",
-    "zh": "過度網路",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u7db2\u8def",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "undernetwork",
-    "zh": "不足網路",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u7db2\u8def",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subnetwork",
-    "zh": "次/亞網路",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u7db2\u8def",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "supernetwork",
-    "zh": "超級網路",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u7db2\u8def",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "unalgorithm",
-    "zh": "不演算法",
-    "cat": "科技"
+    "zh": "\u4e0d\u6f14\u7b97\u6cd5",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "realgorithm",
-    "zh": "重新演算法",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u6f14\u7b97\u6cd5",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "prealgorithm",
-    "zh": "預先演算法",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u6f14\u7b97\u6cd5",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "postalgorithm",
-    "zh": "後演算法",
-    "cat": "科技"
+    "zh": "\u5f8c\u6f14\u7b97\u6cd5",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "overalgorithm",
-    "zh": "過度演算法",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u6f14\u7b97\u6cd5",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "underalgorithm",
-    "zh": "不足演算法",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u6f14\u7b97\u6cd5",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subalgorithm",
-    "zh": "次/亞演算法",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u6f14\u7b97\u6cd5",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "superalgorithm",
-    "zh": "超級演算法",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u6f14\u7b97\u6cd5",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "undeveloper",
-    "zh": "不開發者",
-    "cat": "科技"
+    "zh": "\u4e0d\u958b\u767c\u8005",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "redeveloper",
-    "zh": "重新開發者",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u958b\u767c\u8005",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "predeveloper",
-    "zh": "預先開發者",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u958b\u767c\u8005",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "postdeveloper",
-    "zh": "後開發者",
-    "cat": "科技"
+    "zh": "\u5f8c\u958b\u767c\u8005",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "overdeveloper",
-    "zh": "過度開發者",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u958b\u767c\u8005",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "underdeveloper",
-    "zh": "不足開發者",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u958b\u767c\u8005",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subdeveloper",
-    "zh": "次/亞開發者",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u958b\u767c\u8005",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "superdeveloper",
-    "zh": "超級開發者",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u958b\u767c\u8005",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "unapplication",
-    "zh": "不應用程式",
-    "cat": "科技"
+    "zh": "\u4e0d\u61c9\u7528\u7a0b\u5f0f",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "reapplication",
-    "zh": "重新應用程式",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u61c9\u7528\u7a0b\u5f0f",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "preapplication",
-    "zh": "預先應用程式",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u61c9\u7528\u7a0b\u5f0f",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "postapplication",
-    "zh": "後應用程式",
-    "cat": "科技"
+    "zh": "\u5f8c\u61c9\u7528\u7a0b\u5f0f",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "overapplication",
-    "zh": "過度應用程式",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u61c9\u7528\u7a0b\u5f0f",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "underapplication",
-    "zh": "不足應用程式",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u61c9\u7528\u7a0b\u5f0f",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subapplication",
-    "zh": "次/亞應用程式",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u61c9\u7528\u7a0b\u5f0f",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "superapplication",
-    "zh": "超級應用程式",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u61c9\u7528\u7a0b\u5f0f",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "unserver",
-    "zh": "不伺服器",
-    "cat": "科技"
+    "zh": "\u4e0d\u4f3a\u670d\u5668",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "reserver",
-    "zh": "重新伺服器",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u4f3a\u670d\u5668",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "preserver",
-    "zh": "預先伺服器",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u4f3a\u670d\u5668",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "postserver",
-    "zh": "後伺服器",
-    "cat": "科技"
+    "zh": "\u5f8c\u4f3a\u670d\u5668",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "overserver",
-    "zh": "過度伺服器",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u4f3a\u670d\u5668",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "underserver",
-    "zh": "不足伺服器",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u4f3a\u670d\u5668",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subserver",
-    "zh": "次/亞伺服器",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u4f3a\u670d\u5668",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "superserver",
-    "zh": "超級伺服器",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u4f3a\u670d\u5668",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "uncloud",
-    "zh": "不雲端",
-    "cat": "科技"
+    "zh": "\u4e0d\u96f2\u7aef",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "recloud",
-    "zh": "重新雲端",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u96f2\u7aef",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "precloud",
-    "zh": "預先雲端",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u96f2\u7aef",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "postcloud",
-    "zh": "後雲端",
-    "cat": "科技"
+    "zh": "\u5f8c\u96f2\u7aef",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "overcloud",
-    "zh": "過度雲端",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u96f2\u7aef",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "undercloud",
-    "zh": "不足雲端",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u96f2\u7aef",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subcloud",
-    "zh": "次/亞雲端",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u96f2\u7aef",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "supercloud",
-    "zh": "超級雲端",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u96f2\u7aef",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "unsecurity",
-    "zh": "不安全",
-    "cat": "科技"
+    "zh": "\u4e0d\u5b89\u5168",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "resecurity",
-    "zh": "重新安全",
-    "cat": "科技"
+    "zh": "\u91cd\u65b0\u5b89\u5168",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "presecurity",
-    "zh": "預先安全",
-    "cat": "科技"
+    "zh": "\u9810\u5148\u5b89\u5168",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "postsecurity",
-    "zh": "後安全",
-    "cat": "科技"
+    "zh": "\u5f8c\u5b89\u5168",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "oversecurity",
-    "zh": "過度安全",
-    "cat": "科技"
+    "zh": "\u904e\u5ea6\u5b89\u5168",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "undersecurity",
-    "zh": "不足安全",
-    "cat": "科技"
+    "zh": "\u4e0d\u8db3\u5b89\u5168",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "subsecurity",
-    "zh": "次/亞安全",
-    "cat": "科技"
+    "zh": "\u6b21/\u4e9e\u5b89\u5168",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "supersecurity",
-    "zh": "超級安全",
-    "cat": "科技"
+    "zh": "\u8d85\u7d1a\u5b89\u5168",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "unchill",
-    "zh": "不放鬆",
-    "cat": "俚語"
+    "zh": "\u4e0d\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "rechill",
-    "zh": "重新放鬆",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "prechill",
-    "zh": "預先放鬆",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postchill",
-    "zh": "後放鬆",
-    "cat": "俚語"
+    "zh": "\u5f8c\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "overchill",
-    "zh": "過度放鬆",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "underchill",
-    "zh": "不足放鬆",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "subchill",
-    "zh": "次/亞放鬆",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "superchill",
-    "zh": "超級放鬆",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "unflex",
-    "zh": "不炫耀",
-    "cat": "俚語"
+    "zh": "\u4e0d\u70ab\u8000",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "reflex",
-    "zh": "重新炫耀",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u70ab\u8000",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "preflex",
-    "zh": "預先炫耀",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u70ab\u8000",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postflex",
-    "zh": "後炫耀",
-    "cat": "俚語"
+    "zh": "\u5f8c\u70ab\u8000",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "overflex",
-    "zh": "過度炫耀",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u70ab\u8000",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "underflex",
-    "zh": "不足炫耀",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u70ab\u8000",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "subflex",
-    "zh": "次/亞炫耀",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u70ab\u8000",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "superflex",
-    "zh": "超級炫耀",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u70ab\u8000",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "unghost",
-    "zh": "不神隱",
-    "cat": "俚語"
+    "zh": "\u4e0d\u795e\u96b1",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "reghost",
-    "zh": "重新神隱",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u795e\u96b1",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "preghost",
-    "zh": "預先神隱",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u795e\u96b1",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postghost",
-    "zh": "後神隱",
-    "cat": "俚語"
+    "zh": "\u5f8c\u795e\u96b1",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "overghost",
-    "zh": "過度神隱",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u795e\u96b1",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "underghost",
-    "zh": "不足神隱",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u795e\u96b1",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "subghost",
-    "zh": "次/亞神隱",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u795e\u96b1",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "superghost",
-    "zh": "超級神隱",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u795e\u96b1",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "unsalty",
-    "zh": "不惱羞",
-    "cat": "俚語"
+    "zh": "\u4e0d\u60f1\u7f9e",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "resalty",
-    "zh": "重新惱羞",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u60f1\u7f9e",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "presalty",
-    "zh": "預先惱羞",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u60f1\u7f9e",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postsalty",
-    "zh": "後惱羞",
-    "cat": "俚語"
+    "zh": "\u5f8c\u60f1\u7f9e",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "oversalty",
-    "zh": "過度惱羞",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u60f1\u7f9e",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "undersalty",
-    "zh": "不足惱羞",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u60f1\u7f9e",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "subsalty",
-    "zh": "次/亞惱羞",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u60f1\u7f9e",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "supersalty",
-    "zh": "超級惱羞",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u60f1\u7f9e",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "unshady",
-    "zh": "不可疑的",
-    "cat": "俚語"
+    "zh": "\u4e0d\u53ef\u7591\u7684",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "reshady",
-    "zh": "重新可疑的",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u53ef\u7591\u7684",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "preshady",
-    "zh": "預先可疑的",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u53ef\u7591\u7684",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postshady",
-    "zh": "後可疑的",
-    "cat": "俚語"
+    "zh": "\u5f8c\u53ef\u7591\u7684",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "overshady",
-    "zh": "過度可疑的",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u53ef\u7591\u7684",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "undershady",
-    "zh": "不足可疑的",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u53ef\u7591\u7684",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "subshady",
-    "zh": "次/亞可疑的",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u53ef\u7591\u7684",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "supershady",
-    "zh": "超級可疑的",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u53ef\u7591\u7684",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "unlit",
-    "zh": "不超讚",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8d85\u8b9a",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "relit",
-    "zh": "重新超讚",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u8d85\u8b9a",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "prelit",
-    "zh": "預先超讚",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u8d85\u8b9a",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postlit",
-    "zh": "後超讚",
-    "cat": "俚語"
+    "zh": "\u5f8c\u8d85\u8b9a",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "overlit",
-    "zh": "過度超讚",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u8d85\u8b9a",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "underlit",
-    "zh": "不足超讚",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u8d85\u8b9a",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "sublit",
-    "zh": "次/亞超讚",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u8d85\u8b9a",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "superlit",
-    "zh": "超級超讚",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u8d85\u8b9a",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "undope",
-    "zh": "不酷",
-    "cat": "俚語"
+    "zh": "\u4e0d\u9177",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "redope",
-    "zh": "重新酷",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u9177",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "predope",
-    "zh": "預先酷",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u9177",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postdope",
-    "zh": "後酷",
-    "cat": "俚語"
+    "zh": "\u5f8c\u9177",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "overdope",
-    "zh": "過度酷",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u9177",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "underdope",
-    "zh": "不足酷",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u9177",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "subdope",
-    "zh": "次/亞酷",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u9177",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "superdope",
-    "zh": "超級酷",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u9177",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "ungoat",
-    "zh": "不史上最棒",
-    "cat": "俚語"
+    "zh": "\u4e0d\u53f2\u4e0a\u6700\u68d2",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "regoat",
-    "zh": "重新史上最棒",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u53f2\u4e0a\u6700\u68d2",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "pregoat",
-    "zh": "預先史上最棒",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u53f2\u4e0a\u6700\u68d2",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postgoat",
-    "zh": "後史上最棒",
-    "cat": "俚語"
+    "zh": "\u5f8c\u53f2\u4e0a\u6700\u68d2",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "overgoat",
-    "zh": "過度史上最棒",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u53f2\u4e0a\u6700\u68d2",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "undergoat",
-    "zh": "不足史上最棒",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u53f2\u4e0a\u6700\u68d2",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "subgoat",
-    "zh": "次/亞史上最棒",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u53f2\u4e0a\u6700\u68d2",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "supergoat",
-    "zh": "超級史上最棒",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u53f2\u4e0a\u6700\u68d2",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "uncringe",
-    "zh": "不尷尬",
-    "cat": "俚語"
+    "zh": "\u4e0d\u5c37\u5c2c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "recringe",
-    "zh": "重新尷尬",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u5c37\u5c2c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "precringe",
-    "zh": "預先尷尬",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u5c37\u5c2c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postcringe",
-    "zh": "後尷尬",
-    "cat": "俚語"
+    "zh": "\u5f8c\u5c37\u5c2c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "overcringe",
-    "zh": "過度尷尬",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u5c37\u5c2c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "undercringe",
-    "zh": "不足尷尬",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u5c37\u5c2c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "subcringe",
-    "zh": "次/亞尷尬",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u5c37\u5c2c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "supercringe",
-    "zh": "超級尷尬",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u5c37\u5c2c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "unbet",
-    "zh": "不沒問題",
-    "cat": "俚語"
+    "zh": "\u4e0d\u6c92\u554f\u984c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "rebet",
-    "zh": "重新沒問題",
-    "cat": "俚語"
+    "zh": "\u91cd\u65b0\u6c92\u554f\u984c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "prebet",
-    "zh": "預先沒問題",
-    "cat": "俚語"
+    "zh": "\u9810\u5148\u6c92\u554f\u984c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "postbet",
-    "zh": "後沒問題",
-    "cat": "俚語"
+    "zh": "\u5f8c\u6c92\u554f\u984c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "overbet",
-    "zh": "過度沒問題",
-    "cat": "俚語"
+    "zh": "\u904e\u5ea6\u6c92\u554f\u984c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "underbet",
-    "zh": "不足沒問題",
-    "cat": "俚語"
+    "zh": "\u4e0d\u8db3\u6c92\u554f\u984c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "subbet",
-    "zh": "次/亞沒問題",
-    "cat": "俚語"
+    "zh": "\u6b21/\u4e9e\u6c92\u554f\u984c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "superbet",
-    "zh": "超級沒問題",
-    "cat": "俚語"
+    "zh": "\u8d85\u7d1a\u6c92\u554f\u984c",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "unanxious",
-    "zh": "不焦慮的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u7126\u616e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "reanxious",
-    "zh": "重新焦慮的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u7126\u616e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "preanxious",
-    "zh": "預先焦慮的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u7126\u616e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postanxious",
-    "zh": "後焦慮的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u7126\u616e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overanxious",
-    "zh": "過度焦慮的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u7126\u616e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "underanxious",
-    "zh": "不足焦慮的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u7126\u616e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "subanxious",
-    "zh": "次/亞焦慮的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u7126\u616e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "superanxious",
-    "zh": "超級焦慮的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u7126\u616e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "unthrilled",
-    "zh": "不非常興奮的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u975e\u5e38\u8208\u596e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "rethrilled",
-    "zh": "重新非常興奮的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u975e\u5e38\u8208\u596e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "prethrilled",
-    "zh": "預先非常興奮的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u975e\u5e38\u8208\u596e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postthrilled",
-    "zh": "後非常興奮的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u975e\u5e38\u8208\u596e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overthrilled",
-    "zh": "過度非常興奮的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u975e\u5e38\u8208\u596e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "underthrilled",
-    "zh": "不足非常興奮的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u975e\u5e38\u8208\u596e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "subthrilled",
-    "zh": "次/亞非常興奮的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u975e\u5e38\u8208\u596e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "superthrilled",
-    "zh": "超級非常興奮的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u975e\u5e38\u8208\u596e\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "undepressed",
-    "zh": "不沮喪的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u6cae\u55aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "redepressed",
-    "zh": "重新沮喪的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u6cae\u55aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "predepressed",
-    "zh": "預先沮喪的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u6cae\u55aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postdepressed",
-    "zh": "後沮喪的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u6cae\u55aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overdepressed",
-    "zh": "過度沮喪的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u6cae\u55aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "underdepressed",
-    "zh": "不足沮喪的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u6cae\u55aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "subdepressed",
-    "zh": "次/亞沮喪的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u6cae\u55aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "superdepressed",
-    "zh": "超級沮喪的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u6cae\u55aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "ungrateful",
-    "zh": "不感激的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u611f\u6fc0\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "regrateful",
-    "zh": "重新感激的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u611f\u6fc0\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "pregrateful",
-    "zh": "預先感激的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u611f\u6fc0\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postgrateful",
-    "zh": "後感激的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u611f\u6fc0\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overgrateful",
-    "zh": "過度感激的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u611f\u6fc0\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "undergrateful",
-    "zh": "不足感激的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u611f\u6fc0\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "subgrateful",
-    "zh": "次/亞感激的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u611f\u6fc0\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "supergrateful",
-    "zh": "超級感激的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u611f\u6fc0\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "unfrustrated",
-    "zh": "不挫折的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u632b\u6298\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "refrustrated",
-    "zh": "重新挫折的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u632b\u6298\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "prefrustrated",
-    "zh": "預先挫折的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u632b\u6298\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postfrustrated",
-    "zh": "後挫折的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u632b\u6298\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overfrustrated",
-    "zh": "過度挫折的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u632b\u6298\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "underfrustrated",
-    "zh": "不足挫折的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u632b\u6298\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "subfrustrated",
-    "zh": "次/亞挫折的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u632b\u6298\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "superfrustrated",
-    "zh": "超級挫折的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u632b\u6298\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "unoverwhelmed",
-    "zh": "不不知所措的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u4e0d\u77e5\u6240\u63aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "reoverwhelmed",
-    "zh": "重新不知所措的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u4e0d\u77e5\u6240\u63aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "preoverwhelmed",
-    "zh": "預先不知所措的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u4e0d\u77e5\u6240\u63aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postoverwhelmed",
-    "zh": "後不知所措的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u4e0d\u77e5\u6240\u63aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overoverwhelmed",
-    "zh": "過度不知所措的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u4e0d\u77e5\u6240\u63aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "underoverwhelmed",
-    "zh": "不足不知所措的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u4e0d\u77e5\u6240\u63aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "suboverwhelmed",
-    "zh": "次/亞不知所措的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u4e0d\u77e5\u6240\u63aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "superoverwhelmed",
-    "zh": "超級不知所措的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u4e0d\u77e5\u6240\u63aa\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "unrelieved",
-    "zh": "不鬆了一口氣的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u9b06\u4e86\u4e00\u53e3\u6c23\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "rerelieved",
-    "zh": "重新鬆了一口氣的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u9b06\u4e86\u4e00\u53e3\u6c23\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "prerelieved",
-    "zh": "預先鬆了一口氣的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u9b06\u4e86\u4e00\u53e3\u6c23\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postrelieved",
-    "zh": "後鬆了一口氣的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u9b06\u4e86\u4e00\u53e3\u6c23\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overrelieved",
-    "zh": "過度鬆了一口氣的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u9b06\u4e86\u4e00\u53e3\u6c23\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "underrelieved",
-    "zh": "不足鬆了一口氣的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u9b06\u4e86\u4e00\u53e3\u6c23\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "subrelieved",
-    "zh": "次/亞鬆了一口氣的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u9b06\u4e86\u4e00\u53e3\u6c23\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "superrelieved",
-    "zh": "超級鬆了一口氣的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u9b06\u4e86\u4e00\u53e3\u6c23\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "unjealous",
-    "zh": "不嫉妒的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u5ac9\u5992\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "rejealous",
-    "zh": "重新嫉妒的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u5ac9\u5992\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "prejealous",
-    "zh": "預先嫉妒的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u5ac9\u5992\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postjealous",
-    "zh": "後嫉妒的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u5ac9\u5992\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overjealous",
-    "zh": "過度嫉妒的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u5ac9\u5992\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "underjealous",
-    "zh": "不足嫉妒的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u5ac9\u5992\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "subjealous",
-    "zh": "次/亞嫉妒的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u5ac9\u5992\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "superjealous",
-    "zh": "超級嫉妒的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u5ac9\u5992\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "unfurious",
-    "zh": "不狂怒的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u72c2\u6012\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "refurious",
-    "zh": "重新狂怒的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u72c2\u6012\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "prefurious",
-    "zh": "預先狂怒的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u72c2\u6012\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postfurious",
-    "zh": "後狂怒的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u72c2\u6012\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "overfurious",
-    "zh": "過度狂怒的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u72c2\u6012\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "underfurious",
-    "zh": "不足狂怒的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u72c2\u6012\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "subfurious",
-    "zh": "次/亞狂怒的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u72c2\u6012\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "superfurious",
-    "zh": "超級狂怒的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u72c2\u6012\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "unsympathetic",
-    "zh": "不有同情心的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u6709\u540c\u60c5\u5fc3\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "resympathetic",
-    "zh": "重新有同情心的",
-    "cat": "情緒"
+    "zh": "\u91cd\u65b0\u6709\u540c\u60c5\u5fc3\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "presympathetic",
-    "zh": "預先有同情心的",
-    "cat": "情緒"
+    "zh": "\u9810\u5148\u6709\u540c\u60c5\u5fc3\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "postsympathetic",
-    "zh": "後有同情心的",
-    "cat": "情緒"
+    "zh": "\u5f8c\u6709\u540c\u60c5\u5fc3\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "oversympathetic",
-    "zh": "過度有同情心的",
-    "cat": "情緒"
+    "zh": "\u904e\u5ea6\u6709\u540c\u60c5\u5fc3\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "undersympathetic",
-    "zh": "不足有同情心的",
-    "cat": "情緒"
+    "zh": "\u4e0d\u8db3\u6709\u540c\u60c5\u5fc3\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "subsympathetic",
-    "zh": "次/亞有同情心的",
-    "cat": "情緒"
+    "zh": "\u6b21/\u4e9e\u6709\u540c\u60c5\u5fc3\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "supersympathetic",
-    "zh": "超級有同情心的",
-    "cat": "情緒"
+    "zh": "\u8d85\u7d1a\u6709\u540c\u60c5\u5fc3\u7684",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "untournament",
-    "zh": "不錦標賽",
-    "cat": "運動"
+    "zh": "\u4e0d\u9326\u6a19\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "retournament",
-    "zh": "重新錦標賽",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u9326\u6a19\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "pretournament",
-    "zh": "預先錦標賽",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u9326\u6a19\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "posttournament",
-    "zh": "後錦標賽",
-    "cat": "運動"
+    "zh": "\u5f8c\u9326\u6a19\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overtournament",
-    "zh": "過度錦標賽",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u9326\u6a19\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "undertournament",
-    "zh": "不足錦標賽",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u9326\u6a19\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "subtournament",
-    "zh": "次/亞錦標賽",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u9326\u6a19\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "supertournament",
-    "zh": "超級錦標賽",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u9326\u6a19\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "unathlete",
-    "zh": "不運動員",
-    "cat": "運動"
+    "zh": "\u4e0d\u904b\u52d5\u54e1",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "reathlete",
-    "zh": "重新運動員",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u904b\u52d5\u54e1",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "preathlete",
-    "zh": "預先運動員",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u904b\u52d5\u54e1",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "postathlete",
-    "zh": "後運動員",
-    "cat": "運動"
+    "zh": "\u5f8c\u904b\u52d5\u54e1",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overathlete",
-    "zh": "過度運動員",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u904b\u52d5\u54e1",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "underathlete",
-    "zh": "不足運動員",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u904b\u52d5\u54e1",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "subathlete",
-    "zh": "次/亞運動員",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u904b\u52d5\u54e1",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "superathlete",
-    "zh": "超級運動員",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u904b\u52d5\u54e1",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "unstadium",
-    "zh": "不體育場",
-    "cat": "運動"
+    "zh": "\u4e0d\u9ad4\u80b2\u5834",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "restadium",
-    "zh": "重新體育場",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u9ad4\u80b2\u5834",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "prestadium",
-    "zh": "預先體育場",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u9ad4\u80b2\u5834",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "poststadium",
-    "zh": "後體育場",
-    "cat": "運動"
+    "zh": "\u5f8c\u9ad4\u80b2\u5834",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overstadium",
-    "zh": "過度體育場",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u9ad4\u80b2\u5834",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "understadium",
-    "zh": "不足體育場",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u9ad4\u80b2\u5834",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "substadium",
-    "zh": "次/亞體育場",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u9ad4\u80b2\u5834",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "superstadium",
-    "zh": "超級體育場",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u9ad4\u80b2\u5834",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "unchampionship",
-    "zh": "不冠軍賽",
-    "cat": "運動"
+    "zh": "\u4e0d\u51a0\u8ecd\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "rechampionship",
-    "zh": "重新冠軍賽",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u51a0\u8ecd\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "prechampionship",
-    "zh": "預先冠軍賽",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u51a0\u8ecd\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "postchampionship",
-    "zh": "後冠軍賽",
-    "cat": "運動"
+    "zh": "\u5f8c\u51a0\u8ecd\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overchampionship",
-    "zh": "過度冠軍賽",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u51a0\u8ecd\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "underchampionship",
-    "zh": "不足冠軍賽",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u51a0\u8ecd\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "subchampionship",
-    "zh": "次/亞冠軍賽",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u51a0\u8ecd\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "superchampionship",
-    "zh": "超級冠軍賽",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u51a0\u8ecd\u8cfd",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "unreferee",
-    "zh": "不裁判",
-    "cat": "運動"
+    "zh": "\u4e0d\u88c1\u5224",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "rereferee",
-    "zh": "重新裁判",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u88c1\u5224",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "prereferee",
-    "zh": "預先裁判",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u88c1\u5224",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "postreferee",
-    "zh": "後裁判",
-    "cat": "運動"
+    "zh": "\u5f8c\u88c1\u5224",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overreferee",
-    "zh": "過度裁判",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u88c1\u5224",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "underreferee",
-    "zh": "不足裁判",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u88c1\u5224",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "subreferee",
-    "zh": "次/亞裁判",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u88c1\u5224",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "superreferee",
-    "zh": "超級裁判",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u88c1\u5224",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "uncoach",
-    "zh": "不教練",
-    "cat": "運動"
+    "zh": "\u4e0d\u6559\u7df4",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "recoach",
-    "zh": "重新教練",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u6559\u7df4",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "precoach",
-    "zh": "預先教練",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u6559\u7df4",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "postcoach",
-    "zh": "後教練",
-    "cat": "運動"
+    "zh": "\u5f8c\u6559\u7df4",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overcoach",
-    "zh": "過度教練",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u6559\u7df4",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "undercoach",
-    "zh": "不足教練",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u6559\u7df4",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "subcoach",
-    "zh": "次/亞教練",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u6559\u7df4",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "supercoach",
-    "zh": "超級教練",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u6559\u7df4",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "undefense",
-    "zh": "不防守",
-    "cat": "運動"
+    "zh": "\u4e0d\u9632\u5b88",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "redefense",
-    "zh": "重新防守",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u9632\u5b88",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "predefense",
-    "zh": "預先防守",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u9632\u5b88",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "postdefense",
-    "zh": "後防守",
-    "cat": "運動"
+    "zh": "\u5f8c\u9632\u5b88",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overdefense",
-    "zh": "過度防守",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u9632\u5b88",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "underdefense",
-    "zh": "不足防守",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u9632\u5b88",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "subdefense",
-    "zh": "次/亞防守",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u9632\u5b88",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "superdefense",
-    "zh": "超級防守",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u9632\u5b88",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "unoffense",
-    "zh": "不進攻",
-    "cat": "運動"
+    "zh": "\u4e0d\u9032\u653b",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "reoffense",
-    "zh": "重新進攻",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u9032\u653b",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "preoffense",
-    "zh": "預先進攻",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u9032\u653b",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "postoffense",
-    "zh": "後進攻",
-    "cat": "運動"
+    "zh": "\u5f8c\u9032\u653b",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overoffense",
-    "zh": "過度進攻",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u9032\u653b",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "underoffense",
-    "zh": "不足進攻",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u9032\u653b",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "suboffense",
-    "zh": "次/亞進攻",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u9032\u653b",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "superoffense",
-    "zh": "超級進攻",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u9032\u653b",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "unpenalty",
-    "zh": "不罰則",
-    "cat": "運動"
+    "zh": "\u4e0d\u7f70\u5247",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "repenalty",
-    "zh": "重新罰則",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u7f70\u5247",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "prepenalty",
-    "zh": "預先罰則",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u7f70\u5247",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "postpenalty",
-    "zh": "後罰則",
-    "cat": "運動"
+    "zh": "\u5f8c\u7f70\u5247",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overpenalty",
-    "zh": "過度罰則",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u7f70\u5247",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "underpenalty",
-    "zh": "不足罰則",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u7f70\u5247",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "subpenalty",
-    "zh": "次/亞罰則",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u7f70\u5247",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "superpenalty",
-    "zh": "超級罰則",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u7f70\u5247",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "untackle",
-    "zh": "不擒抱/抄截",
-    "cat": "運動"
+    "zh": "\u4e0d\u64d2\u62b1/\u6284\u622a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "retackle",
-    "zh": "重新擒抱/抄截",
-    "cat": "運動"
+    "zh": "\u91cd\u65b0\u64d2\u62b1/\u6284\u622a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "pretackle",
-    "zh": "預先擒抱/抄截",
-    "cat": "運動"
+    "zh": "\u9810\u5148\u64d2\u62b1/\u6284\u622a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "posttackle",
-    "zh": "後擒抱/抄截",
-    "cat": "運動"
+    "zh": "\u5f8c\u64d2\u62b1/\u6284\u622a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "overtackle",
-    "zh": "過度擒抱/抄截",
-    "cat": "運動"
+    "zh": "\u904e\u5ea6\u64d2\u62b1/\u6284\u622a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "undertackle",
-    "zh": "不足擒抱/抄截",
-    "cat": "運動"
+    "zh": "\u4e0d\u8db3\u64d2\u62b1/\u6284\u622a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "subtackle",
-    "zh": "次/亞擒抱/抄截",
-    "cat": "運動"
+    "zh": "\u6b21/\u4e9e\u64d2\u62b1/\u6284\u622a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "supertackle",
-    "zh": "超級擒抱/抄截",
-    "cat": "運動"
+    "zh": "\u8d85\u7d1a\u64d2\u62b1/\u6284\u622a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "undiscount",
-    "zh": "不折扣",
-    "cat": "購物"
+    "zh": "\u4e0d\u6298\u6263",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "rediscount",
-    "zh": "重新折扣",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u6298\u6263",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "prediscount",
-    "zh": "預先折扣",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u6298\u6263",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postdiscount",
-    "zh": "後折扣",
-    "cat": "購物"
+    "zh": "\u5f8c\u6298\u6263",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overdiscount",
-    "zh": "過度折扣",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u6298\u6263",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "underdiscount",
-    "zh": "不足折扣",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u6298\u6263",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subdiscount",
-    "zh": "次/亞折扣",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u6298\u6263",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "superdiscount",
-    "zh": "超級折扣",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u6298\u6263",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "unreceipt",
-    "zh": "不收據",
-    "cat": "購物"
+    "zh": "\u4e0d\u6536\u64da",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "rereceipt",
-    "zh": "重新收據",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u6536\u64da",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "prereceipt",
-    "zh": "預先收據",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u6536\u64da",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postreceipt",
-    "zh": "後收據",
-    "cat": "購物"
+    "zh": "\u5f8c\u6536\u64da",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overreceipt",
-    "zh": "過度收據",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u6536\u64da",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "underreceipt",
-    "zh": "不足收據",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u6536\u64da",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subreceipt",
-    "zh": "次/亞收據",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u6536\u64da",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "superreceipt",
-    "zh": "超級收據",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u6536\u64da",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "unrefund",
-    "zh": "不退款",
-    "cat": "購物"
+    "zh": "\u4e0d\u9000\u6b3e",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "rerefund",
-    "zh": "重新退款",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u9000\u6b3e",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "prerefund",
-    "zh": "預先退款",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u9000\u6b3e",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postrefund",
-    "zh": "後退款",
-    "cat": "購物"
+    "zh": "\u5f8c\u9000\u6b3e",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overrefund",
-    "zh": "過度退款",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u9000\u6b3e",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "underrefund",
-    "zh": "不足退款",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u9000\u6b3e",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subrefund",
-    "zh": "次/亞退款",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u9000\u6b3e",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "superrefund",
-    "zh": "超級退款",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u9000\u6b3e",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "uncashier",
-    "zh": "不收銀員",
-    "cat": "購物"
+    "zh": "\u4e0d\u6536\u9280\u54e1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "recashier",
-    "zh": "重新收銀員",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u6536\u9280\u54e1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "precashier",
-    "zh": "預先收銀員",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u6536\u9280\u54e1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postcashier",
-    "zh": "後收銀員",
-    "cat": "購物"
+    "zh": "\u5f8c\u6536\u9280\u54e1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overcashier",
-    "zh": "過度收銀員",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u6536\u9280\u54e1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "undercashier",
-    "zh": "不足收銀員",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u6536\u9280\u54e1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subcashier",
-    "zh": "次/亞收銀員",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u6536\u9280\u54e1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "supercashier",
-    "zh": "超級收銀員",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u6536\u9280\u54e1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "uncart",
-    "zh": "不購物車",
-    "cat": "購物"
+    "zh": "\u4e0d\u8cfc\u7269\u8eca",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "recart",
-    "zh": "重新購物車",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u8cfc\u7269\u8eca",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "precart",
-    "zh": "預先購物車",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u8cfc\u7269\u8eca",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postcart",
-    "zh": "後購物車",
-    "cat": "購物"
+    "zh": "\u5f8c\u8cfc\u7269\u8eca",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overcart",
-    "zh": "過度購物車",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u8cfc\u7269\u8eca",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "undercart",
-    "zh": "不足購物車",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u8cfc\u7269\u8eca",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subcart",
-    "zh": "次/亞購物車",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u8cfc\u7269\u8eca",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "supercart",
-    "zh": "超級購物車",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u8cfc\u7269\u8eca",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "unaisle",
-    "zh": "不走道",
-    "cat": "購物"
+    "zh": "\u4e0d\u8d70\u9053",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "reaisle",
-    "zh": "重新走道",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u8d70\u9053",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "preaisle",
-    "zh": "預先走道",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u8d70\u9053",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postaisle",
-    "zh": "後走道",
-    "cat": "購物"
+    "zh": "\u5f8c\u8d70\u9053",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overaisle",
-    "zh": "過度走道",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u8d70\u9053",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "underaisle",
-    "zh": "不足走道",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u8d70\u9053",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subaisle",
-    "zh": "次/亞走道",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u8d70\u9053",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "superaisle",
-    "zh": "超級走道",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u8d70\u9053",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "unbargain",
-    "zh": "不特價品",
-    "cat": "購物"
+    "zh": "\u4e0d\u7279\u50f9\u54c1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "rebargain",
-    "zh": "重新特價品",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u7279\u50f9\u54c1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "prebargain",
-    "zh": "預先特價品",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u7279\u50f9\u54c1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postbargain",
-    "zh": "後特價品",
-    "cat": "購物"
+    "zh": "\u5f8c\u7279\u50f9\u54c1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overbargain",
-    "zh": "過度特價品",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u7279\u50f9\u54c1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "underbargain",
-    "zh": "不足特價品",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u7279\u50f9\u54c1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subbargain",
-    "zh": "次/亞特價品",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u7279\u50f9\u54c1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "superbargain",
-    "zh": "超級特價品",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u7279\u50f9\u54c1",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "unvoucher",
-    "zh": "不折價券",
-    "cat": "購物"
+    "zh": "\u4e0d\u6298\u50f9\u5238",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "revoucher",
-    "zh": "重新折價券",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u6298\u50f9\u5238",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "prevoucher",
-    "zh": "預先折價券",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u6298\u50f9\u5238",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postvoucher",
-    "zh": "後折價券",
-    "cat": "購物"
+    "zh": "\u5f8c\u6298\u50f9\u5238",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overvoucher",
-    "zh": "過度折價券",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u6298\u50f9\u5238",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "undervoucher",
-    "zh": "不足折價券",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u6298\u50f9\u5238",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subvoucher",
-    "zh": "次/亞折價券",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u6298\u50f9\u5238",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "supervoucher",
-    "zh": "超級折價券",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u6298\u50f9\u5238",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "unwarranty",
-    "zh": "不保固",
-    "cat": "購物"
+    "zh": "\u4e0d\u4fdd\u56fa",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "rewarranty",
-    "zh": "重新保固",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u4fdd\u56fa",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "prewarranty",
-    "zh": "預先保固",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u4fdd\u56fa",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postwarranty",
-    "zh": "後保固",
-    "cat": "購物"
+    "zh": "\u5f8c\u4fdd\u56fa",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overwarranty",
-    "zh": "過度保固",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u4fdd\u56fa",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "underwarranty",
-    "zh": "不足保固",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u4fdd\u56fa",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subwarranty",
-    "zh": "次/亞保固",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u4fdd\u56fa",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "superwarranty",
-    "zh": "超級保固",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u4fdd\u56fa",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "uninventory",
-    "zh": "不庫存",
-    "cat": "購物"
+    "zh": "\u4e0d\u5eab\u5b58",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "reinventory",
-    "zh": "重新庫存",
-    "cat": "購物"
+    "zh": "\u91cd\u65b0\u5eab\u5b58",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "preinventory",
-    "zh": "預先庫存",
-    "cat": "購物"
+    "zh": "\u9810\u5148\u5eab\u5b58",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "postinventory",
-    "zh": "後庫存",
-    "cat": "購物"
+    "zh": "\u5f8c\u5eab\u5b58",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "overinventory",
-    "zh": "過度庫存",
-    "cat": "購物"
+    "zh": "\u904e\u5ea6\u5eab\u5b58",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "underinventory",
-    "zh": "不足庫存",
-    "cat": "購物"
+    "zh": "\u4e0d\u8db3\u5eab\u5b58",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "subinventory",
-    "zh": "次/亞庫存",
-    "cat": "購物"
+    "zh": "\u6b21/\u4e9e\u5eab\u5b58",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "superinventory",
-    "zh": "超級庫存",
-    "cat": "購物"
+    "zh": "\u8d85\u7d1a\u5eab\u5b58",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "accommodate",
-    "zh": "容納；提供住宿",
-    "cat": "多益必考"
+    "zh": "\u5bb9\u7d0d\uff1b\u63d0\u4f9b\u4f4f\u5bbf",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "accomplish",
-    "zh": "完成；實現",
-    "cat": "多益必考"
+    "zh": "\u5b8c\u6210\uff1b\u5be6\u73fe",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "agenda",
-    "zh": "議程",
-    "cat": "多益必考"
+    "zh": "\u8b70\u7a0b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "allocate",
-    "zh": "分配；分派",
-    "cat": "多益必考"
+    "zh": "\u5206\u914d\uff1b\u5206\u6d3e",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "alternative",
-    "zh": "替代方案",
-    "cat": "多益必考"
+    "zh": "\u66ff\u4ee3\u65b9\u6848",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "amend",
-    "zh": "修改；修訂",
-    "cat": "多益必考"
+    "zh": "\u4fee\u6539\uff1b\u4fee\u8a02",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "anonymous",
-    "zh": "匿名的",
-    "cat": "多益必考"
+    "zh": "\u533f\u540d\u7684",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "anticipate",
-    "zh": "預期；期望",
-    "cat": "多益必考"
+    "zh": "\u9810\u671f\uff1b\u671f\u671b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "appraise",
-    "zh": "評估；評價",
-    "cat": "多益必考"
+    "zh": "\u8a55\u4f30\uff1b\u8a55\u50f9",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "asset",
-    "zh": "資產",
-    "cat": "多益必考"
+    "zh": "\u8cc7\u7522",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "assign",
-    "zh": "指派",
-    "cat": "多益必考"
+    "zh": "\u6307\u6d3e",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "authorize",
-    "zh": "授權；批准",
-    "cat": "多益必考"
+    "zh": "\u6388\u6b0a\uff1b\u6279\u51c6",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "bankruptcy",
-    "zh": "破產",
-    "cat": "多益必考"
+    "zh": "\u7834\u7522",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "benchmark",
-    "zh": "基準；水準點",
-    "cat": "多益必考"
+    "zh": "\u57fa\u6e96\uff1b\u6c34\u6e96\u9ede",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "bid",
-    "zh": "出價；投標",
-    "cat": "多益必考"
+    "zh": "\u51fa\u50f9\uff1b\u6295\u6a19",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "candidate",
-    "zh": "候選人",
-    "cat": "多益必考"
+    "zh": "\u5019\u9078\u4eba",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "capacity",
-    "zh": "容量；能力",
-    "cat": "多益必考"
+    "zh": "\u5bb9\u91cf\uff1b\u80fd\u529b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "certificate",
-    "zh": "證書",
-    "cat": "多益必考"
+    "zh": "\u8b49\u66f8",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "collaborate",
-    "zh": "合作",
-    "cat": "多益必考"
+    "zh": "\u5408\u4f5c",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "commute",
-    "zh": "通勤",
-    "cat": "多益必考"
+    "zh": "\u901a\u52e4",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "compensate",
-    "zh": "補償；賠償",
-    "cat": "多益必考"
+    "zh": "\u88dc\u511f\uff1b\u8ce0\u511f",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "complimentary",
-    "zh": "免費的；贈送的",
-    "cat": "多益必考"
+    "zh": "\u514d\u8cbb\u7684\uff1b\u8d08\u9001\u7684",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "comprehensive",
-    "zh": "全面的；詳盡的",
-    "cat": "多益必考"
+    "zh": "\u5168\u9762\u7684\uff1b\u8a73\u76e1\u7684",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "compromise",
-    "zh": "妥協；折衷",
-    "cat": "多益必考"
+    "zh": "\u59a5\u5354\uff1b\u6298\u8877",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "confidential",
-    "zh": "機密的",
-    "cat": "多益必考"
+    "zh": "\u6a5f\u5bc6\u7684",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "consecutive",
-    "zh": "連續的",
-    "cat": "多益必考"
+    "zh": "\u9023\u7e8c\u7684",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "consensus",
-    "zh": "共識",
-    "cat": "多益必考"
+    "zh": "\u5171\u8b58",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "coordinate",
-    "zh": "協調",
-    "cat": "多益必考"
+    "zh": "\u5354\u8abf",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "corporate",
-    "zh": "公司的；企業的",
-    "cat": "多益必考"
+    "zh": "\u516c\u53f8\u7684\uff1b\u4f01\u696d\u7684",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "crucial",
-    "zh": "關鍵的；重要的",
-    "cat": "多益必考"
+    "zh": "\u95dc\u9375\u7684\uff1b\u91cd\u8981\u7684",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "deadline",
-    "zh": "截止日期",
-    "cat": "多益必考"
+    "zh": "\u622a\u6b62\u65e5\u671f",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "deficit",
-    "zh": "赤字；虧損",
-    "cat": "多益必考"
+    "zh": "\u8d64\u5b57\uff1b\u8667\u640d",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "delegate",
-    "zh": "委派；代表",
-    "cat": "多益必考"
+    "zh": "\u59d4\u6d3e\uff1b\u4ee3\u8868",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "demonstrate",
-    "zh": "示範；證明",
-    "cat": "多益必考"
+    "zh": "\u793a\u7bc4\uff1b\u8b49\u660e",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "deteriorate",
-    "zh": "惡化",
-    "cat": "多益必考"
+    "zh": "\u60e1\u5316",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "discrepancy",
-    "zh": "差異；不一致",
-    "cat": "多益必考"
+    "zh": "\u5dee\u7570\uff1b\u4e0d\u4e00\u81f4",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "dispatch",
-    "zh": "派遣；發送",
-    "cat": "多益必考"
+    "zh": "\u6d3e\u9063\uff1b\u767c\u9001",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "distribute",
-    "zh": "分發；分配",
-    "cat": "多益必考"
+    "zh": "\u5206\u767c\uff1b\u5206\u914d",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "drastically",
-    "zh": "大幅地；徹底地",
-    "cat": "多益必考"
+    "zh": "\u5927\u5e45\u5730\uff1b\u5fb9\u5e95\u5730",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "eligible",
-    "zh": "有資格的",
-    "cat": "多益必考"
+    "zh": "\u6709\u8cc7\u683c\u7684",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "abundant",
-    "zh": "豐富的；充裕的",
-    "cat": "雅思常見"
+    "zh": "\u8c50\u5bcc\u7684\uff1b\u5145\u88d5\u7684",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "acquire",
-    "zh": "獲得；取得",
-    "cat": "雅思常見"
+    "zh": "\u7372\u5f97\uff1b\u53d6\u5f97",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "adapt",
-    "zh": "適應",
-    "cat": "雅思常見"
+    "zh": "\u9069\u61c9",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "adequate",
-    "zh": "足夠的；適當的",
-    "cat": "雅思常見"
+    "zh": "\u8db3\u5920\u7684\uff1b\u9069\u7576\u7684",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "advocate",
-    "zh": "提倡；擁護",
-    "cat": "雅思常見"
+    "zh": "\u63d0\u5021\uff1b\u64c1\u8b77",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "alleviate",
-    "zh": "減輕；緩和",
-    "cat": "雅思常見"
+    "zh": "\u6e1b\u8f15\uff1b\u7de9\u548c",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "ambiguous",
-    "zh": "模稜兩可的",
-    "cat": "雅思常見"
+    "zh": "\u6a21\u7a1c\u5169\u53ef\u7684",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "analyze",
-    "zh": "分析",
-    "cat": "雅思常見"
+    "zh": "\u5206\u6790",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "approach",
-    "zh": "方法；接近",
-    "cat": "雅思常見"
+    "zh": "\u65b9\u6cd5\uff1b\u63a5\u8fd1",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "assess",
-    "zh": "評估",
-    "cat": "雅思常見"
+    "zh": "\u8a55\u4f30",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "assume",
-    "zh": "假設；認為",
-    "cat": "雅思常見"
+    "zh": "\u5047\u8a2d\uff1b\u8a8d\u70ba",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "attain",
-    "zh": "達到；獲得",
-    "cat": "雅思常見"
+    "zh": "\u9054\u5230\uff1b\u7372\u5f97",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "beneficial",
-    "zh": "有益的",
-    "cat": "雅思常見"
+    "zh": "\u6709\u76ca\u7684",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "capable",
-    "zh": "有能力的",
-    "cat": "雅思常見"
+    "zh": "\u6709\u80fd\u529b\u7684",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "clarify",
-    "zh": "澄清；說明",
-    "cat": "雅思常見"
+    "zh": "\u6f84\u6e05\uff1b\u8aaa\u660e",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "coherent",
-    "zh": "連貫的；有條理的",
-    "cat": "雅思常見"
+    "zh": "\u9023\u8cab\u7684\uff1b\u6709\u689d\u7406\u7684",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "coincide",
-    "zh": "同時發生；巧合",
-    "cat": "雅思常見"
+    "zh": "\u540c\u6642\u767c\u751f\uff1b\u5de7\u5408",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "collapse",
-    "zh": "倒塌；崩潰",
-    "cat": "雅思常見"
+    "zh": "\u5012\u584c\uff1b\u5d29\u6f70",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "commence",
-    "zh": "開始",
-    "cat": "雅思常見"
+    "zh": "\u958b\u59cb",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "compatible",
-    "zh": "相容的；合得來的",
-    "cat": "雅思常見"
+    "zh": "\u76f8\u5bb9\u7684\uff1b\u5408\u5f97\u4f86\u7684",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "compile",
-    "zh": "編譯；收集",
-    "cat": "雅思常見"
+    "zh": "\u7de8\u8b6f\uff1b\u6536\u96c6",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "conceive",
-    "zh": "構思；想像",
-    "cat": "雅思常見"
+    "zh": "\u69cb\u601d\uff1b\u60f3\u50cf",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "conclude",
-    "zh": "得出結論；結束",
-    "cat": "雅思常見"
+    "zh": "\u5f97\u51fa\u7d50\u8ad6\uff1b\u7d50\u675f",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "conduct",
-    "zh": "執行；進行",
-    "cat": "雅思常見"
+    "zh": "\u57f7\u884c\uff1b\u9032\u884c",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "confine",
-    "zh": "限制；侷限",
-    "cat": "雅思常見"
+    "zh": "\u9650\u5236\uff1b\u4fb7\u9650",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "conflict",
-    "zh": "衝突；矛盾",
-    "cat": "雅思常見"
+    "zh": "\u885d\u7a81\uff1b\u77db\u76fe",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "consequence",
-    "zh": "後果；結果",
-    "cat": "雅思常見"
+    "zh": "\u5f8c\u679c\uff1b\u7d50\u679c",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "consistent",
-    "zh": "一致的",
-    "cat": "雅思常見"
+    "zh": "\u4e00\u81f4\u7684",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "constitute",
-    "zh": "構成；組成",
-    "cat": "雅思常見"
+    "zh": "\u69cb\u6210\uff1b\u7d44\u6210",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "consume",
-    "zh": "消耗；消費",
-    "cat": "雅思常見"
+    "zh": "\u6d88\u8017\uff1b\u6d88\u8cbb",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "attachment",
-    "zh": "附件",
-    "cat": "職場溝通"
+    "zh": "\u9644\u4ef6",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "briefing",
-    "zh": "簡報",
-    "cat": "職場溝通"
+    "zh": "\u7c21\u5831",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "brainstorm",
-    "zh": "腦力激盪",
-    "cat": "職場溝通"
+    "zh": "\u8166\u529b\u6fc0\u76ea",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "clarification",
-    "zh": "澄清",
-    "cat": "職場溝通"
+    "zh": "\u6f84\u6e05",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "colleague",
-    "zh": "同事",
-    "cat": "職場溝通"
+    "zh": "\u540c\u4e8b",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "feedback",
-    "zh": "回饋",
-    "cat": "職場溝通"
+    "zh": "\u56de\u994b",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "follow-up",
-    "zh": "後續追蹤",
-    "cat": "職場溝通"
+    "zh": "\u5f8c\u7e8c\u8ffd\u8e64",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "guideline",
-    "zh": "指南；準則",
-    "cat": "職場溝通"
+    "zh": "\u6307\u5357\uff1b\u6e96\u5247",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "implement",
-    "zh": "實施；執行",
-    "cat": "職場溝通"
+    "zh": "\u5be6\u65bd\uff1b\u57f7\u884c",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "initiative",
-    "zh": "主動性；倡議",
-    "cat": "職場溝通"
+    "zh": "\u4e3b\u52d5\u6027\uff1b\u5021\u8b70",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "inquiry",
-    "zh": "詢問",
-    "cat": "職場溝通"
+    "zh": "\u8a62\u554f",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "milestone",
-    "zh": "里程碑",
-    "cat": "職場溝通"
+    "zh": "\u91cc\u7a0b\u7891",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "negotiate",
-    "zh": "談判；協商",
-    "cat": "職場溝通"
+    "zh": "\u8ac7\u5224\uff1b\u5354\u5546",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "objective",
-    "zh": "目標",
-    "cat": "職場溝通"
+    "zh": "\u76ee\u6a19",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "onboard",
-    "zh": "使入職",
-    "cat": "職場溝通"
+    "zh": "\u4f7f\u5165\u8077",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "overview",
-    "zh": "概述",
-    "cat": "職場溝通"
+    "zh": "\u6982\u8ff0",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "pending",
-    "zh": "待處理的",
-    "cat": "職場溝通"
+    "zh": "\u5f85\u8655\u7406\u7684",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "prioritize",
-    "zh": "優先處理",
-    "cat": "職場溝通"
+    "zh": "\u512a\u5148\u8655\u7406",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "proposal",
-    "zh": "提案",
-    "cat": "職場溝通"
+    "zh": "\u63d0\u6848",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "recruit",
-    "zh": "招募",
-    "cat": "職場溝通"
+    "zh": "\u62db\u52df",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "reschedule",
-    "zh": "重新安排",
-    "cat": "職場溝通"
+    "zh": "\u91cd\u65b0\u5b89\u6392",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "strategy",
-    "zh": "策略",
-    "cat": "職場溝通"
+    "zh": "\u7b56\u7565",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "supervisor",
-    "zh": "主管",
-    "cat": "職場溝通"
+    "zh": "\u4e3b\u7ba1",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "update",
-    "zh": "更新進度",
-    "cat": "職場溝通"
+    "zh": "\u66f4\u65b0\u9032\u5ea6",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "workload",
-    "zh": "工作量",
-    "cat": "職場溝通"
+    "zh": "\u5de5\u4f5c\u91cf",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "awesome",
-    "zh": "太棒了",
-    "cat": "日常對話"
+    "zh": "\u592a\u68d2\u4e86",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "bother",
-    "zh": "打擾",
-    "cat": "日常對話"
+    "zh": "\u6253\u64fe",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "cancel",
-    "zh": "取消",
-    "cat": "日常對話"
+    "zh": "\u53d6\u6d88",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "casual",
-    "zh": "休閒的；隨便的",
-    "cat": "日常對話"
+    "zh": "\u4f11\u9592\u7684\uff1b\u96a8\u4fbf\u7684",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "chat",
-    "zh": "聊天",
-    "cat": "日常對話"
+    "zh": "\u804a\u5929",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "chill",
-    "zh": "放鬆",
-    "cat": "日常對話"
+    "zh": "\u653e\u9b06",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "crazy",
-    "zh": "瘋狂的",
-    "cat": "日常對話"
+    "zh": "\u760b\u72c2\u7684",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "definitely",
-    "zh": "絕對；當然",
-    "cat": "日常對話"
+    "zh": "\u7d55\u5c0d\uff1b\u7576\u7136",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "exactly",
-    "zh": "完全正確",
-    "cat": "日常對話"
+    "zh": "\u5b8c\u5168\u6b63\u78ba",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "exhausted",
-    "zh": "筋疲力盡的",
-    "cat": "日常對話"
+    "zh": "\u7b4b\u75b2\u529b\u76e1\u7684",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "figure",
-    "zh": "想出；理解",
-    "cat": "日常對話"
+    "zh": "\u60f3\u51fa\uff1b\u7406\u89e3",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "hang",
-    "zh": "閒晃；等待",
-    "cat": "日常對話"
+    "zh": "\u9592\u6643\uff1b\u7b49\u5f85",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "hilarious",
-    "zh": "極好笑的",
-    "cat": "日常對話"
+    "zh": "\u6975\u597d\u7b11\u7684",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "kidding",
-    "zh": "開玩笑",
-    "cat": "日常對話"
+    "zh": "\u958b\u73a9\u7b11",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "literally",
-    "zh": "不誇張地；字面上地",
-    "cat": "日常對話"
+    "zh": "\u4e0d\u8a87\u5f35\u5730\uff1b\u5b57\u9762\u4e0a\u5730",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "obvious",
-    "zh": "明顯的",
-    "cat": "日常對話"
+    "zh": "\u660e\u986f\u7684",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "probably",
-    "zh": "大概；可能",
-    "cat": "日常對話"
+    "zh": "\u5927\u6982\uff1b\u53ef\u80fd",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "recommend",
-    "zh": "推薦",
-    "cat": "日常對話"
+    "zh": "\u63a8\u85a6",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "ridiculous",
-    "zh": "荒謬的",
-    "cat": "日常對話"
+    "zh": "\u8352\u8b2c\u7684",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "weird",
-    "zh": "奇怪的",
-    "cat": "日常對話"
+    "zh": "\u5947\u602a\u7684",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   }
 ,
-  // 多益必考 (40)
-  { en: "accommodate", zh: "容納；提供住宿", cat: "多益必考" },
-  { en: "accomplish", zh: "完成；實現", cat: "多益必考" },
-  { en: "agenda", zh: "議程", cat: "多益必考" },
-  { en: "allocate", zh: "分配；分派", cat: "多益必考" },
-  { en: "alternative", zh: "替代方案", cat: "多益必考" },
-  { en: "amend", zh: "修改；修訂", cat: "多益必考" },
-  { en: "anonymous", zh: "匿名的", cat: "多益必考" },
-  { en: "anticipate", zh: "預期；期望", cat: "多益必考" },
-  { en: "appraise", zh: "評估；評價", cat: "多益必考" },
-  { en: "asset", zh: "資產", cat: "多益必考" },
-  { en: "assign", zh: "指派", cat: "多益必考" },
-  { en: "authorize", zh: "授權；批准", cat: "多益必考" },
-  { en: "bankruptcy", zh: "破產", cat: "多益必考" },
-  { en: "benchmark", zh: "基準；水準點", cat: "多益必考" },
-  { en: "bid", zh: "出價；投標", cat: "多益必考" },
-  { en: "candidate", zh: "候選人", cat: "多益必考" },
-  { en: "capacity", zh: "容量；能力", cat: "多益必考" },
-  { en: "certificate", zh: "證書", cat: "多益必考" },
-  { en: "collaborate", zh: "合作", cat: "多益必考" },
-  { en: "commute", zh: "通勤", cat: "多益必考" },
-  { en: "compensate", zh: "補償；賠償", cat: "多益必考" },
-  { en: "complimentary", zh: "免費的；贈送的", cat: "多益必考" },
-  { en: "comprehensive", zh: "全面的；詳盡的", cat: "多益必考" },
-  { en: "compromise", zh: "妥協；折衷", cat: "多益必考" },
-  { en: "confidential", zh: "機密的", cat: "多益必考" },
-  { en: "consecutive", zh: "連續的", cat: "多益必考" },
-  { en: "consensus", zh: "共識", cat: "多益必考" },
-  { en: "coordinate", zh: "協調", cat: "多益必考" },
-  { en: "corporate", zh: "公司的；企業的", cat: "多益必考" },
-  { en: "crucial", zh: "關鍵的；重要的", cat: "多益必考" },
-  { en: "deadline", zh: "截止日期", cat: "多益必考" },
-  { en: "deficit", zh: "赤字；虧損", cat: "多益必考" },
-  { en: "delegate", zh: "委派；代表", cat: "多益必考" },
-  { en: "demonstrate", zh: "示範；證明", cat: "多益必考" },
-  { en: "deteriorate", zh: "惡化", cat: "多益必考" },
-  { en: "discrepancy", zh: "差異；不一致", cat: "多益必考" },
-  { en: "dispatch", zh: "派遣；發送", cat: "多益必考" },
-  { en: "distribute", zh: "分發；分配", cat: "多益必考" },
-  { en: "drastically", zh: "大幅地；徹底地", cat: "多益必考" },
-  { en: "eligible", zh: "有資格的", cat: "多益必考" },
-  // 雅思常見 (30)
-  { en: "abundant", zh: "豐富的；充裕的", cat: "雅思常見" },
-  { en: "acquire", zh: "獲得；取得", cat: "雅思常見" },
-  { en: "adapt", zh: "適應", cat: "雅思常見" },
-  { en: "adequate", zh: "足夠的；適當的", cat: "雅思常見" },
-  { en: "advocate", zh: "提倡；擁護", cat: "雅思常見" },
-  { en: "alleviate", zh: "減輕；緩和", cat: "雅思常見" },
-  { en: "ambiguous", zh: "模稜兩可的", cat: "雅思常見" },
-  { en: "analyze", zh: "分析", cat: "雅思常見" },
-  { en: "approach", zh: "方法；接近", cat: "雅思常見" },
-  { en: "assess", zh: "評估", cat: "雅思常見" },
-  { en: "assume", zh: "假設；認為", cat: "雅思常見" },
-  { en: "attain", zh: "達到；獲得", cat: "雅思常見" },
-  { en: "beneficial", zh: "有益的", cat: "雅思常見" },
-  { en: "capable", zh: "有能力的", cat: "雅思常見" },
-  { en: "clarify", zh: "澄清；說明", cat: "雅思常見" },
-  { en: "coherent", zh: "連貫的；有條理的", cat: "雅思常見" },
-  { en: "coincide", zh: "同時發生；巧合", cat: "雅思常見" },
-  { en: "collapse", zh: "倒塌；崩潰", cat: "雅思常見" },
-  { en: "commence", zh: "開始", cat: "雅思常見" },
-  { en: "compatible", zh: "相容的；合得來的", cat: "雅思常見" },
-  { en: "compile", zh: "編譯；收集", cat: "雅思常見" },
-  { en: "conceive", zh: "構思；想像", cat: "雅思常見" },
-  { en: "conclude", zh: "得出結論；結束", cat: "雅思常見" },
-  { en: "conduct", zh: "執行；進行", cat: "雅思常見" },
-  { en: "confine", zh: "限制；侷限", cat: "雅思常見" },
-  { en: "conflict", zh: "衝突；矛盾", cat: "雅思常見" },
-  { en: "consequence", zh: "後果；結果", cat: "雅思常見" },
-  { en: "consistent", zh: "一致的", cat: "雅思常見" },
-  { en: "constitute", zh: "構成；組成", cat: "雅思常見" },
-  { en: "consume", zh: "消耗；消費", cat: "雅思常見" },
-  // 職場溝通 (25)
-  { en: "attachment", zh: "附件", cat: "職場溝通" },
-  { en: "briefing", zh: "簡報", cat: "職場溝通" },
-  { en: "brainstorm", zh: "腦力激盪", cat: "職場溝通" },
-  { en: "clarification", zh: "澄清", cat: "職場溝通" },
-  { en: "colleague", zh: "同事", cat: "職場溝通" },
-  { en: "feedback", zh: "回饋", cat: "職場溝通" },
-  { en: "follow-up", zh: "後續追蹤", cat: "職場溝通" },
-  { en: "guideline", zh: "指南；準則", cat: "職場溝通" },
-  { en: "implement", zh: "實施；執行", cat: "職場溝通" },
-  { en: "initiative", zh: "主動性；倡議", cat: "職場溝通" },
-  { en: "inquiry", zh: "詢問", cat: "職場溝通" },
-  { en: "milestone", zh: "里程碑", cat: "職場溝通" },
-  { en: "negotiate", zh: "談判；協商", cat: "職場溝通" },
-  { en: "objective", zh: "目標", cat: "職場溝通" },
-  { en: "onboard", zh: "使入職", cat: "職場溝通" },
-  { en: "overview", zh: "概述", cat: "職場溝通" },
-  { en: "pending", zh: "待處理的", cat: "職場溝通" },
-  { en: "prioritize", zh: "優先處理", cat: "職場溝通" },
-  { en: "proposal", zh: "提案", cat: "職場溝通" },
-  { en: "recruit", zh: "招募", cat: "職場溝通" },
-  { en: "reschedule", zh: "重新安排", cat: "職場溝通" },
-  { en: "strategy", zh: "策略", cat: "職場溝通" },
-  { en: "supervisor", zh: "主管", cat: "職場溝通" },
-  { en: "update", zh: "更新進度", cat: "職場溝通" },
-  { en: "workload", zh: "工作量", cat: "職場溝通" },
-  // 日常對話 (20)
-  { en: "awesome", zh: "太棒了", cat: "日常對話" },
-  { en: "bother", zh: "打擾", cat: "日常對話" },
-  { en: "cancel", zh: "取消", cat: "日常對話" },
-  { en: "casual", zh: "休閒的；隨便的", cat: "日常對話" },
-  { en: "chat", zh: "聊天", cat: "日常對話" },
-  { en: "chill", zh: "放鬆", cat: "日常對話" },
-  { en: "crazy", zh: "瘋狂的", cat: "日常對話" },
-  { en: "definitely", zh: "絕對；當然", cat: "日常對話" },
-  { en: "exactly", zh: "完全正確", cat: "日常對話" },
-  { en: "exhausted", zh: "筋疲力盡的", cat: "日常對話" },
-  { en: "figure", zh: "想出；理解", cat: "日常對話" },
-  { en: "hang", zh: "閒晃；等待", cat: "日常對話" },
-  { en: "hilarious", zh: "極好笑的", cat: "日常對話" },
-  { en: "kidding", zh: "開玩笑", cat: "日常對話" },
-  { en: "literally", zh: "不誇張地；字面上地", cat: "日常對話" },
-  { en: "obvious", zh: "明顯的", cat: "日常對話" },
-  { en: "probably", zh: "大概；可能", cat: "日常對話" },
-  { en: "recommend", zh: "推薦", cat: "日常對話" },
-  { en: "ridiculous", zh: "荒謬的", cat: "日常對話" },
-  { en: "weird", zh: "奇怪的", cat: "日常對話" }
+  // \u591a\u76ca\u5fc5\u8003 (40)
+  { en: "accommodate", zh: "\u5bb9\u7d0d\uff1b\u63d0\u4f9b\u4f4f\u5bbf", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "accomplish", zh: "\u5b8c\u6210\uff1b\u5be6\u73fe", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "agenda", zh: "\u8b70\u7a0b", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "allocate", zh: "\u5206\u914d\uff1b\u5206\u6d3e", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "alternative", zh: "\u66ff\u4ee3\u65b9\u6848", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "amend", zh: "\u4fee\u6539\uff1b\u4fee\u8a02", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "anonymous", zh: "\u533f\u540d\u7684", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "anticipate", zh: "\u9810\u671f\uff1b\u671f\u671b", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "appraise", zh: "\u8a55\u4f30\uff1b\u8a55\u50f9", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "asset", zh: "\u8cc7\u7522", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "assign", zh: "\u6307\u6d3e", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "authorize", zh: "\u6388\u6b0a\uff1b\u6279\u51c6", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "bankruptcy", zh: "\u7834\u7522", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "benchmark", zh: "\u57fa\u6e96\uff1b\u6c34\u6e96\u9ede", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "bid", zh: "\u51fa\u50f9\uff1b\u6295\u6a19", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "candidate", zh: "\u5019\u9078\u4eba", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "capacity", zh: "\u5bb9\u91cf\uff1b\u80fd\u529b", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "certificate", zh: "\u8b49\u66f8", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "collaborate", zh: "\u5408\u4f5c", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "commute", zh: "\u901a\u52e4", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "compensate", zh: "\u88dc\u511f\uff1b\u8ce0\u511f", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "complimentary", zh: "\u514d\u8cbb\u7684\uff1b\u8d08\u9001\u7684", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "comprehensive", zh: "\u5168\u9762\u7684\uff1b\u8a73\u76e1\u7684", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "compromise", zh: "\u59a5\u5354\uff1b\u6298\u8877", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "confidential", zh: "\u6a5f\u5bc6\u7684", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "consecutive", zh: "\u9023\u7e8c\u7684", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "consensus", zh: "\u5171\u8b58", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "coordinate", zh: "\u5354\u8abf", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "corporate", zh: "\u516c\u53f8\u7684\uff1b\u4f01\u696d\u7684", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "crucial", zh: "\u95dc\u9375\u7684\uff1b\u91cd\u8981\u7684", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "deadline", zh: "\u622a\u6b62\u65e5\u671f", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "deficit", zh: "\u8d64\u5b57\uff1b\u8667\u640d", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "delegate", zh: "\u59d4\u6d3e\uff1b\u4ee3\u8868", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "demonstrate", zh: "\u793a\u7bc4\uff1b\u8b49\u660e", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "deteriorate", zh: "\u60e1\u5316", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "discrepancy", zh: "\u5dee\u7570\uff1b\u4e0d\u4e00\u81f4", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "dispatch", zh: "\u6d3e\u9063\uff1b\u767c\u9001", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "distribute", zh: "\u5206\u767c\uff1b\u5206\u914d", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "drastically", zh: "\u5927\u5e45\u5730\uff1b\u5fb9\u5e95\u5730", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "eligible", zh: "\u6709\u8cc7\u683c\u7684", cat: "\u591a\u76ca\u5fc5\u8003" },
+  // \u96c5\u601d\u5e38\u898b (30)
+  { en: "abundant", zh: "\u8c50\u5bcc\u7684\uff1b\u5145\u88d5\u7684", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "acquire", zh: "\u7372\u5f97\uff1b\u53d6\u5f97", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "adapt", zh: "\u9069\u61c9", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "adequate", zh: "\u8db3\u5920\u7684\uff1b\u9069\u7576\u7684", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "advocate", zh: "\u63d0\u5021\uff1b\u64c1\u8b77", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "alleviate", zh: "\u6e1b\u8f15\uff1b\u7de9\u548c", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "ambiguous", zh: "\u6a21\u7a1c\u5169\u53ef\u7684", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "analyze", zh: "\u5206\u6790", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "approach", zh: "\u65b9\u6cd5\uff1b\u63a5\u8fd1", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "assess", zh: "\u8a55\u4f30", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "assume", zh: "\u5047\u8a2d\uff1b\u8a8d\u70ba", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "attain", zh: "\u9054\u5230\uff1b\u7372\u5f97", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "beneficial", zh: "\u6709\u76ca\u7684", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "capable", zh: "\u6709\u80fd\u529b\u7684", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "clarify", zh: "\u6f84\u6e05\uff1b\u8aaa\u660e", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "coherent", zh: "\u9023\u8cab\u7684\uff1b\u6709\u689d\u7406\u7684", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "coincide", zh: "\u540c\u6642\u767c\u751f\uff1b\u5de7\u5408", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "collapse", zh: "\u5012\u584c\uff1b\u5d29\u6f70", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "commence", zh: "\u958b\u59cb", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "compatible", zh: "\u76f8\u5bb9\u7684\uff1b\u5408\u5f97\u4f86\u7684", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "compile", zh: "\u7de8\u8b6f\uff1b\u6536\u96c6", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "conceive", zh: "\u69cb\u601d\uff1b\u60f3\u50cf", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "conclude", zh: "\u5f97\u51fa\u7d50\u8ad6\uff1b\u7d50\u675f", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "conduct", zh: "\u57f7\u884c\uff1b\u9032\u884c", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "confine", zh: "\u9650\u5236\uff1b\u4fb7\u9650", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "conflict", zh: "\u885d\u7a81\uff1b\u77db\u76fe", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "consequence", zh: "\u5f8c\u679c\uff1b\u7d50\u679c", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "consistent", zh: "\u4e00\u81f4\u7684", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "constitute", zh: "\u69cb\u6210\uff1b\u7d44\u6210", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "consume", zh: "\u6d88\u8017\uff1b\u6d88\u8cbb", cat: "\u96c5\u601d\u5e38\u898b" },
+  // \u8077\u5834\u6e9d\u901a (25)
+  { en: "attachment", zh: "\u9644\u4ef6", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "briefing", zh: "\u7c21\u5831", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "brainstorm", zh: "\u8166\u529b\u6fc0\u76ea", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "clarification", zh: "\u6f84\u6e05", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "colleague", zh: "\u540c\u4e8b", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "feedback", zh: "\u56de\u994b", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "follow-up", zh: "\u5f8c\u7e8c\u8ffd\u8e64", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "guideline", zh: "\u6307\u5357\uff1b\u6e96\u5247", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "implement", zh: "\u5be6\u65bd\uff1b\u57f7\u884c", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "initiative", zh: "\u4e3b\u52d5\u6027\uff1b\u5021\u8b70", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "inquiry", zh: "\u8a62\u554f", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "milestone", zh: "\u91cc\u7a0b\u7891", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "negotiate", zh: "\u8ac7\u5224\uff1b\u5354\u5546", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "objective", zh: "\u76ee\u6a19", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "onboard", zh: "\u4f7f\u5165\u8077", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "overview", zh: "\u6982\u8ff0", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "pending", zh: "\u5f85\u8655\u7406\u7684", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "prioritize", zh: "\u512a\u5148\u8655\u7406", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "proposal", zh: "\u63d0\u6848", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "recruit", zh: "\u62db\u52df", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "reschedule", zh: "\u91cd\u65b0\u5b89\u6392", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "strategy", zh: "\u7b56\u7565", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "supervisor", zh: "\u4e3b\u7ba1", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "update", zh: "\u66f4\u65b0\u9032\u5ea6", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "workload", zh: "\u5de5\u4f5c\u91cf", cat: "\u8077\u5834\u6e9d\u901a" },
+  // \u65e5\u5e38\u5c0d\u8a71 (20)
+  { en: "awesome", zh: "\u592a\u68d2\u4e86", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "bother", zh: "\u6253\u64fe", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "cancel", zh: "\u53d6\u6d88", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "casual", zh: "\u4f11\u9592\u7684\uff1b\u96a8\u4fbf\u7684", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "chat", zh: "\u804a\u5929", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "chill", zh: "\u653e\u9b06", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "crazy", zh: "\u760b\u72c2\u7684", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "definitely", zh: "\u7d55\u5c0d\uff1b\u7576\u7136", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "exactly", zh: "\u5b8c\u5168\u6b63\u78ba", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "exhausted", zh: "\u7b4b\u75b2\u529b\u76e1\u7684", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "figure", zh: "\u60f3\u51fa\uff1b\u7406\u89e3", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "hang", zh: "\u9592\u6643\uff1b\u7b49\u5f85", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "hilarious", zh: "\u6975\u597d\u7b11\u7684", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "kidding", zh: "\u958b\u73a9\u7b11", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "literally", zh: "\u4e0d\u8a87\u5f35\u5730\uff1b\u5b57\u9762\u4e0a\u5730", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "obvious", zh: "\u660e\u986f\u7684", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "probably", zh: "\u5927\u6982\uff1b\u53ef\u80fd", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "recommend", zh: "\u63a8\u85a6", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "ridiculous", zh: "\u8352\u8b2c\u7684", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "weird", zh: "\u5947\u602a\u7684", cat: "\u65e5\u5e38\u5c0d\u8a71" }
 ],
   phrase: [
   {
     "en": "look forward to",
-    "zh": "期待",
-    "cat": "多益必考"
+    "zh": "\u671f\u5f85",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "catch up with",
-    "zh": "敘舊",
-    "cat": "日常生活"
+    "zh": "\u6558\u820a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "out of stock",
-    "zh": "缺貨",
-    "cat": "購物"
+    "zh": "\u7f3a\u8ca8",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "call off",
-    "zh": "取消",
-    "cat": "商業"
+    "zh": "\u53d6\u6d88",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "check in",
-    "zh": "辦理登機/入住",
-    "cat": "旅遊"
+    "zh": "\u8fa6\u7406\u767b\u6a5f/\u5165\u4f4f",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "pass out",
-    "zh": "昏倒",
-    "cat": "醫療"
+    "zh": "\u660f\u5012",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "figure out",
-    "zh": "想出/弄明白",
-    "cat": "日常生活"
+    "zh": "\u60f3\u51fa/\u5f04\u660e\u767d",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "log in",
-    "zh": "登入",
-    "cat": "科技"
+    "zh": "\u767b\u5165",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "work out",
-    "zh": "健身/解決",
-    "cat": "運動"
+    "zh": "\u5065\u8eab/\u89e3\u6c7a",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "chill out",
-    "zh": "放鬆",
-    "cat": "俚語"
+    "zh": "\u653e\u9b06",
+    "cat": "\u4fda\u8a9e"
   },
   {
     "en": "get up",
-    "zh": "取得上",
-    "cat": "日常生活"
+    "zh": "\u53d6\u5f97\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "get down",
-    "zh": "取得下",
-    "cat": "日常生活"
+    "zh": "\u53d6\u5f97\u4e0b",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "get in",
-    "zh": "取得進",
-    "cat": "日常生活"
+    "zh": "\u53d6\u5f97\u9032",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "get out",
-    "zh": "取得出",
-    "cat": "日常生活"
+    "zh": "\u53d6\u5f97\u51fa",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "get on",
-    "zh": "取得上",
-    "cat": "日常生活"
+    "zh": "\u53d6\u5f97\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "get off",
-    "zh": "取得掉",
-    "cat": "日常生活"
+    "zh": "\u53d6\u5f97\u6389",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "get over",
-    "zh": "取得過",
-    "cat": "日常生活"
+    "zh": "\u53d6\u5f97\u904e",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "get away",
-    "zh": "取得走",
-    "cat": "日常生活"
+    "zh": "\u53d6\u5f97\u8d70",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "take up",
-    "zh": "拿上",
-    "cat": "日常生活"
+    "zh": "\u62ff\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "take down",
-    "zh": "拿下",
-    "cat": "日常生活"
+    "zh": "\u62ff\u4e0b",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "take in",
-    "zh": "拿進",
-    "cat": "日常生活"
+    "zh": "\u62ff\u9032",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "take out",
-    "zh": "拿出",
-    "cat": "日常生活"
+    "zh": "\u62ff\u51fa",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "take on",
-    "zh": "拿上",
-    "cat": "日常生活"
+    "zh": "\u62ff\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "take off",
-    "zh": "拿掉",
-    "cat": "日常生活"
+    "zh": "\u62ff\u6389",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "take over",
-    "zh": "拿過",
-    "cat": "日常生活"
+    "zh": "\u62ff\u904e",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "take away",
-    "zh": "拿走",
-    "cat": "日常生活"
+    "zh": "\u62ff\u8d70",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "make up",
-    "zh": "製造上",
-    "cat": "日常生活"
+    "zh": "\u88fd\u9020\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "make down",
-    "zh": "製造下",
-    "cat": "日常生活"
+    "zh": "\u88fd\u9020\u4e0b",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "make in",
-    "zh": "製造進",
-    "cat": "日常生活"
+    "zh": "\u88fd\u9020\u9032",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "make out",
-    "zh": "製造出",
-    "cat": "日常生活"
+    "zh": "\u88fd\u9020\u51fa",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "make on",
-    "zh": "製造上",
-    "cat": "日常生活"
+    "zh": "\u88fd\u9020\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "make off",
-    "zh": "製造掉",
-    "cat": "日常生活"
+    "zh": "\u88fd\u9020\u6389",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "make over",
-    "zh": "製造過",
-    "cat": "日常生活"
+    "zh": "\u88fd\u9020\u904e",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "make away",
-    "zh": "製造走",
-    "cat": "日常生活"
+    "zh": "\u88fd\u9020\u8d70",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "put up",
-    "zh": "放上",
-    "cat": "日常生活"
+    "zh": "\u653e\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "put down",
-    "zh": "放下",
-    "cat": "日常生活"
+    "zh": "\u653e\u4e0b",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "put in",
-    "zh": "放進",
-    "cat": "日常生活"
+    "zh": "\u653e\u9032",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "put out",
-    "zh": "放出",
-    "cat": "日常生活"
+    "zh": "\u653e\u51fa",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "put on",
-    "zh": "放上",
-    "cat": "日常生活"
+    "zh": "\u653e\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "put off",
-    "zh": "放掉",
-    "cat": "日常生活"
+    "zh": "\u653e\u6389",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "put over",
-    "zh": "放過",
-    "cat": "日常生活"
+    "zh": "\u653e\u904e",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "put away",
-    "zh": "放走",
-    "cat": "日常生活"
+    "zh": "\u653e\u8d70",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "set up",
-    "zh": "設定上",
-    "cat": "日常生活"
+    "zh": "\u8a2d\u5b9a\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "set down",
-    "zh": "設定下",
-    "cat": "日常生活"
+    "zh": "\u8a2d\u5b9a\u4e0b",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "set in",
-    "zh": "設定進",
-    "cat": "日常生活"
+    "zh": "\u8a2d\u5b9a\u9032",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "set out",
-    "zh": "設定出",
-    "cat": "日常生活"
+    "zh": "\u8a2d\u5b9a\u51fa",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "set on",
-    "zh": "設定上",
-    "cat": "日常生活"
+    "zh": "\u8a2d\u5b9a\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "set off",
-    "zh": "設定掉",
-    "cat": "日常生活"
+    "zh": "\u8a2d\u5b9a\u6389",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "set over",
-    "zh": "設定過",
-    "cat": "日常生活"
+    "zh": "\u8a2d\u5b9a\u904e",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "set away",
-    "zh": "設定走",
-    "cat": "日常生活"
+    "zh": "\u8a2d\u5b9a\u8d70",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "turn up",
-    "zh": "轉上",
-    "cat": "日常生活"
+    "zh": "\u8f49\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "turn down",
-    "zh": "轉下",
-    "cat": "日常生活"
+    "zh": "\u8f49\u4e0b",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "turn in",
-    "zh": "轉進",
-    "cat": "日常生活"
+    "zh": "\u8f49\u9032",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "turn out",
-    "zh": "轉出",
-    "cat": "日常生活"
+    "zh": "\u8f49\u51fa",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "turn on",
-    "zh": "轉上",
-    "cat": "日常生活"
+    "zh": "\u8f49\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "turn off",
-    "zh": "轉掉",
-    "cat": "日常生活"
+    "zh": "\u8f49\u6389",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "turn over",
-    "zh": "轉過",
-    "cat": "日常生活"
+    "zh": "\u8f49\u904e",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "turn away",
-    "zh": "轉走",
-    "cat": "日常生活"
+    "zh": "\u8f49\u8d70",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "keep up",
-    "zh": "保持上",
-    "cat": "日常生活"
+    "zh": "\u4fdd\u6301\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "keep down",
-    "zh": "保持下",
-    "cat": "日常生活"
+    "zh": "\u4fdd\u6301\u4e0b",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "keep in",
-    "zh": "保持進",
-    "cat": "日常生活"
+    "zh": "\u4fdd\u6301\u9032",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "keep out",
-    "zh": "保持出",
-    "cat": "日常生活"
+    "zh": "\u4fdd\u6301\u51fa",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "keep on",
-    "zh": "保持上",
-    "cat": "日常生活"
+    "zh": "\u4fdd\u6301\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "keep off",
-    "zh": "保持掉",
-    "cat": "日常生活"
+    "zh": "\u4fdd\u6301\u6389",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "keep over",
-    "zh": "保持過",
-    "cat": "日常生活"
+    "zh": "\u4fdd\u6301\u904e",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "keep away",
-    "zh": "保持走",
-    "cat": "日常生活"
+    "zh": "\u4fdd\u6301\u8d70",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "give up",
-    "zh": "給上",
-    "cat": "日常生活"
+    "zh": "\u7d66\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "give down",
-    "zh": "給下",
-    "cat": "日常生活"
+    "zh": "\u7d66\u4e0b",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "give in",
-    "zh": "給進",
-    "cat": "日常生活"
+    "zh": "\u7d66\u9032",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "give out",
-    "zh": "給出",
-    "cat": "日常生活"
+    "zh": "\u7d66\u51fa",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "give on",
-    "zh": "給上",
-    "cat": "日常生活"
+    "zh": "\u7d66\u4e0a",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "give off",
-    "zh": "給掉",
-    "cat": "日常生活"
+    "zh": "\u7d66\u6389",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "give over",
-    "zh": "給過",
-    "cat": "日常生活"
+    "zh": "\u7d66\u904e",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "give away",
-    "zh": "給走",
-    "cat": "日常生活"
+    "zh": "\u7d66\u8d70",
+    "cat": "\u65e5\u5e38\u751f\u6d3b"
   },
   {
     "en": "abide by",
-    "zh": "遵守",
-    "cat": "多益必考"
+    "zh": "\u9075\u5b88",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "account for",
-    "zh": "解釋；佔...比例",
-    "cat": "多益必考"
+    "zh": "\u89e3\u91cb\uff1b\u4f54...\u6bd4\u4f8b",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "in terms of",
-    "zh": "就...而言",
-    "cat": "多益必考"
+    "zh": "\u5c31...\u800c\u8a00",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "in charge of",
-    "zh": "負責",
-    "cat": "多益必考"
+    "zh": "\u8ca0\u8cac",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "prior to",
-    "zh": "在...之前",
-    "cat": "多益必考"
+    "zh": "\u5728...\u4e4b\u524d",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "take into consideration",
-    "zh": "考慮進去",
-    "cat": "多益必考"
+    "zh": "\u8003\u616e\u9032\u53bb",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "comply with",
-    "zh": "遵守；服從",
-    "cat": "多益必考"
+    "zh": "\u9075\u5b88\uff1b\u670d\u5f9e",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "be subject to",
-    "zh": "受...控制；易遭受...",
-    "cat": "多益必考"
+    "zh": "\u53d7...\u63a7\u5236\uff1b\u6613\u906d\u53d7...",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "rule out",
-    "zh": "排除",
-    "cat": "多益必考"
+    "zh": "\u6392\u9664",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "turn down",
-    "zh": "拒絕",
-    "cat": "多益必考"
+    "zh": "\u62d2\u7d55",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "look into",
-    "zh": "調查",
-    "cat": "多益必考"
+    "zh": "\u8abf\u67e5",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "fill in for",
-    "zh": "代理；替代",
-    "cat": "多益必考"
+    "zh": "\u4ee3\u7406\uff1b\u66ff\u4ee3",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "keep track of",
-    "zh": "記錄；追蹤",
-    "cat": "多益必考"
+    "zh": "\u8a18\u9304\uff1b\u8ffd\u8e64",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "rely on",
-    "zh": "依賴",
-    "cat": "多益必考"
+    "zh": "\u4f9d\u8cf4",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "come up with",
-    "zh": "想出",
-    "cat": "多益必考"
+    "zh": "\u60f3\u51fa",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "play a crucial role in",
-    "zh": "在...扮演關鍵角色",
-    "cat": "雅思常見"
+    "zh": "\u5728...\u626e\u6f14\u95dc\u9375\u89d2\u8272",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "stem from",
-    "zh": "源自於",
-    "cat": "雅思常見"
+    "zh": "\u6e90\u81ea\u65bc",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "shed light on",
-    "zh": "闡明；解釋",
-    "cat": "雅思常見"
+    "zh": "\u95e1\u660e\uff1b\u89e3\u91cb",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "boil down to",
-    "zh": "歸結於",
-    "cat": "雅思常見"
+    "zh": "\u6b78\u7d50\u65bc",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "take for granted",
-    "zh": "視為理所當然",
-    "cat": "雅思常見"
+    "zh": "\u8996\u70ba\u7406\u6240\u7576\u7136",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "give rise to",
-    "zh": "引起；導致",
-    "cat": "雅思常見"
+    "zh": "\u5f15\u8d77\uff1b\u5c0e\u81f4",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "be prone to",
-    "zh": "傾向於；易於",
-    "cat": "雅思常見"
+    "zh": "\u50be\u5411\u65bc\uff1b\u6613\u65bc",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "bear in mind",
-    "zh": "記住",
-    "cat": "雅思常見"
+    "zh": "\u8a18\u4f4f",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "pave the way for",
-    "zh": "為...鋪路",
-    "cat": "雅思常見"
+    "zh": "\u70ba...\u92ea\u8def",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "cope with",
-    "zh": "處理；應付",
-    "cat": "雅思常見"
+    "zh": "\u8655\u7406\uff1b\u61c9\u4ed8",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "touch base",
-    "zh": "聯繫；跟進",
-    "cat": "職場溝通"
+    "zh": "\u806f\u7e6b\uff1b\u8ddf\u9032",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "get back to",
-    "zh": "回覆",
-    "cat": "職場溝通"
+    "zh": "\u56de\u8986",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "bear with me",
-    "zh": "請耐心等我一下",
-    "cat": "職場溝通"
+    "zh": "\u8acb\u8010\u5fc3\u7b49\u6211\u4e00\u4e0b",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "bring up",
-    "zh": "提出",
-    "cat": "職場溝通"
+    "zh": "\u63d0\u51fa",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "wrap up",
-    "zh": "結束；總結",
-    "cat": "職場溝通"
+    "zh": "\u7d50\u675f\uff1b\u7e3d\u7d50",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "move forward",
-    "zh": "向前邁進",
-    "cat": "職場溝通"
+    "zh": "\u5411\u524d\u9081\u9032",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "keep someone in the loop",
-    "zh": "讓某人了解情況",
-    "cat": "職場溝通"
+    "zh": "\u8b93\u67d0\u4eba\u4e86\u89e3\u60c5\u6cc1",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "on the same page",
-    "zh": "達成共識",
-    "cat": "職場溝通"
+    "zh": "\u9054\u6210\u5171\u8b58",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "point out",
-    "zh": "指出",
-    "cat": "職場溝通"
+    "zh": "\u6307\u51fa",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "sort out",
-    "zh": "解決；整理",
-    "cat": "職場溝通"
+    "zh": "\u89e3\u6c7a\uff1b\u6574\u7406",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "hang out",
-    "zh": "出去玩",
-    "cat": "日常對話"
+    "zh": "\u51fa\u53bb\u73a9",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "catch up",
-    "zh": "敘舊；趕上",
-    "cat": "日常對話"
+    "zh": "\u6558\u820a\uff1b\u8d95\u4e0a",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "never mind",
-    "zh": "沒關係；算了",
-    "cat": "日常對話"
+    "zh": "\u6c92\u95dc\u4fc2\uff1b\u7b97\u4e86",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "take it easy",
-    "zh": "放輕鬆",
-    "cat": "日常對話"
+    "zh": "\u653e\u8f15\u9b06",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "make sense",
-    "zh": "有道理",
-    "cat": "日常對話"
+    "zh": "\u6709\u9053\u7406",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "figure out",
-    "zh": "想出；弄清楚",
-    "cat": "日常對話"
+    "zh": "\u60f3\u51fa\uff1b\u5f04\u6e05\u695a",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "show up",
-    "zh": "出現",
-    "cat": "日常對話"
+    "zh": "\u51fa\u73fe",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "turn out",
-    "zh": "結果是",
-    "cat": "日常對話"
+    "zh": "\u7d50\u679c\u662f",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "by the way",
-    "zh": "順帶一提",
-    "cat": "日常對話"
+    "zh": "\u9806\u5e36\u4e00\u63d0",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "look forward to",
-    "zh": "期待",
-    "cat": "日常對話"
+    "zh": "\u671f\u5f85",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   }
 ,
-  // 多益必考 (15)
-  { en: "abide by", zh: "遵守", cat: "多益必考" },
-  { en: "account for", zh: "解釋；佔...比例", cat: "多益必考" },
-  { en: "in terms of", zh: "就...而言", cat: "多益必考" },
-  { en: "in charge of", zh: "負責", cat: "多益必考" },
-  { en: "prior to", zh: "在...之前", cat: "多益必考" },
-  { en: "take into consideration", zh: "考慮進去", cat: "多益必考" },
-  { en: "comply with", zh: "遵守；服從", cat: "多益必考" },
-  { en: "be subject to", zh: "受...控制；易遭受...", cat: "多益必考" },
-  { en: "rule out", zh: "排除", cat: "多益必考" },
-  { en: "turn down", zh: "拒絕", cat: "多益必考" },
-  { en: "look into", zh: "調查", cat: "多益必考" },
-  { en: "fill in for", zh: "代理；替代", cat: "多益必考" },
-  { en: "keep track of", zh: "記錄；追蹤", cat: "多益必考" },
-  { en: "rely on", zh: "依賴", cat: "多益必考" },
-  { en: "come up with", zh: "想出", cat: "多益必考" },
-  // 雅思常見 (10)
-  { en: "play a crucial role in", zh: "在...扮演關鍵角色", cat: "雅思常見" },
-  { en: "stem from", zh: "源自於", cat: "雅思常見" },
-  { en: "shed light on", zh: "闡明；解釋", cat: "雅思常見" },
-  { en: "boil down to", zh: "歸結於", cat: "雅思常見" },
-  { en: "take for granted", zh: "視為理所當然", cat: "雅思常見" },
-  { en: "give rise to", zh: "引起；導致", cat: "雅思常見" },
-  { en: "be prone to", zh: "傾向於；易於", cat: "雅思常見" },
-  { en: "bear in mind", zh: "記住", cat: "雅思常見" },
-  { en: "pave the way for", zh: "為...鋪路", cat: "雅思常見" },
-  { en: "cope with", zh: "處理；應付", cat: "雅思常見" },
-  // 職場溝通 (10)
-  { en: "touch base", zh: "聯繫；跟進", cat: "職場溝通" },
-  { en: "get back to", zh: "回覆", cat: "職場溝通" },
-  { en: "bear with me", zh: "請耐心等我一下", cat: "職場溝通" },
-  { en: "bring up", zh: "提出", cat: "職場溝通" },
-  { en: "wrap up", zh: "結束；總結", cat: "職場溝通" },
-  { en: "move forward", zh: "向前邁進", cat: "職場溝通" },
-  { en: "keep someone in the loop", zh: "讓某人了解情況", cat: "職場溝通" },
-  { en: "on the same page", zh: "達成共識", cat: "職場溝通" },
-  { en: "point out", zh: "指出", cat: "職場溝通" },
-  { en: "sort out", zh: "解決；整理", cat: "職場溝通" },
-  // 日常對話 (10)
-  { en: "hang out", zh: "出去玩", cat: "日常對話" },
-  { en: "catch up", zh: "敘舊；趕上", cat: "日常對話" },
-  { en: "never mind", zh: "沒關係；算了", cat: "日常對話" },
-  { en: "take it easy", zh: "放輕鬆", cat: "日常對話" },
-  { en: "make sense", zh: "有道理", cat: "日常對話" },
-  { en: "figure out", zh: "想出；弄清楚", cat: "日常對話" },
-  { en: "show up", zh: "出現", cat: "日常對話" },
-  { en: "turn out", zh: "結果是", cat: "日常對話" },
-  { en: "by the way", zh: "順帶一提", cat: "日常對話" },
-  { en: "look forward to", zh: "期待", cat: "日常對話" }
+  // \u591a\u76ca\u5fc5\u8003 (15)
+  { en: "abide by", zh: "\u9075\u5b88", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "account for", zh: "\u89e3\u91cb\uff1b\u4f54...\u6bd4\u4f8b", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "in terms of", zh: "\u5c31...\u800c\u8a00", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "in charge of", zh: "\u8ca0\u8cac", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "prior to", zh: "\u5728...\u4e4b\u524d", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "take into consideration", zh: "\u8003\u616e\u9032\u53bb", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "comply with", zh: "\u9075\u5b88\uff1b\u670d\u5f9e", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "be subject to", zh: "\u53d7...\u63a7\u5236\uff1b\u6613\u906d\u53d7...", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "rule out", zh: "\u6392\u9664", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "turn down", zh: "\u62d2\u7d55", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "look into", zh: "\u8abf\u67e5", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "fill in for", zh: "\u4ee3\u7406\uff1b\u66ff\u4ee3", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "keep track of", zh: "\u8a18\u9304\uff1b\u8ffd\u8e64", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "rely on", zh: "\u4f9d\u8cf4", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "come up with", zh: "\u60f3\u51fa", cat: "\u591a\u76ca\u5fc5\u8003" },
+  // \u96c5\u601d\u5e38\u898b (10)
+  { en: "play a crucial role in", zh: "\u5728...\u626e\u6f14\u95dc\u9375\u89d2\u8272", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "stem from", zh: "\u6e90\u81ea\u65bc", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "shed light on", zh: "\u95e1\u660e\uff1b\u89e3\u91cb", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "boil down to", zh: "\u6b78\u7d50\u65bc", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "take for granted", zh: "\u8996\u70ba\u7406\u6240\u7576\u7136", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "give rise to", zh: "\u5f15\u8d77\uff1b\u5c0e\u81f4", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "be prone to", zh: "\u50be\u5411\u65bc\uff1b\u6613\u65bc", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "bear in mind", zh: "\u8a18\u4f4f", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "pave the way for", zh: "\u70ba...\u92ea\u8def", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "cope with", zh: "\u8655\u7406\uff1b\u61c9\u4ed8", cat: "\u96c5\u601d\u5e38\u898b" },
+  // \u8077\u5834\u6e9d\u901a (10)
+  { en: "touch base", zh: "\u806f\u7e6b\uff1b\u8ddf\u9032", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "get back to", zh: "\u56de\u8986", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "bear with me", zh: "\u8acb\u8010\u5fc3\u7b49\u6211\u4e00\u4e0b", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "bring up", zh: "\u63d0\u51fa", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "wrap up", zh: "\u7d50\u675f\uff1b\u7e3d\u7d50", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "move forward", zh: "\u5411\u524d\u9081\u9032", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "keep someone in the loop", zh: "\u8b93\u67d0\u4eba\u4e86\u89e3\u60c5\u6cc1", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "on the same page", zh: "\u9054\u6210\u5171\u8b58", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "point out", zh: "\u6307\u51fa", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "sort out", zh: "\u89e3\u6c7a\uff1b\u6574\u7406", cat: "\u8077\u5834\u6e9d\u901a" },
+  // \u65e5\u5e38\u5c0d\u8a71 (10)
+  { en: "hang out", zh: "\u51fa\u53bb\u73a9", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "catch up", zh: "\u6558\u820a\uff1b\u8d95\u4e0a", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "never mind", zh: "\u6c92\u95dc\u4fc2\uff1b\u7b97\u4e86", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "take it easy", zh: "\u653e\u8f15\u9b06", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "make sense", zh: "\u6709\u9053\u7406", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "figure out", zh: "\u60f3\u51fa\uff1b\u5f04\u6e05\u695a", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "show up", zh: "\u51fa\u73fe", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "turn out", zh: "\u7d50\u679c\u662f", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "by the way", zh: "\u9806\u5e36\u4e00\u63d0", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "look forward to", zh: "\u671f\u5f85", cat: "\u65e5\u5e38\u5c0d\u8a71" }
 ],
   sentence: [
   {
     "en": "I need to buy a new laptop.",
-    "zh": "我需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "I need to buy a new phone.",
-    "zh": "我需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "I need to buy a new shirt.",
-    "zh": "我需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "I need to buy a new bag.",
-    "zh": "我需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "I need to buy a new monitor.",
-    "zh": "我需要買一個新的螢幕。",
-    "cat": "購物"
+    "zh": "\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u87a2\u5e55\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "I need to buy a new mouse.",
-    "zh": "我需要買一個新的滑鼠。",
-    "cat": "購物"
+    "zh": "\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u6ed1\u9f20\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "I need to buy a new keyboard.",
-    "zh": "我需要買一個新的鍵盤。",
-    "cat": "購物"
+    "zh": "\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u9375\u76e4\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "I need to buy a new watch.",
-    "zh": "我需要買一個新的手錶。",
-    "cat": "購物"
+    "zh": "\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u9336\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "I will travel to Japan.",
-    "zh": "我將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "I will travel to Korea.",
-    "zh": "我將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "I will travel to America.",
-    "zh": "我將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "I will travel to Europe.",
-    "zh": "我將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "I will travel to Australia.",
-    "zh": "我將會去澳洲。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5c07\u6703\u53bb\u6fb3\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "I will travel to Canada.",
-    "zh": "我將會去加拿大。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5c07\u6703\u53bb\u52a0\u62ff\u5927\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "I will travel to Thailand.",
-    "zh": "我將會去泰國。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5c07\u6703\u53bb\u6cf0\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "I will travel to Singapore.",
-    "zh": "我將會去新加坡。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5c07\u6703\u53bb\u65b0\u52a0\u5761\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "I have a meeting with the manager.",
-    "zh": "我要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u6211\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "I have a meeting with the client.",
-    "zh": "我要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u6211\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "I have a meeting with the team.",
-    "zh": "我要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u6211\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "I have a meeting with the boss.",
-    "zh": "我要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u6211\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "I have a meeting with the investor.",
-    "zh": "我要和...開會投資人。",
-    "cat": "商業"
+    "zh": "\u6211\u8981\u548c...\u958b\u6703\u6295\u8cc7\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "I have a meeting with the partner.",
-    "zh": "我要和...開會合夥人。",
-    "cat": "商業"
+    "zh": "\u6211\u8981\u548c...\u958b\u6703\u5408\u5925\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "I have a meeting with the candidate.",
-    "zh": "我要和...開會應徵者。",
-    "cat": "商業"
+    "zh": "\u6211\u8981\u548c...\u958b\u6703\u61c9\u5fb5\u8005\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "I have a meeting with the director.",
-    "zh": "我要和...開會總監。",
-    "cat": "商業"
+    "zh": "\u6211\u8981\u548c...\u958b\u6703\u7e3d\u76e3\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "I feel very happy.",
-    "zh": "我覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u6211\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "I feel very sad.",
-    "zh": "我覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u6211\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "I feel very angry.",
-    "zh": "我覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u6211\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "I feel very nervous.",
-    "zh": "我覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u6211\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "I feel very excited.",
-    "zh": "我覺得非常興奮。",
-    "cat": "情緒"
+    "zh": "\u6211\u89ba\u5f97\u975e\u5e38\u8208\u596e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "I feel very tired.",
-    "zh": "我覺得非常疲倦。",
-    "cat": "情緒"
+    "zh": "\u6211\u89ba\u5f97\u975e\u5e38\u75b2\u5026\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "I feel very bored.",
-    "zh": "我覺得非常無聊。",
-    "cat": "情緒"
+    "zh": "\u6211\u89ba\u5f97\u975e\u5e38\u7121\u804a\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "I feel very anxious.",
-    "zh": "我覺得非常焦慮。",
-    "cat": "情緒"
+    "zh": "\u6211\u89ba\u5f97\u975e\u5e38\u7126\u616e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "I went to the hospital because of a headache.",
-    "zh": "我去醫院因為頭痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u53bb\u91ab\u9662\u56e0\u70ba\u982d\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "I went to the hospital because of a fever.",
-    "zh": "我去醫院因為發燒。",
-    "cat": "醫療"
+    "zh": "\u6211\u53bb\u91ab\u9662\u56e0\u70ba\u767c\u71d2\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "I went to the hospital because of a cold.",
-    "zh": "我去醫院因為感冒。",
-    "cat": "醫療"
+    "zh": "\u6211\u53bb\u91ab\u9662\u56e0\u70ba\u611f\u5192\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "I went to the hospital because of a stomachache.",
-    "zh": "我去醫院因為胃痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u53bb\u91ab\u9662\u56e0\u70ba\u80c3\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "I went to the hospital because of a cough.",
-    "zh": "我去醫院因為咳嗽。",
-    "cat": "醫療"
+    "zh": "\u6211\u53bb\u91ab\u9662\u56e0\u70ba\u54b3\u55fd\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "I went to the hospital because of a sore throat.",
-    "zh": "我去醫院因為喉嚨痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u53bb\u91ab\u9662\u56e0\u70ba\u5589\u56a8\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "I went to the hospital because of a toothache.",
-    "zh": "我去醫院因為牙痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u53bb\u91ab\u9662\u56e0\u70ba\u7259\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "I went to the hospital because of a backache.",
-    "zh": "我去醫院因為背痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u53bb\u91ab\u9662\u56e0\u70ba\u80cc\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "I want to learn how to play basketball.",
-    "zh": "我想學如何打籃球。",
-    "cat": "運動"
+    "zh": "\u6211\u60f3\u5b78\u5982\u4f55\u6253\u7c43\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "I want to learn how to play baseball.",
-    "zh": "我想學如何打棒球。",
-    "cat": "運動"
+    "zh": "\u6211\u60f3\u5b78\u5982\u4f55\u6253\u68d2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "I want to learn how to play tennis.",
-    "zh": "我想學如何打網球。",
-    "cat": "運動"
+    "zh": "\u6211\u60f3\u5b78\u5982\u4f55\u6253\u7db2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "I want to learn how to play soccer.",
-    "zh": "我想學如何打足球。",
-    "cat": "運動"
+    "zh": "\u6211\u60f3\u5b78\u5982\u4f55\u6253\u8db3\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "I want to learn how to play golf.",
-    "zh": "我想學如何打高爾夫。",
-    "cat": "運動"
+    "zh": "\u6211\u60f3\u5b78\u5982\u4f55\u6253\u9ad8\u723e\u592b\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "I want to learn how to play volleyball.",
-    "zh": "我想學如何打排球。",
-    "cat": "運動"
+    "zh": "\u6211\u60f3\u5b78\u5982\u4f55\u6253\u6392\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "I want to learn how to play badminton.",
-    "zh": "我想學如何打羽毛球。",
-    "cat": "運動"
+    "zh": "\u6211\u60f3\u5b78\u5982\u4f55\u6253\u7fbd\u6bdb\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "I want to learn how to play table tennis.",
-    "zh": "我想學如何打桌球。",
-    "cat": "運動"
+    "zh": "\u6211\u60f3\u5b78\u5982\u4f55\u6253\u684c\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "I downloaded a new app.",
-    "zh": "我下載了一個新的應用程式。",
-    "cat": "科技"
+    "zh": "\u6211\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u61c9\u7528\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "I downloaded a new software.",
-    "zh": "我下載了一個新的軟體。",
-    "cat": "科技"
+    "zh": "\u6211\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u8edf\u9ad4\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "I downloaded a new game.",
-    "zh": "我下載了一個新的遊戲。",
-    "cat": "科技"
+    "zh": "\u6211\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u904a\u6232\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "I downloaded a new update.",
-    "zh": "我下載了一個新的更新檔。",
-    "cat": "科技"
+    "zh": "\u6211\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u66f4\u65b0\u6a94\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "I downloaded a new program.",
-    "zh": "我下載了一個新的程式。",
-    "cat": "科技"
+    "zh": "\u6211\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "I downloaded a new browser.",
-    "zh": "我下載了一個新的瀏覽器。",
-    "cat": "科技"
+    "zh": "\u6211\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u700f\u89bd\u5668\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "I downloaded a new driver.",
-    "zh": "我下載了一個新的驅動程式。",
-    "cat": "科技"
+    "zh": "\u6211\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u9a45\u52d5\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "I downloaded a new plugin.",
-    "zh": "我下載了一個新的擴充功能。",
-    "cat": "科技"
+    "zh": "\u6211\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u64f4\u5145\u529f\u80fd\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "I have to prepare for the exam.",
-    "zh": "我必須準備考試。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5fc5\u9808\u6e96\u5099\u8003\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "I have to prepare for the interview.",
-    "zh": "我必須準備面試。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5fc5\u9808\u6e96\u5099\u9762\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "I have to prepare for the presentation.",
-    "zh": "我必須準備簡報。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5fc5\u9808\u6e96\u5099\u7c21\u5831\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "I have to prepare for the test.",
-    "zh": "我必須準備測驗。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5fc5\u9808\u6e96\u5099\u6e2c\u9a57\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "I have to prepare for the project.",
-    "zh": "我必須準備專案。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5fc5\u9808\u6e96\u5099\u5c08\u6848\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "I have to prepare for the negotiation.",
-    "zh": "我必須準備談判。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5fc5\u9808\u6e96\u5099\u8ac7\u5224\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "I have to prepare for the audit.",
-    "zh": "我必須準備審計。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5fc5\u9808\u6e96\u5099\u5be9\u8a08\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "I have to prepare for the evaluation.",
-    "zh": "我必須準備評估。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5fc5\u9808\u6e96\u5099\u8a55\u4f30\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "You need to buy a new laptop.",
-    "zh": "你需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "You need to buy a new phone.",
-    "zh": "你需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "You need to buy a new shirt.",
-    "zh": "你需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "You need to buy a new bag.",
-    "zh": "你需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "You need to buy a new monitor.",
-    "zh": "你需要買一個新的螢幕。",
-    "cat": "購物"
+    "zh": "\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u87a2\u5e55\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "You need to buy a new mouse.",
-    "zh": "你需要買一個新的滑鼠。",
-    "cat": "購物"
+    "zh": "\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u6ed1\u9f20\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "You need to buy a new keyboard.",
-    "zh": "你需要買一個新的鍵盤。",
-    "cat": "購物"
+    "zh": "\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u9375\u76e4\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "You need to buy a new watch.",
-    "zh": "你需要買一個新的手錶。",
-    "cat": "購物"
+    "zh": "\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u9336\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "You will travel to Japan.",
-    "zh": "你將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4f60\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "You will travel to Korea.",
-    "zh": "你將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4f60\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "You will travel to America.",
-    "zh": "你將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4f60\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "You will travel to Europe.",
-    "zh": "你將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4f60\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "You will travel to Australia.",
-    "zh": "你將會去澳洲。",
-    "cat": "旅遊"
+    "zh": "\u4f60\u5c07\u6703\u53bb\u6fb3\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "You will travel to Canada.",
-    "zh": "你將會去加拿大。",
-    "cat": "旅遊"
+    "zh": "\u4f60\u5c07\u6703\u53bb\u52a0\u62ff\u5927\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "You will travel to Thailand.",
-    "zh": "你將會去泰國。",
-    "cat": "旅遊"
+    "zh": "\u4f60\u5c07\u6703\u53bb\u6cf0\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "You will travel to Singapore.",
-    "zh": "你將會去新加坡。",
-    "cat": "旅遊"
+    "zh": "\u4f60\u5c07\u6703\u53bb\u65b0\u52a0\u5761\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "You have a meeting with the manager.",
-    "zh": "你要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4f60\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "You have a meeting with the client.",
-    "zh": "你要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4f60\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "You have a meeting with the team.",
-    "zh": "你要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4f60\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "You have a meeting with the boss.",
-    "zh": "你要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4f60\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "You have a meeting with the investor.",
-    "zh": "你要和...開會投資人。",
-    "cat": "商業"
+    "zh": "\u4f60\u8981\u548c...\u958b\u6703\u6295\u8cc7\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "You have a meeting with the partner.",
-    "zh": "你要和...開會合夥人。",
-    "cat": "商業"
+    "zh": "\u4f60\u8981\u548c...\u958b\u6703\u5408\u5925\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "You have a meeting with the candidate.",
-    "zh": "你要和...開會應徵者。",
-    "cat": "商業"
+    "zh": "\u4f60\u8981\u548c...\u958b\u6703\u61c9\u5fb5\u8005\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "You have a meeting with the director.",
-    "zh": "你要和...開會總監。",
-    "cat": "商業"
+    "zh": "\u4f60\u8981\u548c...\u958b\u6703\u7e3d\u76e3\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "You feel very happy.",
-    "zh": "你覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4f60\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "You feel very sad.",
-    "zh": "你覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4f60\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "You feel very angry.",
-    "zh": "你覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4f60\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "You feel very nervous.",
-    "zh": "你覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4f60\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "You feel very excited.",
-    "zh": "你覺得非常興奮。",
-    "cat": "情緒"
+    "zh": "\u4f60\u89ba\u5f97\u975e\u5e38\u8208\u596e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "You feel very tired.",
-    "zh": "你覺得非常疲倦。",
-    "cat": "情緒"
+    "zh": "\u4f60\u89ba\u5f97\u975e\u5e38\u75b2\u5026\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "You feel very bored.",
-    "zh": "你覺得非常無聊。",
-    "cat": "情緒"
+    "zh": "\u4f60\u89ba\u5f97\u975e\u5e38\u7121\u804a\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "You feel very anxious.",
-    "zh": "你覺得非常焦慮。",
-    "cat": "情緒"
+    "zh": "\u4f60\u89ba\u5f97\u975e\u5e38\u7126\u616e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "You went to the hospital because of a headache.",
-    "zh": "你去醫院因為頭痛。",
-    "cat": "醫療"
+    "zh": "\u4f60\u53bb\u91ab\u9662\u56e0\u70ba\u982d\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "You went to the hospital because of a fever.",
-    "zh": "你去醫院因為發燒。",
-    "cat": "醫療"
+    "zh": "\u4f60\u53bb\u91ab\u9662\u56e0\u70ba\u767c\u71d2\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "You went to the hospital because of a cold.",
-    "zh": "你去醫院因為感冒。",
-    "cat": "醫療"
+    "zh": "\u4f60\u53bb\u91ab\u9662\u56e0\u70ba\u611f\u5192\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "You went to the hospital because of a stomachache.",
-    "zh": "你去醫院因為胃痛。",
-    "cat": "醫療"
+    "zh": "\u4f60\u53bb\u91ab\u9662\u56e0\u70ba\u80c3\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "You went to the hospital because of a cough.",
-    "zh": "你去醫院因為咳嗽。",
-    "cat": "醫療"
+    "zh": "\u4f60\u53bb\u91ab\u9662\u56e0\u70ba\u54b3\u55fd\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "You went to the hospital because of a sore throat.",
-    "zh": "你去醫院因為喉嚨痛。",
-    "cat": "醫療"
+    "zh": "\u4f60\u53bb\u91ab\u9662\u56e0\u70ba\u5589\u56a8\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "You went to the hospital because of a toothache.",
-    "zh": "你去醫院因為牙痛。",
-    "cat": "醫療"
+    "zh": "\u4f60\u53bb\u91ab\u9662\u56e0\u70ba\u7259\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "You went to the hospital because of a backache.",
-    "zh": "你去醫院因為背痛。",
-    "cat": "醫療"
+    "zh": "\u4f60\u53bb\u91ab\u9662\u56e0\u70ba\u80cc\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "You want to learn how to play basketball.",
-    "zh": "你想學如何打籃球。",
-    "cat": "運動"
+    "zh": "\u4f60\u60f3\u5b78\u5982\u4f55\u6253\u7c43\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "You want to learn how to play baseball.",
-    "zh": "你想學如何打棒球。",
-    "cat": "運動"
+    "zh": "\u4f60\u60f3\u5b78\u5982\u4f55\u6253\u68d2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "You want to learn how to play tennis.",
-    "zh": "你想學如何打網球。",
-    "cat": "運動"
+    "zh": "\u4f60\u60f3\u5b78\u5982\u4f55\u6253\u7db2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "You want to learn how to play soccer.",
-    "zh": "你想學如何打足球。",
-    "cat": "運動"
+    "zh": "\u4f60\u60f3\u5b78\u5982\u4f55\u6253\u8db3\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "You want to learn how to play golf.",
-    "zh": "你想學如何打高爾夫。",
-    "cat": "運動"
+    "zh": "\u4f60\u60f3\u5b78\u5982\u4f55\u6253\u9ad8\u723e\u592b\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "You want to learn how to play volleyball.",
-    "zh": "你想學如何打排球。",
-    "cat": "運動"
+    "zh": "\u4f60\u60f3\u5b78\u5982\u4f55\u6253\u6392\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "You want to learn how to play badminton.",
-    "zh": "你想學如何打羽毛球。",
-    "cat": "運動"
+    "zh": "\u4f60\u60f3\u5b78\u5982\u4f55\u6253\u7fbd\u6bdb\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "You want to learn how to play table tennis.",
-    "zh": "你想學如何打桌球。",
-    "cat": "運動"
+    "zh": "\u4f60\u60f3\u5b78\u5982\u4f55\u6253\u684c\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "You downloaded a new app.",
-    "zh": "你下載了一個新的應用程式。",
-    "cat": "科技"
+    "zh": "\u4f60\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u61c9\u7528\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "You downloaded a new software.",
-    "zh": "你下載了一個新的軟體。",
-    "cat": "科技"
+    "zh": "\u4f60\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u8edf\u9ad4\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "You downloaded a new game.",
-    "zh": "你下載了一個新的遊戲。",
-    "cat": "科技"
+    "zh": "\u4f60\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u904a\u6232\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "You downloaded a new update.",
-    "zh": "你下載了一個新的更新檔。",
-    "cat": "科技"
+    "zh": "\u4f60\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u66f4\u65b0\u6a94\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "You downloaded a new program.",
-    "zh": "你下載了一個新的程式。",
-    "cat": "科技"
+    "zh": "\u4f60\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "You downloaded a new browser.",
-    "zh": "你下載了一個新的瀏覽器。",
-    "cat": "科技"
+    "zh": "\u4f60\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u700f\u89bd\u5668\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "You downloaded a new driver.",
-    "zh": "你下載了一個新的驅動程式。",
-    "cat": "科技"
+    "zh": "\u4f60\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u9a45\u52d5\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "You downloaded a new plugin.",
-    "zh": "你下載了一個新的擴充功能。",
-    "cat": "科技"
+    "zh": "\u4f60\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u64f4\u5145\u529f\u80fd\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "You have to prepare for the exam.",
-    "zh": "你必須準備考試。",
-    "cat": "多益必考"
+    "zh": "\u4f60\u5fc5\u9808\u6e96\u5099\u8003\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "You have to prepare for the interview.",
-    "zh": "你必須準備面試。",
-    "cat": "多益必考"
+    "zh": "\u4f60\u5fc5\u9808\u6e96\u5099\u9762\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "You have to prepare for the presentation.",
-    "zh": "你必須準備簡報。",
-    "cat": "多益必考"
+    "zh": "\u4f60\u5fc5\u9808\u6e96\u5099\u7c21\u5831\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "You have to prepare for the test.",
-    "zh": "你必須準備測驗。",
-    "cat": "多益必考"
+    "zh": "\u4f60\u5fc5\u9808\u6e96\u5099\u6e2c\u9a57\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "You have to prepare for the project.",
-    "zh": "你必須準備專案。",
-    "cat": "多益必考"
+    "zh": "\u4f60\u5fc5\u9808\u6e96\u5099\u5c08\u6848\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "You have to prepare for the negotiation.",
-    "zh": "你必須準備談判。",
-    "cat": "多益必考"
+    "zh": "\u4f60\u5fc5\u9808\u6e96\u5099\u8ac7\u5224\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "You have to prepare for the audit.",
-    "zh": "你必須準備審計。",
-    "cat": "多益必考"
+    "zh": "\u4f60\u5fc5\u9808\u6e96\u5099\u5be9\u8a08\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "You have to prepare for the evaluation.",
-    "zh": "你必須準備評估。",
-    "cat": "多益必考"
+    "zh": "\u4f60\u5fc5\u9808\u6e96\u5099\u8a55\u4f30\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "He need to buy a new laptop.",
-    "zh": "他需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "He need to buy a new phone.",
-    "zh": "他需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "He need to buy a new shirt.",
-    "zh": "他需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "He need to buy a new bag.",
-    "zh": "他需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "He need to buy a new monitor.",
-    "zh": "他需要買一個新的螢幕。",
-    "cat": "購物"
+    "zh": "\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u87a2\u5e55\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "He need to buy a new mouse.",
-    "zh": "他需要買一個新的滑鼠。",
-    "cat": "購物"
+    "zh": "\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u6ed1\u9f20\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "He need to buy a new keyboard.",
-    "zh": "他需要買一個新的鍵盤。",
-    "cat": "購物"
+    "zh": "\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u9375\u76e4\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "He need to buy a new watch.",
-    "zh": "他需要買一個新的手錶。",
-    "cat": "購物"
+    "zh": "\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u9336\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "He will travel to Japan.",
-    "zh": "他將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "He will travel to Korea.",
-    "zh": "他將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "He will travel to America.",
-    "zh": "他將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "He will travel to Europe.",
-    "zh": "他將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "He will travel to Australia.",
-    "zh": "他將會去澳洲。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5c07\u6703\u53bb\u6fb3\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "He will travel to Canada.",
-    "zh": "他將會去加拿大。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5c07\u6703\u53bb\u52a0\u62ff\u5927\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "He will travel to Thailand.",
-    "zh": "他將會去泰國。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5c07\u6703\u53bb\u6cf0\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "He will travel to Singapore.",
-    "zh": "他將會去新加坡。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5c07\u6703\u53bb\u65b0\u52a0\u5761\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "He have a meeting with the manager.",
-    "zh": "他要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4ed6\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "He have a meeting with the client.",
-    "zh": "他要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4ed6\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "He have a meeting with the team.",
-    "zh": "他要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4ed6\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "He have a meeting with the boss.",
-    "zh": "他要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4ed6\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "He have a meeting with the investor.",
-    "zh": "他要和...開會投資人。",
-    "cat": "商業"
+    "zh": "\u4ed6\u8981\u548c...\u958b\u6703\u6295\u8cc7\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "He have a meeting with the partner.",
-    "zh": "他要和...開會合夥人。",
-    "cat": "商業"
+    "zh": "\u4ed6\u8981\u548c...\u958b\u6703\u5408\u5925\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "He have a meeting with the candidate.",
-    "zh": "他要和...開會應徵者。",
-    "cat": "商業"
+    "zh": "\u4ed6\u8981\u548c...\u958b\u6703\u61c9\u5fb5\u8005\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "He have a meeting with the director.",
-    "zh": "他要和...開會總監。",
-    "cat": "商業"
+    "zh": "\u4ed6\u8981\u548c...\u958b\u6703\u7e3d\u76e3\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "He feel very happy.",
-    "zh": "他覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "He feel very sad.",
-    "zh": "他覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "He feel very angry.",
-    "zh": "他覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "He feel very nervous.",
-    "zh": "他覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "He feel very excited.",
-    "zh": "他覺得非常興奮。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u89ba\u5f97\u975e\u5e38\u8208\u596e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "He feel very tired.",
-    "zh": "他覺得非常疲倦。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u89ba\u5f97\u975e\u5e38\u75b2\u5026\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "He feel very bored.",
-    "zh": "他覺得非常無聊。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u89ba\u5f97\u975e\u5e38\u7121\u804a\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "He feel very anxious.",
-    "zh": "他覺得非常焦慮。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u89ba\u5f97\u975e\u5e38\u7126\u616e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "He went to the hospital because of a headache.",
-    "zh": "他去醫院因為頭痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u53bb\u91ab\u9662\u56e0\u70ba\u982d\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "He went to the hospital because of a fever.",
-    "zh": "他去醫院因為發燒。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u53bb\u91ab\u9662\u56e0\u70ba\u767c\u71d2\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "He went to the hospital because of a cold.",
-    "zh": "他去醫院因為感冒。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u53bb\u91ab\u9662\u56e0\u70ba\u611f\u5192\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "He went to the hospital because of a stomachache.",
-    "zh": "他去醫院因為胃痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u53bb\u91ab\u9662\u56e0\u70ba\u80c3\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "He went to the hospital because of a cough.",
-    "zh": "他去醫院因為咳嗽。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u53bb\u91ab\u9662\u56e0\u70ba\u54b3\u55fd\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "He went to the hospital because of a sore throat.",
-    "zh": "他去醫院因為喉嚨痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u53bb\u91ab\u9662\u56e0\u70ba\u5589\u56a8\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "He went to the hospital because of a toothache.",
-    "zh": "他去醫院因為牙痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u53bb\u91ab\u9662\u56e0\u70ba\u7259\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "He went to the hospital because of a backache.",
-    "zh": "他去醫院因為背痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u53bb\u91ab\u9662\u56e0\u70ba\u80cc\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "He want to learn how to play basketball.",
-    "zh": "他想學如何打籃球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u60f3\u5b78\u5982\u4f55\u6253\u7c43\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "He want to learn how to play baseball.",
-    "zh": "他想學如何打棒球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u60f3\u5b78\u5982\u4f55\u6253\u68d2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "He want to learn how to play tennis.",
-    "zh": "他想學如何打網球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u60f3\u5b78\u5982\u4f55\u6253\u7db2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "He want to learn how to play soccer.",
-    "zh": "他想學如何打足球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u60f3\u5b78\u5982\u4f55\u6253\u8db3\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "He want to learn how to play golf.",
-    "zh": "他想學如何打高爾夫。",
-    "cat": "運動"
+    "zh": "\u4ed6\u60f3\u5b78\u5982\u4f55\u6253\u9ad8\u723e\u592b\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "He want to learn how to play volleyball.",
-    "zh": "他想學如何打排球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u60f3\u5b78\u5982\u4f55\u6253\u6392\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "He want to learn how to play badminton.",
-    "zh": "他想學如何打羽毛球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u60f3\u5b78\u5982\u4f55\u6253\u7fbd\u6bdb\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "He want to learn how to play table tennis.",
-    "zh": "他想學如何打桌球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u60f3\u5b78\u5982\u4f55\u6253\u684c\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "He downloaded a new app.",
-    "zh": "他下載了一個新的應用程式。",
-    "cat": "科技"
+    "zh": "\u4ed6\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u61c9\u7528\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "He downloaded a new software.",
-    "zh": "他下載了一個新的軟體。",
-    "cat": "科技"
+    "zh": "\u4ed6\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u8edf\u9ad4\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "He downloaded a new game.",
-    "zh": "他下載了一個新的遊戲。",
-    "cat": "科技"
+    "zh": "\u4ed6\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u904a\u6232\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "He downloaded a new update.",
-    "zh": "他下載了一個新的更新檔。",
-    "cat": "科技"
+    "zh": "\u4ed6\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u66f4\u65b0\u6a94\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "He downloaded a new program.",
-    "zh": "他下載了一個新的程式。",
-    "cat": "科技"
+    "zh": "\u4ed6\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "He downloaded a new browser.",
-    "zh": "他下載了一個新的瀏覽器。",
-    "cat": "科技"
+    "zh": "\u4ed6\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u700f\u89bd\u5668\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "He downloaded a new driver.",
-    "zh": "他下載了一個新的驅動程式。",
-    "cat": "科技"
+    "zh": "\u4ed6\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u9a45\u52d5\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "He downloaded a new plugin.",
-    "zh": "他下載了一個新的擴充功能。",
-    "cat": "科技"
+    "zh": "\u4ed6\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u64f4\u5145\u529f\u80fd\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "He have to prepare for the exam.",
-    "zh": "他必須準備考試。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5fc5\u9808\u6e96\u5099\u8003\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "He have to prepare for the interview.",
-    "zh": "他必須準備面試。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5fc5\u9808\u6e96\u5099\u9762\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "He have to prepare for the presentation.",
-    "zh": "他必須準備簡報。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5fc5\u9808\u6e96\u5099\u7c21\u5831\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "He have to prepare for the test.",
-    "zh": "他必須準備測驗。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5fc5\u9808\u6e96\u5099\u6e2c\u9a57\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "He have to prepare for the project.",
-    "zh": "他必須準備專案。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5fc5\u9808\u6e96\u5099\u5c08\u6848\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "He have to prepare for the negotiation.",
-    "zh": "他必須準備談判。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5fc5\u9808\u6e96\u5099\u8ac7\u5224\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "He have to prepare for the audit.",
-    "zh": "他必須準備審計。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5fc5\u9808\u6e96\u5099\u5be9\u8a08\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "He have to prepare for the evaluation.",
-    "zh": "他必須準備評估。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5fc5\u9808\u6e96\u5099\u8a55\u4f30\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "She need to buy a new laptop.",
-    "zh": "她需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "She need to buy a new phone.",
-    "zh": "她需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "She need to buy a new shirt.",
-    "zh": "她需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "She need to buy a new bag.",
-    "zh": "她需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "She need to buy a new monitor.",
-    "zh": "她需要買一個新的螢幕。",
-    "cat": "購物"
+    "zh": "\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u87a2\u5e55\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "She need to buy a new mouse.",
-    "zh": "她需要買一個新的滑鼠。",
-    "cat": "購物"
+    "zh": "\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u6ed1\u9f20\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "She need to buy a new keyboard.",
-    "zh": "她需要買一個新的鍵盤。",
-    "cat": "購物"
+    "zh": "\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u9375\u76e4\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "She need to buy a new watch.",
-    "zh": "她需要買一個新的手錶。",
-    "cat": "購物"
+    "zh": "\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u9336\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "She will travel to Japan.",
-    "zh": "她將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u5979\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "She will travel to Korea.",
-    "zh": "她將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u5979\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "She will travel to America.",
-    "zh": "她將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u5979\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "She will travel to Europe.",
-    "zh": "她將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u5979\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "She will travel to Australia.",
-    "zh": "她將會去澳洲。",
-    "cat": "旅遊"
+    "zh": "\u5979\u5c07\u6703\u53bb\u6fb3\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "She will travel to Canada.",
-    "zh": "她將會去加拿大。",
-    "cat": "旅遊"
+    "zh": "\u5979\u5c07\u6703\u53bb\u52a0\u62ff\u5927\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "She will travel to Thailand.",
-    "zh": "她將會去泰國。",
-    "cat": "旅遊"
+    "zh": "\u5979\u5c07\u6703\u53bb\u6cf0\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "She will travel to Singapore.",
-    "zh": "她將會去新加坡。",
-    "cat": "旅遊"
+    "zh": "\u5979\u5c07\u6703\u53bb\u65b0\u52a0\u5761\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "She have a meeting with the manager.",
-    "zh": "她要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u5979\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "She have a meeting with the client.",
-    "zh": "她要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u5979\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "She have a meeting with the team.",
-    "zh": "她要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u5979\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "She have a meeting with the boss.",
-    "zh": "她要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u5979\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "She have a meeting with the investor.",
-    "zh": "她要和...開會投資人。",
-    "cat": "商業"
+    "zh": "\u5979\u8981\u548c...\u958b\u6703\u6295\u8cc7\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "She have a meeting with the partner.",
-    "zh": "她要和...開會合夥人。",
-    "cat": "商業"
+    "zh": "\u5979\u8981\u548c...\u958b\u6703\u5408\u5925\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "She have a meeting with the candidate.",
-    "zh": "她要和...開會應徵者。",
-    "cat": "商業"
+    "zh": "\u5979\u8981\u548c...\u958b\u6703\u61c9\u5fb5\u8005\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "She have a meeting with the director.",
-    "zh": "她要和...開會總監。",
-    "cat": "商業"
+    "zh": "\u5979\u8981\u548c...\u958b\u6703\u7e3d\u76e3\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "She feel very happy.",
-    "zh": "她覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u5979\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "She feel very sad.",
-    "zh": "她覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u5979\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "She feel very angry.",
-    "zh": "她覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u5979\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "She feel very nervous.",
-    "zh": "她覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u5979\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "She feel very excited.",
-    "zh": "她覺得非常興奮。",
-    "cat": "情緒"
+    "zh": "\u5979\u89ba\u5f97\u975e\u5e38\u8208\u596e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "She feel very tired.",
-    "zh": "她覺得非常疲倦。",
-    "cat": "情緒"
+    "zh": "\u5979\u89ba\u5f97\u975e\u5e38\u75b2\u5026\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "She feel very bored.",
-    "zh": "她覺得非常無聊。",
-    "cat": "情緒"
+    "zh": "\u5979\u89ba\u5f97\u975e\u5e38\u7121\u804a\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "She feel very anxious.",
-    "zh": "她覺得非常焦慮。",
-    "cat": "情緒"
+    "zh": "\u5979\u89ba\u5f97\u975e\u5e38\u7126\u616e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "She went to the hospital because of a headache.",
-    "zh": "她去醫院因為頭痛。",
-    "cat": "醫療"
+    "zh": "\u5979\u53bb\u91ab\u9662\u56e0\u70ba\u982d\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "She went to the hospital because of a fever.",
-    "zh": "她去醫院因為發燒。",
-    "cat": "醫療"
+    "zh": "\u5979\u53bb\u91ab\u9662\u56e0\u70ba\u767c\u71d2\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "She went to the hospital because of a cold.",
-    "zh": "她去醫院因為感冒。",
-    "cat": "醫療"
+    "zh": "\u5979\u53bb\u91ab\u9662\u56e0\u70ba\u611f\u5192\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "She went to the hospital because of a stomachache.",
-    "zh": "她去醫院因為胃痛。",
-    "cat": "醫療"
+    "zh": "\u5979\u53bb\u91ab\u9662\u56e0\u70ba\u80c3\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "She went to the hospital because of a cough.",
-    "zh": "她去醫院因為咳嗽。",
-    "cat": "醫療"
+    "zh": "\u5979\u53bb\u91ab\u9662\u56e0\u70ba\u54b3\u55fd\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "She went to the hospital because of a sore throat.",
-    "zh": "她去醫院因為喉嚨痛。",
-    "cat": "醫療"
+    "zh": "\u5979\u53bb\u91ab\u9662\u56e0\u70ba\u5589\u56a8\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "She went to the hospital because of a toothache.",
-    "zh": "她去醫院因為牙痛。",
-    "cat": "醫療"
+    "zh": "\u5979\u53bb\u91ab\u9662\u56e0\u70ba\u7259\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "She went to the hospital because of a backache.",
-    "zh": "她去醫院因為背痛。",
-    "cat": "醫療"
+    "zh": "\u5979\u53bb\u91ab\u9662\u56e0\u70ba\u80cc\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "She want to learn how to play basketball.",
-    "zh": "她想學如何打籃球。",
-    "cat": "運動"
+    "zh": "\u5979\u60f3\u5b78\u5982\u4f55\u6253\u7c43\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "She want to learn how to play baseball.",
-    "zh": "她想學如何打棒球。",
-    "cat": "運動"
+    "zh": "\u5979\u60f3\u5b78\u5982\u4f55\u6253\u68d2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "She want to learn how to play tennis.",
-    "zh": "她想學如何打網球。",
-    "cat": "運動"
+    "zh": "\u5979\u60f3\u5b78\u5982\u4f55\u6253\u7db2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "She want to learn how to play soccer.",
-    "zh": "她想學如何打足球。",
-    "cat": "運動"
+    "zh": "\u5979\u60f3\u5b78\u5982\u4f55\u6253\u8db3\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "She want to learn how to play golf.",
-    "zh": "她想學如何打高爾夫。",
-    "cat": "運動"
+    "zh": "\u5979\u60f3\u5b78\u5982\u4f55\u6253\u9ad8\u723e\u592b\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "She want to learn how to play volleyball.",
-    "zh": "她想學如何打排球。",
-    "cat": "運動"
+    "zh": "\u5979\u60f3\u5b78\u5982\u4f55\u6253\u6392\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "She want to learn how to play badminton.",
-    "zh": "她想學如何打羽毛球。",
-    "cat": "運動"
+    "zh": "\u5979\u60f3\u5b78\u5982\u4f55\u6253\u7fbd\u6bdb\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "She want to learn how to play table tennis.",
-    "zh": "她想學如何打桌球。",
-    "cat": "運動"
+    "zh": "\u5979\u60f3\u5b78\u5982\u4f55\u6253\u684c\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "She downloaded a new app.",
-    "zh": "她下載了一個新的應用程式。",
-    "cat": "科技"
+    "zh": "\u5979\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u61c9\u7528\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "She downloaded a new software.",
-    "zh": "她下載了一個新的軟體。",
-    "cat": "科技"
+    "zh": "\u5979\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u8edf\u9ad4\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "She downloaded a new game.",
-    "zh": "她下載了一個新的遊戲。",
-    "cat": "科技"
+    "zh": "\u5979\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u904a\u6232\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "She downloaded a new update.",
-    "zh": "她下載了一個新的更新檔。",
-    "cat": "科技"
+    "zh": "\u5979\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u66f4\u65b0\u6a94\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "She downloaded a new program.",
-    "zh": "她下載了一個新的程式。",
-    "cat": "科技"
+    "zh": "\u5979\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "She downloaded a new browser.",
-    "zh": "她下載了一個新的瀏覽器。",
-    "cat": "科技"
+    "zh": "\u5979\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u700f\u89bd\u5668\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "She downloaded a new driver.",
-    "zh": "她下載了一個新的驅動程式。",
-    "cat": "科技"
+    "zh": "\u5979\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u9a45\u52d5\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "She downloaded a new plugin.",
-    "zh": "她下載了一個新的擴充功能。",
-    "cat": "科技"
+    "zh": "\u5979\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u64f4\u5145\u529f\u80fd\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "She have to prepare for the exam.",
-    "zh": "她必須準備考試。",
-    "cat": "多益必考"
+    "zh": "\u5979\u5fc5\u9808\u6e96\u5099\u8003\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "She have to prepare for the interview.",
-    "zh": "她必須準備面試。",
-    "cat": "多益必考"
+    "zh": "\u5979\u5fc5\u9808\u6e96\u5099\u9762\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "She have to prepare for the presentation.",
-    "zh": "她必須準備簡報。",
-    "cat": "多益必考"
+    "zh": "\u5979\u5fc5\u9808\u6e96\u5099\u7c21\u5831\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "She have to prepare for the test.",
-    "zh": "她必須準備測驗。",
-    "cat": "多益必考"
+    "zh": "\u5979\u5fc5\u9808\u6e96\u5099\u6e2c\u9a57\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "She have to prepare for the project.",
-    "zh": "她必須準備專案。",
-    "cat": "多益必考"
+    "zh": "\u5979\u5fc5\u9808\u6e96\u5099\u5c08\u6848\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "She have to prepare for the negotiation.",
-    "zh": "她必須準備談判。",
-    "cat": "多益必考"
+    "zh": "\u5979\u5fc5\u9808\u6e96\u5099\u8ac7\u5224\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "She have to prepare for the audit.",
-    "zh": "她必須準備審計。",
-    "cat": "多益必考"
+    "zh": "\u5979\u5fc5\u9808\u6e96\u5099\u5be9\u8a08\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "She have to prepare for the evaluation.",
-    "zh": "她必須準備評估。",
-    "cat": "多益必考"
+    "zh": "\u5979\u5fc5\u9808\u6e96\u5099\u8a55\u4f30\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We need to buy a new laptop.",
-    "zh": "我們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "We need to buy a new phone.",
-    "zh": "我們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "We need to buy a new shirt.",
-    "zh": "我們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "We need to buy a new bag.",
-    "zh": "我們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "We need to buy a new monitor.",
-    "zh": "我們需要買一個新的螢幕。",
-    "cat": "購物"
+    "zh": "\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u87a2\u5e55\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "We need to buy a new mouse.",
-    "zh": "我們需要買一個新的滑鼠。",
-    "cat": "購物"
+    "zh": "\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u6ed1\u9f20\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "We need to buy a new keyboard.",
-    "zh": "我們需要買一個新的鍵盤。",
-    "cat": "購物"
+    "zh": "\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u9375\u76e4\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "We need to buy a new watch.",
-    "zh": "我們需要買一個新的手錶。",
-    "cat": "購物"
+    "zh": "\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u9336\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "We will travel to Japan.",
-    "zh": "我們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "We will travel to Korea.",
-    "zh": "我們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "We will travel to America.",
-    "zh": "我們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "We will travel to Europe.",
-    "zh": "我們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "We will travel to Australia.",
-    "zh": "我們將會去澳洲。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5011\u5c07\u6703\u53bb\u6fb3\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "We will travel to Canada.",
-    "zh": "我們將會去加拿大。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5011\u5c07\u6703\u53bb\u52a0\u62ff\u5927\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "We will travel to Thailand.",
-    "zh": "我們將會去泰國。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5011\u5c07\u6703\u53bb\u6cf0\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "We will travel to Singapore.",
-    "zh": "我們將會去新加坡。",
-    "cat": "旅遊"
+    "zh": "\u6211\u5011\u5c07\u6703\u53bb\u65b0\u52a0\u5761\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "We have a meeting with the manager.",
-    "zh": "我們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u6211\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "We have a meeting with the client.",
-    "zh": "我們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u6211\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "We have a meeting with the team.",
-    "zh": "我們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u6211\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "We have a meeting with the boss.",
-    "zh": "我們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u6211\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "We have a meeting with the investor.",
-    "zh": "我們要和...開會投資人。",
-    "cat": "商業"
+    "zh": "\u6211\u5011\u8981\u548c...\u958b\u6703\u6295\u8cc7\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "We have a meeting with the partner.",
-    "zh": "我們要和...開會合夥人。",
-    "cat": "商業"
+    "zh": "\u6211\u5011\u8981\u548c...\u958b\u6703\u5408\u5925\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "We have a meeting with the candidate.",
-    "zh": "我們要和...開會應徵者。",
-    "cat": "商業"
+    "zh": "\u6211\u5011\u8981\u548c...\u958b\u6703\u61c9\u5fb5\u8005\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "We have a meeting with the director.",
-    "zh": "我們要和...開會總監。",
-    "cat": "商業"
+    "zh": "\u6211\u5011\u8981\u548c...\u958b\u6703\u7e3d\u76e3\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "We feel very happy.",
-    "zh": "我們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u6211\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "We feel very sad.",
-    "zh": "我們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u6211\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "We feel very angry.",
-    "zh": "我們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u6211\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "We feel very nervous.",
-    "zh": "我們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "We feel very excited.",
-    "zh": "我們覺得非常興奮。",
-    "cat": "情緒"
+    "zh": "\u6211\u5011\u89ba\u5f97\u975e\u5e38\u8208\u596e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "We feel very tired.",
-    "zh": "我們覺得非常疲倦。",
-    "cat": "情緒"
+    "zh": "\u6211\u5011\u89ba\u5f97\u975e\u5e38\u75b2\u5026\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "We feel very bored.",
-    "zh": "我們覺得非常無聊。",
-    "cat": "情緒"
+    "zh": "\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7121\u804a\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "We feel very anxious.",
-    "zh": "我們覺得非常焦慮。",
-    "cat": "情緒"
+    "zh": "\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7126\u616e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "We went to the hospital because of a headache.",
-    "zh": "我們去醫院因為頭痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u982d\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "We went to the hospital because of a fever.",
-    "zh": "我們去醫院因為發燒。",
-    "cat": "醫療"
+    "zh": "\u6211\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u767c\u71d2\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "We went to the hospital because of a cold.",
-    "zh": "我們去醫院因為感冒。",
-    "cat": "醫療"
+    "zh": "\u6211\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u611f\u5192\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "We went to the hospital because of a stomachache.",
-    "zh": "我們去醫院因為胃痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u80c3\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "We went to the hospital because of a cough.",
-    "zh": "我們去醫院因為咳嗽。",
-    "cat": "醫療"
+    "zh": "\u6211\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u54b3\u55fd\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "We went to the hospital because of a sore throat.",
-    "zh": "我們去醫院因為喉嚨痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u5589\u56a8\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "We went to the hospital because of a toothache.",
-    "zh": "我們去醫院因為牙痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u7259\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "We went to the hospital because of a backache.",
-    "zh": "我們去醫院因為背痛。",
-    "cat": "醫療"
+    "zh": "\u6211\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u80cc\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "We want to learn how to play basketball.",
-    "zh": "我們想學如何打籃球。",
-    "cat": "運動"
+    "zh": "\u6211\u5011\u60f3\u5b78\u5982\u4f55\u6253\u7c43\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "We want to learn how to play baseball.",
-    "zh": "我們想學如何打棒球。",
-    "cat": "運動"
+    "zh": "\u6211\u5011\u60f3\u5b78\u5982\u4f55\u6253\u68d2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "We want to learn how to play tennis.",
-    "zh": "我們想學如何打網球。",
-    "cat": "運動"
+    "zh": "\u6211\u5011\u60f3\u5b78\u5982\u4f55\u6253\u7db2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "We want to learn how to play soccer.",
-    "zh": "我們想學如何打足球。",
-    "cat": "運動"
+    "zh": "\u6211\u5011\u60f3\u5b78\u5982\u4f55\u6253\u8db3\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "We want to learn how to play golf.",
-    "zh": "我們想學如何打高爾夫。",
-    "cat": "運動"
+    "zh": "\u6211\u5011\u60f3\u5b78\u5982\u4f55\u6253\u9ad8\u723e\u592b\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "We want to learn how to play volleyball.",
-    "zh": "我們想學如何打排球。",
-    "cat": "運動"
+    "zh": "\u6211\u5011\u60f3\u5b78\u5982\u4f55\u6253\u6392\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "We want to learn how to play badminton.",
-    "zh": "我們想學如何打羽毛球。",
-    "cat": "運動"
+    "zh": "\u6211\u5011\u60f3\u5b78\u5982\u4f55\u6253\u7fbd\u6bdb\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "We want to learn how to play table tennis.",
-    "zh": "我們想學如何打桌球。",
-    "cat": "運動"
+    "zh": "\u6211\u5011\u60f3\u5b78\u5982\u4f55\u6253\u684c\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "We downloaded a new app.",
-    "zh": "我們下載了一個新的應用程式。",
-    "cat": "科技"
+    "zh": "\u6211\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u61c9\u7528\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "We downloaded a new software.",
-    "zh": "我們下載了一個新的軟體。",
-    "cat": "科技"
+    "zh": "\u6211\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u8edf\u9ad4\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "We downloaded a new game.",
-    "zh": "我們下載了一個新的遊戲。",
-    "cat": "科技"
+    "zh": "\u6211\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u904a\u6232\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "We downloaded a new update.",
-    "zh": "我們下載了一個新的更新檔。",
-    "cat": "科技"
+    "zh": "\u6211\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u66f4\u65b0\u6a94\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "We downloaded a new program.",
-    "zh": "我們下載了一個新的程式。",
-    "cat": "科技"
+    "zh": "\u6211\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "We downloaded a new browser.",
-    "zh": "我們下載了一個新的瀏覽器。",
-    "cat": "科技"
+    "zh": "\u6211\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u700f\u89bd\u5668\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "We downloaded a new driver.",
-    "zh": "我們下載了一個新的驅動程式。",
-    "cat": "科技"
+    "zh": "\u6211\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u9a45\u52d5\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "We downloaded a new plugin.",
-    "zh": "我們下載了一個新的擴充功能。",
-    "cat": "科技"
+    "zh": "\u6211\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u64f4\u5145\u529f\u80fd\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "We have to prepare for the exam.",
-    "zh": "我們必須準備考試。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u5fc5\u9808\u6e96\u5099\u8003\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We have to prepare for the interview.",
-    "zh": "我們必須準備面試。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u5fc5\u9808\u6e96\u5099\u9762\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We have to prepare for the presentation.",
-    "zh": "我們必須準備簡報。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u5fc5\u9808\u6e96\u5099\u7c21\u5831\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We have to prepare for the test.",
-    "zh": "我們必須準備測驗。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u5fc5\u9808\u6e96\u5099\u6e2c\u9a57\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We have to prepare for the project.",
-    "zh": "我們必須準備專案。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u5fc5\u9808\u6e96\u5099\u5c08\u6848\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We have to prepare for the negotiation.",
-    "zh": "我們必須準備談判。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u5fc5\u9808\u6e96\u5099\u8ac7\u5224\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We have to prepare for the audit.",
-    "zh": "我們必須準備審計。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u5fc5\u9808\u6e96\u5099\u5be9\u8a08\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We have to prepare for the evaluation.",
-    "zh": "我們必須準備評估。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u5fc5\u9808\u6e96\u5099\u8a55\u4f30\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "They need to buy a new laptop.",
-    "zh": "他們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "They need to buy a new phone.",
-    "zh": "他們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "They need to buy a new shirt.",
-    "zh": "他們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "They need to buy a new bag.",
-    "zh": "他們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "They need to buy a new monitor.",
-    "zh": "他們需要買一個新的螢幕。",
-    "cat": "購物"
+    "zh": "\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u87a2\u5e55\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "They need to buy a new mouse.",
-    "zh": "他們需要買一個新的滑鼠。",
-    "cat": "購物"
+    "zh": "\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u6ed1\u9f20\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "They need to buy a new keyboard.",
-    "zh": "他們需要買一個新的鍵盤。",
-    "cat": "購物"
+    "zh": "\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u9375\u76e4\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "They need to buy a new watch.",
-    "zh": "他們需要買一個新的手錶。",
-    "cat": "購物"
+    "zh": "\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u9336\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "They will travel to Japan.",
-    "zh": "他們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "They will travel to Korea.",
-    "zh": "他們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "They will travel to America.",
-    "zh": "他們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "They will travel to Europe.",
-    "zh": "他們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "They will travel to Australia.",
-    "zh": "他們將會去澳洲。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5011\u5c07\u6703\u53bb\u6fb3\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "They will travel to Canada.",
-    "zh": "他們將會去加拿大。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5011\u5c07\u6703\u53bb\u52a0\u62ff\u5927\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "They will travel to Thailand.",
-    "zh": "他們將會去泰國。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5011\u5c07\u6703\u53bb\u6cf0\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "They will travel to Singapore.",
-    "zh": "他們將會去新加坡。",
-    "cat": "旅遊"
+    "zh": "\u4ed6\u5011\u5c07\u6703\u53bb\u65b0\u52a0\u5761\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "They have a meeting with the manager.",
-    "zh": "他們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4ed6\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "They have a meeting with the client.",
-    "zh": "他們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "They have a meeting with the team.",
-    "zh": "他們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "They have a meeting with the boss.",
-    "zh": "他們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4ed6\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "They have a meeting with the investor.",
-    "zh": "他們要和...開會投資人。",
-    "cat": "商業"
+    "zh": "\u4ed6\u5011\u8981\u548c...\u958b\u6703\u6295\u8cc7\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "They have a meeting with the partner.",
-    "zh": "他們要和...開會合夥人。",
-    "cat": "商業"
+    "zh": "\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5408\u5925\u4eba\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "They have a meeting with the candidate.",
-    "zh": "他們要和...開會應徵者。",
-    "cat": "商業"
+    "zh": "\u4ed6\u5011\u8981\u548c...\u958b\u6703\u61c9\u5fb5\u8005\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "They have a meeting with the director.",
-    "zh": "他們要和...開會總監。",
-    "cat": "商業"
+    "zh": "\u4ed6\u5011\u8981\u548c...\u958b\u6703\u7e3d\u76e3\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "They feel very happy.",
-    "zh": "他們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "They feel very sad.",
-    "zh": "他們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "They feel very angry.",
-    "zh": "他們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "They feel very nervous.",
-    "zh": "他們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "They feel very excited.",
-    "zh": "他們覺得非常興奮。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u8208\u596e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "They feel very tired.",
-    "zh": "他們覺得非常疲倦。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u75b2\u5026\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "They feel very bored.",
-    "zh": "他們覺得非常無聊。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7121\u804a\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "They feel very anxious.",
-    "zh": "他們覺得非常焦慮。",
-    "cat": "情緒"
+    "zh": "\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7126\u616e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "They went to the hospital because of a headache.",
-    "zh": "他們去醫院因為頭痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u982d\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "They went to the hospital because of a fever.",
-    "zh": "他們去醫院因為發燒。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u767c\u71d2\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "They went to the hospital because of a cold.",
-    "zh": "他們去醫院因為感冒。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u611f\u5192\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "They went to the hospital because of a stomachache.",
-    "zh": "他們去醫院因為胃痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u80c3\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "They went to the hospital because of a cough.",
-    "zh": "他們去醫院因為咳嗽。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u54b3\u55fd\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "They went to the hospital because of a sore throat.",
-    "zh": "他們去醫院因為喉嚨痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u5589\u56a8\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "They went to the hospital because of a toothache.",
-    "zh": "他們去醫院因為牙痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u7259\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "They went to the hospital because of a backache.",
-    "zh": "他們去醫院因為背痛。",
-    "cat": "醫療"
+    "zh": "\u4ed6\u5011\u53bb\u91ab\u9662\u56e0\u70ba\u80cc\u75db\u3002",
+    "cat": "\u91ab\u7642"
   },
   {
     "en": "They want to learn how to play basketball.",
-    "zh": "他們想學如何打籃球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u5011\u60f3\u5b78\u5982\u4f55\u6253\u7c43\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "They want to learn how to play baseball.",
-    "zh": "他們想學如何打棒球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u5011\u60f3\u5b78\u5982\u4f55\u6253\u68d2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "They want to learn how to play tennis.",
-    "zh": "他們想學如何打網球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u5011\u60f3\u5b78\u5982\u4f55\u6253\u7db2\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "They want to learn how to play soccer.",
-    "zh": "他們想學如何打足球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u5011\u60f3\u5b78\u5982\u4f55\u6253\u8db3\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "They want to learn how to play golf.",
-    "zh": "他們想學如何打高爾夫。",
-    "cat": "運動"
+    "zh": "\u4ed6\u5011\u60f3\u5b78\u5982\u4f55\u6253\u9ad8\u723e\u592b\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "They want to learn how to play volleyball.",
-    "zh": "他們想學如何打排球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u5011\u60f3\u5b78\u5982\u4f55\u6253\u6392\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "They want to learn how to play badminton.",
-    "zh": "他們想學如何打羽毛球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u5011\u60f3\u5b78\u5982\u4f55\u6253\u7fbd\u6bdb\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "They want to learn how to play table tennis.",
-    "zh": "他們想學如何打桌球。",
-    "cat": "運動"
+    "zh": "\u4ed6\u5011\u60f3\u5b78\u5982\u4f55\u6253\u684c\u7403\u3002",
+    "cat": "\u904b\u52d5"
   },
   {
     "en": "They downloaded a new app.",
-    "zh": "他們下載了一個新的應用程式。",
-    "cat": "科技"
+    "zh": "\u4ed6\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u61c9\u7528\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "They downloaded a new software.",
-    "zh": "他們下載了一個新的軟體。",
-    "cat": "科技"
+    "zh": "\u4ed6\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u8edf\u9ad4\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "They downloaded a new game.",
-    "zh": "他們下載了一個新的遊戲。",
-    "cat": "科技"
+    "zh": "\u4ed6\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u904a\u6232\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "They downloaded a new update.",
-    "zh": "他們下載了一個新的更新檔。",
-    "cat": "科技"
+    "zh": "\u4ed6\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u66f4\u65b0\u6a94\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "They downloaded a new program.",
-    "zh": "他們下載了一個新的程式。",
-    "cat": "科技"
+    "zh": "\u4ed6\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "They downloaded a new browser.",
-    "zh": "他們下載了一個新的瀏覽器。",
-    "cat": "科技"
+    "zh": "\u4ed6\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u700f\u89bd\u5668\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "They downloaded a new driver.",
-    "zh": "他們下載了一個新的驅動程式。",
-    "cat": "科技"
+    "zh": "\u4ed6\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u9a45\u52d5\u7a0b\u5f0f\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "They downloaded a new plugin.",
-    "zh": "他們下載了一個新的擴充功能。",
-    "cat": "科技"
+    "zh": "\u4ed6\u5011\u4e0b\u8f09\u4e86\u4e00\u500b\u65b0\u7684\u64f4\u5145\u529f\u80fd\u3002",
+    "cat": "\u79d1\u6280"
   },
   {
     "en": "They have to prepare for the exam.",
-    "zh": "他們必須準備考試。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5011\u5fc5\u9808\u6e96\u5099\u8003\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "They have to prepare for the interview.",
-    "zh": "他們必須準備面試。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5011\u5fc5\u9808\u6e96\u5099\u9762\u8a66\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "They have to prepare for the presentation.",
-    "zh": "他們必須準備簡報。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5011\u5fc5\u9808\u6e96\u5099\u7c21\u5831\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "They have to prepare for the test.",
-    "zh": "他們必須準備測驗。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5011\u5fc5\u9808\u6e96\u5099\u6e2c\u9a57\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "They have to prepare for the project.",
-    "zh": "他們必須準備專案。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5011\u5fc5\u9808\u6e96\u5099\u5c08\u6848\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "They have to prepare for the negotiation.",
-    "zh": "他們必須準備談判。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5011\u5fc5\u9808\u6e96\u5099\u8ac7\u5224\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "They have to prepare for the audit.",
-    "zh": "他們必須準備審計。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5011\u5fc5\u9808\u6e96\u5099\u5be9\u8a08\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "They have to prepare for the evaluation.",
-    "zh": "他們必須準備評估。",
-    "cat": "多益必考"
+    "zh": "\u4ed6\u5011\u5fc5\u9808\u6e96\u5099\u8a55\u4f30\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "yesterday, I need to buy a new laptop.",
-    "zh": "昨天，我需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, I need to buy a new laptop.",
-    "zh": "今天，我需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, I need to buy a new laptop.",
-    "zh": "明天，我需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, I need to buy a new laptop.",
-    "zh": "下週，我需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, I need to buy a new laptop.",
-    "zh": "去年，我需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, I need to buy a new laptop.",
-    "zh": "早上，我需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, I need to buy a new laptop.",
-    "zh": "晚上，我需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, I need to buy a new phone.",
-    "zh": "昨天，我需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, I need to buy a new phone.",
-    "zh": "今天，我需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, I need to buy a new phone.",
-    "zh": "明天，我需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, I need to buy a new phone.",
-    "zh": "下週，我需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, I need to buy a new phone.",
-    "zh": "去年，我需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, I need to buy a new phone.",
-    "zh": "早上，我需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, I need to buy a new phone.",
-    "zh": "晚上，我需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, I need to buy a new shirt.",
-    "zh": "昨天，我需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, I need to buy a new shirt.",
-    "zh": "今天，我需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, I need to buy a new shirt.",
-    "zh": "明天，我需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, I need to buy a new shirt.",
-    "zh": "下週，我需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, I need to buy a new shirt.",
-    "zh": "去年，我需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, I need to buy a new shirt.",
-    "zh": "早上，我需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, I need to buy a new shirt.",
-    "zh": "晚上，我需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, I need to buy a new bag.",
-    "zh": "昨天，我需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, I need to buy a new bag.",
-    "zh": "今天，我需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, I need to buy a new bag.",
-    "zh": "明天，我需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, I need to buy a new bag.",
-    "zh": "下週，我需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, I need to buy a new bag.",
-    "zh": "去年，我需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, I need to buy a new bag.",
-    "zh": "早上，我需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, I need to buy a new bag.",
-    "zh": "晚上，我需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, I will travel to Japan.",
-    "zh": "昨天，我將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u6211\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, I will travel to Japan.",
-    "zh": "今天，我將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, I will travel to Japan.",
-    "zh": "明天，我將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u6211\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, I will travel to Japan.",
-    "zh": "下週，我將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, I will travel to Japan.",
-    "zh": "去年，我將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, I will travel to Japan.",
-    "zh": "早上，我將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, I will travel to Japan.",
-    "zh": "晚上，我將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, I will travel to Korea.",
-    "zh": "昨天，我將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u6211\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, I will travel to Korea.",
-    "zh": "今天，我將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, I will travel to Korea.",
-    "zh": "明天，我將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u6211\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, I will travel to Korea.",
-    "zh": "下週，我將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, I will travel to Korea.",
-    "zh": "去年，我將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, I will travel to Korea.",
-    "zh": "早上，我將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, I will travel to Korea.",
-    "zh": "晚上，我將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, I will travel to America.",
-    "zh": "昨天，我將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u6211\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, I will travel to America.",
-    "zh": "今天，我將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, I will travel to America.",
-    "zh": "明天，我將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u6211\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, I will travel to America.",
-    "zh": "下週，我將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, I will travel to America.",
-    "zh": "去年，我將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, I will travel to America.",
-    "zh": "早上，我將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, I will travel to America.",
-    "zh": "晚上，我將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, I will travel to Europe.",
-    "zh": "昨天，我將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u6211\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, I will travel to Europe.",
-    "zh": "今天，我將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, I will travel to Europe.",
-    "zh": "明天，我將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u6211\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, I will travel to Europe.",
-    "zh": "下週，我將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, I will travel to Europe.",
-    "zh": "去年，我將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, I will travel to Europe.",
-    "zh": "早上，我將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, I will travel to Europe.",
-    "zh": "晚上，我將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, I have a meeting with the manager.",
-    "zh": "昨天，我要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, I have a meeting with the manager.",
-    "zh": "今天，我要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, I have a meeting with the manager.",
-    "zh": "明天，我要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, I have a meeting with the manager.",
-    "zh": "下週，我要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, I have a meeting with the manager.",
-    "zh": "去年，我要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, I have a meeting with the manager.",
-    "zh": "早上，我要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, I have a meeting with the manager.",
-    "zh": "晚上，我要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, I have a meeting with the client.",
-    "zh": "昨天，我要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, I have a meeting with the client.",
-    "zh": "今天，我要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, I have a meeting with the client.",
-    "zh": "明天，我要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, I have a meeting with the client.",
-    "zh": "下週，我要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, I have a meeting with the client.",
-    "zh": "去年，我要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, I have a meeting with the client.",
-    "zh": "早上，我要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, I have a meeting with the client.",
-    "zh": "晚上，我要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, I have a meeting with the team.",
-    "zh": "昨天，我要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, I have a meeting with the team.",
-    "zh": "今天，我要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, I have a meeting with the team.",
-    "zh": "明天，我要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, I have a meeting with the team.",
-    "zh": "下週，我要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, I have a meeting with the team.",
-    "zh": "去年，我要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, I have a meeting with the team.",
-    "zh": "早上，我要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, I have a meeting with the team.",
-    "zh": "晚上，我要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, I have a meeting with the boss.",
-    "zh": "昨天，我要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, I have a meeting with the boss.",
-    "zh": "今天，我要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, I have a meeting with the boss.",
-    "zh": "明天，我要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u6211\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, I have a meeting with the boss.",
-    "zh": "下週，我要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, I have a meeting with the boss.",
-    "zh": "去年，我要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, I have a meeting with the boss.",
-    "zh": "早上，我要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, I have a meeting with the boss.",
-    "zh": "晚上，我要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, I feel very happy.",
-    "zh": "昨天，我覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, I feel very happy.",
-    "zh": "今天，我覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, I feel very happy.",
-    "zh": "明天，我覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, I feel very happy.",
-    "zh": "下週，我覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, I feel very happy.",
-    "zh": "去年，我覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, I feel very happy.",
-    "zh": "早上，我覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, I feel very happy.",
-    "zh": "晚上，我覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, I feel very sad.",
-    "zh": "昨天，我覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, I feel very sad.",
-    "zh": "今天，我覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, I feel very sad.",
-    "zh": "明天，我覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, I feel very sad.",
-    "zh": "下週，我覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, I feel very sad.",
-    "zh": "去年，我覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, I feel very sad.",
-    "zh": "早上，我覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, I feel very sad.",
-    "zh": "晚上，我覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, I feel very angry.",
-    "zh": "昨天，我覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, I feel very angry.",
-    "zh": "今天，我覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, I feel very angry.",
-    "zh": "明天，我覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, I feel very angry.",
-    "zh": "下週，我覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, I feel very angry.",
-    "zh": "去年，我覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, I feel very angry.",
-    "zh": "早上，我覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, I feel very angry.",
-    "zh": "晚上，我覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, I feel very nervous.",
-    "zh": "昨天，我覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, I feel very nervous.",
-    "zh": "今天，我覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, I feel very nervous.",
-    "zh": "明天，我覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, I feel very nervous.",
-    "zh": "下週，我覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, I feel very nervous.",
-    "zh": "去年，我覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, I feel very nervous.",
-    "zh": "早上，我覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, I feel very nervous.",
-    "zh": "晚上，我覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, You need to buy a new laptop.",
-    "zh": "昨天，你需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, You need to buy a new laptop.",
-    "zh": "今天，你需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, You need to buy a new laptop.",
-    "zh": "明天，你需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, You need to buy a new laptop.",
-    "zh": "下週，你需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, You need to buy a new laptop.",
-    "zh": "去年，你需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, You need to buy a new laptop.",
-    "zh": "早上，你需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, You need to buy a new laptop.",
-    "zh": "晚上，你需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, You need to buy a new phone.",
-    "zh": "昨天，你需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, You need to buy a new phone.",
-    "zh": "今天，你需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, You need to buy a new phone.",
-    "zh": "明天，你需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, You need to buy a new phone.",
-    "zh": "下週，你需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, You need to buy a new phone.",
-    "zh": "去年，你需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, You need to buy a new phone.",
-    "zh": "早上，你需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, You need to buy a new phone.",
-    "zh": "晚上，你需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, You need to buy a new shirt.",
-    "zh": "昨天，你需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, You need to buy a new shirt.",
-    "zh": "今天，你需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, You need to buy a new shirt.",
-    "zh": "明天，你需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, You need to buy a new shirt.",
-    "zh": "下週，你需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, You need to buy a new shirt.",
-    "zh": "去年，你需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, You need to buy a new shirt.",
-    "zh": "早上，你需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, You need to buy a new shirt.",
-    "zh": "晚上，你需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, You need to buy a new bag.",
-    "zh": "昨天，你需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, You need to buy a new bag.",
-    "zh": "今天，你需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, You need to buy a new bag.",
-    "zh": "明天，你需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, You need to buy a new bag.",
-    "zh": "下週，你需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, You need to buy a new bag.",
-    "zh": "去年，你需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, You need to buy a new bag.",
-    "zh": "早上，你需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, You need to buy a new bag.",
-    "zh": "晚上，你需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, You will travel to Japan.",
-    "zh": "昨天，你將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, You will travel to Japan.",
-    "zh": "今天，你將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, You will travel to Japan.",
-    "zh": "明天，你將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, You will travel to Japan.",
-    "zh": "下週，你將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, You will travel to Japan.",
-    "zh": "去年，你將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, You will travel to Japan.",
-    "zh": "早上，你將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, You will travel to Japan.",
-    "zh": "晚上，你將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, You will travel to Korea.",
-    "zh": "昨天，你將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, You will travel to Korea.",
-    "zh": "今天，你將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, You will travel to Korea.",
-    "zh": "明天，你將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, You will travel to Korea.",
-    "zh": "下週，你將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, You will travel to Korea.",
-    "zh": "去年，你將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, You will travel to Korea.",
-    "zh": "早上，你將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, You will travel to Korea.",
-    "zh": "晚上，你將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, You will travel to America.",
-    "zh": "昨天，你將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, You will travel to America.",
-    "zh": "今天，你將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, You will travel to America.",
-    "zh": "明天，你將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, You will travel to America.",
-    "zh": "下週，你將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, You will travel to America.",
-    "zh": "去年，你將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, You will travel to America.",
-    "zh": "早上，你將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, You will travel to America.",
-    "zh": "晚上，你將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, You will travel to Europe.",
-    "zh": "昨天，你將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, You will travel to Europe.",
-    "zh": "今天，你將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, You will travel to Europe.",
-    "zh": "明天，你將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4f60\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, You will travel to Europe.",
-    "zh": "下週，你將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, You will travel to Europe.",
-    "zh": "去年，你將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, You will travel to Europe.",
-    "zh": "早上，你將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, You will travel to Europe.",
-    "zh": "晚上，你將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, You have a meeting with the manager.",
-    "zh": "昨天，你要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, You have a meeting with the manager.",
-    "zh": "今天，你要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, You have a meeting with the manager.",
-    "zh": "明天，你要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, You have a meeting with the manager.",
-    "zh": "下週，你要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, You have a meeting with the manager.",
-    "zh": "去年，你要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, You have a meeting with the manager.",
-    "zh": "早上，你要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, You have a meeting with the manager.",
-    "zh": "晚上，你要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, You have a meeting with the client.",
-    "zh": "昨天，你要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, You have a meeting with the client.",
-    "zh": "今天，你要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, You have a meeting with the client.",
-    "zh": "明天，你要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, You have a meeting with the client.",
-    "zh": "下週，你要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, You have a meeting with the client.",
-    "zh": "去年，你要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, You have a meeting with the client.",
-    "zh": "早上，你要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, You have a meeting with the client.",
-    "zh": "晚上，你要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, You have a meeting with the team.",
-    "zh": "昨天，你要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, You have a meeting with the team.",
-    "zh": "今天，你要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, You have a meeting with the team.",
-    "zh": "明天，你要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, You have a meeting with the team.",
-    "zh": "下週，你要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, You have a meeting with the team.",
-    "zh": "去年，你要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, You have a meeting with the team.",
-    "zh": "早上，你要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, You have a meeting with the team.",
-    "zh": "晚上，你要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, You have a meeting with the boss.",
-    "zh": "昨天，你要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, You have a meeting with the boss.",
-    "zh": "今天，你要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, You have a meeting with the boss.",
-    "zh": "明天，你要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4f60\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, You have a meeting with the boss.",
-    "zh": "下週，你要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, You have a meeting with the boss.",
-    "zh": "去年，你要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, You have a meeting with the boss.",
-    "zh": "早上，你要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, You have a meeting with the boss.",
-    "zh": "晚上，你要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, You feel very happy.",
-    "zh": "昨天，你覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, You feel very happy.",
-    "zh": "今天，你覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, You feel very happy.",
-    "zh": "明天，你覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, You feel very happy.",
-    "zh": "下週，你覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, You feel very happy.",
-    "zh": "去年，你覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, You feel very happy.",
-    "zh": "早上，你覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, You feel very happy.",
-    "zh": "晚上，你覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, You feel very sad.",
-    "zh": "昨天，你覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, You feel very sad.",
-    "zh": "今天，你覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, You feel very sad.",
-    "zh": "明天，你覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, You feel very sad.",
-    "zh": "下週，你覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, You feel very sad.",
-    "zh": "去年，你覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, You feel very sad.",
-    "zh": "早上，你覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, You feel very sad.",
-    "zh": "晚上，你覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, You feel very angry.",
-    "zh": "昨天，你覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, You feel very angry.",
-    "zh": "今天，你覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, You feel very angry.",
-    "zh": "明天，你覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, You feel very angry.",
-    "zh": "下週，你覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, You feel very angry.",
-    "zh": "去年，你覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, You feel very angry.",
-    "zh": "早上，你覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, You feel very angry.",
-    "zh": "晚上，你覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, You feel very nervous.",
-    "zh": "昨天，你覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, You feel very nervous.",
-    "zh": "今天，你覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, You feel very nervous.",
-    "zh": "明天，你覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, You feel very nervous.",
-    "zh": "下週，你覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, You feel very nervous.",
-    "zh": "去年，你覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, You feel very nervous.",
-    "zh": "早上，你覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, You feel very nervous.",
-    "zh": "晚上，你覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4f60\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, He need to buy a new laptop.",
-    "zh": "昨天，他需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, He need to buy a new laptop.",
-    "zh": "今天，他需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, He need to buy a new laptop.",
-    "zh": "明天，他需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, He need to buy a new laptop.",
-    "zh": "下週，他需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, He need to buy a new laptop.",
-    "zh": "去年，他需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, He need to buy a new laptop.",
-    "zh": "早上，他需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, He need to buy a new laptop.",
-    "zh": "晚上，他需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, He need to buy a new phone.",
-    "zh": "昨天，他需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, He need to buy a new phone.",
-    "zh": "今天，他需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, He need to buy a new phone.",
-    "zh": "明天，他需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, He need to buy a new phone.",
-    "zh": "下週，他需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, He need to buy a new phone.",
-    "zh": "去年，他需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, He need to buy a new phone.",
-    "zh": "早上，他需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, He need to buy a new phone.",
-    "zh": "晚上，他需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, He need to buy a new shirt.",
-    "zh": "昨天，他需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, He need to buy a new shirt.",
-    "zh": "今天，他需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, He need to buy a new shirt.",
-    "zh": "明天，他需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, He need to buy a new shirt.",
-    "zh": "下週，他需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, He need to buy a new shirt.",
-    "zh": "去年，他需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, He need to buy a new shirt.",
-    "zh": "早上，他需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, He need to buy a new shirt.",
-    "zh": "晚上，他需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, He need to buy a new bag.",
-    "zh": "昨天，他需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, He need to buy a new bag.",
-    "zh": "今天，他需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, He need to buy a new bag.",
-    "zh": "明天，他需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, He need to buy a new bag.",
-    "zh": "下週，他需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, He need to buy a new bag.",
-    "zh": "去年，他需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, He need to buy a new bag.",
-    "zh": "早上，他需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, He need to buy a new bag.",
-    "zh": "晚上，他需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, He will travel to Japan.",
-    "zh": "昨天，他將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, He will travel to Japan.",
-    "zh": "今天，他將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, He will travel to Japan.",
-    "zh": "明天，他將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, He will travel to Japan.",
-    "zh": "下週，他將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, He will travel to Japan.",
-    "zh": "去年，他將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, He will travel to Japan.",
-    "zh": "早上，他將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, He will travel to Japan.",
-    "zh": "晚上，他將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, He will travel to Korea.",
-    "zh": "昨天，他將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, He will travel to Korea.",
-    "zh": "今天，他將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, He will travel to Korea.",
-    "zh": "明天，他將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, He will travel to Korea.",
-    "zh": "下週，他將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, He will travel to Korea.",
-    "zh": "去年，他將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, He will travel to Korea.",
-    "zh": "早上，他將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, He will travel to Korea.",
-    "zh": "晚上，他將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, He will travel to America.",
-    "zh": "昨天，他將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, He will travel to America.",
-    "zh": "今天，他將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, He will travel to America.",
-    "zh": "明天，他將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, He will travel to America.",
-    "zh": "下週，他將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, He will travel to America.",
-    "zh": "去年，他將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, He will travel to America.",
-    "zh": "早上，他將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, He will travel to America.",
-    "zh": "晚上，他將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, He will travel to Europe.",
-    "zh": "昨天，他將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, He will travel to Europe.",
-    "zh": "今天，他將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, He will travel to Europe.",
-    "zh": "明天，他將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, He will travel to Europe.",
-    "zh": "下週，他將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, He will travel to Europe.",
-    "zh": "去年，他將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, He will travel to Europe.",
-    "zh": "早上，他將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, He will travel to Europe.",
-    "zh": "晚上，他將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, He have a meeting with the manager.",
-    "zh": "昨天，他要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, He have a meeting with the manager.",
-    "zh": "今天，他要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, He have a meeting with the manager.",
-    "zh": "明天，他要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, He have a meeting with the manager.",
-    "zh": "下週，他要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, He have a meeting with the manager.",
-    "zh": "去年，他要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, He have a meeting with the manager.",
-    "zh": "早上，他要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, He have a meeting with the manager.",
-    "zh": "晚上，他要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, He have a meeting with the client.",
-    "zh": "昨天，他要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, He have a meeting with the client.",
-    "zh": "今天，他要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, He have a meeting with the client.",
-    "zh": "明天，他要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, He have a meeting with the client.",
-    "zh": "下週，他要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, He have a meeting with the client.",
-    "zh": "去年，他要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, He have a meeting with the client.",
-    "zh": "早上，他要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, He have a meeting with the client.",
-    "zh": "晚上，他要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, He have a meeting with the team.",
-    "zh": "昨天，他要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, He have a meeting with the team.",
-    "zh": "今天，他要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, He have a meeting with the team.",
-    "zh": "明天，他要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, He have a meeting with the team.",
-    "zh": "下週，他要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, He have a meeting with the team.",
-    "zh": "去年，他要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, He have a meeting with the team.",
-    "zh": "早上，他要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, He have a meeting with the team.",
-    "zh": "晚上，他要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, He have a meeting with the boss.",
-    "zh": "昨天，他要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, He have a meeting with the boss.",
-    "zh": "今天，他要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, He have a meeting with the boss.",
-    "zh": "明天，他要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, He have a meeting with the boss.",
-    "zh": "下週，他要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, He have a meeting with the boss.",
-    "zh": "去年，他要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, He have a meeting with the boss.",
-    "zh": "早上，他要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, He have a meeting with the boss.",
-    "zh": "晚上，他要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, He feel very happy.",
-    "zh": "昨天，他覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, He feel very happy.",
-    "zh": "今天，他覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, He feel very happy.",
-    "zh": "明天，他覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, He feel very happy.",
-    "zh": "下週，他覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, He feel very happy.",
-    "zh": "去年，他覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, He feel very happy.",
-    "zh": "早上，他覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, He feel very happy.",
-    "zh": "晚上，他覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, He feel very sad.",
-    "zh": "昨天，他覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, He feel very sad.",
-    "zh": "今天，他覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, He feel very sad.",
-    "zh": "明天，他覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, He feel very sad.",
-    "zh": "下週，他覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, He feel very sad.",
-    "zh": "去年，他覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, He feel very sad.",
-    "zh": "早上，他覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, He feel very sad.",
-    "zh": "晚上，他覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, He feel very angry.",
-    "zh": "昨天，他覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, He feel very angry.",
-    "zh": "今天，他覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, He feel very angry.",
-    "zh": "明天，他覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, He feel very angry.",
-    "zh": "下週，他覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, He feel very angry.",
-    "zh": "去年，他覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, He feel very angry.",
-    "zh": "早上，他覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, He feel very angry.",
-    "zh": "晚上，他覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, He feel very nervous.",
-    "zh": "昨天，他覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, He feel very nervous.",
-    "zh": "今天，他覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, He feel very nervous.",
-    "zh": "明天，他覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, He feel very nervous.",
-    "zh": "下週，他覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, He feel very nervous.",
-    "zh": "去年，他覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, He feel very nervous.",
-    "zh": "早上，他覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, He feel very nervous.",
-    "zh": "晚上，他覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, She need to buy a new laptop.",
-    "zh": "昨天，她需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, She need to buy a new laptop.",
-    "zh": "今天，她需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, She need to buy a new laptop.",
-    "zh": "明天，她需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, She need to buy a new laptop.",
-    "zh": "下週，她需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, She need to buy a new laptop.",
-    "zh": "去年，她需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, She need to buy a new laptop.",
-    "zh": "早上，她需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, She need to buy a new laptop.",
-    "zh": "晚上，她需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, She need to buy a new phone.",
-    "zh": "昨天，她需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, She need to buy a new phone.",
-    "zh": "今天，她需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, She need to buy a new phone.",
-    "zh": "明天，她需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, She need to buy a new phone.",
-    "zh": "下週，她需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, She need to buy a new phone.",
-    "zh": "去年，她需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, She need to buy a new phone.",
-    "zh": "早上，她需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, She need to buy a new phone.",
-    "zh": "晚上，她需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, She need to buy a new shirt.",
-    "zh": "昨天，她需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, She need to buy a new shirt.",
-    "zh": "今天，她需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, She need to buy a new shirt.",
-    "zh": "明天，她需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, She need to buy a new shirt.",
-    "zh": "下週，她需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, She need to buy a new shirt.",
-    "zh": "去年，她需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, She need to buy a new shirt.",
-    "zh": "早上，她需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, She need to buy a new shirt.",
-    "zh": "晚上，她需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, She need to buy a new bag.",
-    "zh": "昨天，她需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, She need to buy a new bag.",
-    "zh": "今天，她需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, She need to buy a new bag.",
-    "zh": "明天，她需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, She need to buy a new bag.",
-    "zh": "下週，她需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, She need to buy a new bag.",
-    "zh": "去年，她需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, She need to buy a new bag.",
-    "zh": "早上，她需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, She need to buy a new bag.",
-    "zh": "晚上，她需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, She will travel to Japan.",
-    "zh": "昨天，她將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u5979\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, She will travel to Japan.",
-    "zh": "今天，她將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u5979\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, She will travel to Japan.",
-    "zh": "明天，她將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u5979\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, She will travel to Japan.",
-    "zh": "下週，她將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, She will travel to Japan.",
-    "zh": "去年，她將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, She will travel to Japan.",
-    "zh": "早上，她將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, She will travel to Japan.",
-    "zh": "晚上，她將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, She will travel to Korea.",
-    "zh": "昨天，她將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u5979\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, She will travel to Korea.",
-    "zh": "今天，她將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u5979\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, She will travel to Korea.",
-    "zh": "明天，她將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u5979\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, She will travel to Korea.",
-    "zh": "下週，她將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, She will travel to Korea.",
-    "zh": "去年，她將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, She will travel to Korea.",
-    "zh": "早上，她將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, She will travel to Korea.",
-    "zh": "晚上，她將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, She will travel to America.",
-    "zh": "昨天，她將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u5979\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, She will travel to America.",
-    "zh": "今天，她將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u5979\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, She will travel to America.",
-    "zh": "明天，她將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u5979\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, She will travel to America.",
-    "zh": "下週，她將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, She will travel to America.",
-    "zh": "去年，她將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, She will travel to America.",
-    "zh": "早上，她將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, She will travel to America.",
-    "zh": "晚上，她將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, She will travel to Europe.",
-    "zh": "昨天，她將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u5979\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, She will travel to Europe.",
-    "zh": "今天，她將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u5979\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, She will travel to Europe.",
-    "zh": "明天，她將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u5979\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, She will travel to Europe.",
-    "zh": "下週，她將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, She will travel to Europe.",
-    "zh": "去年，她將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, She will travel to Europe.",
-    "zh": "早上，她將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, She will travel to Europe.",
-    "zh": "晚上，她將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, She have a meeting with the manager.",
-    "zh": "昨天，她要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, She have a meeting with the manager.",
-    "zh": "今天，她要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, She have a meeting with the manager.",
-    "zh": "明天，她要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, She have a meeting with the manager.",
-    "zh": "下週，她要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, She have a meeting with the manager.",
-    "zh": "去年，她要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, She have a meeting with the manager.",
-    "zh": "早上，她要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, She have a meeting with the manager.",
-    "zh": "晚上，她要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, She have a meeting with the client.",
-    "zh": "昨天，她要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, She have a meeting with the client.",
-    "zh": "今天，她要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, She have a meeting with the client.",
-    "zh": "明天，她要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, She have a meeting with the client.",
-    "zh": "下週，她要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, She have a meeting with the client.",
-    "zh": "去年，她要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, She have a meeting with the client.",
-    "zh": "早上，她要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, She have a meeting with the client.",
-    "zh": "晚上，她要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, She have a meeting with the team.",
-    "zh": "昨天，她要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, She have a meeting with the team.",
-    "zh": "今天，她要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, She have a meeting with the team.",
-    "zh": "明天，她要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, She have a meeting with the team.",
-    "zh": "下週，她要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, She have a meeting with the team.",
-    "zh": "去年，她要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, She have a meeting with the team.",
-    "zh": "早上，她要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, She have a meeting with the team.",
-    "zh": "晚上，她要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, She have a meeting with the boss.",
-    "zh": "昨天，她要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, She have a meeting with the boss.",
-    "zh": "今天，她要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, She have a meeting with the boss.",
-    "zh": "明天，她要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u5979\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, She have a meeting with the boss.",
-    "zh": "下週，她要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, She have a meeting with the boss.",
-    "zh": "去年，她要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, She have a meeting with the boss.",
-    "zh": "早上，她要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, She have a meeting with the boss.",
-    "zh": "晚上，她要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, She feel very happy.",
-    "zh": "昨天，她覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, She feel very happy.",
-    "zh": "今天，她覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, She feel very happy.",
-    "zh": "明天，她覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, She feel very happy.",
-    "zh": "下週，她覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, She feel very happy.",
-    "zh": "去年，她覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, She feel very happy.",
-    "zh": "早上，她覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, She feel very happy.",
-    "zh": "晚上，她覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, She feel very sad.",
-    "zh": "昨天，她覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, She feel very sad.",
-    "zh": "今天，她覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, She feel very sad.",
-    "zh": "明天，她覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, She feel very sad.",
-    "zh": "下週，她覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, She feel very sad.",
-    "zh": "去年，她覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, She feel very sad.",
-    "zh": "早上，她覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, She feel very sad.",
-    "zh": "晚上，她覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, She feel very angry.",
-    "zh": "昨天，她覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, She feel very angry.",
-    "zh": "今天，她覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, She feel very angry.",
-    "zh": "明天，她覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, She feel very angry.",
-    "zh": "下週，她覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, She feel very angry.",
-    "zh": "去年，她覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, She feel very angry.",
-    "zh": "早上，她覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, She feel very angry.",
-    "zh": "晚上，她覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, She feel very nervous.",
-    "zh": "昨天，她覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, She feel very nervous.",
-    "zh": "今天，她覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, She feel very nervous.",
-    "zh": "明天，她覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, She feel very nervous.",
-    "zh": "下週，她覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, She feel very nervous.",
-    "zh": "去年，她覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, She feel very nervous.",
-    "zh": "早上，她覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, She feel very nervous.",
-    "zh": "晚上，她覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u5979\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, We need to buy a new laptop.",
-    "zh": "昨天，我們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, We need to buy a new laptop.",
-    "zh": "今天，我們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, We need to buy a new laptop.",
-    "zh": "明天，我們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, We need to buy a new laptop.",
-    "zh": "下週，我們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, We need to buy a new laptop.",
-    "zh": "去年，我們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, We need to buy a new laptop.",
-    "zh": "早上，我們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, We need to buy a new laptop.",
-    "zh": "晚上，我們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, We need to buy a new phone.",
-    "zh": "昨天，我們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, We need to buy a new phone.",
-    "zh": "今天，我們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, We need to buy a new phone.",
-    "zh": "明天，我們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, We need to buy a new phone.",
-    "zh": "下週，我們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, We need to buy a new phone.",
-    "zh": "去年，我們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, We need to buy a new phone.",
-    "zh": "早上，我們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, We need to buy a new phone.",
-    "zh": "晚上，我們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, We need to buy a new shirt.",
-    "zh": "昨天，我們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, We need to buy a new shirt.",
-    "zh": "今天，我們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, We need to buy a new shirt.",
-    "zh": "明天，我們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, We need to buy a new shirt.",
-    "zh": "下週，我們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, We need to buy a new shirt.",
-    "zh": "去年，我們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, We need to buy a new shirt.",
-    "zh": "早上，我們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, We need to buy a new shirt.",
-    "zh": "晚上，我們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, We need to buy a new bag.",
-    "zh": "昨天，我們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, We need to buy a new bag.",
-    "zh": "今天，我們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, We need to buy a new bag.",
-    "zh": "明天，我們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, We need to buy a new bag.",
-    "zh": "下週，我們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, We need to buy a new bag.",
-    "zh": "去年，我們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, We need to buy a new bag.",
-    "zh": "早上，我們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, We need to buy a new bag.",
-    "zh": "晚上，我們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, We will travel to Japan.",
-    "zh": "昨天，我們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, We will travel to Japan.",
-    "zh": "今天，我們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, We will travel to Japan.",
-    "zh": "明天，我們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, We will travel to Japan.",
-    "zh": "下週，我們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, We will travel to Japan.",
-    "zh": "去年，我們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, We will travel to Japan.",
-    "zh": "早上，我們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, We will travel to Japan.",
-    "zh": "晚上，我們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, We will travel to Korea.",
-    "zh": "昨天，我們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, We will travel to Korea.",
-    "zh": "今天，我們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, We will travel to Korea.",
-    "zh": "明天，我們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, We will travel to Korea.",
-    "zh": "下週，我們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, We will travel to Korea.",
-    "zh": "去年，我們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, We will travel to Korea.",
-    "zh": "早上，我們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, We will travel to Korea.",
-    "zh": "晚上，我們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, We will travel to America.",
-    "zh": "昨天，我們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, We will travel to America.",
-    "zh": "今天，我們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, We will travel to America.",
-    "zh": "明天，我們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, We will travel to America.",
-    "zh": "下週，我們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, We will travel to America.",
-    "zh": "去年，我們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, We will travel to America.",
-    "zh": "早上，我們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, We will travel to America.",
-    "zh": "晚上，我們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, We will travel to Europe.",
-    "zh": "昨天，我們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, We will travel to Europe.",
-    "zh": "今天，我們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, We will travel to Europe.",
-    "zh": "明天，我們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, We will travel to Europe.",
-    "zh": "下週，我們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, We will travel to Europe.",
-    "zh": "去年，我們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, We will travel to Europe.",
-    "zh": "早上，我們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, We will travel to Europe.",
-    "zh": "晚上，我們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, We have a meeting with the manager.",
-    "zh": "昨天，我們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, We have a meeting with the manager.",
-    "zh": "今天，我們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, We have a meeting with the manager.",
-    "zh": "明天，我們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, We have a meeting with the manager.",
-    "zh": "下週，我們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, We have a meeting with the manager.",
-    "zh": "去年，我們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, We have a meeting with the manager.",
-    "zh": "早上，我們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, We have a meeting with the manager.",
-    "zh": "晚上，我們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, We have a meeting with the client.",
-    "zh": "昨天，我們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, We have a meeting with the client.",
-    "zh": "今天，我們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, We have a meeting with the client.",
-    "zh": "明天，我們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, We have a meeting with the client.",
-    "zh": "下週，我們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, We have a meeting with the client.",
-    "zh": "去年，我們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, We have a meeting with the client.",
-    "zh": "早上，我們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, We have a meeting with the client.",
-    "zh": "晚上，我們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, We have a meeting with the team.",
-    "zh": "昨天，我們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, We have a meeting with the team.",
-    "zh": "今天，我們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, We have a meeting with the team.",
-    "zh": "明天，我們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, We have a meeting with the team.",
-    "zh": "下週，我們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, We have a meeting with the team.",
-    "zh": "去年，我們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, We have a meeting with the team.",
-    "zh": "早上，我們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, We have a meeting with the team.",
-    "zh": "晚上，我們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, We have a meeting with the boss.",
-    "zh": "昨天，我們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, We have a meeting with the boss.",
-    "zh": "今天，我們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, We have a meeting with the boss.",
-    "zh": "明天，我們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, We have a meeting with the boss.",
-    "zh": "下週，我們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, We have a meeting with the boss.",
-    "zh": "去年，我們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, We have a meeting with the boss.",
-    "zh": "早上，我們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, We have a meeting with the boss.",
-    "zh": "晚上，我們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, We feel very happy.",
-    "zh": "昨天，我們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, We feel very happy.",
-    "zh": "今天，我們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, We feel very happy.",
-    "zh": "明天，我們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, We feel very happy.",
-    "zh": "下週，我們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, We feel very happy.",
-    "zh": "去年，我們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, We feel very happy.",
-    "zh": "早上，我們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, We feel very happy.",
-    "zh": "晚上，我們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, We feel very sad.",
-    "zh": "昨天，我們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, We feel very sad.",
-    "zh": "今天，我們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, We feel very sad.",
-    "zh": "明天，我們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, We feel very sad.",
-    "zh": "下週，我們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, We feel very sad.",
-    "zh": "去年，我們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, We feel very sad.",
-    "zh": "早上，我們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, We feel very sad.",
-    "zh": "晚上，我們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, We feel very angry.",
-    "zh": "昨天，我們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, We feel very angry.",
-    "zh": "今天，我們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, We feel very angry.",
-    "zh": "明天，我們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, We feel very angry.",
-    "zh": "下週，我們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, We feel very angry.",
-    "zh": "去年，我們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, We feel very angry.",
-    "zh": "早上，我們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, We feel very angry.",
-    "zh": "晚上，我們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, We feel very nervous.",
-    "zh": "昨天，我們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, We feel very nervous.",
-    "zh": "今天，我們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, We feel very nervous.",
-    "zh": "明天，我們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, We feel very nervous.",
-    "zh": "下週，我們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, We feel very nervous.",
-    "zh": "去年，我們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, We feel very nervous.",
-    "zh": "早上，我們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, We feel very nervous.",
-    "zh": "晚上，我們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u6211\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, They need to buy a new laptop.",
-    "zh": "昨天，他們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, They need to buy a new laptop.",
-    "zh": "今天，他們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, They need to buy a new laptop.",
-    "zh": "明天，他們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, They need to buy a new laptop.",
-    "zh": "下週，他們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, They need to buy a new laptop.",
-    "zh": "去年，他們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, They need to buy a new laptop.",
-    "zh": "早上，他們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, They need to buy a new laptop.",
-    "zh": "晚上，他們需要買一個新的筆電。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u7b46\u96fb\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, They need to buy a new phone.",
-    "zh": "昨天，他們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, They need to buy a new phone.",
-    "zh": "今天，他們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, They need to buy a new phone.",
-    "zh": "明天，他們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, They need to buy a new phone.",
-    "zh": "下週，他們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, They need to buy a new phone.",
-    "zh": "去年，他們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, They need to buy a new phone.",
-    "zh": "早上，他們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, They need to buy a new phone.",
-    "zh": "晚上，他們需要買一個新的手機。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u624b\u6a5f\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, They need to buy a new shirt.",
-    "zh": "昨天，他們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, They need to buy a new shirt.",
-    "zh": "今天，他們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, They need to buy a new shirt.",
-    "zh": "明天，他們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, They need to buy a new shirt.",
-    "zh": "下週，他們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, They need to buy a new shirt.",
-    "zh": "去年，他們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, They need to buy a new shirt.",
-    "zh": "早上，他們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, They need to buy a new shirt.",
-    "zh": "晚上，他們需要買一個新的襯衫。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u896f\u886b\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, They need to buy a new bag.",
-    "zh": "昨天，他們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "today, They need to buy a new bag.",
-    "zh": "今天，他們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "tomorrow, They need to buy a new bag.",
-    "zh": "明天，他們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "next week, They need to buy a new bag.",
-    "zh": "下週，他們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "last year, They need to buy a new bag.",
-    "zh": "去年，他們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "in the morning, They need to buy a new bag.",
-    "zh": "早上，他們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "at night, They need to buy a new bag.",
-    "zh": "晚上，他們需要買一個新的包包。",
-    "cat": "購物"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u9700\u8981\u8cb7\u4e00\u500b\u65b0\u7684\u5305\u5305\u3002",
+    "cat": "\u8cfc\u7269"
   },
   {
     "en": "yesterday, They will travel to Japan.",
-    "zh": "昨天，他們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, They will travel to Japan.",
-    "zh": "今天，他們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, They will travel to Japan.",
-    "zh": "明天，他們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, They will travel to Japan.",
-    "zh": "下週，他們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, They will travel to Japan.",
-    "zh": "去年，他們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, They will travel to Japan.",
-    "zh": "早上，他們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, They will travel to Japan.",
-    "zh": "晚上，他們將會去日本。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u65e5\u672c\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, They will travel to Korea.",
-    "zh": "昨天，他們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, They will travel to Korea.",
-    "zh": "今天，他們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, They will travel to Korea.",
-    "zh": "明天，他們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, They will travel to Korea.",
-    "zh": "下週，他們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, They will travel to Korea.",
-    "zh": "去年，他們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, They will travel to Korea.",
-    "zh": "早上，他們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, They will travel to Korea.",
-    "zh": "晚上，他們將會去韓國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u97d3\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, They will travel to America.",
-    "zh": "昨天，他們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, They will travel to America.",
-    "zh": "今天，他們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, They will travel to America.",
-    "zh": "明天，他們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, They will travel to America.",
-    "zh": "下週，他們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, They will travel to America.",
-    "zh": "去年，他們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, They will travel to America.",
-    "zh": "早上，他們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, They will travel to America.",
-    "zh": "晚上，他們將會去美國。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u7f8e\u570b\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, They will travel to Europe.",
-    "zh": "昨天，他們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "today, They will travel to Europe.",
-    "zh": "今天，他們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "tomorrow, They will travel to Europe.",
-    "zh": "明天，他們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "next week, They will travel to Europe.",
-    "zh": "下週，他們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "last year, They will travel to Europe.",
-    "zh": "去年，他們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "in the morning, They will travel to Europe.",
-    "zh": "早上，他們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "at night, They will travel to Europe.",
-    "zh": "晚上，他們將會去歐洲。",
-    "cat": "旅遊"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u5c07\u6703\u53bb\u6b50\u6d32\u3002",
+    "cat": "\u65c5\u904a"
   },
   {
     "en": "yesterday, They have a meeting with the manager.",
-    "zh": "昨天，他們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, They have a meeting with the manager.",
-    "zh": "今天，他們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, They have a meeting with the manager.",
-    "zh": "明天，他們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, They have a meeting with the manager.",
-    "zh": "下週，他們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, They have a meeting with the manager.",
-    "zh": "去年，他們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, They have a meeting with the manager.",
-    "zh": "早上，他們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, They have a meeting with the manager.",
-    "zh": "晚上，他們要和...開會經理。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u7d93\u7406\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, They have a meeting with the client.",
-    "zh": "昨天，他們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, They have a meeting with the client.",
-    "zh": "今天，他們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, They have a meeting with the client.",
-    "zh": "明天，他們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, They have a meeting with the client.",
-    "zh": "下週，他們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, They have a meeting with the client.",
-    "zh": "去年，他們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, They have a meeting with the client.",
-    "zh": "早上，他們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, They have a meeting with the client.",
-    "zh": "晚上，他們要和...開會客戶。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5ba2\u6236\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, They have a meeting with the team.",
-    "zh": "昨天，他們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, They have a meeting with the team.",
-    "zh": "今天，他們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, They have a meeting with the team.",
-    "zh": "明天，他們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, They have a meeting with the team.",
-    "zh": "下週，他們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, They have a meeting with the team.",
-    "zh": "去年，他們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, They have a meeting with the team.",
-    "zh": "早上，他們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, They have a meeting with the team.",
-    "zh": "晚上，他們要和...開會團隊。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u5718\u968a\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, They have a meeting with the boss.",
-    "zh": "昨天，他們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "today, They have a meeting with the boss.",
-    "zh": "今天，他們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "tomorrow, They have a meeting with the boss.",
-    "zh": "明天，他們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "next week, They have a meeting with the boss.",
-    "zh": "下週，他們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "last year, They have a meeting with the boss.",
-    "zh": "去年，他們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "in the morning, They have a meeting with the boss.",
-    "zh": "早上，他們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "at night, They have a meeting with the boss.",
-    "zh": "晚上，他們要和...開會老闆。",
-    "cat": "商業"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u8981\u548c...\u958b\u6703\u8001\u95c6\u3002",
+    "cat": "\u5546\u696d"
   },
   {
     "en": "yesterday, They feel very happy.",
-    "zh": "昨天，他們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, They feel very happy.",
-    "zh": "今天，他們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, They feel very happy.",
-    "zh": "明天，他們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, They feel very happy.",
-    "zh": "下週，他們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, They feel very happy.",
-    "zh": "去年，他們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, They feel very happy.",
-    "zh": "早上，他們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, They feel very happy.",
-    "zh": "晚上，他們覺得非常開心。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u958b\u5fc3\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, They feel very sad.",
-    "zh": "昨天，他們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, They feel very sad.",
-    "zh": "今天，他們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, They feel very sad.",
-    "zh": "明天，他們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, They feel very sad.",
-    "zh": "下週，他們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, They feel very sad.",
-    "zh": "去年，他們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, They feel very sad.",
-    "zh": "早上，他們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, They feel very sad.",
-    "zh": "晚上，他們覺得非常難過。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u96e3\u904e\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, They feel very angry.",
-    "zh": "昨天，他們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, They feel very angry.",
-    "zh": "今天，他們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, They feel very angry.",
-    "zh": "明天，他們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, They feel very angry.",
-    "zh": "下週，他們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, They feel very angry.",
-    "zh": "去年，他們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, They feel very angry.",
-    "zh": "早上，他們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, They feel very angry.",
-    "zh": "晚上，他們覺得非常生氣。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u751f\u6c23\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "yesterday, They feel very nervous.",
-    "zh": "昨天，他們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u6628\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "today, They feel very nervous.",
-    "zh": "今天，他們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4eca\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "tomorrow, They feel very nervous.",
-    "zh": "明天，他們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u660e\u5929\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "next week, They feel very nervous.",
-    "zh": "下週，他們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u4e0b\u9031\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "last year, They feel very nervous.",
-    "zh": "去年，他們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u53bb\u5e74\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "in the morning, They feel very nervous.",
-    "zh": "早上，他們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u65e9\u4e0a\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "at night, They feel very nervous.",
-    "zh": "晚上，他們覺得非常緊張。",
-    "cat": "情緒"
+    "zh": "\u665a\u4e0a\uff0c\u4ed6\u5011\u89ba\u5f97\u975e\u5e38\u7dca\u5f35\u3002",
+    "cat": "\u60c5\u7dd2"
   },
   {
     "en": "Please make sure to submit the report before the deadline.",
-    "zh": "請務必在截止日期前提交報告。",
-    "cat": "多益必考"
+    "zh": "\u8acb\u52d9\u5fc5\u5728\u622a\u6b62\u65e5\u671f\u524d\u63d0\u4ea4\u5831\u544a\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "The company announced a significant increase in profits this quarter.",
-    "zh": "公司宣布本季度利潤大幅增長。",
-    "cat": "多益必考"
+    "zh": "\u516c\u53f8\u5ba3\u5e03\u672c\u5b63\u5ea6\u5229\u6f64\u5927\u5e45\u589e\u9577\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "All employees are required to attend the mandatory training session.",
-    "zh": "所有員工都必須參加強制性的培訓課程。",
-    "cat": "多益必考"
+    "zh": "\u6240\u6709\u54e1\u5de5\u90fd\u5fc5\u9808\u53c3\u52a0\u5f37\u5236\u6027\u7684\u57f9\u8a13\u8ab2\u7a0b\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We apologize for any inconvenience this may cause.",
-    "zh": "對於這可能造成的任何不便，我們深表歉意。",
-    "cat": "多益必考"
+    "zh": "\u5c0d\u65bc\u9019\u53ef\u80fd\u9020\u6210\u7684\u4efb\u4f55\u4e0d\u4fbf\uff0c\u6211\u5011\u6df1\u8868\u6b49\u610f\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "The meeting has been postponed due to unforeseen circumstances.",
-    "zh": "由於不可預見的情況，會議已延期。",
-    "cat": "多益必考"
+    "zh": "\u7531\u65bc\u4e0d\u53ef\u9810\u898b\u7684\u60c5\u6cc1\uff0c\u6703\u8b70\u5df2\u5ef6\u671f\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "Please review the attached document and let me know if you have any questions.",
-    "zh": "請查閱附件文件，如有任何問題請讓我知道。",
-    "cat": "多益必考"
+    "zh": "\u8acb\u67e5\u95b1\u9644\u4ef6\u6587\u4ef6\uff0c\u5982\u6709\u4efb\u4f55\u554f\u984c\u8acb\u8b93\u6211\u77e5\u9053\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "Our customer service representatives are available 24/7 to assist you.",
-    "zh": "我們的客服代表全天候為您提供協助。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u7684\u5ba2\u670d\u4ee3\u8868\u5168\u5929\u5019\u70ba\u60a8\u63d0\u4f9b\u5354\u52a9\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "The new policy will be implemented starting next month.",
-    "zh": "新政策將從下個月開始實施。",
-    "cat": "多益必考"
+    "zh": "\u65b0\u653f\u7b56\u5c07\u5f9e\u4e0b\u500b\u6708\u958b\u59cb\u5be6\u65bd\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "We are currently looking for a qualified candidate to fill the position.",
-    "zh": "我們目前正在尋找合格的候選人來填補該職位。",
-    "cat": "多益必考"
+    "zh": "\u6211\u5011\u76ee\u524d\u6b63\u5728\u5c0b\u627e\u5408\u683c\u7684\u5019\u9078\u4eba\u4f86\u586b\u88dc\u8a72\u8077\u4f4d\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "Thank you for your prompt response and cooperation.",
-    "zh": "感謝您的及時回覆和合作。",
-    "cat": "多益必考"
+    "zh": "\u611f\u8b1d\u60a8\u7684\u53ca\u6642\u56de\u8986\u548c\u5408\u4f5c\u3002",
+    "cat": "\u591a\u76ca\u5fc5\u8003"
   },
   {
     "en": "It is widely believed that education plays a crucial role in society.",
-    "zh": "人們普遍認為教育在社會中扮演著關鍵角色。",
-    "cat": "雅思常見"
+    "zh": "\u4eba\u5011\u666e\u904d\u8a8d\u70ba\u6559\u80b2\u5728\u793e\u6703\u4e2d\u626e\u6f14\u8457\u95dc\u9375\u89d2\u8272\u3002",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "There is a growing concern about the impact of climate change.",
-    "zh": "人們對氣候變遷的影響日益關注。",
-    "cat": "雅思常見"
+    "zh": "\u4eba\u5011\u5c0d\u6c23\u5019\u8b8a\u9077\u7684\u5f71\u97ff\u65e5\u76ca\u95dc\u6ce8\u3002",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "One of the main advantages of this approach is its efficiency.",
-    "zh": "這種方法的主要優點之一是它的效率。",
-    "cat": "雅思常見"
+    "zh": "\u9019\u7a2e\u65b9\u6cd5\u7684\u4e3b\u8981\u512a\u9ede\u4e4b\u4e00\u662f\u5b83\u7684\u6548\u7387\u3002",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "To tackle this issue, the government needs to implement stricter regulations.",
-    "zh": "為了解決這個問題，政府需要實施更嚴格的規定。",
-    "cat": "雅思常見"
+    "zh": "\u70ba\u4e86\u89e3\u6c7a\u9019\u500b\u554f\u984c\uff0c\u653f\u5e9c\u9700\u8981\u5be6\u65bd\u66f4\u56b4\u683c\u7684\u898f\u5b9a\u3002",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "The data suggests a significant correlation between the two variables.",
-    "zh": "數據顯示這兩個變數之間存在顯著的相關性。",
-    "cat": "雅思常見"
+    "zh": "\u6578\u64da\u986f\u793a\u9019\u5169\u500b\u8b8a\u6578\u4e4b\u9593\u5b58\u5728\u986f\u8457\u7684\u76f8\u95dc\u6027\u3002",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "In conclusion, the benefits outweigh the drawbacks.",
-    "zh": "總而言之，利大於弊。",
-    "cat": "雅思常見"
+    "zh": "\u7e3d\u800c\u8a00\u4e4b\uff0c\u5229\u5927\u65bc\u5f0a\u3002",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "This phenomenon can be attributed to several underlying factors.",
-    "zh": "這種現象可以歸因於幾個潛在因素。",
-    "cat": "雅思常見"
+    "zh": "\u9019\u7a2e\u73fe\u8c61\u53ef\u4ee5\u6b78\u56e0\u65bc\u5e7e\u500b\u6f5b\u5728\u56e0\u7d20\u3002",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "However, critics argue that this policy may have negative consequences.",
-    "zh": "然而，批評者認為這項政策可能會有負面後果。",
-    "cat": "雅思常見"
+    "zh": "\u7136\u800c\uff0c\u6279\u8a55\u8005\u8a8d\u70ba\u9019\u9805\u653f\u7b56\u53ef\u80fd\u6703\u6709\u8ca0\u9762\u5f8c\u679c\u3002",
+    "cat": "\u96c5\u601d\u5e38\u898b"
   },
   {
     "en": "Could you please send me the latest version of the presentation?",
-    "zh": "可以請你寄給我最新版本的簡報嗎？",
-    "cat": "職場溝通"
+    "zh": "\u53ef\u4ee5\u8acb\u4f60\u5bc4\u7d66\u6211\u6700\u65b0\u7248\u672c\u7684\u7c21\u5831\u55ce\uff1f",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "I'll touch base with you later this week to discuss the project.",
-    "zh": "我這週晚些時候會和你聯繫討論這個專案。",
-    "cat": "職場溝通"
+    "zh": "\u6211\u9019\u9031\u665a\u4e9b\u6642\u5019\u6703\u548c\u4f60\u806f\u7e6b\u8a0e\u8ad6\u9019\u500b\u5c08\u6848\u3002",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "Let's schedule a meeting to go over the details.",
-    "zh": "我們安排個會議來詳細討論吧。",
-    "cat": "職場溝通"
+    "zh": "\u6211\u5011\u5b89\u6392\u500b\u6703\u8b70\u4f86\u8a73\u7d30\u8a0e\u8ad6\u5427\u3002",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "Please keep me in the loop regarding any updates.",
-    "zh": "如有任何更新，請讓我知道。",
-    "cat": "職場溝通"
+    "zh": "\u5982\u6709\u4efb\u4f55\u66f4\u65b0\uff0c\u8acb\u8b93\u6211\u77e5\u9053\u3002",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "I'm writing to follow up on the email I sent yesterday.",
-    "zh": "我寫信來是為了跟進我昨天寄出的電子郵件。",
-    "cat": "職場溝通"
+    "zh": "\u6211\u5beb\u4fe1\u4f86\u662f\u70ba\u4e86\u8ddf\u9032\u6211\u6628\u5929\u5bc4\u51fa\u7684\u96fb\u5b50\u90f5\u4ef6\u3002",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "Could you clarify what you mean by that?",
-    "zh": "可以請你澄清一下你的意思嗎？",
-    "cat": "職場溝通"
+    "zh": "\u53ef\u4ee5\u8acb\u4f60\u6f84\u6e05\u4e00\u4e0b\u4f60\u7684\u610f\u601d\u55ce\uff1f",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "Let's make sure we are all on the same page before moving forward.",
-    "zh": "在繼續之前，我們要確定大家的認知是一致的。",
-    "cat": "職場溝通"
+    "zh": "\u5728\u7e7c\u7e8c\u4e4b\u524d\uff0c\u6211\u5011\u8981\u78ba\u5b9a\u5927\u5bb6\u7684\u8a8d\u77e5\u662f\u4e00\u81f4\u7684\u3002",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "I'd appreciate it if you could provide some feedback on my proposal.",
-    "zh": "如果你能對我的提案提供一些回饋，我會非常感激。",
-    "cat": "職場溝通"
+    "zh": "\u5982\u679c\u4f60\u80fd\u5c0d\u6211\u7684\u63d0\u6848\u63d0\u4f9b\u4e00\u4e9b\u56de\u994b\uff0c\u6211\u6703\u975e\u5e38\u611f\u6fc0\u3002",
+    "cat": "\u8077\u5834\u6e9d\u901a"
   },
   {
     "en": "What are you up to this weekend?",
-    "zh": "你這個週末要做什麼？",
-    "cat": "日常對話"
+    "zh": "\u4f60\u9019\u500b\u9031\u672b\u8981\u505a\u4ec0\u9ebc\uff1f",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "It's been a long time! We should definitely catch up soon.",
-    "zh": "好久不見！我們一定要找時間敘舊。",
-    "cat": "日常對話"
+    "zh": "\u597d\u4e45\u4e0d\u898b\uff01\u6211\u5011\u4e00\u5b9a\u8981\u627e\u6642\u9593\u6558\u820a\u3002",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "I totally agree with you on that.",
-    "zh": "在那一點上我完全同意你。",
-    "cat": "日常對話"
+    "zh": "\u5728\u90a3\u4e00\u9ede\u4e0a\u6211\u5b8c\u5168\u540c\u610f\u4f60\u3002",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "Don't worry about it, it's not a big deal.",
-    "zh": "別擔心，這沒什麼大不了的。",
-    "cat": "日常對話"
+    "zh": "\u5225\u64d4\u5fc3\uff0c\u9019\u6c92\u4ec0\u9ebc\u5927\u4e0d\u4e86\u7684\u3002",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "Can you give me a hand with this?",
-    "zh": "你可以幫我一下這個嗎？",
-    "cat": "日常對話"
+    "zh": "\u4f60\u53ef\u4ee5\u5e6b\u6211\u4e00\u4e0b\u9019\u500b\u55ce\uff1f",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "I'm exhausted, I just want to chill at home tonight.",
-    "zh": "我累壞了，今晚只想待在家放鬆。",
-    "cat": "日常對話"
+    "zh": "\u6211\u7d2f\u58de\u4e86\uff0c\u4eca\u665a\u53ea\u60f3\u5f85\u5728\u5bb6\u653e\u9b06\u3002",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "That makes a lot of sense.",
-    "zh": "那很有道理。",
-    "cat": "日常對話"
+    "zh": "\u90a3\u5f88\u6709\u9053\u7406\u3002",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   },
   {
     "en": "Let me know if you need anything else.",
-    "zh": "如果你還需要什麼，請讓我知道。",
-    "cat": "日常對話"
+    "zh": "\u5982\u679c\u4f60\u9084\u9700\u8981\u4ec0\u9ebc\uff0c\u8acb\u8b93\u6211\u77e5\u9053\u3002",
+    "cat": "\u65e5\u5e38\u5c0d\u8a71"
   }
 ,
-  // 多益必考 (10)
-  { en: "Please make sure to submit the report before the deadline.", zh: "請務必在截止日期前提交報告。", cat: "多益必考" },
-  { en: "The company announced a significant increase in profits this quarter.", zh: "公司宣布本季度利潤大幅增長。", cat: "多益必考" },
-  { en: "All employees are required to attend the mandatory training session.", zh: "所有員工都必須參加強制性的培訓課程。", cat: "多益必考" },
-  { en: "We apologize for any inconvenience this may cause.", zh: "對於這可能造成的任何不便，我們深表歉意。", cat: "多益必考" },
-  { en: "The meeting has been postponed due to unforeseen circumstances.", zh: "由於不可預見的情況，會議已延期。", cat: "多益必考" },
-  { en: "Please review the attached document and let me know if you have any questions.", zh: "請查閱附件文件，如有任何問題請讓我知道。", cat: "多益必考" },
-  { en: "Our customer service representatives are available 24/7 to assist you.", zh: "我們的客服代表全天候為您提供協助。", cat: "多益必考" },
-  { en: "The new policy will be implemented starting next month.", zh: "新政策將從下個月開始實施。", cat: "多益必考" },
-  { en: "We are currently looking for a qualified candidate to fill the position.", zh: "我們目前正在尋找合格的候選人來填補該職位。", cat: "多益必考" },
-  { en: "Thank you for your prompt response and cooperation.", zh: "感謝您的及時回覆和合作。", cat: "多益必考" },
-  // 雅思常見 (8)
-  { en: "It is widely believed that education plays a crucial role in society.", zh: "人們普遍認為教育在社會中扮演著關鍵角色。", cat: "雅思常見" },
-  { en: "There is a growing concern about the impact of climate change.", zh: "人們對氣候變遷的影響日益關注。", cat: "雅思常見" },
-  { en: "One of the main advantages of this approach is its efficiency.", zh: "這種方法的主要優點之一是它的效率。", cat: "雅思常見" },
-  { en: "To tackle this issue, the government needs to implement stricter regulations.", zh: "為了解決這個問題，政府需要實施更嚴格的規定。", cat: "雅思常見" },
-  { en: "The data suggests a significant correlation between the two variables.", zh: "數據顯示這兩個變數之間存在顯著的相關性。", cat: "雅思常見" },
-  { en: "In conclusion, the benefits outweigh the drawbacks.", zh: "總而言之，利大於弊。", cat: "雅思常見" },
-  { en: "This phenomenon can be attributed to several underlying factors.", zh: "這種現象可以歸因於幾個潛在因素。", cat: "雅思常見" },
-  { en: "However, critics argue that this policy may have negative consequences.", zh: "然而，批評者認為這項政策可能會有負面後果。", cat: "雅思常見" },
-  // 職場溝通 (8)
-  { en: "Could you please send me the latest version of the presentation?", zh: "可以請你寄給我最新版本的簡報嗎？", cat: "職場溝通" },
-  { en: "I'll touch base with you later this week to discuss the project.", zh: "我這週晚些時候會和你聯繫討論這個專案。", cat: "職場溝通" },
-  { en: "Let's schedule a meeting to go over the details.", zh: "我們安排個會議來詳細討論吧。", cat: "職場溝通" },
-  { en: "Please keep me in the loop regarding any updates.", zh: "如有任何更新，請讓我知道。", cat: "職場溝通" },
-  { en: "I'm writing to follow up on the email I sent yesterday.", zh: "我寫信來是為了跟進我昨天寄出的電子郵件。", cat: "職場溝通" },
-  { en: "Could you clarify what you mean by that?", zh: "可以請你澄清一下你的意思嗎？", cat: "職場溝通" },
-  { en: "Let's make sure we are all on the same page before moving forward.", zh: "在繼續之前，我們要確定大家的認知是一致的。", cat: "職場溝通" },
-  { en: "I'd appreciate it if you could provide some feedback on my proposal.", zh: "如果你能對我的提案提供一些回饋，我會非常感激。", cat: "職場溝通" },
-  // 日常對話 (8)
-  { en: "What are you up to this weekend?", zh: "你這個週末要做什麼？", cat: "日常對話" },
-  { en: "It's been a long time! We should definitely catch up soon.", zh: "好久不見！我們一定要找時間敘舊。", cat: "日常對話" },
-  { en: "I totally agree with you on that.", zh: "在那一點上我完全同意你。", cat: "日常對話" },
-  { en: "Don't worry about it, it's not a big deal.", zh: "別擔心，這沒什麼大不了的。", cat: "日常對話" },
-  { en: "Can you give me a hand with this?", zh: "你可以幫我一下這個嗎？", cat: "日常對話" },
-  { en: "I'm exhausted, I just want to chill at home tonight.", zh: "我累壞了，今晚只想待在家放鬆。", cat: "日常對話" },
-  { en: "That makes a lot of sense.", zh: "那很有道理。", cat: "日常對話" },
-  { en: "Let me know if you need anything else.", zh: "如果你還需要什麼，請讓我知道。", cat: "日常對話" }
+  // \u591a\u76ca\u5fc5\u8003 (10)
+  { en: "Please make sure to submit the report before the deadline.", zh: "\u8acb\u52d9\u5fc5\u5728\u622a\u6b62\u65e5\u671f\u524d\u63d0\u4ea4\u5831\u544a\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "The company announced a significant increase in profits this quarter.", zh: "\u516c\u53f8\u5ba3\u5e03\u672c\u5b63\u5ea6\u5229\u6f64\u5927\u5e45\u589e\u9577\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "All employees are required to attend the mandatory training session.", zh: "\u6240\u6709\u54e1\u5de5\u90fd\u5fc5\u9808\u53c3\u52a0\u5f37\u5236\u6027\u7684\u57f9\u8a13\u8ab2\u7a0b\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "We apologize for any inconvenience this may cause.", zh: "\u5c0d\u65bc\u9019\u53ef\u80fd\u9020\u6210\u7684\u4efb\u4f55\u4e0d\u4fbf\uff0c\u6211\u5011\u6df1\u8868\u6b49\u610f\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "The meeting has been postponed due to unforeseen circumstances.", zh: "\u7531\u65bc\u4e0d\u53ef\u9810\u898b\u7684\u60c5\u6cc1\uff0c\u6703\u8b70\u5df2\u5ef6\u671f\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "Please review the attached document and let me know if you have any questions.", zh: "\u8acb\u67e5\u95b1\u9644\u4ef6\u6587\u4ef6\uff0c\u5982\u6709\u4efb\u4f55\u554f\u984c\u8acb\u8b93\u6211\u77e5\u9053\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "Our customer service representatives are available 24/7 to assist you.", zh: "\u6211\u5011\u7684\u5ba2\u670d\u4ee3\u8868\u5168\u5929\u5019\u70ba\u60a8\u63d0\u4f9b\u5354\u52a9\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "The new policy will be implemented starting next month.", zh: "\u65b0\u653f\u7b56\u5c07\u5f9e\u4e0b\u500b\u6708\u958b\u59cb\u5be6\u65bd\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "We are currently looking for a qualified candidate to fill the position.", zh: "\u6211\u5011\u76ee\u524d\u6b63\u5728\u5c0b\u627e\u5408\u683c\u7684\u5019\u9078\u4eba\u4f86\u586b\u88dc\u8a72\u8077\u4f4d\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  { en: "Thank you for your prompt response and cooperation.", zh: "\u611f\u8b1d\u60a8\u7684\u53ca\u6642\u56de\u8986\u548c\u5408\u4f5c\u3002", cat: "\u591a\u76ca\u5fc5\u8003" },
+  // \u96c5\u601d\u5e38\u898b (8)
+  { en: "It is widely believed that education plays a crucial role in society.", zh: "\u4eba\u5011\u666e\u904d\u8a8d\u70ba\u6559\u80b2\u5728\u793e\u6703\u4e2d\u626e\u6f14\u8457\u95dc\u9375\u89d2\u8272\u3002", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "There is a growing concern about the impact of climate change.", zh: "\u4eba\u5011\u5c0d\u6c23\u5019\u8b8a\u9077\u7684\u5f71\u97ff\u65e5\u76ca\u95dc\u6ce8\u3002", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "One of the main advantages of this approach is its efficiency.", zh: "\u9019\u7a2e\u65b9\u6cd5\u7684\u4e3b\u8981\u512a\u9ede\u4e4b\u4e00\u662f\u5b83\u7684\u6548\u7387\u3002", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "To tackle this issue, the government needs to implement stricter regulations.", zh: "\u70ba\u4e86\u89e3\u6c7a\u9019\u500b\u554f\u984c\uff0c\u653f\u5e9c\u9700\u8981\u5be6\u65bd\u66f4\u56b4\u683c\u7684\u898f\u5b9a\u3002", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "The data suggests a significant correlation between the two variables.", zh: "\u6578\u64da\u986f\u793a\u9019\u5169\u500b\u8b8a\u6578\u4e4b\u9593\u5b58\u5728\u986f\u8457\u7684\u76f8\u95dc\u6027\u3002", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "In conclusion, the benefits outweigh the drawbacks.", zh: "\u7e3d\u800c\u8a00\u4e4b\uff0c\u5229\u5927\u65bc\u5f0a\u3002", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "This phenomenon can be attributed to several underlying factors.", zh: "\u9019\u7a2e\u73fe\u8c61\u53ef\u4ee5\u6b78\u56e0\u65bc\u5e7e\u500b\u6f5b\u5728\u56e0\u7d20\u3002", cat: "\u96c5\u601d\u5e38\u898b" },
+  { en: "However, critics argue that this policy may have negative consequences.", zh: "\u7136\u800c\uff0c\u6279\u8a55\u8005\u8a8d\u70ba\u9019\u9805\u653f\u7b56\u53ef\u80fd\u6703\u6709\u8ca0\u9762\u5f8c\u679c\u3002", cat: "\u96c5\u601d\u5e38\u898b" },
+  // \u8077\u5834\u6e9d\u901a (8)
+  { en: "Could you please send me the latest version of the presentation?", zh: "\u53ef\u4ee5\u8acb\u4f60\u5bc4\u7d66\u6211\u6700\u65b0\u7248\u672c\u7684\u7c21\u5831\u55ce\uff1f", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "I'll touch base with you later this week to discuss the project.", zh: "\u6211\u9019\u9031\u665a\u4e9b\u6642\u5019\u6703\u548c\u4f60\u806f\u7e6b\u8a0e\u8ad6\u9019\u500b\u5c08\u6848\u3002", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "Let's schedule a meeting to go over the details.", zh: "\u6211\u5011\u5b89\u6392\u500b\u6703\u8b70\u4f86\u8a73\u7d30\u8a0e\u8ad6\u5427\u3002", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "Please keep me in the loop regarding any updates.", zh: "\u5982\u6709\u4efb\u4f55\u66f4\u65b0\uff0c\u8acb\u8b93\u6211\u77e5\u9053\u3002", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "I'm writing to follow up on the email I sent yesterday.", zh: "\u6211\u5beb\u4fe1\u4f86\u662f\u70ba\u4e86\u8ddf\u9032\u6211\u6628\u5929\u5bc4\u51fa\u7684\u96fb\u5b50\u90f5\u4ef6\u3002", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "Could you clarify what you mean by that?", zh: "\u53ef\u4ee5\u8acb\u4f60\u6f84\u6e05\u4e00\u4e0b\u4f60\u7684\u610f\u601d\u55ce\uff1f", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "Let's make sure we are all on the same page before moving forward.", zh: "\u5728\u7e7c\u7e8c\u4e4b\u524d\uff0c\u6211\u5011\u8981\u78ba\u5b9a\u5927\u5bb6\u7684\u8a8d\u77e5\u662f\u4e00\u81f4\u7684\u3002", cat: "\u8077\u5834\u6e9d\u901a" },
+  { en: "I'd appreciate it if you could provide some feedback on my proposal.", zh: "\u5982\u679c\u4f60\u80fd\u5c0d\u6211\u7684\u63d0\u6848\u63d0\u4f9b\u4e00\u4e9b\u56de\u994b\uff0c\u6211\u6703\u975e\u5e38\u611f\u6fc0\u3002", cat: "\u8077\u5834\u6e9d\u901a" },
+  // \u65e5\u5e38\u5c0d\u8a71 (8)
+  { en: "What are you up to this weekend?", zh: "\u4f60\u9019\u500b\u9031\u672b\u8981\u505a\u4ec0\u9ebc\uff1f", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "It's been a long time! We should definitely catch up soon.", zh: "\u597d\u4e45\u4e0d\u898b\uff01\u6211\u5011\u4e00\u5b9a\u8981\u627e\u6642\u9593\u6558\u820a\u3002", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "I totally agree with you on that.", zh: "\u5728\u90a3\u4e00\u9ede\u4e0a\u6211\u5b8c\u5168\u540c\u610f\u4f60\u3002", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "Don't worry about it, it's not a big deal.", zh: "\u5225\u64d4\u5fc3\uff0c\u9019\u6c92\u4ec0\u9ebc\u5927\u4e0d\u4e86\u7684\u3002", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "Can you give me a hand with this?", zh: "\u4f60\u53ef\u4ee5\u5e6b\u6211\u4e00\u4e0b\u9019\u500b\u55ce\uff1f", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "I'm exhausted, I just want to chill at home tonight.", zh: "\u6211\u7d2f\u58de\u4e86\uff0c\u4eca\u665a\u53ea\u60f3\u5f85\u5728\u5bb6\u653e\u9b06\u3002", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "That makes a lot of sense.", zh: "\u90a3\u5f88\u6709\u9053\u7406\u3002", cat: "\u65e5\u5e38\u5c0d\u8a71" },
+  { en: "Let me know if you need anything else.", zh: "\u5982\u679c\u4f60\u9084\u9700\u8981\u4ec0\u9ebc\uff0c\u8acb\u8b93\u6211\u77e5\u9053\u3002", cat: "\u65e5\u5e38\u5c0d\u8a71" }
 ]
 };

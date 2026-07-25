@@ -448,7 +448,7 @@
 </style>
 </head>
 <body>
-<script src="word_bank.js?v=2"></script>
+<script src="word_bank.js" charset="utf-8"></script>
 
 <div class="wrap">
 
@@ -880,13 +880,22 @@ const STAGES = [
 ];
 
 /* ---------- 本地儲存進度記憶 ---------- */
-let savedStageIdx = localStorage.getItem('speakup_stageIdx');
-let savedCat = localStorage.getItem('speakup_cat');
-let savedCatProgressStr = localStorage.getItem('speakup_cat_progress');
-let catProgress = savedCatProgressStr ? JSON.parse(savedCatProgressStr) : {};
-let geminiApiKey = localStorage.getItem('speakup_apikey') || '';
+let savedStageIdx = null;
+let savedCat = null;
+let savedCatProgressStr = null;
+let geminiApiKey = '';
+let savedMode = null;
+try {
+  savedStageIdx = localStorage.getItem('speakup_stageIdx');
+  savedCat = localStorage.getItem('speakup_cat');
+  savedCatProgressStr = localStorage.getItem('speakup_cat_progress');
+  geminiApiKey = localStorage.getItem('speakup_apikey') || '';
+  savedMode = localStorage.getItem('speakup_appMode');
+} catch(e) {
+  console.warn("localStorage not accessible", e);
+}
+let catProgress = (savedCatProgressStr ? JSON.parse(savedCatProgressStr) : null) || {};
 const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'review', 'random'];
-const savedMode = localStorage.getItem('speakup_appMode');
 let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
 function getSavedItemIdx(sIdx, cat) {
