@@ -289,6 +289,10 @@
     0%, 100% { box-shadow: 0 0 0 0 rgba(230,57,70,0.5); }
     50% { box-shadow: 0 0 0 16px rgba(230,57,70,0); }
   }
+  @keyframes bounce-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+  }
   .btn-play {
     width: 50px; height: 50px; border-radius: 50%;
     background: var(--sage-light); color: var(--sage-dark); border: none;
@@ -474,6 +478,7 @@
       <button class="app-tab" id="tabNews"><span class="tab-icon">📰</span><span class="tab-label">每日新聞</span></button>
       <button class="app-tab" id="tabFavorites"><span class="tab-icon">⭐</span><span class="tab-label">收藏</span></button>
       <button class="app-tab" id="tabReview"><span class="tab-icon">✅</span><span class="tab-label">已完成</span></button>
+      <button class="app-tab" id="tabRandom"><span class="tab-icon">🔁</span><span class="tab-label">隨機抽考</span></button>
     </nav>
   </div>
   <div class="dropdown-panel" id="stageDropdown">
@@ -571,6 +576,7 @@
       <div class="feedback" id="feedback"></div>
       <button id="coachBtn" style="display:none; margin-top:12px; background:var(--sage); color:var(--card); border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">✨ 請 AI 教練抓漏</button>
       <div id="coachFeedback" style="display:none; margin-top:12px; font-size:14px; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); line-height:1.5;"></div>
+      <div id="coachVocabArea" style="display:none; margin-top:8px;"></div>
     </div>
 
     <div class="quick-nav" id="quickNav">
@@ -620,8 +626,11 @@
       <div style="font-size:13px; color:var(--muted); margin-bottom:15px;">管理你的學習資料、系統設定與使用說明。</div>
       
       <div style="margin-bottom:16px;">
-        <div style="font-weight:600; margin-bottom:6px; font-size:15px;">📖 快速上手指南</div>
-        <div style="background:rgba(0,0,0,0.03); border:1px solid var(--line); border-radius:10px; padding:12px; max-height:200px; overflow-y:auto; font-size:13px; color:var(--ink); line-height:1.6;">
+        <div style="font-weight:600; margin-bottom:6px; font-size:15px; display:flex; justify-content:space-between; align-items:flex-end;">
+          <span>📖 快速上手指南</span>
+          <span style="font-size:11px; color:var(--muted); font-weight:normal; animation: bounce-down 2s infinite;">往下捲動查看更多 👇</span>
+        </div>
+        <div style="background:rgba(0,0,0,0.03); border:1px solid var(--line); border-radius:10px; padding:12px; max-height:180px; overflow-y:auto; font-size:13px; color:var(--ink); line-height:1.6; box-shadow: inset 0 -12px 12px -12px rgba(0,0,0,0.15);" id="guideScrollBox">
           <strong style="color:var(--sage-dark);">1. 如何使用 Gemini API Key？</strong><br>
           前往 Google AI Studio 免費申請 API Key，貼入「✨ AI 情境」選單中的欄位，即可無限生成專屬的單字與情境對話。<br><br>
           
@@ -641,7 +650,8 @@
       <div style="margin-bottom:12px;">
         <div style="font-weight:600; margin-bottom:6px; font-size:15px;">💾 備份與匯出題庫</div>
         <button id="exportBtn" style="background: var(--sage); border:none; padding: 12px; border-radius: 10px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">📥 下載 word_bank.js</button>
-        <div style="font-size:12px; color:var(--muted); line-height:1.4;">這將合併系統原始題庫與你所有的 AI 生成/自訂單字，打包下載。下載後請覆蓋舊檔即可永久保存。</div>
+        <button id="exportCsvBtn" style="background: #eef2f5; border: 1px solid #cfdbe6; padding: 12px; border-radius: 10px; color:#4a657a; cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">🃏 匯出 Anki / Quizlet 專用 (.csv)</button>
+        <div style="font-size:12px; color:var(--muted); line-height:1.4;">匯出 word_bank 適合網頁備份；匯出 CSV 則可直接匯入你的單字卡軟體中背誦。</div>
       </div>
       
       <hr style="border:none; border-top:1px dashed var(--line); margin:15px 0;">
@@ -696,27 +706,29 @@ el('catDropdown').addEventListener('click', (e) => {
 });
 
 function updateTriggerTexts(){
-  const modeLabels = { general:'📚 系統題庫', ai:'✨ AI情境', roleplay:'💬 實戰對話', news:'📰 每日新聞', favorites:'⭐ 收藏', review:'✅ 已完成' };
-  el('modeTriggerText').textContent = modeLabels[appMode] || '📚 系統題庫';
-
+  let modeName = '📚 系統題庫';
+  if(appMode==='ai') modeName = '✨ AI 情境';
+  if(appMode==='roleplay') modeName = '🎭 實戰對話';
+  if(appMode==='favorites') modeName = '⭐ 我的收藏';
+  if(appMode==='review') modeName = '✅ 已完成';
+  if(appMode==='news') modeName = '📰 新聞時事';
+  if(appMode==='random') modeName = '🔁 隨機抽考';
+  
+  el('modeTriggerText').textContent = modeName;
+  if(appMode === 'random') {
+    el('stageTriggerText').textContent = '複習中';
+    el('catTriggerText').textContent = '全部';
+  } else {
+    el('stageTriggerText').textContent = STAGES[stageIdx] ? STAGES[stageIdx].label : '';
+    el('catTriggerText').textContent = activeCat==='all' ? '全部' : activeCat;
+  }
+  
   const showStageAndCat = (appMode === 'general' || appMode === 'ai');
-  el('stageTrigger').style.display = showStageAndCat ? 'flex' : 'none';
-  el('catTrigger').style.display = showStageAndCat ? 'flex' : 'none';
+  el('stageTrigger').style.display = (appMode==='ai' || appMode==='random') ? 'none' : 'block';
+  el('catTrigger').style.display = (appMode==='random') ? 'none' : 'block';
   if(!showStageAndCat){
     closeDropdown('stage');
     closeDropdown('cat');
-  }
-
-  if(showStageAndCat){
-    const stage = (typeof currentStage === 'function') ? currentStage() : null;
-    if(stage) el('stageTriggerText').textContent = stage.label;
-
-    if(typeof activeCat !== 'undefined' && activeCat && activeCat !== 'all'){
-      const catDisplay = activeCat.startsWith('(AI) ') ? activeCat.replace('(AI) ','✨ ') : activeCat;
-      el('catTriggerText').textContent = catDisplay;
-    } else {
-      el('catTriggerText').textContent = '全部';
-    }
   }
 }
 
@@ -742,16 +754,37 @@ function savePracticed() {
   localStorage.setItem('speakup_practiced', JSON.stringify(practiced));
 }
 
+let streakData = { count: 0, lastActive: '' };
+try {
+  const s = localStorage.getItem('speakup_streak');
+  if(s) streakData = JSON.parse(s);
+} catch(e){}
+
+function updateStreak(todayStr) {
+  if (streakData.lastActive === todayStr) return;
+  if (streakData.lastActive) {
+    const todayDate = new Date(todayStr);
+    const lastDate = new Date(streakData.lastActive);
+    const diff = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+    if (diff === 1) streakData.count++;
+    else if (diff > 1) streakData.count = 1;
+  } else {
+    streakData.count = 1;
+  }
+  streakData.lastActive = todayStr;
+  localStorage.setItem('speakup_streak', JSON.stringify(streakData));
+}
+
 function recordPracticed(item, stageIdx){
   if(!item || !item.en) return;
   practiced[item.en] = {
     en: item.en,
     zh: item.zh || '',
-    cat: item.cat || '未分類',
-    stage: stageIdx
+    cat: item.cat || '無',
+    stage: stageIdx,
+    lastPracticed: new Date().getTime()
   };
   savePracticed();
-  // 追蹤今日練習題數
   const today = new Date().toISOString().slice(0,10);
   const stored = JSON.parse(localStorage.getItem('speakup_daily') || '{"date":"","count":0}');
   if(stored.date === today) {
@@ -761,6 +794,7 @@ function recordPracticed(item, stageIdx){
     stored.count = 1;
   }
   localStorage.setItem('speakup_daily', JSON.stringify(stored));
+  updateStreak(today);
 }
 
 const STAGES = [
@@ -851,7 +885,7 @@ let savedCat = localStorage.getItem('speakup_cat');
 let savedCatProgressStr = localStorage.getItem('speakup_cat_progress');
 let catProgress = savedCatProgressStr ? JSON.parse(savedCatProgressStr) : {};
 let geminiApiKey = localStorage.getItem('speakup_apikey') || '';
-const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'review'];
+const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'review', 'random'];
 const savedMode = localStorage.getItem('speakup_appMode');
 let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
@@ -863,6 +897,7 @@ function getSavedItemIdx(sIdx, cat) {
 let stageIdx = savedStageIdx ? parseInt(savedStageIdx, 10) : 0;
 let activeCat = savedCat || 'all';
 let itemIdx = getSavedItemIdx(stageIdx, activeCat);
+let randomReviewItems = [];
 
 function saveProgress(){
   localStorage.setItem('speakup_stageIdx', stageIdx);
@@ -870,6 +905,11 @@ function saveProgress(){
   const key = `${stageIdx}_${activeCat}`;
   catProgress[key] = itemIdx;
   localStorage.setItem('speakup_cat_progress', JSON.stringify(catProgress));
+}
+
+function generateRandomReview() {
+  const allItems = STAGES.flatMap(s => s.items);
+  randomReviewItems = allItems.sort(() => 0.5 - Math.random()).slice(0, 20);
 }
 
 function setAppMode(mode, isInitial = false) {
@@ -882,8 +922,9 @@ function setAppMode(mode, isInitial = false) {
   if(el('tabNews')) el('tabNews').classList.toggle('active', mode === 'news');
   if(el('tabFavorites')) el('tabFavorites').classList.toggle('active', mode === 'favorites');
   if(el('tabReview')) el('tabReview').classList.toggle('active', mode === 'review');
+  if(el('tabRandom')) el('tabRandom').classList.toggle('active', mode === 'random');
   
-  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'favorites' || mode === 'news');
+  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'favorites' || mode === 'news' || mode === 'random');
   
   el('aiActions').style.display = mode === 'ai' ? 'block' : 'none';
   el('ladder').style.display = (mode === 'general') ? 'flex' : 'none';
@@ -923,6 +964,13 @@ el('tabRoleplay').onclick = () => setAppMode('roleplay');
 el('tabFavorites').onclick = () => setAppMode('favorites');
 el('tabReview').onclick = () => setAppMode('review');
 el('tabNews').onclick = () => setAppMode('news');
+el('tabRandom').onclick = () => {
+  generateRandomReview();
+  setAppMode('random');
+  activeCat = 'all';
+  itemIdx = 0;
+  render();
+};
 
 el('refreshNewsBtn').onclick = () => fetchBBCNews();
 
@@ -1233,6 +1281,25 @@ function renderReview(){
     `;
   }
 
+  const todayStr = new Date().toISOString().slice(0,10);
+  let renderStreak = streakData.count;
+  if(streakData.lastActive && streakData.lastActive !== todayStr) {
+    const diff = Math.floor((new Date(todayStr) - new Date(streakData.lastActive)) / (1000*60*60*24));
+    if(diff > 1) renderStreak = 0;
+  }
+  let gardenBg = 'var(--card)';
+  let gardenColor = 'var(--sage-dark)';
+  let streakText = '';
+  if(renderStreak > 0 && renderStreak < 7) {
+    const p = Math.min(100, Math.floor((renderStreak/7)*100));
+    gardenBg = `linear-gradient(to top, #A88771 0%, #A88771 ${p}%, var(--card) ${p}%, var(--card) 100%)`;
+    streakText = `🔥 連續 ${renderStreak} 天`;
+  } else if (renderStreak >= 7) {
+    gardenBg = `#A88771`;
+    gardenColor = `#fff`;
+    streakText = `🔥 完美連勝 (${renderStreak} 天)`;
+  }
+  
   // 等級系統（15 階，涵蓋 0–2000+ 詞）
   const levelDefs = [
     { min:0,    max:9,    label:'🌱 嫩芽',     color:'#8fba6c' },
@@ -1300,11 +1367,14 @@ function renderReview(){
 
   let gardenHtml = `
   <style>.vase-carousel::-webkit-scrollbar { display: none; }</style>
-  <div style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 16px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+  <div style="background:${gardenBg}; border:1px solid var(--line); border-radius:14px; padding:16px 16px 16px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.05); transition: background 0.5s ease;">
     <div style="display:flex; gap:12px; align-items:stretch;">
       <!-- 左欄：標題 + 花瓶 -->
       <div style="flex:1; min-width:0; display:flex; flex-direction:column;">
-        <div style="font-size:18px; color:var(--sage-dark); font-weight:800; text-align:left; letter-spacing:0.5px; padding-left:4px; padding-top:2px;">語感花室</div>
+        <div style="font-size:18px; color:${gardenColor}; font-weight:800; text-align:left; letter-spacing:0.5px; padding-left:4px; padding-top:2px; display:flex; justify-content:space-between;">
+          <span>語感花室</span>
+          <span style="font-size:13px; font-weight:600; opacity:0.9;">${streakText}</span>
+        </div>
         <div style="flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; padding-bottom:10px;">
           <div style="position:relative; display:flex; align-items:center; width:100%;">
             <button id="vasePrevBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8249;</button>
@@ -1663,7 +1733,27 @@ function categoriesForMode(mode) {
   return Array.from(set);
 }
 
+let randomReviewItems = [];
+function generateRandomReview() {
+  const list = Object.values(practiced);
+  if (list.length === 0) {
+    randomReviewItems = [{en: 'Practice more', zh: '請先在其他模式練習', cat: '提示'}];
+    return;
+  }
+  list.sort((a,b) => (b.lastPracticed || 0) - (a.lastPracticed || 0));
+  const recentCount = Math.ceil(list.length * 0.3);
+  const recent = list.slice(0, recentCount);
+  const older = list.slice(recentCount);
+  const shuffle = arr => arr.sort(() => 0.5 - Math.random());
+  shuffle(recent);
+  shuffle(older);
+  let picked = [...recent.slice(0,10), ...older.slice(0,10)];
+  shuffle(picked);
+  randomReviewItems = picked;
+}
+
 function filteredItems(){
+  if(appMode === 'random') return randomReviewItems;
   if(appMode === 'ai') {
     let items = [];
     STAGES.forEach(stg => {
@@ -1792,6 +1882,7 @@ function render(){
   el('coachFeedback').style.display = 'none';
   el('coachFeedback').style.color = '';
   el('coachFeedback').textContent = '';
+  if(el('coachVocabArea')) el('coachVocabArea').style.display = 'none';
   
   el('recBtn').innerHTML = '🎙';
   el('recBtn').classList.remove('recording');
