@@ -81,7 +81,7 @@
     display:flex;gap:6px;flex:1;min-width:0;
   }
   .trigger-btn{
-    flex:1;min-width:0;min-height:42px;
+    flex:1;min-width:0;min-height:42px; white-space:nowrap; overflow:hidden;
     display:flex;align-items:center;justify-content:center;gap:4px;
     padding:0 10px;border-radius:999px;
     border:1px solid var(--line);background:var(--card);
@@ -737,7 +737,9 @@ function updateTriggerTexts(){
     el('catTriggerText').textContent = '全部';
   } else {
     el('stageTriggerText').textContent = STAGES[stageIdx] ? STAGES[stageIdx].label : '';
-    el('catTriggerText').textContent = activeCat==='all' ? '全部' : activeCat;
+    let displayCat = activeCat;
+    if (displayCat.startsWith('(AI) ')) displayCat = displayCat.replace('(AI) ', '');
+    el('catTriggerText').textContent = displayCat==='all' ? '全部' : displayCat;
   }
   
   const showStageAndCat = (appMode === 'general' || appMode === 'ai');
