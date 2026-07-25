@@ -1043,27 +1043,42 @@ function renderReview(){
       const stem = LAYER_STEM[layer] + (hash01(globalIdx * 4 + 3) - 0.5) * LAYER_STEM_JITTER;
       const ty = -(stem + arcBoost + jitterY);
 
-      // 扇形旋轉角度：以水平位置決定傾斜，角度範圍縮小(±10°)讓整體更聚攏
-      const rot = (tx / 55) * 10 + (hash01(globalIdx * 7 + 3) - 0.5) * 4;
+      // 花朵旋轉：以莖根(bottom-center)為軸，依花朵相對於瓶口的方向計算角度
+      // atan2(tx, -ty) = 莖方向角(莖根在瓶口，花朵在tx,ty方向)
+      const stemAngleDeg = Math.atan2(tx, -ty) * (180 / Math.PI);
+      // 加上小量隨機抖動讓每朵花有點不同的歪斜感
+      const flowerRot = stemAngleDeg + (hash01(globalIdx * 7 + 3) - 0.5) * 6;
+
       const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
       const zIdx = 130 - layer * 10 + slot;
       const delay = (i * 0.03).toFixed(2);
 
-      flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${rot.toFixed(1)}deg; animation:popIn 0.4s both; animation-delay:${delay}s; z-index:${zIdx};">${fType}</div>`;
+      // transform-origin 設為 bottom center，讓旋轉軸心落在「莖底部」(瓶口方向)
+      flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; transform-origin:50% 100%; --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${flowerRot.toFixed(1)}deg; animation:popIn 0.4s both; animation-delay:${delay}s; z-index:${zIdx};">${fType}</div>`;
     }
 
     // 瓶口貼一圈葉子:彼此左右緊靠、部分重疊,牢牢貼在瓶口位置,像是花插進葉叢裡的底座。
     // 其中一半刻意左右翻轉(scaleX(-1)),葉形不會全部一模一樣。
     let leavesHtml = '';
     if (flowersInThisVase > 0) {
-      // 四片葉子：左外、左內、右內、右外，緊貼瓶口形成底座
-      const leaves = [
-        { tx: -22, ty: -4,  rot: -35, size: 19, flip: false },
-        { tx: -8,  ty: -7,  rot: -12, size: 18, flip: true  },
-        { tx: 8,   ty: -7,  rot: 12,  size: 18, flip: false },
-        { tx: 22,  ty: -4,  rot: 35,  size: 19, flip: true  }
-      ];
-      leavesHtml = leaves.map((lf, li) => `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(lf.size / 2)}px; font-size:${lf.size}px; line-height:1; transform:translate(${lf.tx}px, ${lf.ty}px) rotate(${lf.rot}deg)${lf.flip ? ' scaleX(-1)' : ''}; z-index:${6 + li}; opacity:0.95;">🌿</div>`).join('');
+      // 葉子以瓶口為中心，扇形外展，transform-origin: bottom center，部份重疊
+      // 5片葉子，從左到右，角度範圍約 -45° ~ +45°，中間葉直立
+      const LEAF_COUNT = 5;
+      const LEAF_ANGLE_RANGE = 80; // 總扇形角度
+      const leaveDefs = Array.from({ length: LEAF_COUNT }, (_, li) => {
+        const progress = LEAF_COUNT > 1 ? li / (LEAF_COUNT - 1) : 0.5;
+        const angle = -LEAF_ANGLE_RANGE / 2 + progress * LEAF_ANGLE_RANGE;
+        // 葉片大小：中間略大，兩側略小
+        const distFromCenter = Math.abs(progress - 0.5) * 2;
+        const leafSize = 20 - distFromCenter * 3;
+        // 中間葉片稍微往上抬(ty負值)，兩側略低
+        const leafTy = -6 + distFromCenter * 3;
+        const zLeaf = 10 + li;
+        return { angle, leafSize, leafTy, zLeaf, flip: li % 2 === 1 };
+      });
+      leavesHtml = leaveDefs.map(lf =>
+        `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(lf.leafSize / 2)}px; font-size:${lf.leafSize}px; line-height:1; transform:translateY(${lf.leafTy}px) rotate(${lf.angle}deg)${lf.flip ? ' scaleX(-1)' : ''}; transform-origin:50% 100%; z-index:${lf.zLeaf}; opacity:0.92;">🌿</div>`
+      ).join('');
     }
 
 
