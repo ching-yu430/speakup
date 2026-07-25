@@ -982,29 +982,57 @@ function renderReview(){
     groups[cat].push(it);
   });
 
-  const numFlowers = Math.floor(list.length / 5);
+  const totalFlowers = Math.floor(list.length / 5);
   const types = ['🌷', '🌹', '🌻', '🌼', '🌸', '🌺', '🪻'];
+  const getFlowerType = (idx) => types[(idx * 13 + 7) % types.length];
+  
+  const VASE_CAPACITY = 15;
+  const totalVases = Math.max(1, Math.ceil(totalFlowers / VASE_CAPACITY));
+  
+  let vasesHtml = '';
+  for (let v = totalVases - 1; v >= 0; v--) {
+    const flowersInThisVase = Math.min(totalFlowers - v * VASE_CAPACITY, VASE_CAPACITY);
+    let flowersHtml = '';
+    
+    for (let i = 0; i < flowersInThisVase; i++) {
+      const globalIdx = v * VASE_CAPACITY + i;
+      const fType = getFlowerType(globalIdx);
+      
+      const progress = (flowersInThisVase > 1) ? (i / (flowersInThisVase - 1)) : 0.5;
+      const angle = -35 + (progress * 70);
+      const distFromCenter = Math.abs(progress - 0.5) * 2;
+      const yOffset = distFromCenter * 15;
+      const zIdx = Math.round((1 - distFromCenter) * 10);
+      
+      const randAngle = ((globalIdx * 7) % 15) - 7;
+      const randY = ((globalIdx * 11) % 10) - 5;
+      const finalAngle = angle + randAngle;
+      const finalY = yOffset + randY;
+      
+      flowersHtml += `<div style="position:absolute; bottom:55px; left:50%; margin-left:-12px; font-size:26px; line-height:1; transform:translateY(${finalY}px) rotate(${finalAngle}deg); transform-origin:bottom center; animation:popIn 0.4s both; z-index:${zIdx};">${fType}</div>`;
+    }
+    
+    vasesHtml += `
+      <div style="flex:0 0 100%; scroll-snap-align:center; position:relative; width:120px; height:130px;">
+        ${flowersHtml}
+        <div style="position:absolute; bottom:0; left:50%; margin-left:-25px; width:50px; height:60px; background:#f8fafc; border:2px solid var(--line); border-radius:8px 8px 20px 20px; box-shadow:0 4px 8px rgba(0,0,0,0.05); z-index:100;">
+          <div style="position:absolute; top:-3px; left:-6px; right:-6px; height:6px; background:#fff; border:2px solid var(--line); border-radius:3px;"></div>
+          <div style="position:absolute; bottom:10px; left:10px; right:10px; height:2px; background:var(--line); opacity:0.3; border-radius:1px;"></div>
+        </div>
+        ${flowersInThisVase === 0 ? `<div style="font-size:13px; color:var(--muted); position:absolute; top:15px; width:100%; text-align:center;">🌱 再練 ${5 - (list.length % 5)} 詞<br>會開出第一朵花</div>` : ''}
+      </div>
+    `;
+  }
+
   let gardenHtml = `
+  <style>.vase-carousel::-webkit-scrollbar { display: none; }</style>
   <div style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px 20px 20px; margin-bottom:20px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
     <div style="font-size:14px; color:var(--sage-dark); font-weight:600; margin-bottom:16px;">你的語言盆栽 (已掌握 ${list.length} 詞)</div>
-    <div style="position:relative; width:140px; height:130px; margin:0 auto;">
-      <div style="display:flex; flex-wrap:wrap-reverse; justify-content:center; align-items:flex-end; align-content:flex-end; gap:2px; position:absolute; bottom:55px; left:0; right:0; z-index:1; min-height:40px;">
-  `;
-  if (numFlowers === 0) {
-    gardenHtml += `<div style="font-size:13px; color:var(--muted); padding:10px 0; width:100%;">🌱 再練 ${5 - (list.length % 5)} 詞，會開出第一朵花</div>`;
-  } else {
-    for (let i = 0; i < numFlowers; i++) {
-      gardenHtml += `<div style="font-size:24px; line-height:1; animation:popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; margin-bottom:-12px; z-index:1;">${types[i % types.length]}</div>`;
-    }
-  }
-  gardenHtml += `
-      </div>
-      <div style="position:absolute; bottom:0; left:40px; right:40px; height:65px; background:rgba(255,255,255,0.15); backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px); border:1px solid rgba(255,255,255,0.4); border-bottom:3px solid rgba(255,255,255,0.7); border-radius:4px 4px 18px 18px; box-shadow:inset 0 0 12px rgba(255,255,255,0.3), 0 6px 12px rgba(0,0,0,0.05); z-index:2; overflow:hidden;">
-        <div style="position:absolute; bottom:2px; left:2px; right:2px; height:40px; background:rgba(144,202,249,0.25); border-radius:2px 2px 14px 14px; border-top:1px solid rgba(255,255,255,0.6);"></div>
-        <div style="position:absolute; top:10px; left:12px; width:14px; height:45px; background:linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%); transform:skewX(-15deg); border-radius:2px;"></div>
-      </div>
+    <div id="vaseCarousel" class="vase-carousel" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:20px; padding-bottom:10px; scrollbar-width:none; scroll-behavior:smooth;">
+      ${vasesHtml}
     </div>
-    ${numFlowers > 0 ? `<div style="font-size:12px; color:var(--muted); margin-top:16px;">距離下一朵花還需練習 ${5 - (list.length % 5)} 詞</div>` : ''}
+    ${totalVases > 1 ? `<div style="font-size:11px; color:var(--sage); margin-top:4px;">(向右滑動查看先前的花瓶 👉)</div>` : ''}
+    ${totalFlowers >= 0 ? `<div style="font-size:12px; color:var(--muted); margin-top:12px;">距離下一朵花還需練習 ${5 - (list.length % 5)} 詞</div>` : ''}
   </div>`;
 
   let html = gardenHtml;
