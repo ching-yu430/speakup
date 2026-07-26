@@ -1013,7 +1013,8 @@ function drawStatPill(ctx, x, y, w, h, icon, label, value, color){
 
   ctx.textAlign = 'center';
   ctx.font = '28px serif';
-  ctx.fillText(icon, x + w / 2, y + 36);
+  const iconOffsetX = icon === '🎙️' ? 5 : 0; // 修正麥克風的視覺偏心
+  ctx.fillText(icon, x + w / 2 + iconOffsetX, y + 36);
   ctx.font = '500 14px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = '#9a9488';
   ctx.fillText(label, x + w / 2, y + 62);
@@ -1465,12 +1466,13 @@ async function shareWeeklyCard(){
   const pillW = 168, pillH = 104, gap = 14;
   const row1W = pillW * 3 + gap * 2;
   const startX1 = W / 2 - row1W / 2;
-  const pillY1 = cardY + 416;
+  const pillY1 = cardY + 450; // 下移，增加與上方長條圖的距離
   drawStatPill(ctx, startX1, pillY1, pillW, pillH, '🌱', '本週新學', `${stats.newWordsThisWeek} 詞`, '#5aa06a');
   drawStatPill(ctx, startX1 + (pillW + gap), pillY1, pillW, pillH, '🎙️', '複習次數', `${stats.practiceCount} 次`, '#4a90c2');
   drawStatPill(ctx, startX1 + (pillW + gap) * 2, pillY1, pillW, pillH, '🎯', '平均正確率', stats.avgScore !== null ? `${stats.avgScore}%` : '無', '#e0703f');
 
-  const row2W = pillW * 2 + gap;
+  const row2W = row1W; // 下排總寬度與上排相同
+  const pillW2 = (row2W - gap) / 2; // 下排方塊的各自寬度
   const startX2 = W / 2 - row2W / 2;
   const pillY2 = pillY1 + pillH + gap;
   
@@ -1479,8 +1481,8 @@ async function shareWeeklyCard(){
   const bestDays = stats.days.filter(d => d.count === maxCountVal && d.count > 0);
   const bestDayLabel = bestDays.length > 0 ? bestDays[bestDays.length - 1].label : '無紀錄';
 
-  drawStatPill(ctx, startX2, pillY2, pillW, pillH, '👑', '本週最佳', bestDayLabel, '#f0c040');
-  drawStatPill(ctx, startX2 + (pillW + gap), pillY2, pillW, pillH, '🔥', '目前連勝', `${streak} 天`, '#e0703f');
+  drawStatPill(ctx, startX2, pillY2, pillW2, pillH, '👑', '本週最佳', bestDayLabel, '#f0c040');
+  drawStatPill(ctx, startX2 + (pillW2 + gap), pillY2, pillW2, pillH, '🔥', '目前連勝', `${streak} 天`, '#e0703f');
 
   ctx.font = '500 16px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = '#8a8f86';
