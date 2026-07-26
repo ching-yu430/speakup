@@ -1113,7 +1113,7 @@ function drawVaseIllustration(ctx, cx, baseY, flowerTypes, globalIdxOffset = 0){
     const rot = clampedAngle + (hash01(globalIdx * 7 + 3) - 0.5) * 4;
 
     const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
-    const zIdx = 10 + layer * 8 + slot; // 跟主畫面同一套公式:第一層(靠瓶口)最大、永遠在最上面
+    const zIdx = 50 - layer * 8 + slot; // 跟主畫面同一套公式:第一層(靠瓶口)最大、永遠在最上面
 
     return { fType, tx, ty, rot, size, zIdx };
   });
@@ -2087,7 +2087,7 @@ function renderReview(){
 
       const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
       // 層次 z-index：第一層(靠近瓶口)最大、第三層最小，但全部都大於葉子(8~12)，確保花永遠不會被葉子避擋
-      const zIdx = 10 + layer * 8 + slot;  // layer0=10~14, layer1=18~22, layer2=26~30，都遠大於葉子的最大z=12
+      const zIdx = 50 - layer * 8 + slot;  // layer0=50~54, layer1=42~46, layer2=34~38，都遠大於葉子的最大z=12
       const delay = (i * 0.03).toFixed(2);
 
       const isRareFlower = fType === RARE_TYPE;
