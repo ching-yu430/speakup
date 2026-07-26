@@ -1495,7 +1495,6 @@ async function shareWeeklyCard(){
   const startX2 = W / 2 - row2W / 2;
   const pillY2 = pillY1 + pillH + gap;
   
-  const streakData = lsGet('streakData', { count: 0, lastActive: '' });
   let streak = streakData.count;
   const todayStr = localDateStr();
   if(streakData.lastActive && streakData.lastActive !== todayStr) {
@@ -2097,7 +2096,7 @@ function renderReview(){
     const PER_LAYER = 5;
     const SLOT_GAP = 9;                    // 張開用 slotX 計算：5朵的總寬度 = 4×9 = 36px，最外側共±18px
     const LAYER_X_OFFSET = [0, 0, 0];    // 移除寫死的偏移，讓花朵根據真實數量自然置中對齊
-    const LAYER_STEM = [6, 13, 21];
+    const LAYER_STEM = [6, 18, 30];
     const LAYER_STEM_JITTER = 2;
     const LAYER_ARC = 15;                  // 微縮弧幅，不讓中間花跟外側花建差太大
     const LAYER_SIZE = [21, 19, 17];
