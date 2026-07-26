@@ -2095,7 +2095,7 @@ function renderReview(){
       const animStyle = isRareFlower
         ? `animation:popIn 0.4s both, rareGlow 1.8s ease-in-out infinite; animation-delay:${delay}s, 0s;`
         : `animation:popIn 0.4s both; animation-delay:${delay}s;`;
-      flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; transform-origin:50% 100%; --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${flowerRot.toFixed(1)}deg; ${animStyle} z-index:${zIdx};" title="${isRareFlower ? '連續練習7天以上的獎勵花!' : ''}">${fType}</div>`;
+      flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; transform-origin:50% 100%; transform:translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) rotate(${flowerRot.toFixed(1)}deg); --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${flowerRot.toFixed(1)}deg; ${animStyle} z-index:${zIdx};" title="${isRareFlower ? '連續練習7天以上的獎勵花!' : ''}">${fType}</div>`;
     }
 
     // 瓶口貼一圈葉子:彼此左右緊靠、部分重疊,牢牢貼在瓶口位置,像是花插進葉叢裡的底座。
