@@ -1003,7 +1003,7 @@ function canvasRoundRect(ctx, x, y, w, h, r){
   ctx.closePath();
 }
 
-function drawStatPill(ctx, x, y, w, h, icon, label, value, color){
+function drawStatPill(ctx, x, y, w, h, icon, label, value, color, wide = false){
   canvasRoundRect(ctx, x, y, w, h, 16);
   ctx.fillStyle = '#f7f4ea';
   ctx.fill();
@@ -1011,16 +1011,23 @@ function drawStatPill(ctx, x, y, w, h, icon, label, value, color){
   ctx.lineWidth = 1.2;
   ctx.stroke();
 
+  const iconSize = wide ? 36 : 28;
+  const labelSize = wide ? 16 : 14;
+  const valueSize = wide ? 30 : 24;
+  const yOffset = wide ? 4 : 0; // 稍微往下壓一點讓視覺平衡
+
   ctx.textAlign = 'center';
-  ctx.font = '28px serif';
-  const iconOffsetX = icon === '🎙️' ? 5 : 0; // 修正麥克風的視覺偏心
-  ctx.fillText(icon, x + w / 2 + iconOffsetX, y + 36);
-  ctx.font = '500 14px Inter, "Noto Sans TC", sans-serif';
+  ctx.font = `${iconSize}px serif`;
+  const iconOffsetX = icon === '🎙️' ? -5 : 0; // 修正麥克風的視覺偏心(向左移)
+  ctx.fillText(icon, x + w / 2 + iconOffsetX, y + 36 + yOffset);
+  
+  ctx.font = `500 ${labelSize}px Inter, "Noto Sans TC", sans-serif`;
   ctx.fillStyle = '#9a9488';
-  ctx.fillText(label, x + w / 2, y + 62);
-  ctx.font = '700 24px Inter, "Noto Sans TC", sans-serif';
+  ctx.fillText(label, x + w / 2, y + 62 + yOffset * 1.5);
+  
+  ctx.font = `700 ${valueSize}px Inter, "Noto Sans TC", sans-serif`;
   ctx.fillStyle = color;
-  ctx.fillText(value, x + w / 2, y + 92);
+  ctx.fillText(value, x + w / 2, y + 92 + yOffset * 2.5);
 }
 
 // 依「實際擁有的花朵數量」畫花瓶,而不是每次都固定畫滿 5 朵——
@@ -1481,8 +1488,8 @@ async function shareWeeklyCard(){
   const bestDays = stats.days.filter(d => d.count === maxCountVal && d.count > 0);
   const bestDayLabel = bestDays.length > 0 ? bestDays[bestDays.length - 1].label : '無紀錄';
 
-  drawStatPill(ctx, startX2, pillY2, pillW2, pillH, '👑', '本週最佳', bestDayLabel, '#f0c040');
-  drawStatPill(ctx, startX2 + (pillW2 + gap), pillY2, pillW2, pillH, '🔥', '目前連勝', `${streak} 天`, '#e0703f');
+  drawStatPill(ctx, startX2, pillY2, pillW2, pillH, '👑', '本週最佳', bestDayLabel, '#f0c040', true);
+  drawStatPill(ctx, startX2 + (pillW2 + gap), pillY2, pillW2, pillH, '🔥', '目前連勝', `${streak} 天`, '#e0703f', true);
 
   ctx.font = '500 16px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = '#8a8f86';
