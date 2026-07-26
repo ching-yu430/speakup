@@ -891,54 +891,202 @@ function celebrateMilestone(count){
   setTimeout(() => overlay.remove(), 4000);
 }
 
-// 花園小卡分享:用 canvas 畫一張簡易成果卡,支援手機原生分享或直接下載
-function shareGardenCard(wordCount, levelLabel, renderStreak){
-  const canvas = document.createElement('canvas');
-  const W = 600, H = 760;
-  canvas.width = W; canvas.height = H;
-  const ctx = canvas.getContext('2d');
-
-  const grad = ctx.createLinearGradient(0, 0, 0, H);
-  grad.addColorStop(0, '#f6f3ea');
-  grad.addColorStop(1, '#e4ebe0');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
-
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#3f5c43';
-  ctx.font = '700 34px "Noto Sans TC", "PingFang TC", sans-serif';
-  ctx.fillText('💐 我的語感花室', W / 2, 90);
-
-  // 簡易花瓶輪廓
+// -- 花園小卡的畫圖小工具 --
+function canvasRoundRect(ctx, x, y, w, h, r){
   ctx.beginPath();
-  ctx.moveTo(W / 2 - 40, 380);
-  ctx.bezierCurveTo(W / 2 - 60, 420, W / 2 - 90, 470, W / 2 - 90, 520);
-  ctx.bezierCurveTo(W / 2 - 90, 570, W / 2 - 50, 600, W / 2, 600);
-  ctx.bezierCurveTo(W / 2 + 50, 600, W / 2 + 90, 570, W / 2 + 90, 520);
-  ctx.bezierCurveTo(W / 2 + 90, 470, W / 2 + 60, 420, W / 2 + 40, 380);
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
   ctx.closePath();
-  ctx.fillStyle = '#fdfcfa';
+}
+
+function drawStatPill(ctx, x, y, w, h, icon, label, value, color){
+  canvasRoundRect(ctx, x, y, w, h, 14);
+  ctx.fillStyle = '#f7f4ea';
   ctx.fill();
-  ctx.strokeStyle = '#ddd7c9';
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = '#e6ddc7';
+  ctx.lineWidth = 1;
   ctx.stroke();
 
-  const flowerEmojis = ['🌷', '🌹', '🌻', '🌼', '🪻'];
-  ctx.font = '44px serif';
-  const positions = [[-64, 350], [-32, 315], [0, 300], [32, 315], [64, 350]];
-  positions.forEach((p, i) => ctx.fillText(flowerEmojis[i % flowerEmojis.length], W / 2 + p[0], p[1]));
+  ctx.textAlign = 'center';
+  ctx.font = '22px serif';
+  ctx.fillText(icon, x + w / 2, y + 32);
+  ctx.font = '500 12px Inter, "Noto Sans TC", sans-serif';
+  ctx.fillStyle = '#9a9488';
+  ctx.fillText(label, x + w / 2, y + 51);
+  ctx.font = '700 19px Inter, "Noto Sans TC", sans-serif';
+  ctx.fillStyle = color;
+  ctx.fillText(value, x + w / 2, y + 76);
+}
 
+// 依「實際擁有的花朵數量」畫花瓶,而不是每次都固定畫滿 5 朵——
+// 沒有花的時候就只畫空花瓶(也不畫葉子),忠實反映目前真正的進度。
+// 花朵排列直接沿用主畫面「三層扇形」的同一套邏輯與比例常數,風格才會一致。
+function drawVaseIllustration(ctx, cx, baseY, flowerTypes){
+  const s = 1.85; // 整組花瓶+花+葉共用的縮放係數
+  const neckY = baseY - 84 * s; // 對應主畫面 NECK_TOP_Y=84 的瓶口錨點
+
+  // 花瓶陰影
+  ctx.beginPath();
+  ctx.ellipse(cx, baseY - 2 * s, 19 * s, 3 * s, 0, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(0,0,0,0.08)';
+  ctx.fill();
+
+  // 花瓶主體(跟主畫面 SVG 同一條路徑,座標系原點對齊瓶身 (30,50))
+  ctx.save();
+  ctx.translate(cx - 30 * s, baseY - 99 * s);
+  ctx.scale(s, s);
+  const vasePath = new Path2D('M24,1 C20,3 21,12 23,22 C25,32 26,40 27,46 C15,54 8,64 8,77 C8,90 14,97 22,99 L38,99 C46,97 52,90 52,77 C52,64 45,54 33,46 C34,40 35,32 37,22 C39,12 40,3 36,1 C33,-0.6 27,-0.6 24,1 Z');
+  const vaseGrad = ctx.createLinearGradient(8, 0, 52, 0);
+  vaseGrad.addColorStop(0, '#ffffff');
+  vaseGrad.addColorStop(0.5, '#fdfcfa');
+  vaseGrad.addColorStop(1, '#eee9db');
+  ctx.fillStyle = vaseGrad;
+  ctx.fill(vasePath);
+  ctx.strokeStyle = '#ddd6c6';
+  ctx.lineWidth = 1.2;
+  ctx.stroke(vasePath);
+  ctx.beginPath();
+  ctx.ellipse(30, 2, 6.2, 1.7, 0, 0, Math.PI * 2);
+  ctx.fillStyle = '#efece0';
+  ctx.strokeStyle = '#ddd6c6';
+  ctx.fill();
+  ctx.stroke();
+  ctx.restore();
+
+  const flowerCount = flowerTypes.length;
+  if(flowerCount === 0) return; // 還沒有花:花瓶維持空的,不畫葉子也不畫花
+
+  // 瓶口一圈葉子(只要有花,一定貼著葉子,才會像插花而不是光禿禿的瓶口)
+  const leafDefs = [
+    { tx: -22, angle: -42, size: 21 }, { tx: -11, angle: -20, size: 22 },
+    { tx: 0,   angle: 0,   size: 23 }, { tx: 11,  angle: 20,  size: 22 },
+    { tx: 22,  angle: 42,  size: 21 }
+  ];
+  leafDefs.forEach(lf => {
+    ctx.save();
+    ctx.translate(cx + lf.tx * s, neckY);
+    ctx.rotate(lf.angle * Math.PI / 180);
+    ctx.font = `${(lf.size * s).toFixed(1)}px serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('🌿', 0, 0);
+    ctx.restore();
+  });
+
+  // 花朵:三層扇形排列,跟主畫面用同一套常數(SLOT_GAP/LAYER_STEM/LAYER_ARC/LAYER_SIZE)
+  const PER_LAYER = 5;
+  const SLOT_GAP = 9, LAYER_STEM = [6, 13, 21], LAYER_ARC = 15, LAYER_SIZE = [21, 19, 17];
+  flowerTypes.forEach((fType, i) => {
+    const layer = Math.min(Math.floor(i / PER_LAYER), LAYER_STEM.length - 1);
+    const slot = i - layer * PER_LAYER;
+    const inLayer = Math.min(PER_LAYER, flowerCount - layer * PER_LAYER);
+    const slotX = (slot - (inLayer - 1) / 2) * SLOT_GAP;
+    const half = ((inLayer - 1) / 2) * SLOT_GAP + 1;
+    const norm = half > 0 ? Math.abs(slotX) / half : 0;
+    const arc = LAYER_ARC * (1 - norm * norm);
+    const ty = -(LAYER_STEM[layer] + arc);
+    const size = LAYER_SIZE[layer];
+
+    ctx.save();
+    ctx.translate(cx + slotX * s, neckY + ty * s);
+    if(fType === '💮'){ ctx.shadowColor = 'gold'; ctx.shadowBlur = 8; } // 稀有花加一點柔光
+    ctx.font = `${(size * s).toFixed(1)}px serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText(fType, 0, 0);
+    ctx.restore();
+  });
+}
+
+// 花園小卡分享:用 canvas 畫一張成果卡,支援手機原生分享或直接下載。
+// flowerTypes 是「目前這一瓶實際擁有的花」陣列(可能是空陣列),不是寫死畫 5 朵。
+async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, renderStreak, toNextFlower){
+  // 先確保字型載入完成,匯出的圖片才不會臨時吃到瀏覽器預設字體
+  try {
+    await Promise.all([
+      document.fonts.load('700 40px Fraunces'),
+      document.fonts.load('500 14px Inter'),
+      document.fonts.load('700 19px Inter')
+    ]);
+  } catch(e) { /* 字型載入失敗就用系統預設,不影響功能 */ }
+
+  const W = 640, H = 860;
+  const dpr = 2; // 用兩倍解析度匯出,圖片文字才夠銳利
+  const canvas = document.createElement('canvas');
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  // 背景漸層
+  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+  bgGrad.addColorStop(0, '#f3ede0');
+  bgGrad.addColorStop(1, '#dce6da');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  // 四角落淡淡的葉子裝飾,增加一點花園的氛圍感
+  ctx.save();
+  ctx.globalAlpha = 0.12;
+  ctx.font = '70px serif';
   ctx.textAlign = 'left';
-  ctx.font = '600 26px "Noto Sans TC", sans-serif';
-  ctx.fillStyle = '#2d2a26';
-  ctx.fillText(`🌷 已掌握 ${wordCount} 詞`, 60, 660);
-  ctx.fillText(`🏅 等級 ${levelLabel}`, 60, 702);
-  if(renderStreak > 0) ctx.fillText(`🔥 連續 ${renderStreak} 天`, 60, 744);
+  ctx.fillText('🌿', -14, 66);
+  ctx.save();
+  ctx.translate(W + 14, H - 10);
+  ctx.rotate(Math.PI);
+  ctx.fillText('🌿', 0, 0);
+  ctx.restore();
+  ctx.restore();
 
-  ctx.font = '13px sans-serif';
-  ctx.fillStyle = '#8a8f86';
-  ctx.textAlign = 'right';
-  ctx.fillText('Speak Up · 開口練習英文', W - 40, H - 24);
+  // 卡片主體:圓角白卡 + 柔和陰影
+  const pad = 28;
+  const cardX = pad, cardY = pad, cardW = W - pad * 2, cardH = H - pad * 2;
+  ctx.save();
+  ctx.shadowColor = 'rgba(60,50,30,0.18)';
+  ctx.shadowBlur = 34;
+  ctx.shadowOffsetY = 14;
+  canvasRoundRect(ctx, cardX, cardY, cardW, cardH, 28);
+  ctx.fillStyle = '#fffdf8';
+  ctx.fill();
+  ctx.restore();
+  canvasRoundRect(ctx, cardX, cardY, cardW, cardH, 28);
+  ctx.strokeStyle = 'rgba(125,160,128,0.28)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  // 標題
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#3f5c43';
+  ctx.font = '700 36px Fraunces, serif';
+  ctx.fillText('💐 我的語感花室', W / 2, cardY + 64);
+  ctx.font = '500 13px Inter, sans-serif';
+  ctx.fillStyle = '#9a9488';
+  ctx.fillText('S P E A K   U P   ·   V O C A B   G A R D E N', W / 2, cardY + 90);
+
+  // 花瓶+花朵(依實際數量畫,可能是空花瓶)
+  drawVaseIllustration(ctx, W / 2, cardY + 372, flowerTypes);
+
+  if(flowerTypes.length === 0){
+    ctx.font = '500 15px Inter, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = '#9a9488';
+    ctx.fillText(`🌱 再練 ${toNextFlower} 詞就會開出第一朵花`, W / 2, cardY + 260);
+  }
+
+  // 統計卡(三個並排的圓角小卡)
+  const pillW = 160, pillH = 92, gap = 16;
+  const totalW = pillW * 3 + gap * 2;
+  const startX = W / 2 - totalW / 2;
+  const pillY = cardY + cardH - 210;
+  drawStatPill(ctx, startX, pillY, pillW, pillH, '🌷', '已掌握', `${wordCount} 詞`, '#5aa06a');
+  drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '🏅', '等級', levelLabel, levelColor || '#c98a4b');
+  drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '🔥', '連續天數', renderStreak > 0 ? `${renderStreak} 天` : '今天開始', '#e0703f');
+
+  // 底部footer
+  ctx.font = '13px Inter, sans-serif';
+  ctx.fillStyle = '#b0aa9a';
+  const dateStr = new Date().toLocaleDateString('zh-TW', { year:'numeric', month:'2-digit', day:'2-digit' });
+  ctx.fillText(`Speak Up · 開口練習英文 · ${dateStr}`, W / 2, cardY + cardH - 24);
 
   canvas.toBlob(async (blob) => {
     if(!blob) return;
@@ -1738,7 +1886,13 @@ function renderReview(){
 
   const shareGardenBtn = container.querySelector('#shareGardenBtn');
   if(shareGardenBtn){
-    shareGardenBtn.onclick = () => shareGardenCard(list.length, level.label, renderStreak);
+    const latestVaseIdx = totalVases - 1;
+    const flowersInLatestVase = Math.max(0, Math.min(totalFlowers - latestVaseIdx * VASE_CAPACITY, VASE_CAPACITY));
+    const shareFlowerTypes = [];
+    for(let i = 0; i < flowersInLatestVase; i++){
+      shareFlowerTypes.push(getFlowerType(latestVaseIdx * VASE_CAPACITY + i));
+    }
+    shareGardenBtn.onclick = () => shareGardenCard(shareFlowerTypes, list.length, level.label, level.color, renderStreak, toNextFlower);
   }
 
   const vaseCarousel = container.querySelector('#vaseCarousel');
