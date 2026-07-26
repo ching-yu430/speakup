@@ -1113,9 +1113,53 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
   // 靠近置中會讓整張卡看起來更平衡。
   drawVaseIllustration(ctx, W / 2, cardY + 456, flowerTypes, globalIdxOffset);
 
-  if(flowerTypes.length === 0){
+  if(flowerTypes.length > 0) {
+    const list = Object.values(practiced);
+    const vaseWordStart = globalIdxOffset * 5;
+    const vaseWordEnd = Math.min(list.length, vaseWordStart + flowerTypes.length * 5);
+    const vaseWords = list.slice(vaseWordStart, vaseWordEnd);
+    let vaseDateLabel = '';
+    if (vaseWords.length > 0) {
+      const times = vaseWords.map(w => w.lastPracticed).filter(Boolean);
+      if(times.length){
+        const fmtDate = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()}`; };
+        const minT = Math.min(...times), maxT = Math.max(...times);
+        vaseDateLabel = (fmtDate(minT) === fmtDate(maxT)) ? fmtDate(minT) : `${fmtDate(minT)}~${fmtDate(maxT)}`;
+      }
+    }
+    const vNum = Math.floor(globalIdxOffset / 15) + 1;
+    const pillText = `第${vNum}瓶${vaseDateLabel ? ' · ' + vaseDateLabel : ''}`;
+
+    ctx.font = '700 15px Inter, "Noto Sans TC", sans-serif';
+    const tw = ctx.measureText(pillText).width;
+    const ph = 32;
+    const pw = tw + 32;
+    const px = W / 2 - pw / 2;
+    const py = cardY + 456 + 24;
+
+    ctx.save();
+    ctx.shadowColor = 'rgba(60,50,30,0.08)';
+    ctx.shadowBlur = 12;
+    ctx.shadowOffsetY = 4;
+    canvasRoundRect(ctx, px, py, pw, ph, ph / 2);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.fill();
+    ctx.restore();
+
+    canvasRoundRect(ctx, px, py, pw, ph, ph / 2);
+    ctx.strokeStyle = 'rgba(125,160,128,0.25)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    ctx.fillStyle = '#3f5c43';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(pillText, W / 2, py + ph / 2 + 1.5);
+  } else {
     ctx.font = '500 15px Inter, "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#9a9488';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
     ctx.fillText(`🌱 再練 ${toNextFlower} 詞就會開出第一朵花`, W / 2, cardY + 344);
   }
 
