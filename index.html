@@ -612,7 +612,7 @@
 
     <div class="controls" style="margin-top:16px;">
       <button class="btn-play btn-play-slow" id="slowPlayBtn" title="慢速發音">🐢</button>
-      <button class="btn-mic" id="recBtn" title="點擊錄音">🎙</button>
+      <button class="btn-mic" id="recBtn" title="點選錄音">🎙</button>
       <button class="btn-play" id="playBtn" title="正常發音">🔊</button>
     </div>
     <div class="live-transcript" id="liveTranscript"></div>
@@ -679,7 +679,7 @@
       <div style="font-weight:600; margin-bottom:6px; font-size:15px;">💾 題庫備份</div>
       <button id="exportBtn" style="background: var(--sage); border:none; padding: 12px; border-radius: 10px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">📥 下載 word_bank.js</button>
       <button id="exportCsvBtn" style="background: var(--card); border: 1px solid var(--line); padding: 12px; border-radius: 10px; color:var(--ink); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">🃏 匯出 Anki / Quizlet (.csv)</button>
-      <div style="font-size:12px; color:var(--muted); line-height:1.4;">題庫本身的備份，方便搬到別台裝置，或匯入單字卡軟體背誦。</div>
+      <div style="font-size:12px; color:var(--muted); line-height:1.4;">題庫本身的備份，方便搬到別臺裝置，或匯入單字卡軟體背誦。</div>
     </div>
 
     <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
@@ -737,7 +737,7 @@ function lsSet(key, val) {
 }
 
 // 用「使用者所在時區」的日期,而不是 UTC 日期。
-// toISOString() 會用 UTC 時間,對台灣(UTC+8)來說,每天 00:00~08:00 之間
+// toISOString() 會用 UTC 時間,對臺灣(UTC+8)來說,每天 00:00~08:00 之間
 // 算出來的日期其實還是「昨天」,導致連續天數/今日題數在這段時間算錯。
 function localDateStr(d = new Date()){
   const y = d.getFullYear();
@@ -1047,7 +1047,7 @@ function drawVaseIllustration(ctx, cx, baseY, flowerTypes, globalIdxOffset = 0){
 // 花園小卡分享:用 canvas 畫一張成果卡,支援手機原生分享或直接下載。
 // flowerTypes 是「目前這一瓶實際擁有的花」陣列(可能是空陣列),不是寫死畫 5 朵。
 async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, renderStreak, toNextFlower, globalIdxOffset = 0){
-  // 先確保字型載入完成,匯出的圖片才不會臨時吃到瀏覽器預設字體
+  // 先確保字型載入完成,匯出的圖片才不會臨時吃到瀏覽器預設字型
   try {
     await Promise.all([
       document.fonts.load('700 40px Fraunces'),
@@ -1312,7 +1312,7 @@ const STAGES = [
       {en:'give an update on', zh:'報告...的進度', cat:'開會'},
       {en:'run into an issue', zh:'遇到一個問題', cat:'開會'},
       {en:'present my findings', zh:'發表我的研究結果', cat:'學術'},
-      {en:'based on the data', zh:'根據這些數據', cat:'學術'},
+      {en:'based on the data', zh:'根據這些資料', cat:'學術'},
       {en:'in terms of', zh:'就...方面而言', cat:'學術'},
       {en:'further research is needed', zh:'需要進一步研究', cat:'學術'},
       {en:'nice to meet you', zh:'很高興認識你', cat:'社交'},
@@ -1496,7 +1496,7 @@ async function fetchBBCNews() {
     
     listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--sage); font-weight:600;">✨ AI 正在幫您雙語翻譯今日新聞...</div>';
     
-    const prompt = `請將以下 5 則英文新聞標題與摘要翻譯為繁體中文(台灣)。
+    const prompt = `請將以下 5 則英文新聞標題與摘要翻譯為繁體中文(臺灣)。
 請只回傳 JSON 格式，必須是一個陣列，不需要 markdown 標籤。
 格式：[{"enTitle":"...", "zhTitle":"...", "enDesc":"...", "zhDesc":"..."}]
 新聞內容：
@@ -1513,7 +1513,7 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
     if(!aiRes.ok){
       let detail = aiRes.statusText;
       try{ const errJson = await aiRes.json(); detail = errJson.error?.message || detail; }catch(e){}
-      if(aiRes.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約台灣下午3點)重置。');
+      if(aiRes.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約臺灣下午3點)重置。');
       throw new Error('AI 翻譯請求失敗(' + aiRes.status + '):' + detail);
     }
     const aiData = await aiRes.json();
@@ -1557,7 +1557,7 @@ async function generateNewsVocab(idx) {
     const prompt = `請根據以下新聞，萃取 3 個重要單字與 2 個實用句型。
 新聞標題：${item.enTitle}
 摘要：${item.enDesc}
-請只回傳 JSON 格式，包含這5個項目，不需要 markdown 標籤。
+請只回傳 JSON 格式，包含這5個專案，不需要 markdown 標籤。
 格式：{"words": [{"en":"單字或句型", "zh":"繁體中文意思"}]}`;
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
       method: 'POST',
@@ -1570,7 +1570,7 @@ async function generateNewsVocab(idx) {
     if(!res.ok){
       let detail = res.statusText;
       try{ const errJson = await res.json(); detail = errJson.error?.message || detail; }catch(e){}
-      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約台灣下午3點)重置。');
+      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約臺灣下午3點)重置。');
       throw new Error('API 請求失敗(' + res.status + '):' + detail);
     }
     const data = await res.json();
@@ -1624,7 +1624,7 @@ async function generateNewsRP(idx) {
     if(!res.ok){
       let detail = res.statusText;
       try{ const errJson = await res.json(); detail = errJson.error?.message || detail; }catch(e){}
-      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約台灣下午3點)重置。');
+      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約臺灣下午3點)重置。');
       throw new Error('API 請求失敗(' + res.status + '):' + detail);
     }
     const data = await res.json();
@@ -1953,7 +1953,7 @@ function renderReview(){
 
   const levelCardHtml = `
     <div id="levelStatCard" onclick="el('levelModal').style.display='flex'" style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; text-align:left; cursor:pointer; user-select:none;">
-      <div style="font-size:11px; color:var(--muted); margin-bottom:2px; white-space:nowrap;">🏅 等級 <span style="font-size:9px; opacity:0.6;">（點擊查看）</span></div>
+      <div style="font-size:11px; color:var(--muted); margin-bottom:2px; white-space:nowrap;">🏅 等級 <span style="font-size:9px; opacity:0.6;">（點選檢視）</span></div>
       <div style="font-size:16px; font-weight:700; color:${level.color};">${level.label}</div>
       ${nextLevel ? `<div style="font-size:10px; color:var(--muted); margin-top:1px;">下一階：${nextLevel.label}</div>` : `<div style="font-size:10px; color:#c0a000; margin-top:1px;">已達最高階！</div>`}
     </div>
@@ -1987,7 +1987,7 @@ function renderReview(){
           </div>
           <button id="vaseNextBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8250;</button>
         </div>
-        ${totalVases > 1 ? `<div style="font-size:10px; color:var(--sage); margin-top:8px;">共 ${totalVases} 瓶，滑動查看</div>` : ''}
+        ${totalVases > 1 ? `<div style="font-size:10px; color:var(--sage); margin-top:8px;">共 ${totalVases} 瓶，滑動檢視</div>` : ''}
       </div>
       <!-- 右欄：統計 (4個卡片) -->
       <div style="width:115px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
@@ -2053,7 +2053,7 @@ function renderFavorites(){
   });
 
   const sortedCats = Object.keys(groups).sort();
-  let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);">\u9ede项目可回到練習，點⭐可取消收藏。</div>';
+  let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);">\u9ede專案可回到練習，點⭐可取消收藏。</div>';
   sortedCats.forEach(cat => {
     const items = groups[cat];
     html += `<div class="review-group">
@@ -2102,7 +2102,7 @@ try {
 } catch(e) {}
 
 // 使用者自訂加入的題目(透過「想加自己的內容」表單)，需另外持久化，
-// 不然重新整理頁面後「已完成」清單裡的自訂項目會找不到資料而點不回去。
+// 不然重新整理頁面後「已完成」清單裡的自訂專案會找不到資料而點不回去。
 let customItems = [];
 try {
   const savedCustom = lsGet('speakup_custom_items');
@@ -2155,7 +2155,7 @@ function initBank(){
     }
   });
 
-  // 復原已練習但遺失的項目 (例如未存入 aiGeneratedItems 的舊新聞單字)
+  // 復原已練習但遺失的專案 (例如未存入 aiGeneratedItems 的舊新聞單字)
   Object.values(practiced).forEach(p => {
     const stage = STAGES[p.stage] || STAGES[0];
     const existing = existingEnSet(stage);
@@ -2186,7 +2186,7 @@ async function fetchWordData(word){
   // 擷取音標與音檔
   const variants = {};
   const phonetics = entry.phonetics || [];
-  // 全局音標
+  // 全域性音標
   const globalPhon = entry.phonetic || '';
   phonetics.forEach(p => {
     if(!p.audio) return;
@@ -2218,7 +2218,7 @@ function getVariant(item){
 /* ---------- 用 Gemini 自動翻譯中文(當使用者沒填中文時) ---------- */
 async function fetchZhViaGemini(text){
   if(!geminiApiKey) return '';
-  const prompt = `請給出英文「${text}」最常用、最自然的繁體中文(台灣)翻譯。只要輸出翻譯本身,不要加任何解釋、標點或多餘文字,控制在12個字以內。`;
+  const prompt = `請給出英文「${text}」最常用、最自然的繁體中文(臺灣)翻譯。只要輸出翻譯本身,不要加任何解釋、標點或多餘文字,控制在12個字以內。`;
   try{
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
       method: 'POST',
@@ -2250,7 +2250,7 @@ function fetchAndEnrich(item){
 }
 
 // 把 IPA/KK 音標符號轉換成看得懂的英文字母拼法（近似值，幫助抓感覺，不是精確音標）
-// IPA → 白話英文拼法對照表（讓台灣人直覺讀出英文發音）
+// IPA → 白話英文拼法對照表（讓臺灣人直覺讀出英文發音）
 const IPA_TO_PLAIN = [
   // 子音組合（優先處理，避免被單音節拆散）
   ['tʃ','ch'], ['dʒ','j'],
@@ -2421,7 +2421,7 @@ function render(){
     const span = document.createElement('span');
     span.textContent = w;
     span.className = 'clickable-word';
-    span.title = '點擊發音';
+    span.title = '點選發音';
     span.onclick = () => {
       if(typeof isBlindMode !== 'undefined' && isBlindMode && !el('target').classList.contains('revealed')) return;
       const cleanWord = w.replace(/[^a-zA-Z0-9'-]/g, '');
@@ -2586,7 +2586,7 @@ async function warmUpMic(){
     stream.getTracks().forEach(t => t.stop());
     micReady = true;
   }catch(e){
-    // 權限被拒或不支援,後續 SpeechRecognition 會處理
+    // 許可權被拒或不支援,後續 SpeechRecognition 會處理
   }
 }
 
@@ -2634,7 +2634,7 @@ function buildRecognition(){
   r.onerror = (e) => {
     clearTimeout(recTimeoutTimer);
     const messages = {
-      'not-allowed':'麥克風權限被拒絕,請到設定 > Safari > 麥克風開啟權限。',
+      'not-allowed':'麥克風許可權被拒絕,請到設定 > Safari > 麥克風開啟許可權。',
       'no-speech':'沒偵測到說話聲,請靠近麥克風再試一次。',
       'audio-capture':'抓不到麥克風,請確認沒有其他 App 正在使用麥克風。',
       'network':'網路連線問題,語音辨識需要網路連線。',
@@ -2660,7 +2660,7 @@ function buildRecognition(){
       showResult(finalTranscript);
     } else if(!gotResult){
       // 真的完全沒收到任何東西
-      showErrorMsg('沒有聽到聲音。請確認麥克風正常,點擊錄音後立刻開口說話。');
+      showErrorMsg('沒有聽到聲音。請確認麥克風正常,點選錄音後立刻開口說話。');
     }
     // 如果 gotResult=true 但 finalTranscript='' → onerror 已經處理過了,不重複顯示
   };
@@ -2710,7 +2710,7 @@ function updateAccentButtons(){
 el('accentUS').onclick = () => { accentPref = 'us'; updateAccentButtons(); const it=currentItem(); if(it) renderPhonetics(getVariant(it) ? getVariant(it).phon : null); };
 el('accentUK').onclick = () => { accentPref = 'uk'; updateAccentButtons(); const it=currentItem(); if(it) renderPhonetics(getVariant(it) ? getVariant(it).phon : null); };
 
-/* ---------- 錄音：點擊切換模式 ---------- */
+/* ---------- 錄音：點選切換模式 ---------- */
 const MIN_REC_MS = 1500; // 最小錄音時間,防止太快 stop
 
 function startRecording(){
@@ -2750,7 +2750,7 @@ function stopRecording(){
   }
 }
 
-/* ---------- 錄音按鈕：點擊切換 ---------- */
+/* ---------- 錄音按鈕：點選切換 ---------- */
 const recBtn = el('recBtn');
 recBtn.addEventListener('click', (e) => {
   e.preventDefault();
@@ -2860,7 +2860,7 @@ const RANDOM_SCENARIOS = [
   "向店員詢問這件衣服有沒有別的顏色", "打電話叫外送披薩", "向朋友推薦一家超讚的餐廳",
   "抱怨昨晚失眠睡不好", "討論哪裡有不錯的約會地點", "在書店詢問某本暢銷書",
   "請外國朋友推薦當地的私房景點", "在路上遇到外國人搭訕推銷", "搭計程車司機繞路",
-  "買錯電影票想退票", "在郵局寄包裹到台灣", "向房東抱怨馬桶不通"
+  "買錯電影票想退票", "在郵局寄包裹到臺灣", "向房東抱怨馬桶不通"
 ];
 el('aiRandomBtn').onclick = () => {
   const r = RANDOM_SCENARIOS[Math.floor(Math.random() * RANDOM_SCENARIOS.length)];
@@ -2879,7 +2879,7 @@ el('aiGenerateBtn').onclick = async () => {
 
   const prompt = `你是一個專業的英文老師。請根據情境：「${scenario}」，生成相關的英文練習題目。
 請嚴格輸出 JSON 陣列，包含 10 個單字、5 個片語、5 個句子。每個物件必須有 en, zh, cat 三個屬性。cat 必須固定填入 "(AI) ${scenario}"。
-zh (中文) 必須是繁體中文(台灣)。
+zh (中文) 必須是繁體中文(臺灣)。
 格式範例：
 [
   {"en":"passport", "zh":"護照", "cat":"(AI) ${scenario}"},
@@ -2906,7 +2906,7 @@ zh (中文) 必須是繁體中文(台灣)。
       } catch(e) {
         errText = res.statusText;
       }
-      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約台灣下午3點)重置。');
+      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約臺灣下午3點)重置。');
       throw new Error(`API 請求失敗 (${res.status}): ${errText}`);
     }
     
@@ -2986,7 +2986,7 @@ if(el('settingsBtn')) {
     el('settingsPage').style.display = open ? 'block' : 'none';
     const tripleBar = document.querySelector('.triple-bar');
     if(tripleBar) tripleBar.style.display = open ? 'none' : 'flex';
-    if(open) Object.keys(DROPDOWNS).forEach(closeDropdown); // 打開設定前,先收起三顆選單的下拉面板
+    if(open) Object.keys(DROPDOWNS).forEach(closeDropdown); // 開啟設定前,先收起三顆選單的下拉麵板
   }
   el('settingsBtn').onclick = () => setSettingsOpen(!settingsOpen);
   el('closeSettingsBtn').onclick = () => setSettingsOpen(false);
@@ -3029,7 +3029,7 @@ if(el('settingsBtn')) {
     const file = e.target.files && e.target.files[0];
     e.target.value = ''; // 清空,讓同一個檔案下次還能重新選取
     if(!file) return;
-    if(!confirm('匯入備份會覆蓋這台裝置上目前的學習進度與資料,確定要繼續嗎？')) return;
+    if(!confirm('匯入備份會覆蓋這臺裝置上目前的學習進度與資料,確定要繼續嗎？')) return;
 
     const reader = new FileReader();
     reader.onload = (ev) => {
@@ -3081,7 +3081,7 @@ if(el('settingsBtn')) {
   };
 
   el('clearDataBtn').onclick = () => {
-    if(confirm('⚠️ 確定要清除所有學習紀錄、收藏與快取單字嗎？\n如果你沒有點擊上方按鈕匯出，你的自訂與 AI 生成單字將會永久遺失！')) {
+    if(confirm('⚠️ 確定要清除所有學習紀錄、收藏與快取單字嗎？\n如果你沒有點選上方按鈕匯出，你的自訂與 AI 生成單字將會永久遺失！')) {
       try{localStorage.clear()}catch(e){};
       alert('已清除所有資料，網頁即將重新載入。');
       location.reload();
@@ -3199,7 +3199,7 @@ async function fetchRpResponse(contents) {
         detail = (errJson.error && errJson.error.message) ? errJson.error.message : detail;
       }catch(e){}
       if(res.status === 400) throw new Error('請求格式錯誤或 API Key 無效(400):' + detail);
-      if(res.status === 403) throw new Error('API Key 沒有權限或被拒絕(403):' + detail);
+      if(res.status === 403) throw new Error('API Key 沒有許可權或被拒絕(403):' + detail);
       if(res.status === 404) throw new Error('找不到這個模型(404),可能模型名稱已變更:' + detail);
       if(res.status === 429) throw new Error('已達使用額度上限,請稍後再試(429):' + detail);
       throw new Error('API 請求失敗(' + res.status + '):' + detail);
@@ -3336,7 +3336,7 @@ el('rpHintBtn').onclick = async () => {
     if(!res.ok){
       let detail = res.statusText;
       try{ const errJson = await res.json(); detail = errJson.error?.message || detail; }catch(e){}
-      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約台灣下午3點)重置。');
+      if(res.status === 429) throw new Error('今日 AI 額度已用完(429),明天太平洋時間午夜後(約臺灣下午3點)重置。');
       throw new Error('API 請求失敗(' + res.status + '):' + detail);
     }
     const data = await res.json();
