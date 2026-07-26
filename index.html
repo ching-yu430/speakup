@@ -1155,6 +1155,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(pillText, W / 2, py + ph / 2 + 1.5);
+    ctx.textBaseline = 'alphabetic'; // Reset baseline for subsequent rendering
   } else {
     ctx.font = '500 15px Inter, "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#9a9488';
