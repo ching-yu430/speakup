@@ -1059,8 +1059,13 @@ async function fetchBBCNews() {
     listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--muted);">請先在「✨ AI情境」設定 Gemini API Key,才能使用新聞雙語翻譯功能。</div>';
     return;
   }
-  listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--muted);">🌍 正在抓取 BBC 最新頭條...</div>';
-  statusEl.textContent = '';
+  const shimmerHTML = `
+    <div class="anim-shimmer" style="height:110px; background:var(--card); border:1px solid var(--line); border-radius:10px; opacity:0.7; margin-bottom:12px;"></div>
+    <div class="anim-shimmer" style="height:110px; background:var(--card); border:1px solid var(--line); border-radius:10px; opacity:0.7; margin-bottom:12px;"></div>
+    <div class="anim-shimmer" style="height:110px; background:var(--card); border:1px solid var(--line); border-radius:10px; opacity:0.7;"></div>
+  `;
+  listEl.innerHTML = shimmerHTML;
+  statusEl.textContent = '🌍 正在抓取 BBC 最新頭條...';
   try {
     const rssUrl = encodeURIComponent('http://feeds.bbci.co.uk/news/rss.xml');
     const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
@@ -1068,7 +1073,7 @@ async function fetchBBCNews() {
     if(data.status !== 'ok') throw new Error('抓取 BBC 新聞來源失敗,該服務可能暫時無法使用。');
     const items = data.items.slice(0, 5);
     
-    listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--sage); font-weight:600;">✨ AI 正在幫您雙語翻譯今日新聞...</div>';
+    statusEl.textContent = '✨ AI 正在幫您雙語翻譯今日新聞...';
     
     const prompt = `請將以下 5 則英文新聞標題與摘要翻譯為繁體中文(臺灣)。
 請只回傳 JSON 格式，必須是一個陣列，不需要 markdown 標籤。
@@ -1405,7 +1410,7 @@ function renderReview(){
     if (flowersInThisVase > 0) {
       // 葉子：沿瓶口水平分散各自的起點，再各自傾斜向外，形成自然的部份重疊扇形
       // 5 片葉子，水平間距 11px（葉寬 ~18px，所以相鄰葉子約重疊 7px）
-      const LEAF_SPREAD = 11;  // 相鄰葉子水平起點間距
+      const LEAF_SPREAD = 11;
       const leafDefs = [
         { tx: -22, angle: -38, size: 18, flip: false, ty: 0  },
         { tx: -11, angle: -18, size: 19, flip: true,  ty: -3 },
@@ -1413,14 +1418,12 @@ function renderReview(){
         { tx:  11, angle:  18, size: 19, flip: true,  ty: -3 },
         { tx:  22, angle:  38, size: 18, flip: false, ty: 0  }
       ];
-      leavesHtml = leafDefs.map((lf, li) =>
-        `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${(lf.tx - lf.size / 2).toFixed(1)}px; font-size:${lf.size}px; line-height:1; transform:translateY(${lf.ty}px) rotate(${lf.angle}deg)${lf.flip ? ' scaleX(-1)' : ''}; transform-origin:50% 100%; z-index:${8 + li}; opacity:0.93;">🌿</div>`
-      ).join('');
+      leavesHtml = leafDefs.map((lf, li) => {
+        const leafDelay = (flowersInThisVase * 0.03 + li * 0.03).toFixed(2);
+        return `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${(lf.tx - lf.size / 2).toFixed(1)}px; font-size:${lf.size}px; line-height:1; transform:translateY(${lf.ty}px) rotate(${lf.angle}deg)${lf.flip ? ' scaleX(-1)' : ''}; transform-origin:50% 100%; z-index:${8 + li}; opacity:0.93; animation:popIn 0.3s both; animation-delay:${leafDelay}s;">🌿</div>`;
+      }).join('');
     }
 
-
-    // 這一瓶涵蓋的單字範圍(依「第幾個被練會」的順序切,跟花朵一一對應),
-    // 用來算出這一瓶是什麼時候練的,做成「第X瓶．日期範圍」標籤。
     const vaseWordStart = v * VASE_CAPACITY * 5;
     const vaseWordEnd = Math.min(list.length, vaseWordStart + flowersInThisVase * 5);
     const vaseWords = list.slice(vaseWordStart, vaseWordEnd);
@@ -1439,7 +1442,7 @@ function renderReview(){
         <div style="position:relative; width:100%; height:165px; transform:scale(1.3); transform-origin:bottom center;">
           ${flowersHtml}
           ${leavesHtml}
-          <svg viewBox="0 0 60 100" width="58" height="${VASE_H}" style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); z-index:1; overflow:visible;">
+          <svg class="anim-fade-in" viewBox="0 0 60 100" width="58" height="${VASE_H}" style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); z-index:1; overflow:visible;">
             <defs>
               <filter id="vaseShadow${v}" x="-50%" y="-50%" width="200%" height="200%">
                 <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.12"/>
@@ -2028,6 +2031,10 @@ function render(){
   }
   
   el('target').innerHTML = '';
+  el('target').classList.remove('anim-fade-in');
+  el('targetZh').classList.remove('anim-fade-in');
+  void el('target').offsetWidth;
+
   const words = item.en.split(' ');
   words.forEach((w, i) => {
     const span = document.createElement('span');
@@ -2043,6 +2050,9 @@ function render(){
     if(i < words.length - 1) el('target').appendChild(document.createTextNode(' '));
   });
   
+  el('target').classList.add('anim-fade-in');
+  el('targetZh').classList.add('anim-fade-in');
+
   if(typeof isBlindMode !== 'undefined' && isBlindMode) {
     el('target').classList.add('blind');
     el('target').classList.remove('revealed');
@@ -2064,11 +2074,15 @@ function render(){
   const favBtn = el('favBtn');
   favBtn.textContent = isFav ? '⭐' : '☆';
   favBtn.style.color = isFav ? '#f59e0b' : 'var(--muted)';
+  
+  // Apply pop if newly favorited (handled in onclick to avoid popping on every render, wait, render is called on next/prev too)
+  
   favBtn.onclick = () => {
     if(isFav) {
       favorites = favorites.filter(f => f.en !== item.en);
     } else {
       favorites.push({...item});
+      triggerAnim('favBtn', 'anim-pop');
     }
     saveFavorites();
     const favStage = STAGES.find(s => s.key === 'favorites');
@@ -2163,6 +2177,7 @@ function renderWordDiff(targetText, heardText){
 
 // 講對時的小小慶祝效果: 像煙火一樣先綻放再掉落
 function celebrateCorrectAnswer(){
+  triggerAnim('mainCard', 'anim-bounce');
   const overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed; inset:0; pointer-events:none; z-index:9997; overflow:hidden;';
   const petals = ['🌸', '🌷', '✨', '💮', '🎉', '🌟'];
@@ -2516,6 +2531,12 @@ el('apiKeyInput').addEventListener('input', (e) => {
 
 el('openAiModalBtn').onclick = () => {
   el('aiModal').classList.add('show');
+  const box = el('aiModal').querySelector('.ai-modal');
+  if(box) {
+    box.classList.remove('anim-pop');
+    void box.offsetWidth;
+    box.classList.add('anim-pop');
+  }
 };
 el('closeAiModalBtn').onclick = () => {
   el('aiModal').classList.remove('show');
@@ -2554,6 +2575,9 @@ el('aiGenerateBtn').onclick = async () => {
   btn.disabled = true;
   btn.textContent = '⏳ 生成中，請稍候... (約需 5~10 秒)';
   el('aiStatus').textContent = '';
+  
+  const modalBox = el('aiModal').querySelector('.ai-modal');
+  if(modalBox) modalBox.classList.add('anim-pulse-border');
 
   const prompt = `你是一個專業的英文老師。請根據情境：「${scenario}」，生成相關的英文練習題目。
 請嚴格輸出 JSON 陣列，包含 10 個單字、5 個片語、5 個句子。每個物件必須有 en, zh, cat 三個屬性。cat 必須固定填入 "(AI) ${scenario}"。
@@ -2628,6 +2652,7 @@ zh (中文) 必須是繁體中文(臺灣)。
     el('aiStatus').textContent = '❌ 生成失敗：' + err.message;
   }
   
+  if(modalBox) modalBox.classList.remove('anim-pulse-border');
   btn.disabled = false;
   btn.textContent = '🚀 立即生成題目';
 };

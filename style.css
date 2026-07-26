@@ -450,6 +450,48 @@
 
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:40px;}
 
+  /* Animations */
+  .anim-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+  .anim-fade-out { animation: fadeOut 0.3s ease-in forwards; }
+  .anim-slide-up-fade { animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .anim-pop { animation: popScale 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+  .anim-bounce { animation: bounceSoft 0.4s ease-in-out; }
+  
+  .anim-shimmer {
+    position: relative; overflow: hidden;
+  }
+  .anim-shimmer::after {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmerEffect 1.5s infinite;
+  }
+  
+  .anim-pulse-border {
+    animation: pulseBorder 2s infinite;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes slideUpFade { 
+    from { opacity: 0; transform: translateY(12px); } 
+    to { opacity: 1; transform: translateY(0); } 
+  }
+  @keyframes popScale {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes bounceSoft {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  @keyframes shimmerEffect {
+    100% { left: 200%; }
+  }
+  @keyframes pulseBorder {
+    0%, 100% { border-color: var(--line); }
+    50% { border-color: var(--sage); box-shadow: 0 0 8px rgba(92,122,94,0.3); }
+  }
   @media (max-width:520px){
     .brand{font-size:18px;}
     .trigger-btn{font-size:13px;min-height:38px;padding:0 6px;}
