@@ -1766,7 +1766,9 @@ function renderReview(){
     const wordSlice = list.slice(idx * 5, idx * 5 + 5);
     const isRare = wordSlice.some(w => (w && w.streakAtPractice || 0) >= 7);
     if(isRare) return RARE_TYPE;
-    return types[(idx * 13 + 7) % types.length];
+    // 使用 hash01 產生真正的偽隨機分佈，避免因為 15 朵花剛好是 3 的倍數而造成每瓶長得一樣
+    const typeIndex = Math.floor(hash01(idx * 17 + 5) * types.length);
+    return types[typeIndex];
   };
 
   // hash01 現在是全域共用函式(跟花園小卡用同一份),這裡不用再宣告一次
