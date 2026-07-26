@@ -892,6 +892,18 @@ function celebrateMilestone(count){
 }
 
 // -- 花園小卡的畫圖小工具 --
+
+// 決定性的假隨機函式(同一顆種子每次結果一致,畫面不會每次重新整理就亂跳)。
+// 提升到全域,讓小卡的 canvas 繪製跟網頁本體的花瓶用「同一份」函式,兩邊才會真正一致,
+// 不會變成兩份各自維護、容易慢慢長歪的複製程式碼。
+const hash01 = (n) => {
+  n = Math.imul(n ^ (n >>> 16), 2246822519);
+  n = Math.imul(n ^ (n >>> 13), 3266489917);
+  n = (n ^ (n >>> 16)) >>> 0;
+  return n / 4294967296;
+};
+const RARE_TYPE = '💮'; // 連續練習7天以上時學會的詞,開出的花會是這種稀有花當獎勵
+
 function canvasRoundRect(ctx, x, y, w, h, r){
   ctx.beginPath();
   ctx.moveTo(x + r, y);
@@ -903,28 +915,31 @@ function canvasRoundRect(ctx, x, y, w, h, r){
 }
 
 function drawStatPill(ctx, x, y, w, h, icon, label, value, color){
-  canvasRoundRect(ctx, x, y, w, h, 20);
+  canvasRoundRect(ctx, x, y, w, h, 16);
   ctx.fillStyle = '#f7f4ea';
   ctx.fill();
   ctx.strokeStyle = '#e6ddc7';
-  ctx.lineWidth = 1.5;
+  ctx.lineWidth = 1.2;
   ctx.stroke();
 
   ctx.textAlign = 'center';
-  ctx.font = '44px serif';
-  ctx.fillText(icon, x + w / 2, y + 50);
-  ctx.font = '500 24px Inter, "Noto Sans TC", sans-serif';
+  ctx.font = '30px serif';
+  ctx.fillText(icon, x + w / 2, y + 40);
+  ctx.font = '500 16px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = '#9a9488';
-  ctx.fillText(label, x + w / 2, y + 88);
-  ctx.font = '700 38px Inter, "Noto Sans TC", sans-serif';
+  ctx.fillText(label, x + w / 2, y + 66);
+  ctx.font = '700 26px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = color;
-  ctx.fillText(value, x + w / 2, y + 134);
+  ctx.fillText(value, x + w / 2, y + 98);
 }
 
 // 依「實際擁有的花朵數量」畫花瓶,而不是每次都固定畫滿 5 朵——
 // 沒有花的時候就只畫空花瓶(也不畫葉子),忠實反映目前真正的進度。
-// 花朵排列直接沿用主畫面「三層扇形」的同一套邏輯與比例常數,風格才會一致。
-function drawVaseIllustration(ctx, cx, baseY, flowerTypes){
+// 花朵與葉子的排列數學跟主畫面「三層扇形」用同一套常數、同一個 hash01、
+// 而且連隨機抖動、旋轉、疊層順序都完全比照,兩邊才會長得一模一樣。
+// globalIdxOffset:這一瓶花在「所有花」裡的起始編號(第幾瓶 * 15),
+// 用來讓 hash01 種子跟網頁本體算出來的完全對應同一朵花。
+function drawVaseIllustration(ctx, cx, baseY, flowerTypes, globalIdxOffset = 0){
   const s = 1.85; // 整組花瓶+花+葉共用的縮放係數
   const neckY = baseY - 84 * s; // 對應主畫面 NECK_TOP_Y=84 的瓶口錨點
 
@@ -959,49 +974,79 @@ function drawVaseIllustration(ctx, cx, baseY, flowerTypes){
   const flowerCount = flowerTypes.length;
   if(flowerCount === 0) return; // 還沒有花:花瓶維持空的,不畫葉子也不畫花
 
-  // 瓶口一圈葉子(只要有花,一定貼著葉子,才會像插花而不是光禿禿的瓶口)
+  // 瓶口一圈葉子:5 片、彼此左右緊靠部分重疊,其中一半左右翻轉,完全比照主畫面的 leafDefs
   const leafDefs = [
-    { tx: -22, angle: -42, size: 21 }, { tx: -11, angle: -20, size: 22 },
-    { tx: 0,   angle: 0,   size: 23 }, { tx: 11,  angle: 20,  size: 22 },
-    { tx: 22,  angle: 42,  size: 21 }
+    { tx: -22, angle: -38, size: 18, flip: false, ty: 0  },
+    { tx: -11, angle: -18, size: 19, flip: true,  ty: -3 },
+    { tx:   0, angle:   0, size: 20, flip: false, ty: -5 },
+    { tx:  11, angle:  18, size: 19, flip: true,  ty: -3 },
+    { tx:  22, angle:  38, size: 18, flip: false, ty: 0  }
   ];
   leafDefs.forEach(lf => {
     ctx.save();
-    ctx.translate(cx + lf.tx * s, neckY);
+    ctx.translate(cx + lf.tx * s, neckY + lf.ty * s);
     ctx.rotate(lf.angle * Math.PI / 180);
+    if(lf.flip) ctx.scale(-1, 1);
+    ctx.globalAlpha = 0.93;
     ctx.font = `${(lf.size * s).toFixed(1)}px serif`;
     ctx.textAlign = 'center';
     ctx.fillText('🌿', 0, 0);
     ctx.restore();
   });
 
-  // 花朵:三層扇形排列,跟主畫面用同一套常數(SLOT_GAP/LAYER_STEM/LAYER_ARC/LAYER_SIZE)
+  // 花朵:三層扇形排列,常數、抖動、旋轉、疊層順序都跟主畫面完全一致
   const PER_LAYER = 5;
-  const SLOT_GAP = 9, LAYER_STEM = [6, 13, 21], LAYER_ARC = 15, LAYER_SIZE = [21, 19, 17];
-  flowerTypes.forEach((fType, i) => {
+  const SLOT_GAP = 9;
+  const LAYER_X_OFFSET = [0, 6, -3];
+  const LAYER_STEM = [6, 13, 21], LAYER_STEM_JITTER = 2;
+  const LAYER_ARC = 15;
+  const LAYER_SIZE = [21, 19, 17], LAYER_SIZE_JITTER = 2;
+
+  const flowerDraws = flowerTypes.map((fType, i) => {
+    const globalIdx = globalIdxOffset + i;
     const layer = Math.min(Math.floor(i / PER_LAYER), LAYER_STEM.length - 1);
     const slot = i - layer * PER_LAYER;
-    const inLayer = Math.min(PER_LAYER, flowerCount - layer * PER_LAYER);
-    const slotX = (slot - (inLayer - 1) / 2) * SLOT_GAP;
-    const half = ((inLayer - 1) / 2) * SLOT_GAP + 1;
-    const norm = half > 0 ? Math.abs(slotX) / half : 0;
-    const arc = LAYER_ARC * (1 - norm * norm);
-    const ty = -(LAYER_STEM[layer] + arc);
-    const size = LAYER_SIZE[layer];
+    const flowersInLayer = Math.min(PER_LAYER, flowerCount - layer * PER_LAYER);
 
+    const slotX = (slot - (flowersInLayer - 1) / 2) * SLOT_GAP;
+    const jitterX = (hash01(globalIdx * 2) - 0.5) * 2;
+    const tx = slotX + LAYER_X_OFFSET[layer] + jitterX;
+
+    const halfWidth = ((flowersInLayer - 1) / 2) * SLOT_GAP + 1;
+    const normalized = halfWidth > 0 ? Math.abs(slotX) / halfWidth : 0;
+    const arcBoost = LAYER_ARC * (1 - normalized * normalized);
+    const jitterY = (hash01(globalIdx * 2 + 1) - 0.5) * 4;
+    const stem = LAYER_STEM[layer] + (hash01(globalIdx * 4 + 3) - 0.5) * LAYER_STEM_JITTER;
+    const ty = -(stem + arcBoost + jitterY);
+
+    const rawAngle = Math.atan2(tx, -ty) * (180 / Math.PI);
+    const clampedAngle = Math.max(-28, Math.min(28, rawAngle));
+    const rot = clampedAngle + (hash01(globalIdx * 7 + 3) - 0.5) * 4;
+
+    const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
+    const zIdx = 50 - layer * 8 + slot; // 跟主畫面同一套公式:第一層(靠瓶口)最大、永遠在最上面
+
+    return { fType, tx, ty, rot, size, zIdx };
+  });
+
+  // canvas 是「後畫的蓋在先畫的上面」,所以要先按 zIdx 由小到大排序,z 越大的最後畫、疊在最上層
+  flowerDraws.sort((a, b) => a.zIdx - b.zIdx);
+
+  flowerDraws.forEach(fd => {
     ctx.save();
-    ctx.translate(cx + slotX * s, neckY + ty * s);
-    if(fType === '💮'){ ctx.shadowColor = 'gold'; ctx.shadowBlur = 8; } // 稀有花加一點柔光
-    ctx.font = `${(size * s).toFixed(1)}px serif`;
+    ctx.translate(cx + fd.tx * s, neckY + fd.ty * s);
+    ctx.rotate(fd.rot * Math.PI / 180);
+    if(fd.fType === RARE_TYPE){ ctx.shadowColor = 'gold'; ctx.shadowBlur = 8; } // 稀有花加一點柔光
+    ctx.font = `${(fd.size * s).toFixed(1)}px serif`;
     ctx.textAlign = 'center';
-    ctx.fillText(fType, 0, 0);
+    ctx.fillText(fd.fType, 0, 0);
     ctx.restore();
   });
 }
 
 // 花園小卡分享:用 canvas 畫一張成果卡,支援手機原生分享或直接下載。
 // flowerTypes 是「目前這一瓶實際擁有的花」陣列(可能是空陣列),不是寫死畫 5 朵。
-async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, renderStreak, toNextFlower){
+async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, renderStreak, toNextFlower, globalIdxOffset = 0){
   // 先確保字型載入完成,匯出的圖片才不會臨時吃到瀏覽器預設字體
   try {
     await Promise.all([
@@ -1066,7 +1111,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
 
   // 花瓶+花朵(依實際數量畫,可能是空花瓶)——往下移,原本 372 讓花瓶跟下面統計列之間留了一大段空白,
   // 靠近置中會讓整張卡看起來更平衡。
-  drawVaseIllustration(ctx, W / 2, cardY + 456, flowerTypes);
+  drawVaseIllustration(ctx, W / 2, cardY + 456, flowerTypes, globalIdxOffset);
 
   if(flowerTypes.length === 0){
     ctx.font = '500 15px Inter, "Noto Sans TC", sans-serif';
@@ -1074,11 +1119,11 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     ctx.fillText(`🌱 再練 ${toNextFlower} 詞就會開出第一朵花`, W / 2, cardY + 344);
   }
 
-  // 統計卡(三個並排的圓角小卡)——配合放大後的文字把方框也一起放大,避免文字被裁切
-  const pillW = 178, pillH = 156, gap = 14;
+  // 統計卡(三個並排的圓角小卡)——文字比原本放大約1.35倍,方框也一起等比調整避免裁切
+  const pillW = 168, pillH = 110, gap = 14;
   const totalW = pillW * 3 + gap * 2;
   const startX = W / 2 - totalW / 2;
-  const pillY = cardY + cardH - 274;
+  const pillY = cardY + cardH - 228;
   drawStatPill(ctx, startX, pillY, pillW, pillH, '🌷', '已掌握', `${wordCount} 詞`, '#5aa06a');
   drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '🏅', '等級', levelLabel, levelColor || '#c98a4b');
   drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '🔥', '連續天數', renderStreak > 0 ? `${renderStreak} 天` : '今天開始', '#e0703f');
@@ -1619,7 +1664,7 @@ function renderReview(){
   }
 
   const types = ['🌷', '🌹', '🌻', '🌼', '🌸', '🌺', '🪻'];
-  const RARE_TYPE = '💮'; // 連續練習7天以上時學會的詞,開出的花會是這種稀有花當獎勵
+  // RARE_TYPE 現在是全域共用常數(跟花園小卡用同一個),這裡不用再宣告一次
   const getFlowerType = (idx) => {
     const wordSlice = list.slice(idx * 5, idx * 5 + 5);
     const isRare = wordSlice.some(w => (w && w.streakAtPractice || 0) >= 7);
@@ -1627,14 +1672,7 @@ function renderReview(){
     return types[(idx * 13 + 7) % types.length];
   };
 
-  // 決定性的假隨機函式(同一顆種子每次結果一致,畫面不會每次重新整理就亂跳;
-  // 用整數混合 hash 而不是 sin() 那種寫法,避免種子連續遞增時容易「黏在同一側」的問題)
-  const hash01 = (n) => {
-    n = Math.imul(n ^ (n >>> 16), 2246822519);
-    n = Math.imul(n ^ (n >>> 13), 3266489917);
-    n = (n ^ (n >>> 16)) >>> 0;
-    return n / 4294967296;
-  };
+  // hash01 現在是全域共用函式(跟花園小卡用同一份),這裡不用再宣告一次
 
   const VASE_CAPACITY = 15;
   const totalVases = Math.max(1, Math.ceil(totalFlowers / VASE_CAPACITY));
@@ -1767,14 +1805,16 @@ function renderReview(){
   let gardenBg = 'var(--card)';
   let gardenColor = 'var(--sage-dark)';
   let streakText = '';
-  const COLOR_STREAK = '#d6bcab'; // Updated to lighter color as requested
+  // 跟花園小卡用同一組漸層色(米白 → 淡綠),連續天數越多,漸層從瓶底往上填得越高
+  const GARDEN_GRAD_TOP = '#f3ede0';
+  const GARDEN_GRAD_BOTTOM = '#dce6da';
   if(renderStreak > 0 && renderStreak < 7) {
     const p = Math.min(100, Math.floor((renderStreak/7)*100));
-    gardenBg = `linear-gradient(to top, ${COLOR_STREAK} 0%, ${COLOR_STREAK} ${p}%, var(--card) ${p}%, var(--card) 100%)`;
+    gardenBg = `linear-gradient(to top, ${GARDEN_GRAD_BOTTOM} 0%, ${GARDEN_GRAD_TOP} ${p}%, var(--card) ${p}%, var(--card) 100%)`;
     streakText = `🔥 連續 ${renderStreak} 天`;
   } else if (renderStreak >= 7) {
-    gardenBg = COLOR_STREAK;
-    gardenColor = `#fff`;
+    gardenBg = `linear-gradient(to top, ${GARDEN_GRAD_BOTTOM} 0%, ${GARDEN_GRAD_TOP} 100%)`;
+    gardenColor = 'var(--sage-dark)'; // 背景變淺了,文字改回深色才看得清楚(原本白字是配深色背景用的)
     streakText = `🔥 完美連勝 (${renderStreak} 天)`;
   }
   
@@ -1893,7 +1933,7 @@ function renderReview(){
     for(let i = 0; i < flowersInLatestVase; i++){
       shareFlowerTypes.push(getFlowerType(latestVaseIdx * VASE_CAPACITY + i));
     }
-    shareGardenBtn.onclick = () => shareGardenCard(shareFlowerTypes, list.length, level.label, level.color, renderStreak, toNextFlower);
+    shareGardenBtn.onclick = () => shareGardenCard(shareFlowerTypes, list.length, level.label, level.color, renderStreak, toNextFlower, latestVaseIdx * VASE_CAPACITY);
   }
 
   const vaseCarousel = container.querySelector('#vaseCarousel');
