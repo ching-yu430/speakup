@@ -93,7 +93,7 @@
     display:none;margin-bottom:6px;padding:12px;
     background:var(--sage-light);border-radius:14px;
   }
-  .dropdown-panel.open{display:block;}
+  .dropdown-panel.open{display:block;animation: gentleIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;}
   .dropdown-panel .app-tabs{margin-bottom:0;}
   .dropdown-panel .ladder{margin:0 0 8px;}
   .dropdown-panel .stage-desc{margin-bottom:0;}
@@ -491,6 +491,35 @@
   @keyframes pulseBorder {
     0%, 100% { border-color: var(--line); }
     50% { border-color: var(--sage); box-shadow: 0 0 8px rgba(92,122,94,0.3); }
+  }
+
+  /* -- 新增：和緩優雅系列，速度放慢、不用回彈(overshoot)，單純淡入+輕微位移 -- */
+  .anim-gentle-in { animation: gentleIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .anim-gentle-out { animation: gentleOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards; }
+  .anim-gentle-modal { animation: gentleModalIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .anim-soft-pulse { animation: softPulse 1.4s ease-in-out infinite; }
+  .anim-flame { animation: flameFlicker 2.6s ease-in-out infinite; display:inline-block; }
+  #searchBtn.open{ color:var(--sage-dark) !important; background:var(--sage-light) !important; border-radius:8px; }
+
+  @keyframes gentleIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gentleOut {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(8px); }
+  }
+  @keyframes gentleModalIn {
+    from { opacity: 0; transform: scale(0.96) translateY(6px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes softPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+  }
+  @keyframes flameFlicker {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.82; transform: scale(1.045); }
   }
   @media (max-width:520px){
     .brand{font-size:18px;}

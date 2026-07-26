@@ -98,8 +98,8 @@ function renderSearchResults(query){
     box.innerHTML = `<div style="padding:12px; color:var(--muted); font-size:13px; text-align:center;">找不到符合的單字或片語</div>`;
     return;
   }
-  box.innerHTML = results.map(it => `
-    <div class="search-result-item" data-en="${it.en.replace(/"/g, '&quot;')}" style="padding:10px 12px; border-radius:8px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+  box.innerHTML = results.map((it, idx) => `
+    <div class="search-result-item anim-gentle-in" style="padding:10px 12px; border-radius:8px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:8px; animation-delay:${Math.min(idx * 0.03, 0.3)}s; opacity:0;" data-en="${it.en.replace(/"/g, '&quot;')}">
       <div style="min-width:0;">
         <div style="font-weight:600; font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.en}</div>
         <div style="font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.zh || ''}</div>
@@ -237,6 +237,31 @@ function celebrateMilestone(count){
   overlay.appendChild(banner);
   document.body.appendChild(overlay);
   setTimeout(() => overlay.remove(), 4000);
+}
+
+// 升級的慶祝效果:比一般里程碑更隆重一點,花瓣飄落速度放慢、橫幅用漸入漸出取代快速彈出，整體步調更和緩優雅
+function celebrateLevelUp(levelLabel, levelColor){
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed; inset:0; pointer-events:none; z-index:9998; overflow:hidden;';
+  const petals = ['🌸', '🌼', '✨', '🌟', '💫'];
+  for(let i = 0; i < 18; i++){
+    const p = document.createElement('div');
+    const emoji = petals[i % petals.length];
+    const left = Math.random() * 100;
+    const duration = (3.4 + Math.random() * 1.8).toFixed(2); // 比里程碑更慢,飄落更久、更悠然
+    const delay = (Math.random() * 0.8).toFixed(2);
+    const size = Math.round(18 + Math.random() * 14);
+    const drift = Math.round((Math.random() - 0.5) * 60);
+    p.textContent = emoji;
+    p.style.cssText = `position:absolute; top:-40px; left:${left}%; font-size:${size}px; --drift:${drift}px; animation:milestoneFall ${duration}s ease-in-out ${delay}s forwards;`;
+    overlay.appendChild(p);
+  }
+  const banner = document.createElement('div');
+  banner.innerHTML = `🎉 升級了！<br><span style="font-size:22px;">${levelLabel}</span>`;
+  banner.style.cssText = `position:absolute; top:34%; left:50%; background:linear-gradient(135deg, ${levelColor || 'var(--sage)'}, var(--sage-dark)); color:#fff; padding:18px 28px; border-radius:20px; font-weight:800; font-size:15px; text-align:center; line-height:1.6; box-shadow:0 10px 30px rgba(0,0,0,0.25); white-space:nowrap; opacity:0; animation:gentleModalIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards, gentleOut 0.7s cubic-bezier(0.4,0,1,1) 3.4s forwards;`;
+  overlay.appendChild(banner);
+  document.body.appendChild(overlay);
+  setTimeout(() => overlay.remove(), 5200);
 }
 
 // -- 花園小卡的畫圖小工具 --
@@ -1521,6 +1546,13 @@ function renderReview(){
   const level = levelDefs.find(l => list.length >= l.min && list.length <= l.max) || levelDefs[0];
   const nextLevel = levelDefs[levelDefs.indexOf(level) + 1];
 
+  // 偵測「升級」這個時刻:跟上次記錄的等級不一樣才慶祝,避免每次重新整理都跳出來
+  const prevLevelLabel = lsGet('speakup_last_level');
+  if(prevLevelLabel && prevLevelLabel !== level.label){
+    setTimeout(() => celebrateLevelUp(level.label, level.color), 500);
+  }
+  lsSet('speakup_last_level', level.label);
+
   // 今日練習題數
   const today = localDateStr();
   const dailyStored = safeParse(lsGet('speakup_daily'), {date:"",count:0});
@@ -1574,7 +1606,7 @@ function renderReview(){
     <div style="display:flex; gap:12px; align-items:stretch;">
       <!-- 左欄：花瓶漸層背景 -->
       <div style="flex:1; min-width:0; position:relative; display:flex; flex-direction:column; justify-content:center; align-items:center; background:${gardenBg}; border-radius:12px; padding:24px 4px 10px; border:1px solid var(--line); transition: background 0.5s ease;">
-        <div style="position:absolute; top:8px; right:10px; font-size:12px; font-weight:700; color:${gardenColor};">${streakText}</div>
+        <div style="position:absolute; top:8px; right:10px; font-size:12px; font-weight:700; color:${gardenColor};" class="${renderStreak > 0 ? 'anim-flame' : ''}">${streakText}</div>
         <div style="position:relative; display:flex; align-items:center; width:100%;">
           <button id="vasePrevBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8249;</button>
           <div id="vaseCarousel" class="vase-carousel" style="flex:1; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:0; scrollbar-width:none; scroll-behavior:smooth;">
@@ -2235,6 +2267,7 @@ function showResult(heardText){
   const isFree = currentStage().key === 'free';
   el('heard').textContent = heardText || '(沒聽到聲音)';
   el('result').classList.add('show');
+  triggerAnim('result', 'anim-gentle-in');
   const fb = el('feedback');
   const diffBox = el('wordDiff');
   if(diffBox) diffBox.innerHTML = '';
@@ -2390,6 +2423,7 @@ function resetRecTimeout(){
 function showErrorMsg(msg){
   el('heard').textContent = '';
   el('result').classList.add('show');
+  triggerAnim('result', 'anim-gentle-in');
   const fb = el('feedback');
   fb.className = 'feedback retry';
   fb.textContent = msg;
@@ -2702,20 +2736,46 @@ if(el('settingsBtn')) {
   let settingsOpen = false;
   function setSettingsOpen(open){
     settingsOpen = open;
-    el('mainAppContent').style.display = open ? 'none' : '';
-    el('settingsPage').style.display = open ? 'block' : 'none';
+    const panel = el('settingsPage');
     const tripleBar = document.querySelector('.triple-bar');
-    if(tripleBar) tripleBar.style.display = open ? 'none' : 'flex';
+
     if(open){
       Object.keys(DROPDOWNS).forEach(closeDropdown); // 開啟設定前,先收起三顆選單的下拉麵板
       closeSearchPanel();
+      el('mainAppContent').style.display = 'none';
+      if(tripleBar) tripleBar.style.display = 'none';
+      el('searchBtn').style.display = 'none';
+
+      panel.style.display = 'block';
+      panel.classList.remove('anim-gentle-out');
+      void panel.offsetWidth;
+      panel.classList.add('anim-gentle-in');
+    } else {
+      panel.classList.remove('anim-gentle-in');
+      void panel.offsetWidth;
+      panel.classList.add('anim-gentle-out');
+      panel.addEventListener('animationend', function onEnd(){
+        panel.style.display = 'none';
+        panel.classList.remove('anim-gentle-out');
+        el('mainAppContent').style.display = '';
+        if(tripleBar) tripleBar.style.display = 'flex';
+        el('searchBtn').style.display = 'inline-block';
+        panel.removeEventListener('animationend', onEnd);
+      }, { once: true });
     }
-    el('searchBtn').style.display = open ? 'none' : 'inline-block';
   }
   el('settingsBtn').onclick = () => setSettingsOpen(!settingsOpen);
   el('closeSettingsBtn').onclick = () => setSettingsOpen(false);
 
-  el('openGuideBtn').onclick = () => el('guideModal').classList.add('show');
+  el('openGuideBtn').onclick = () => {
+    el('guideModal').classList.add('show');
+    const box = el('guideModal').querySelector('.ai-modal');
+    if(box){
+      box.classList.remove('anim-gentle-modal');
+      void box.offsetWidth;
+      box.classList.add('anim-gentle-modal');
+    }
+  };
   el('guideCloseBtn').onclick = () => el('guideModal').classList.remove('show');
   el('guideModal').addEventListener('click', (e) => {
     if(e.target === el('guideModal')) el('guideModal').classList.remove('show');
@@ -2727,7 +2787,7 @@ if(el('settingsBtn')) {
     'speakup_ai_items', 'speakup_apikey', 'speakup_appMode', 'speakup_cat',
     'speakup_cat_progress', 'speakup_custom_items', 'speakup_daily',
     'speakup_favorites', 'speakup_practiced', 'speakup_stageIdx',
-    'speakup_streak', 'speakup_last_cat', 'speakup_last_celebrated'
+    'speakup_streak', 'speakup_last_cat', 'speakup_last_celebrated', 'speakup_last_level'
   ];
 
   el('exportBackupBtn').onclick = () => {
@@ -2821,6 +2881,7 @@ el('coachBtn').onclick = async () => {
   const btn = el('coachBtn');
   btn.disabled = true;
   btn.textContent = '✨ 分析中...';
+  btn.classList.add('anim-soft-pulse');
   
   const prompt = `目標英文句子: "${item.en}"\n使用者唸成了: "${heard}"\n請分析使用者可能的發音錯誤。請回傳嚴格的 JSON 格式，包含兩個欄位：\n1. "feedback": (字串) 給使用者的簡單反饋，3句以內。\n2. "vocab": (陣列) 從目標句子或發音錯誤中，挑出 1~3 個有價值的單字或片語，每個包含 "en" (英文), "zh" (繁體中文), "cat" (類別名稱，例如'AI糾音')。\n\n請務必只回傳 JSON，不要加 markdown 標記。`;
   
@@ -2845,11 +2906,14 @@ el('coachBtn').onclick = async () => {
     const parsed = JSON.parse(text);
     
     el('coachFeedback').style.display = 'block';
+    el('coachFeedback').style.color = 'var(--ink)';
     el('coachFeedback').textContent = parsed.feedback;
+    triggerAnim('coachFeedback', 'anim-gentle-in');
     
     const vocabArea = el('coachVocabArea');
     if (parsed.vocab && parsed.vocab.length > 0) {
       vocabArea.style.display = 'block';
+      triggerAnim('coachVocabArea', 'anim-gentle-in');
       vocabArea.innerHTML = `<button id="coachAddVocabBtn" style="background:var(--ai-dark); border:none; padding:10px 14px; border-radius:8px; color:var(--card); cursor:pointer; font-weight:bold; font-size:13px; width:100%;">➕ 將這 ${parsed.vocab.length} 個道地單字加入題庫</button>`;
       
       el('coachAddVocabBtn').onclick = () => {
@@ -2873,10 +2937,12 @@ el('coachBtn').onclick = async () => {
     el('coachFeedback').style.display = 'block';
     el('coachFeedback').style.color = 'var(--warn-text)';
     el('coachFeedback').textContent = '⚠️ 分析失敗，請檢查 API 或是稍後再試。';
+    triggerAnim('coachFeedback', 'anim-gentle-in');
     btn.textContent = '💡 請 AI 教練抓漏';
   } finally {
     btn.disabled = false;
     btn.textContent = '✨ 請 AI 教練抓漏';
+    btn.classList.remove('anim-soft-pulse');
   }
 };
 
@@ -2952,7 +3018,7 @@ async function fetchRpResponse(contents) {
     
     // UI update
     const div = document.createElement('div');
-    div.className = 'msg-ai';
+    div.className = 'msg-ai anim-gentle-in';
     div.innerHTML = `<strong>AI:</strong> ${parsed.next_response_en}<div style="font-size:12px;opacity:0.7;margin-top:4px;">${parsed.next_response_zh}</div>`;
     if(parsed.feedback) {
       div.innerHTML += `<div class="msg-tip">💡 教練提示：${parsed.feedback}</div>`;
@@ -2995,7 +3061,7 @@ function initRpSR() {
     if(!heard) return;
     
     const div = document.createElement('div');
-    div.className = 'msg-user';
+    div.className = 'msg-user anim-gentle-in';
     div.innerHTML = `<strong>你:</strong> ${heard}`;
     el('rpChat').appendChild(div);
     el('rpChat').scrollTop = el('rpChat').scrollHeight;
