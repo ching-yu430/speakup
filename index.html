@@ -1109,9 +1109,8 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
   ctx.fillStyle = '#9a9488';
   ctx.fillText('S P E A K   U P   ·   V O C A B   G A R D E N', W / 2, cardY + 90);
 
-  // 花瓶+花朵(依實際數量畫,可能是空花瓶)——往下移,原本 372 讓花瓶跟下面統計列之間留了一大段空白,
-  // 靠近置中會讓整張卡看起來更平衡。
-  drawVaseIllustration(ctx, W / 2, cardY + 456, flowerTypes, globalIdxOffset);
+  // 花瓶+花朵(依實際數量畫,可能是空花瓶)
+  drawVaseIllustration(ctx, W / 2, cardY + 420, flowerTypes, globalIdxOffset);
 
   if(flowerTypes.length > 0) {
     const list = Object.values(practiced);
@@ -1135,7 +1134,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     const ph = 32;
     const pw = tw + 32;
     const px = W / 2 - pw / 2;
-    const py = cardY + 456 + 24;
+    const py = cardY + 420 + 24;
 
     ctx.save();
     ctx.shadowColor = 'rgba(60,50,30,0.08)';
@@ -1156,37 +1155,19 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     ctx.textBaseline = 'middle';
     ctx.fillText(pillText, W / 2, py + ph / 2 + 1.5);
     ctx.textBaseline = 'alphabetic'; // Reset baseline for subsequent rendering
-
-    // 本瓶專屬花語
-    let flowerLang = '【花語】含苞待放 · 每一次練習都是成長的養分';
-    if (renderStreak >= 14) {
-      flowerLang = '【花語】堅如磐石 · 連續兩週澆灌出的執著';
-    } else if (renderStreak >= 7) {
-      flowerLang = '【花語】堅韌不拔 · 連續七天不間斷的學習';
-    } else if (renderStreak >= 3) {
-      flowerLang = '【花語】漸入佳境 · 正在建立絕佳的語感習慣';
-    } else if (flowerTypes.length >= 15) {
-      flowerLang = '【花語】繁花盛開 · 滿載著豐碩的單字果實';
-    } else if (wordCount > 50) {
-      flowerLang = '【花語】生機盎然 · 已經累積了可觀的詞彙量';
-    }
-    
-    ctx.font = '500 14px Inter, "Noto Sans TC", sans-serif';
-    ctx.fillStyle = '#6b806d';
-    ctx.fillText(flowerLang, W / 2, cardY + 540);
   } else {
     ctx.font = '500 15px Inter, "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#9a9488';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`🌱 再練 ${toNextFlower} 詞就會開出第一朵花`, W / 2, cardY + 344);
+    ctx.fillText(`🌱 再練 ${toNextFlower} 詞就會開出第一朵花`, W / 2, cardY + 308);
   }
 
   // 統計卡(三個並排的圓角小卡)——文字比原本放大約1.35倍,方框也一起等比調整避免裁切
   const pillW = 168, pillH = 110, gap = 14;
   const totalW = pillW * 3 + gap * 2;
   const startX = W / 2 - totalW / 2;
-  const pillY = cardY + cardH - 228;
+  const pillY = cardY + cardH - 240;
   drawStatPill(ctx, startX, pillY, pillW, pillH, '🌷', '已掌握', `${wordCount} 詞`, '#5aa06a');
   drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '🏅', '等級', levelLabel, levelColor || '#c98a4b');
   drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '🔥', '連續天數', renderStreak > 0 ? `${renderStreak} 天` : '今天開始', '#e0703f');
@@ -1208,7 +1189,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     const barW = totalW;
     const barH = 10;
     const barX = startX;
-    const barY = cardY + cardH - 85;
+    const barY = cardY + cardH - 95;
     
     ctx.font = '500 13px Inter, "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#9a9488';
@@ -1233,7 +1214,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     ctx.fillStyle = '#c0a000';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`👑 你已達成最高等級！`, W / 2, cardY + cardH - 85);
+    ctx.fillText(`👑 你已達成最高等級！`, W / 2, cardY + cardH - 95);
   }
 
   // 底部footer
