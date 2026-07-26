@@ -1012,14 +1012,14 @@ function drawStatPill(ctx, x, y, w, h, icon, label, value, color){
   ctx.stroke();
 
   ctx.textAlign = 'center';
-  ctx.font = '30px serif';
-  ctx.fillText(icon, x + w / 2, y + 40);
-  ctx.font = '500 16px Inter, "Noto Sans TC", sans-serif';
+  ctx.font = '28px serif';
+  ctx.fillText(icon, x + w / 2, y + 36);
+  ctx.font = '500 14px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = '#9a9488';
-  ctx.fillText(label, x + w / 2, y + 66);
-  ctx.font = '700 26px Inter, "Noto Sans TC", sans-serif';
+  ctx.fillText(label, x + w / 2, y + 62);
+  ctx.font = '700 24px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = color;
-  ctx.fillText(value, x + w / 2, y + 98);
+  ctx.fillText(value, x + w / 2, y + 92);
 }
 
 // 依「實際擁有的花朵數量」畫花瓶,而不是每次都固定畫滿 5 朵——
@@ -1266,7 +1266,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
   const levelDefs = [
     { min:0,    max:9,    label:'🌱 嫩芽',     color:'#8fba6c' },
     { min:10,   max:24,   label:'🪴 小苗',     color:'#6dba8c' },
-    { min:25,   max:49,   label:'🌿 葉舒展',   color:'#5aaa82' },
+    { min:25,   max:49,   label:'🌿 茁壯',   color:'#5aaa82' },
     { min:50,   max:79,   label:'🌼 初綻放',   color:'#f0c040' },
     { min:80,   max:119,  label:'🌸 嬌嫩花',   color:'#e88fad' },
     { min:120,  max:179,  label:'🌺 豔麗花',   color:'#e05090' },
@@ -1461,21 +1461,33 @@ async function shareWeeklyCard(){
   ctx.lineTo(chartX + chartW + 10, chartBaseY + 0.5);
   ctx.stroke();
 
-  // 統計卡(三個並排的圓角小卡)
-  const pillW = 168, pillH = 110, gap = 14;
-  const totalW = pillW * 3 + gap * 2;
-  const startX = W / 2 - totalW / 2;
-  const pillY = cardY + 500;
-  drawStatPill(ctx, startX, pillY, pillW, pillH, '🌱', '本週新學', `${stats.newWordsThisWeek} 詞`, '#5aa06a');
-  drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '🎙️', '複習次數', `${stats.practiceCount} 次`, '#4a90c2');
-  drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '🎯', '平均正確率', stats.avgScore !== null ? `${stats.avgScore}%` : '尚無紀錄', '#e0703f');
+  // 統計卡(5個並排的圓角小卡，分兩排)
+  const pillW = 168, pillH = 104, gap = 14;
+  const row1W = pillW * 3 + gap * 2;
+  const startX1 = W / 2 - row1W / 2;
+  const pillY1 = cardY + 416;
+  drawStatPill(ctx, startX1, pillY1, pillW, pillH, '🌱', '本週新學', `${stats.newWordsThisWeek} 詞`, '#5aa06a');
+  drawStatPill(ctx, startX1 + (pillW + gap), pillY1, pillW, pillH, '🎙️', '複習次數', `${stats.practiceCount} 次`, '#4a90c2');
+  drawStatPill(ctx, startX1 + (pillW + gap) * 2, pillY1, pillW, pillH, '🎯', '平均正確率', stats.avgScore !== null ? `${stats.avgScore}%` : '無', '#e0703f');
+
+  const row2W = pillW * 2 + gap;
+  const startX2 = W / 2 - row2W / 2;
+  const pillY2 = pillY1 + pillH + gap;
+  
+  const streak = Number(lsGet('practiceStreak', 0));
+  const maxCountVal = Math.max(0, ...stats.days.map(d => d.count));
+  const bestDays = stats.days.filter(d => d.count === maxCountVal && d.count > 0);
+  const bestDayLabel = bestDays.length > 0 ? bestDays[bestDays.length - 1].label : '無紀錄';
+
+  drawStatPill(ctx, startX2, pillY2, pillW, pillH, '👑', '本週最佳', bestDayLabel, '#f0c040');
+  drawStatPill(ctx, startX2 + (pillW + gap), pillY2, pillW, pillH, '🔥', '目前連勝', `${streak} 天`, '#e0703f');
 
   ctx.font = '500 16px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = '#8a8f86';
   const encourage = stats.practiceCount === 0
     ? '這週還沒開始練習,現在動手正是時候！'
     : (stats.newWordsThisWeek > 0 ? `這週又多會了 ${stats.newWordsThisWeek} 個詞,保持下去！` : '持續複習也是進步,繼續加油！');
-  ctx.fillText(encourage, W / 2, pillY + pillH + 70);
+  ctx.fillText(encourage, W / 2, pillY2 + pillH + 56);
 
   ctx.font = '13px Inter, sans-serif';
   ctx.fillStyle = '#b0aa9a';
@@ -2186,7 +2198,7 @@ function renderReview(){
   const levelDefs = [
     { min:0,    max:9,    label:'🌱 嫩芽',     color:'#8fba6c' },
     { min:10,   max:24,   label:'🪴 小苗',     color:'#6dba8c' },
-    { min:25,   max:49,   label:'🌿 葉舒展',   color:'#5aaa82' },
+    { min:25,   max:49,   label:'🌿 茁壯',   color:'#5aaa82' },
     { min:50,   max:79,   label:'🌼 初綻放',   color:'#f0c040' },
     { min:80,   max:119,  label:'🌸 嬌嫩花',   color:'#e88fad' },
     { min:120,  max:179,  label:'🌺 豔麗花',   color:'#e05090' },
