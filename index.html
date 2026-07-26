@@ -111,6 +111,8 @@
   .dropdown-panel .ladder{margin:0 0 8px;}
   .dropdown-panel .stage-desc{margin-bottom:0;}
   .dropdown-panel .cats{margin-bottom:0;}
+  .search-result-item{transition:background .12s;}
+  .search-result-item:hover{background:var(--card);}
 
   .app-tabs {
     display: flex; gap: 4px; padding: 4px 4px 8px 4px;
@@ -498,7 +500,10 @@
   <div class="topbar">
     <div class="brand">
       <span>🗣️ Speak Up</span>
-      <button id="settingsBtn" style="background:none; border:none; padding:4px; font-size:18px; cursor:pointer; color:var(--muted);" title="設定與資料">⚙️</button>
+      <div style="display:flex; align-items:center; gap:4px;">
+        <button id="searchBtn" style="background:none; border:none; padding:4px; font-size:18px; cursor:pointer; color:var(--muted);" title="搜尋單字或片語">🔍</button>
+        <button id="settingsBtn" style="background:none; border:none; padding:4px; font-size:18px; cursor:pointer; color:var(--muted);" title="設定與資料">⚙️</button>
+      </div>
     </div>
     <div class="triple-bar">
       <button type="button" class="trigger-btn" id="modeTrigger" style="flex:1.5; padding:0 8px;">
@@ -533,6 +538,10 @@
   </div>
   <div class="dropdown-panel" id="catDropdown">
     <div class="cats" id="cats"></div>
+  </div>
+  <div class="dropdown-panel" id="searchPanel">
+    <input type="text" id="searchInput" placeholder="搜尋單字、片語或中文意思..." style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--line); font-size:14px; font-family:'Inter',sans-serif; background:var(--card); color:var(--ink); box-sizing:border-box;">
+    <div id="searchResults" style="margin-top:8px; max-height:280px; overflow-y:auto;"></div>
   </div>
 
   <div class="ai-actions" id="aiActions" style="display:none;">
@@ -620,6 +629,7 @@
     <div class="result" id="result">
       <div class="you-said">你講的是</div>
       <div class="heard" id="heard"></div>
+      <div id="wordDiff" style="margin-top:8px;"></div>
       <div class="feedback" id="feedback"></div>
       <button id="coachBtn" style="display:none; margin-top:12px; background:var(--sage); color:var(--card); border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">✨ 請 AI 教練抓漏</button>
       <div id="coachFeedback" style="display:none; margin-top:12px; font-size:14px; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); line-height:1.5;"></div>
@@ -791,6 +801,75 @@ el('stageDropdown').addEventListener('click', (e) => {
 });
 el('catDropdown').addEventListener('click', (e) => {
   if(e.target.closest('.cat-pill')) setTimeout(() => closeDropdown('cat'), 150);
+});
+
+/* ---------- 搜尋單字/片語 ---------- */
+function closeSearchPanel(){
+  el('searchPanel').classList.remove('open');
+  el('searchBtn').classList.remove('open');
+}
+function searchAllItems(query){
+  const qLower = query.trim().toLowerCase();
+  const qRaw = query.trim();
+  if(!qLower) return [];
+  const seen = new Set();
+  const results = [];
+  STAGES.forEach(stage => {
+    if(stage.key === 'favorites') return; // 收藏是既有題目的副本,跳過避免同一個字出現兩次
+    stage.items.forEach(it => {
+      if(seen.has(it.en)) return;
+      const enMatch = it.en.toLowerCase().includes(qLower);
+      const zhMatch = it.zh && it.zh.includes(qRaw);
+      if(enMatch || zhMatch){
+        seen.add(it.en);
+        results.push(it);
+      }
+    });
+  });
+  return results.slice(0, 30);
+}
+function renderSearchResults(query){
+  const box = el('searchResults');
+  if(!query.trim()){
+    box.innerHTML = '';
+    return;
+  }
+  const results = searchAllItems(query);
+  if(results.length === 0){
+    box.innerHTML = `<div style="padding:12px; color:var(--muted); font-size:13px; text-align:center;">找不到符合的單字或片語</div>`;
+    return;
+  }
+  box.innerHTML = results.map(it => `
+    <div class="search-result-item" data-en="${it.en.replace(/"/g, '&quot;')}" style="padding:10px 12px; border-radius:8px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+      <div style="min-width:0;">
+        <div style="font-weight:600; font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.en}</div>
+        <div style="font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.zh || ''}</div>
+      </div>
+      <div style="font-size:11px; color:var(--sage-dark); background:var(--card); padding:2px 8px; border-radius:999px; flex-shrink:0;">${(it.cat || '').replace('(AI) ', '✨')}</div>
+    </div>
+  `).join('');
+}
+el('searchBtn').onclick = () => {
+  const willOpen = !el('searchPanel').classList.contains('open');
+  Object.keys(DROPDOWNS).forEach(closeDropdown);
+  el('searchPanel').classList.toggle('open', willOpen);
+  el('searchBtn').classList.toggle('open', willOpen);
+  if(willOpen){
+    setTimeout(() => el('searchInput').focus(), 60);
+  } else {
+    el('searchInput').value = '';
+    el('searchResults').innerHTML = '';
+  }
+};
+el('searchInput').addEventListener('input', (e) => renderSearchResults(e.target.value));
+el('searchResults').addEventListener('click', (e) => {
+  const itemEl = e.target.closest('.search-result-item');
+  if(!itemEl) return;
+  const en = itemEl.getAttribute('data-en');
+  closeSearchPanel();
+  el('searchInput').value = '';
+  el('searchResults').innerHTML = '';
+  jumpToItem(en);
 });
 
 function updateTriggerTexts(){
@@ -1257,21 +1336,194 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
   }, 'image/png');
 }
 
-function recordPracticed(item, stageIdx){
+// 每日練習次數的歷史紀錄(供週報統計用)，只保留最近60天避免資料無限增長
+function bumpDailyHistory(dateStr){
+  let hist = safeParse(lsGet('speakup_daily_history'), {});
+  hist[dateStr] = (hist[dateStr] || 0) + 1;
+  const keys = Object.keys(hist).sort();
+  if(keys.length > 60){
+    keys.slice(0, keys.length - 60).forEach(k => delete hist[k]);
+  }
+  lsSet('speakup_daily_history', JSON.stringify(hist));
+}
+
+// 統計「這週」(含今天往前算7天)的學習狀況:新學了幾個詞、複習了幾次、平均正確率
+function getWeeklyStats(){
+  const now = new Date();
+  const DAY = 24 * 60 * 60 * 1000;
+  const hist = safeParse(lsGet('speakup_daily_history'), {});
+  const days = [];
+  for(let i = 6; i >= 0; i--){
+    const d = new Date(now.getTime() - i * DAY);
+    const key = localDateStr(d);
+    days.push({ key, count: hist[key] || 0, label: `${d.getMonth() + 1}/${d.getDate()}` });
+  }
+  const practiceCount = days.reduce((sum, d) => sum + d.count, 0);
+  const weekStart = new Date(now.getTime() - 6 * DAY);
+  weekStart.setHours(0, 0, 0, 0);
+  const list = Object.values(practiced);
+  const newWordsThisWeek = list.filter(it => it.firstPracticed && it.firstPracticed >= weekStart.getTime()).length;
+  const scoresThisWeek = list
+    .filter(it => it.lastPracticed && it.lastPracticed >= weekStart.getTime() && typeof it.lastScore === 'number')
+    .map(it => it.lastScore);
+  const avgScore = scoresThisWeek.length ? Math.round(scoresThisWeek.reduce((a, b) => a + b, 0) / scoresThisWeek.length * 100) : null;
+  return { days, practiceCount, newWordsThisWeek, avgScore };
+}
+
+// 週報小卡:延伸花園小卡的畫法,改成長條圖呈現這七天的練習量,一樣支援原生分享或直接下載
+async function shareWeeklyCard(){
+  try {
+    await Promise.all([
+      document.fonts.load('700 40px Fraunces'),
+      document.fonts.load('500 14px Inter'),
+      document.fonts.load('700 19px Inter')
+    ]);
+  } catch(e) { /* 字型載入失敗就用系統預設,不影響功能 */ }
+
+  const stats = getWeeklyStats();
+  const W = 640, H = 860;
+  const dpr = 2;
+  const canvas = document.createElement('canvas');
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+  bgGrad.addColorStop(0, '#eef2ea');
+  bgGrad.addColorStop(1, '#dde8e0');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.save();
+  ctx.globalAlpha = 0.12;
+  ctx.font = '70px serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('📅', -14, 66);
+  ctx.save();
+  ctx.translate(W + 14, H - 10);
+  ctx.rotate(Math.PI);
+  ctx.fillText('🌿', 0, 0);
+  ctx.restore();
+  ctx.restore();
+
+  const pad = 28, cardX = pad, cardY = pad, cardW = W - pad * 2, cardH = H - pad * 2;
+  ctx.save();
+  ctx.shadowColor = 'rgba(60,50,30,0.18)';
+  ctx.shadowBlur = 34;
+  ctx.shadowOffsetY = 14;
+  canvasRoundRect(ctx, cardX, cardY, cardW, cardH, 28);
+  ctx.fillStyle = '#fffdf8';
+  ctx.fill();
+  ctx.restore();
+  canvasRoundRect(ctx, cardX, cardY, cardW, cardH, 28);
+  ctx.strokeStyle = 'rgba(125,160,128,0.28)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#3f5c43';
+  ctx.font = '700 36px Fraunces, serif';
+  ctx.fillText('📅 本週學習週報', W / 2, cardY + 64);
+  ctx.font = '500 13px Inter, sans-serif';
+  ctx.fillStyle = '#9a9488';
+  ctx.fillText('S P E A K   U P   ·   W E E K L Y   R E P O R T', W / 2, cardY + 90);
+
+  // 長條圖:這七天每天的練習次數
+  const chartX = cardX + 40, chartW = cardW - 80;
+  const chartBaseY = cardY + 300;
+  const chartH = 150;
+  const maxCount = Math.max(1, ...stats.days.map(d => d.count));
+  const barGap = 16;
+  const barW = (chartW - barGap * 6) / 7;
+  stats.days.forEach((d, i) => {
+    const bx = chartX + i * (barW + barGap);
+    const bh = Math.round((d.count / maxCount) * chartH);
+    const by = chartBaseY - bh;
+    const isToday = i === 6;
+    canvasRoundRect(ctx, bx, by, barW, Math.max(bh, 4), 6);
+    ctx.fillStyle = d.count > 0 ? (isToday ? '#5aa06a' : '#8fba9c') : '#eee9db';
+    ctx.fill();
+    ctx.font = '600 12px Inter, sans-serif';
+    ctx.fillStyle = '#9a9488';
+    ctx.fillText(d.label, bx + barW / 2, chartBaseY + 20);
+    if(d.count > 0){
+      ctx.font = '700 13px Inter, sans-serif';
+      ctx.fillStyle = '#3f5c43';
+      ctx.fillText(String(d.count), bx + barW / 2, by - 8);
+    }
+  });
+  ctx.strokeStyle = '#e6ddc7';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(chartX - 10, chartBaseY + 0.5);
+  ctx.lineTo(chartX + chartW + 10, chartBaseY + 0.5);
+  ctx.stroke();
+
+  // 統計卡(三個並排的圓角小卡)
+  const pillW = 168, pillH = 110, gap = 14;
+  const totalW = pillW * 3 + gap * 2;
+  const startX = W / 2 - totalW / 2;
+  const pillY = cardY + 400;
+  drawStatPill(ctx, startX, pillY, pillW, pillH, '🌱', '本週新學', `${stats.newWordsThisWeek} 詞`, '#5aa06a');
+  drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '🎙️', '複習次數', `${stats.practiceCount} 次`, '#4a90c2');
+  drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '🎯', '平均正確率', stats.avgScore !== null ? `${stats.avgScore}%` : '尚無紀錄', '#e0703f');
+
+  ctx.font = '500 15px Inter, "Noto Sans TC", sans-serif';
+  ctx.fillStyle = '#8a8f86';
+  const encourage = stats.practiceCount === 0
+    ? '這週還沒開始練習,現在動手正是時候！'
+    : (stats.newWordsThisWeek > 0 ? `這週又多會了 ${stats.newWordsThisWeek} 個詞,保持下去！` : '持續複習也是進步,繼續加油！');
+  ctx.fillText(encourage, W / 2, pillY + pillH + 56);
+
+  ctx.font = '13px Inter, sans-serif';
+  ctx.fillStyle = '#b0aa9a';
+  const rangeLabel = `${stats.days[0].label} – ${stats.days[6].label}`;
+  ctx.fillText(`Speak Up · 開口練習英文 · ${rangeLabel}`, W / 2, cardY + cardH - 24);
+
+  canvas.toBlob(async (blob) => {
+    if(!blob) return;
+    const file = new File([blob], 'speakup-weekly.png', { type: 'image/png' });
+    if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
+      try {
+        await navigator.share({ files: [file], title: '本週學習週報', text: `這週新學了 ${stats.newWordsThisWeek} 個詞！` });
+        return;
+      } catch(e) { /* 使用者取消分享,不需額外處理 */ }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'speakup-weekly.png'; a.click();
+    URL.revokeObjectURL(url);
+  }, 'image/png');
+}
+
+function recordPracticed(item, stageIdx, score){
   if(!item || !item.en) return;
   const today = localDateStr();
   updateStreak(today); // 先更新連續天數,才能正確記錄「這次練習當下」的連續天數
   const prevRecord = practiced[item.en];
+
+  // weakCount:間隔複習排序用——分數不理想就+1,講好了就慢慢-1(不會低於0)
+  let weakCount = (prevRecord && prevRecord.weakCount) || 0;
+  if(typeof score === 'number'){
+    weakCount = score < 0.85 ? Math.min(5, weakCount + 1) : Math.max(0, weakCount - 1);
+  }
+
   practiced[item.en] = {
     en: item.en,
     zh: item.zh || '',
     cat: item.cat || '無',
     stage: stageIdx,
     lastPracticed: new Date().getTime(),
+    // 保留第一次學會這個詞的時間,之後重複練習不會被洗掉(週報「本週新學」要用)
+    firstPracticed: (prevRecord && prevRecord.firstPracticed) ? prevRecord.firstPracticed : new Date().getTime(),
     // 保留第一次練會這個詞當下的連續天數,之後重複練習不會被洗掉
-    streakAtPractice: (prevRecord && prevRecord.streakAtPractice !== undefined) ? prevRecord.streakAtPractice : streakData.count
+    streakAtPractice: (prevRecord && prevRecord.streakAtPractice !== undefined) ? prevRecord.streakAtPractice : streakData.count,
+    lastScore: (typeof score === 'number') ? score : (prevRecord ? prevRecord.lastScore : undefined),
+    weakCount
   };
   savePracticed();
+  bumpDailyHistory(today);
   const stored = safeParse(lsGet('speakup_daily'), {date:"",count:0});
   if(stored.date === today) {
     stored.count++;
@@ -1409,16 +1661,28 @@ function generateRandomReview() {
     randomReviewItems = [{en: 'Practice more', zh: '請先在其他模式練習', cat: '提示'}];
     return;
   }
-  list.sort((a,b) => (b.lastPracticed || 0) - (a.lastPracticed || 0));
-  const recentCount = Math.ceil(list.length * 0.3);
-  const recent = list.slice(0, recentCount);
-  const older = list.slice(recentCount);
+  const now = Date.now();
+  const DAY = 24 * 60 * 60 * 1000;
+  // 間隔複習(Spaced Repetition):優先度 = 「講得不好的次數」加權 + 「多久沒複習」,
+  // weakCount 影響比較大(真的講不好的字要常常出現),天數設個上限避免久遠到誇張的字一直霸榜。
+  const scored = list.map(it => {
+    const daysSince = (now - (it.lastPracticed || 0)) / DAY;
+    const weak = it.weakCount || 0;
+    const priority = weak * 4 + Math.min(daysSince, 14);
+    return { it, priority };
+  });
+  scored.sort((a, b) => b.priority - a.priority);
+
+  // 優先度高的那一群裡面做輕微洗牌,才不會每次順序都一模一樣、但仍然維持「弱點優先」的大方向
+  const topCount = Math.max(15, Math.ceil(scored.length * 0.5));
+  const topPool = scored.slice(0, topCount);
+  const rest = scored.slice(topCount);
   const shuffle = arr => arr.sort(() => 0.5 - Math.random());
-  shuffle(recent);
-  shuffle(older);
-  let picked = [...recent.slice(0,10), ...older.slice(0,10)];
-  shuffle(picked);
-  randomReviewItems = picked;
+  shuffle(topPool);
+  shuffle(rest);
+
+  const pickCount = Math.min(20, scored.length);
+  randomReviewItems = [...topPool, ...rest].slice(0, pickCount).map(x => x.it);
 }
 
 function setAppMode(mode, isInitial = false) {
@@ -2016,11 +2280,19 @@ function renderReview(){
         ${levelCardHtml}
       </div>
     </div>
-    <button id="shareGardenBtn" style="margin-top:12px; width:100%; padding:10px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--sage-dark); font-weight:700; font-size:13px; cursor:pointer;">📤 分享花園小卡</button>
+    <div style="display:flex; gap:8px; margin-top:12px;">
+      <button id="shareGardenBtn" style="flex:1; padding:10px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--sage-dark); font-weight:700; font-size:13px; cursor:pointer;">📤 分享花園小卡</button>
+      <button id="shareWeeklyBtn" style="flex:1; padding:10px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--sage-dark); font-weight:700; font-size:13px; cursor:pointer;">📅 分享本週週報</button>
+    </div>
   </div>`;
 
   let html = gardenHtml;
   container.innerHTML = html;
+
+  const shareWeeklyBtn = container.querySelector('#shareWeeklyBtn');
+  if(shareWeeklyBtn){
+    shareWeeklyBtn.onclick = () => shareWeeklyCard();
+  }
 
   const shareGardenBtn = container.querySelector('#shareGardenBtn');
   if(shareGardenBtn){
@@ -2545,18 +2817,81 @@ function normalize(s){
   return s.toLowerCase().replace(/[^\w\s']/g,'').trim();
 }
 
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// 用最長共同子序列(LCS)找出「目標句子」裡哪些字有在使用者講的話裡對上,
+// 用來做逐字染色(對到=綠色,沒對到=紅色,不論是講錯還是漏掉都算)。
+function wordDiffMatch(targetWords, heardWords){
+  const m = targetWords.length, n = heardWords.length;
+  const dp = Array.from({length: m + 1}, () => new Array(n + 1).fill(0));
+  for(let i = 1; i <= m; i++){
+    for(let j = 1; j <= n; j++){
+      dp[i][j] = targetWords[i-1] === heardWords[j-1] ? dp[i-1][j-1] + 1 : Math.max(dp[i-1][j], dp[i][j-1]);
+    }
+  }
+  const matched = new Array(m).fill(false);
+  let i = m, j = n;
+  while(i > 0 && j > 0){
+    if(targetWords[i-1] === heardWords[j-1]){
+      matched[i-1] = true; i--; j--;
+    } else if(dp[i-1][j] >= dp[i][j-1]){
+      i--;
+    } else {
+      j--;
+    }
+  }
+  return matched;
+}
+
+function renderWordDiff(targetText, heardText){
+  const targetRaw = targetText.split(/\s+/).filter(Boolean);
+  const heardRaw = heardText.split(/\s+/).filter(Boolean);
+  const cleanWord = w => w.toLowerCase().replace(/[^\w']/g, '');
+  const targetClean = targetRaw.map(cleanWord);
+  const heardClean = heardRaw.map(cleanWord);
+  const matched = wordDiffMatch(targetClean, heardClean);
+  const spans = targetRaw.map((w, i) => {
+    const ok = matched[i];
+    const color = ok ? 'var(--sage-dark)' : 'var(--danger)';
+    return `<span style="color:${color}; font-weight:700;">${escapeHtml(w)}</span>`;
+  });
+  return `<div style="font-size:11px; color:var(--muted); margin-bottom:4px; letter-spacing:.04em;">逐字比對(綠色=講對，紅色=講錯或漏掉)</div><div style="font-size:16px; line-height:1.7; font-family:'Inter',sans-serif;">${spans.join(' ')}</div>`;
+}
+
+// 講對時的小小慶祝效果:比里程碑那種滿版撒花更輕巧,集中在畫面中間附近,持續時間也短很多
+function celebrateCorrectAnswer(){
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed; inset:0; pointer-events:none; z-index:9997; overflow:hidden;';
+  const petals = ['🌸', '🌷', '✨', '💮'];
+  for(let i = 0; i < 10; i++){
+    const p = document.createElement('div');
+    const emoji = petals[i % petals.length];
+    const left = 28 + Math.random() * 44;
+    const duration = (1.3 + Math.random() * 0.6).toFixed(2);
+    const delay = (Math.random() * 0.2).toFixed(2);
+    const size = Math.round(14 + Math.random() * 10);
+    const drift = Math.round((Math.random() - 0.5) * 50);
+    p.textContent = emoji;
+    p.style.cssText = `position:absolute; top:20%; left:${left}%; font-size:${size}px; --drift:${drift}px; animation:milestoneFall ${duration}s ease-in ${delay}s forwards;`;
+    overlay.appendChild(p);
+  }
+  document.body.appendChild(overlay);
+  setTimeout(() => overlay.remove(), 2200);
+}
+
 function showResult(heardText){
   const item = currentItem();
   const isFree = currentStage().key === 'free';
   el('heard').textContent = heardText || '(沒聽到聲音)';
   el('result').classList.add('show');
   const fb = el('feedback');
-
-  if(heardText){
-    recordPracticed(item, stageIdx);
-  }
+  const diffBox = el('wordDiff');
+  if(diffBox) diffBox.innerHTML = '';
 
   if(isFree){
+    if(heardText) recordPracticed(item, stageIdx);
     fb.className = 'feedback';
     fb.textContent = heardText ? '你講出來了——這就是重點,內容不用完美。' : '再試一次,講出你想到的任何一句話就好。';
     return;
@@ -2574,11 +2909,18 @@ function showResult(heardText){
   const dist = levenshtein(a, b);
   const closeness = 1 - dist / Math.max(a.length, b.length, 1);
 
+  // 先算出這次的分數,再記錄練習(這樣間隔複習才能依分數判斷這個字「講得好不好」)
+  recordPracticed(item, stageIdx, closeness);
+
+  // 逐字比對:目標句子裡,講對的字綠色、講錯或漏掉的字紅色
+  if(diffBox) diffBox.innerHTML = renderWordDiff(item.en, heardText);
+
   if(closeness > 0.85){
     fb.className = 'feedback';
     fb.textContent = '非常棒，完全正確！';
     el('coachBtn').style.display = 'none';
     if(typeof isBlindMode !== 'undefined' && isBlindMode) el('target').classList.add('revealed');
+    celebrateCorrectAnswer();
   } else if(closeness > 0.5){
     fb.className = 'feedback retry';
     fb.textContent = '抓到重點了，稍微有點差異，可以再聽一次看看。';
@@ -3005,7 +3347,11 @@ if(el('settingsBtn')) {
     el('settingsPage').style.display = open ? 'block' : 'none';
     const tripleBar = document.querySelector('.triple-bar');
     if(tripleBar) tripleBar.style.display = open ? 'none' : 'flex';
-    if(open) Object.keys(DROPDOWNS).forEach(closeDropdown); // 開啟設定前,先收起三顆選單的下拉麵板
+    if(open){
+      Object.keys(DROPDOWNS).forEach(closeDropdown); // 開啟設定前,先收起三顆選單的下拉麵板
+      closeSearchPanel();
+    }
+    el('searchBtn').style.display = open ? 'none' : 'inline-block';
   }
   el('settingsBtn').onclick = () => setSettingsOpen(!settingsOpen);
   el('closeSettingsBtn').onclick = () => setSettingsOpen(false);
