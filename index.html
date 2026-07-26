@@ -903,22 +903,22 @@ function canvasRoundRect(ctx, x, y, w, h, r){
 }
 
 function drawStatPill(ctx, x, y, w, h, icon, label, value, color){
-  canvasRoundRect(ctx, x, y, w, h, 14);
+  canvasRoundRect(ctx, x, y, w, h, 20);
   ctx.fillStyle = '#f7f4ea';
   ctx.fill();
   ctx.strokeStyle = '#e6ddc7';
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 1.5;
   ctx.stroke();
 
   ctx.textAlign = 'center';
-  ctx.font = '22px serif';
-  ctx.fillText(icon, x + w / 2, y + 32);
-  ctx.font = '500 12px Inter, "Noto Sans TC", sans-serif';
+  ctx.font = '44px serif';
+  ctx.fillText(icon, x + w / 2, y + 50);
+  ctx.font = '500 24px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = '#9a9488';
-  ctx.fillText(label, x + w / 2, y + 51);
-  ctx.font = '700 19px Inter, "Noto Sans TC", sans-serif';
+  ctx.fillText(label, x + w / 2, y + 88);
+  ctx.font = '700 38px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = color;
-  ctx.fillText(value, x + w / 2, y + 76);
+  ctx.fillText(value, x + w / 2, y + 134);
 }
 
 // 依「實際擁有的花朵數量」畫花瓶,而不是每次都固定畫滿 5 朵——
@@ -1064,20 +1064,21 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
   ctx.fillStyle = '#9a9488';
   ctx.fillText('S P E A K   U P   ·   V O C A B   G A R D E N', W / 2, cardY + 90);
 
-  // 花瓶+花朵(依實際數量畫,可能是空花瓶)
-  drawVaseIllustration(ctx, W / 2, cardY + 372, flowerTypes);
+  // 花瓶+花朵(依實際數量畫,可能是空花瓶)——往下移,原本 372 讓花瓶跟下面統計列之間留了一大段空白,
+  // 靠近置中會讓整張卡看起來更平衡。
+  drawVaseIllustration(ctx, W / 2, cardY + 456, flowerTypes);
 
   if(flowerTypes.length === 0){
     ctx.font = '500 15px Inter, "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#9a9488';
-    ctx.fillText(`🌱 再練 ${toNextFlower} 詞就會開出第一朵花`, W / 2, cardY + 260);
+    ctx.fillText(`🌱 再練 ${toNextFlower} 詞就會開出第一朵花`, W / 2, cardY + 344);
   }
 
-  // 統計卡(三個並排的圓角小卡)
-  const pillW = 160, pillH = 92, gap = 16;
+  // 統計卡(三個並排的圓角小卡)——配合放大後的文字把方框也一起放大,避免文字被裁切
+  const pillW = 178, pillH = 156, gap = 14;
   const totalW = pillW * 3 + gap * 2;
   const startX = W / 2 - totalW / 2;
-  const pillY = cardY + cardH - 210;
+  const pillY = cardY + cardH - 274;
   drawStatPill(ctx, startX, pillY, pillW, pillH, '🌷', '已掌握', `${wordCount} 詞`, '#5aa06a');
   drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '🏅', '等級', levelLabel, levelColor || '#c98a4b');
   drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '🔥', '連續天數', renderStreak > 0 ? `${renderStreak} 天` : '今天開始', '#e0703f');
