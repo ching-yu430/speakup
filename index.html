@@ -318,6 +318,21 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(3px); }
   }
+  @keyframes milestoneFall {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity:1; }
+    100% { transform: translateY(110vh) translateX(var(--drift,0px)) rotate(360deg); opacity:0; }
+  }
+  @keyframes milestonePop {
+    0% { opacity:0; transform:translate(-50%,-50%) scale(0.6); }
+    15% { opacity:1; transform:translate(-50%,-50%) scale(1.05); }
+    25% { transform:translate(-50%,-50%) scale(1); }
+    82% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+    100% { opacity:0; transform:translate(-50%,-58%) scale(1); }
+  }
+  @keyframes rareGlow {
+    0%, 100% { filter:drop-shadow(0 0 2px gold) drop-shadow(0 0 4px rgba(255,215,0,0.6)); }
+    50% { filter:drop-shadow(0 0 5px gold) drop-shadow(0 0 9px rgba(255,215,0,0.85)); }
+  }
   .btn-play {
     width: 50px; height: 50px; border-radius: 50%;
     background: var(--sage-light); color: var(--sage-dark); border: none;
@@ -685,7 +700,9 @@
       <div style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4;">⚠️ 動作無法復原，建議先匯出備份。</div>
     </div>
 
-    <button id="closeSettingsBtn" style="background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); cursor:pointer; width:100%; font-weight:bold; font-size:14px;">關閉</button>
+    <div style="display:flex; justify-content:center; margin-top:6px;">
+      <button id="closeSettingsBtn" style="width:62px; height:62px; border-radius:50%; background:var(--card); border:1px solid var(--line); color:var(--ink); font-size:26px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1; padding:0;">✕</button>
+    </div>
   </div>
 
   <div class="ai-modal-overlay" id="guideModal">
@@ -849,17 +866,111 @@ function updateStreak(todayStr) {
   lsSet('speakup_streak', JSON.stringify(streakData));
 }
 
+// 里程碑慶祝動畫:每累積 25 個新單字就撒一次花瓣,給一個小小的儀式感
+function celebrateMilestone(count){
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed; inset:0; pointer-events:none; z-index:9998; overflow:hidden;';
+  const petals = ['🌸', '🌷', '🌼', '🌻', '✨'];
+  for(let i = 0; i < 22; i++){
+    const p = document.createElement('div');
+    const emoji = petals[i % petals.length];
+    const left = Math.random() * 100;
+    const duration = (2.2 + Math.random() * 1.4).toFixed(2);
+    const delay = (Math.random() * 0.5).toFixed(2);
+    const size = Math.round(16 + Math.random() * 14);
+    const drift = Math.round((Math.random() - 0.5) * 80);
+    p.textContent = emoji;
+    p.style.cssText = `position:absolute; top:-40px; left:${left}%; font-size:${size}px; --drift:${drift}px; animation:milestoneFall ${duration}s ease-in ${delay}s forwards;`;
+    overlay.appendChild(p);
+  }
+  const banner = document.createElement('div');
+  banner.textContent = `🎉 已掌握 ${count} 詞！`;
+  banner.style.cssText = 'position:absolute; top:32%; left:50%; background:var(--sage); color:#fff; padding:12px 22px; border-radius:999px; font-weight:800; font-size:16px; box-shadow:0 8px 24px rgba(0,0,0,0.25); animation:milestonePop 2.6s ease forwards; white-space:nowrap;';
+  overlay.appendChild(banner);
+  document.body.appendChild(overlay);
+  setTimeout(() => overlay.remove(), 4000);
+}
+
+// 花園小卡分享:用 canvas 畫一張簡易成果卡,支援手機原生分享或直接下載
+function shareGardenCard(wordCount, levelLabel, renderStreak){
+  const canvas = document.createElement('canvas');
+  const W = 600, H = 760;
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, '#f6f3ea');
+  grad.addColorStop(1, '#e4ebe0');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#3f5c43';
+  ctx.font = '700 34px "Noto Sans TC", "PingFang TC", sans-serif';
+  ctx.fillText('💐 我的語感花室', W / 2, 90);
+
+  // 簡易花瓶輪廓
+  ctx.beginPath();
+  ctx.moveTo(W / 2 - 40, 380);
+  ctx.bezierCurveTo(W / 2 - 60, 420, W / 2 - 90, 470, W / 2 - 90, 520);
+  ctx.bezierCurveTo(W / 2 - 90, 570, W / 2 - 50, 600, W / 2, 600);
+  ctx.bezierCurveTo(W / 2 + 50, 600, W / 2 + 90, 570, W / 2 + 90, 520);
+  ctx.bezierCurveTo(W / 2 + 90, 470, W / 2 + 60, 420, W / 2 + 40, 380);
+  ctx.closePath();
+  ctx.fillStyle = '#fdfcfa';
+  ctx.fill();
+  ctx.strokeStyle = '#ddd7c9';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  const flowerEmojis = ['🌷', '🌹', '🌻', '🌼', '🪻'];
+  ctx.font = '44px serif';
+  const positions = [[-64, 350], [-32, 315], [0, 300], [32, 315], [64, 350]];
+  positions.forEach((p, i) => ctx.fillText(flowerEmojis[i % flowerEmojis.length], W / 2 + p[0], p[1]));
+
+  ctx.textAlign = 'left';
+  ctx.font = '600 26px "Noto Sans TC", sans-serif';
+  ctx.fillStyle = '#2d2a26';
+  ctx.fillText(`🌷 已掌握 ${wordCount} 詞`, 60, 660);
+  ctx.fillText(`🏅 等級 ${levelLabel}`, 60, 702);
+  if(renderStreak > 0) ctx.fillText(`🔥 連續 ${renderStreak} 天`, 60, 744);
+
+  ctx.font = '13px sans-serif';
+  ctx.fillStyle = '#8a8f86';
+  ctx.textAlign = 'right';
+  ctx.fillText('Speak Up · 開口練習英文', W - 40, H - 24);
+
+  canvas.toBlob(async (blob) => {
+    if(!blob) return;
+    const file = new File([blob], 'speakup-garden.png', { type: 'image/png' });
+    if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
+      try {
+        await navigator.share({ files: [file], title: '我的語感花室', text: `已掌握 ${wordCount} 詞！` });
+        return;
+      } catch(e) { /* 使用者取消分享,不需額外處理 */ }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'speakup-garden.png'; a.click();
+    URL.revokeObjectURL(url);
+  }, 'image/png');
+}
+
 function recordPracticed(item, stageIdx){
   if(!item || !item.en) return;
+  const today = localDateStr();
+  updateStreak(today); // 先更新連續天數,才能正確記錄「這次練習當下」的連續天數
+  const prevRecord = practiced[item.en];
   practiced[item.en] = {
     en: item.en,
     zh: item.zh || '',
     cat: item.cat || '無',
     stage: stageIdx,
-    lastPracticed: new Date().getTime()
+    lastPracticed: new Date().getTime(),
+    // 保留第一次練會這個詞當下的連續天數,之後重複練習不會被洗掉
+    streakAtPractice: (prevRecord && prevRecord.streakAtPractice !== undefined) ? prevRecord.streakAtPractice : streakData.count
   };
   savePracticed();
-  const today = localDateStr();
   const stored = JSON.parse(lsGet('speakup_daily') || '{"date":"","count":0}');
   if(stored.date === today) {
     stored.count++;
@@ -868,7 +979,6 @@ function recordPracticed(item, stageIdx){
     stored.count = 1;
   }
   lsSet('speakup_daily', JSON.stringify(stored));
-  updateStreak(today);
 }
 
 const STAGES = [
@@ -1349,8 +1459,24 @@ function renderReview(){
   });
 
   const totalFlowers = Math.floor(list.length / 5);
+
+  // 每 25 個新單字就慶祝一次(用 setTimeout 延後,等這次畫面渲染完成再撒花瓣,且只在真的「跨過」新里程碑時觸發一次)
+  const MILESTONE_STEP = 25;
+  const currentMilestone = Math.floor(list.length / MILESTONE_STEP) * MILESTONE_STEP;
+  const lastCelebrated = parseInt(lsGet('speakup_last_celebrated') || '0', 10);
+  if(currentMilestone > 0 && currentMilestone > lastCelebrated){
+    lsSet('speakup_last_celebrated', String(currentMilestone));
+    setTimeout(() => celebrateMilestone(currentMilestone), 400);
+  }
+
   const types = ['🌷', '🌹', '🌻', '🌼', '🌸', '🌺', '🪻'];
-  const getFlowerType = (idx) => types[(idx * 13 + 7) % types.length];
+  const RARE_TYPE = '💮'; // 連續練習7天以上時學會的詞,開出的花會是這種稀有花當獎勵
+  const getFlowerType = (idx) => {
+    const wordSlice = list.slice(idx * 5, idx * 5 + 5);
+    const isRare = wordSlice.some(w => (w && w.streakAtPractice || 0) >= 7);
+    if(isRare) return RARE_TYPE;
+    return types[(idx * 13 + 7) % types.length];
+  };
 
   // 決定性的假隨機函式(同一顆種子每次結果一致,畫面不會每次重新整理就亂跳;
   // 用整數混合 hash 而不是 sin() 那種寫法,避免種子連續遞增時容易「黏在同一側」的問題)
@@ -1417,7 +1543,11 @@ function renderReview(){
       const delay = (i * 0.03).toFixed(2);
 
       // transform-origin 設為 bottom center，讓旋轉軸心落在「莖底部」(瓶口方向)
-      flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; transform-origin:50% 100%; --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${flowerRot.toFixed(1)}deg; animation:popIn 0.4s both; animation-delay:${delay}s; z-index:${zIdx};">${fType}</div>`;
+      const isRareFlower = fType === RARE_TYPE;
+      const animStyle = isRareFlower
+        ? `animation:popIn 0.4s both, rareGlow 1.8s ease-in-out infinite; animation-delay:${delay}s, 0s;`
+        : `animation:popIn 0.4s both; animation-delay:${delay}s;`;
+      flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; transform-origin:50% 100%; --tx:${tx.toFixed(1)}px; --ty:${ty.toFixed(1)}px; --rot:${flowerRot.toFixed(1)}deg; ${animStyle} z-index:${zIdx};" title="${isRareFlower ? '連續練習7天以上的獎勵花!' : ''}">${fType}</div>`;
     }
 
     // 瓶口貼一圈葉子:彼此左右緊靠、部分重疊,牢牢貼在瓶口位置,像是花插進葉叢裡的底座。
@@ -1440,8 +1570,24 @@ function renderReview(){
     }
 
 
+    // 這一瓶涵蓋的單字範圍(依「第幾個被練會」的順序切,跟花朵一一對應),
+    // 用來算出這一瓶是什麼時候練的,做成「第X瓶．日期範圍」標籤。
+    const vaseWordStart = v * VASE_CAPACITY * 5;
+    const vaseWordEnd = Math.min(list.length, vaseWordStart + flowersInThisVase * 5);
+    const vaseWords = list.slice(vaseWordStart, vaseWordEnd);
+    let vaseDateLabel = '';
+    if(vaseWords.length > 0){
+      const times = vaseWords.map(w => w.lastPracticed).filter(Boolean);
+      if(times.length){
+        const fmtDate = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()}`; };
+        const minT = Math.min(...times), maxT = Math.max(...times);
+        vaseDateLabel = (fmtDate(minT) === fmtDate(maxT)) ? fmtDate(minT) : `${fmtDate(minT)}~${fmtDate(maxT)}`;
+      }
+    }
+
     vasesHtml += `
       <div class="vase-slide" style="flex:0 0 100%; scroll-snap-align:center; position:relative; width:100%; height:215px; display:flex; justify-content:center; align-items:flex-end;">
+        ${flowersInThisVase > 0 ? `<div style="position:absolute; top:0; left:0; right:0; text-align:center; font-size:10px; color:var(--muted); z-index:5;">第${v + 1}瓶${vaseDateLabel ? ' · ' + vaseDateLabel : ''}</div>` : ''}
         <div style="position:relative; width:100%; height:165px; transform:scale(1.3); transform-origin:bottom center;">
           ${flowersHtml}
           ${leavesHtml}
@@ -1584,10 +1730,16 @@ function renderReview(){
         ${levelCardHtml}
       </div>
     </div>
+    <button id="shareGardenBtn" style="margin-top:12px; width:100%; padding:10px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--sage-dark); font-weight:700; font-size:13px; cursor:pointer;">📤 分享花園小卡</button>
   </div>`;
 
   let html = gardenHtml;
   container.innerHTML = html;
+
+  const shareGardenBtn = container.querySelector('#shareGardenBtn');
+  if(shareGardenBtn){
+    shareGardenBtn.onclick = () => shareGardenCard(list.length, level.label, renderStreak);
+  }
 
   const vaseCarousel = container.querySelector('#vaseCarousel');
   const vasePrevBtn = container.querySelector('#vasePrevBtn');
@@ -2561,7 +2713,7 @@ if(el('settingsBtn')) {
     'speakup_ai_items', 'speakup_apikey', 'speakup_appMode', 'speakup_cat',
     'speakup_cat_progress', 'speakup_custom_items', 'speakup_daily',
     'speakup_favorites', 'speakup_practiced', 'speakup_stageIdx',
-    'speakup_streak', 'speakup_last_cat'
+    'speakup_streak', 'speakup_last_cat', 'speakup_last_celebrated'
   ];
 
   el('exportBackupBtn').onclick = () => {
