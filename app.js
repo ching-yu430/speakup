@@ -2505,19 +2505,33 @@ recBtn.addEventListener('click', (e) => {
   }
 });
 
-el('skipBtn').onclick = () => {
+// 上一題/下一題時,讓卡片內容像翻頁一樣先滑出、換好內容後再從另一側滑入,
+// 而不是內容瞬間跳掉——速度刻意放得和緩,滑出快、滑入稍微慢一點更有「輕輕落定」的感覺。
+function navigateItem(direction){
+  const content = el('cardContent');
   const items = filteredItems();
-  itemIdx = (itemIdx + 1) % items.length;
-  saveProgress();
-  render();
-};
+  if(!items.length) return;
 
-el('prevBtn').onclick = () => {
-  const items = filteredItems();
-  itemIdx = (itemIdx - 1 + items.length) % items.length;
-  saveProgress();
-  render();
-};
+  const outClass = direction === 1 ? 'anim-slide-out-left' : 'anim-slide-out-right';
+  const inClass = direction === 1 ? 'anim-slide-in-right' : 'anim-slide-in-left';
+
+  content.classList.remove('anim-slide-in-left', 'anim-slide-in-right', outClass, inClass);
+  void content.offsetWidth; // 強制重新計算樣式,確保動畫每次都能重新觸發
+  content.classList.add(outClass);
+
+  setTimeout(() => {
+    itemIdx = (itemIdx + direction + items.length) % items.length;
+    saveProgress();
+    render();
+
+    content.classList.remove(outClass);
+    void content.offsetWidth;
+    content.classList.add(inClass);
+  }, 180);
+}
+
+el('skipBtn').onclick = () => navigateItem(1);
+el('prevBtn').onclick = () => navigateItem(-1);
 
 function populateCustomStageSelect(){
   const sel = el('customStage');
@@ -2619,8 +2633,8 @@ el('aiRandomBtn').onclick = () => {
 
 el('aiGenerateBtn').onclick = async () => {
   const scenario = el('aiScenarioInput').value.trim();
-  if(!geminiApiKey){ el('aiStatus').textContent = '⚠️ 請先輸入 Gemini API Key'; return; }
-  if(!scenario){ el('aiStatus').textContent = '⚠️ 請輸入你想練習的情境'; return; }
+  if(!geminiApiKey){ el('aiStatus').textContent = '⚠️ 請先輸入 Gemini API Key'; triggerAnim('aiStatus', 'anim-gentle-in'); return; }
+  if(!scenario){ el('aiStatus').textContent = '⚠️ 請輸入你想練習的情境'; triggerAnim('aiStatus', 'anim-gentle-in'); return; }
   
   const btn = el('aiGenerateBtn');
   btn.disabled = true;
@@ -2689,7 +2703,7 @@ zh (中文) 必須是繁體中文(臺灣)。
     
     lsSet('speakup_ai_items', JSON.stringify(aiGeneratedItems));
     
-    el('aiStatus').textContent = '✅ 生成成功！已幫你切換到新類別。';
+    el('aiStatus').textContent = '✅ 生成成功！已幫你切換到新類別。'; triggerAnim('aiStatus', 'anim-gentle-in');
     setTimeout(() => {
       el('aiModal').classList.remove('show');
     }, 1500);
@@ -2700,7 +2714,7 @@ zh (中文) 必須是繁體中文(臺灣)。
     render();
     
   } catch(err) {
-    el('aiStatus').textContent = '❌ 生成失敗：' + err.message;
+    el('aiStatus').textContent = '❌ 生成失敗：' + err.message; triggerAnim('aiStatus', 'anim-gentle-in');
   }
   
   if(modalBox) modalBox.classList.remove('anim-pulse-border');
