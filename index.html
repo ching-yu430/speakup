@@ -1014,17 +1014,17 @@ function drawStatPill(ctx, x, y, w, h, icon, label, value, color, wide = false){
   if (wide) {
     // 寬版排版：左側 Icon + Label，右側 Value
     ctx.textAlign = 'left';
-    ctx.font = '28px serif';
-    ctx.fillText(icon, x + 24, y + h / 2 + 10);
+    ctx.font = '32px serif';
+    ctx.fillText(icon, x + 20, y + h / 2 + 12);
     
-    ctx.font = '600 16px Inter, "Noto Sans TC", sans-serif';
+    ctx.font = '600 18px Inter, "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#9a9488';
-    ctx.fillText(label, x + 60, y + h / 2 + 6);
+    ctx.fillText(label, x + 62, y + h / 2 + 6);
     
     ctx.textAlign = 'right';
-    ctx.font = '700 28px Inter, "Noto Sans TC", sans-serif';
+    ctx.font = '700 32px Inter, "Noto Sans TC", sans-serif';
     ctx.fillStyle = color;
-    ctx.fillText(value, x + w - 24, y + h / 2 + 10);
+    ctx.fillText(value, x + w - 20, y + h / 2 + 12);
   } else {
     // 窄版排版：上下置中
     ctx.textAlign = 'center';
@@ -1106,8 +1106,8 @@ function drawVaseIllustration(ctx, cx, baseY, flowerTypes, globalIdxOffset = 0){
   // 花朵:三層扇形排列,常數、抖動、旋轉、疊層順序都跟主畫面完全一致
   const PER_LAYER = 5;
   const SLOT_GAP = 9;
-  const LAYER_X_OFFSET = [0, 6, -3];
-  const LAYER_STEM = [6, 13, 21], LAYER_STEM_JITTER = 2;
+  const LAYER_X_OFFSET = [0, 0, 0]; // 移除寫死的偏移，讓花朵根據真實數量自然置中對齊
+  const LAYER_STEM = [6, 18, 30], LAYER_STEM_JITTER = 2; // 將第二、第三層的高度拉高，避免無莖花朵被遮擋太多
   const LAYER_ARC = 15;
   const LAYER_SIZE = [21, 19, 17], LAYER_SIZE_JITTER = 2;
 
@@ -1130,7 +1130,7 @@ function drawVaseIllustration(ctx, cx, baseY, flowerTypes, globalIdxOffset = 0){
     const ty = -(stem + arcBoost + jitterY);
 
     const rawAngle = Math.atan2(tx, -ty) * (180 / Math.PI);
-    const clampedAngle = Math.max(-28, Math.min(28, rawAngle));
+    const clampedAngle = Math.max(-18, Math.min(18, rawAngle)); // 強制不超過±18°
     const rot = clampedAngle + (hash01(globalIdx * 7 + 3) - 0.5) * 4;
 
     const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
@@ -1495,7 +1495,14 @@ async function shareWeeklyCard(){
   const startX2 = W / 2 - row2W / 2;
   const pillY2 = pillY1 + pillH + gap;
   
-  const streak = Number(lsGet('practiceStreak', 0));
+  const streakData = lsGet('streakData', { count: 0, lastActive: '' });
+  let streak = streakData.count;
+  const todayStr = localDateStr();
+  if(streakData.lastActive && streakData.lastActive !== todayStr) {
+    const diff = Math.floor((new Date(todayStr) - new Date(streakData.lastActive)) / (1000*60*60*24));
+    if(diff > 1) streak = 0;
+  }
+  
   const maxCountVal = Math.max(0, ...stats.days.map(d => d.count));
   const bestDays = stats.days.filter(d => d.count === maxCountVal && d.count > 0);
   const bestDayLabel = bestDays.length > 0 ? bestDays[bestDays.length - 1].label : '無紀錄';
@@ -1503,6 +1510,7 @@ async function shareWeeklyCard(){
   drawStatPill(ctx, startX2, pillY2, pillW2, pillH, '👑', '本週最佳', bestDayLabel, '#f0c040', true);
   drawStatPill(ctx, startX2 + (pillW2 + gap), pillY2, pillW2, pillH, '🔥', '目前連勝', `${streak} 天`, '#e0703f', true);
 
+  ctx.textAlign = 'center';
   ctx.font = '500 16px Inter, "Noto Sans TC", sans-serif';
   ctx.fillStyle = '#8a8f86';
   const encourage = stats.practiceCount === 0
