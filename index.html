@@ -1101,8 +1101,9 @@ function drawVaseIllustration(ctx, cx, baseY, flowerTypes, globalIdxOffset = 0){
     const jitterX = (hash01(globalIdx * 2) - 0.5) * 2;
     const tx = slotX + LAYER_X_OFFSET[layer] + jitterX;
 
-    const halfWidth = ((flowersInLayer - 1) / 2) * SLOT_GAP + 1;
-    const normalized = halfWidth > 0 ? Math.abs(slotX) / halfWidth : 0;
+    // 修正：無論該層有幾朵花，計算弧度時都應該使用滿層的寬度，否則不滿層時邊緣的花會因為 arcBoost 過小而掉到前一層下方。
+    const fullHalfWidth = ((PER_LAYER - 1) / 2) * SLOT_GAP + 1;
+    const normalized = Math.abs(slotX) / fullHalfWidth;
     const arcBoost = LAYER_ARC * (1 - normalized * normalized);
     const jitterY = (hash01(globalIdx * 2 + 1) - 0.5) * 4;
     const stem = LAYER_STEM[layer] + (hash01(globalIdx * 4 + 3) - 0.5) * LAYER_STEM_JITTER;
@@ -2073,8 +2074,9 @@ function renderReview(){
       const jitterX = (hash01(globalIdx * 2) - 0.5) * 2; // 抖動改為固定小値，不隨 SLOT_GAP 放大
       const tx = slotX + LAYER_X_OFFSET[layer] + jitterX;
 
-      const halfWidth = ((flowersInLayer - 1) / 2) * SLOT_GAP + 1;
-      const normalized = halfWidth > 0 ? Math.abs(slotX) / halfWidth : 0; // 0=中央, 1=兩側
+      // 修正：無論該層有幾朵花，計算弧度時都應該使用滿層的寬度，否則不滿層時邊緣的花會因為 arcBoost 過小而掉到前一層下方。
+      const fullHalfWidth = ((PER_LAYER - 1) / 2) * SLOT_GAP + 1;
+      const normalized = Math.abs(slotX) / fullHalfWidth; // 0=中央, 1=兩側
       const arcBoost = LAYER_ARC * (1 - normalized * normalized); // 拋物線弧度 → 中央高兩側低更自然
       const jitterY = (hash01(globalIdx * 2 + 1) - 0.5) * 4;
       const stem = LAYER_STEM[layer] + (hash01(globalIdx * 4 + 3) - 0.5) * LAYER_STEM_JITTER;
