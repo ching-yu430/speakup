@@ -2254,8 +2254,10 @@ function fetchAndEnrich(item){
 const IPA_TO_PLAIN = [
   // 子音組合（優先處理，避免被單音節拆散）
   ['tʃ','ch'], ['dʒ','j'],
-  // 雙母音（Diphthongs）
-  ['eɪ','ay'], ['aɪ','ai'], ['ɔɪ','oy'], ['aʊ','ow'], ['oʊ','oh'],
+  // 雙母音與三母音（Diphthongs & Triphthongs）
+  ['aɪə','ai-uh'], ['aʊə','ow-uh'],
+  ['eɪ','ay'], ['aɪ','ai'], ['ɔɪ','oy'], ['aʊ','ow'], ['oʊ','oh'], ['əʊ','oh'],
+  ['eə','air'], ['ɪə','eer'], ['ʊə','oor'],
   // R音化母音
   ['ɜːr','er'], ['ɜː','er'], ['ɝ','er'], ['ər','er'], ['ɚ','er'],
   ['ɔːr','or'], ['ɑːr','ar'],
@@ -2267,7 +2269,8 @@ const IPA_TO_PLAIN = [
   ['ɪ','i'],   // bit → bit
   ['ɛ','e'],   // bed → bed
   ['æ','a'],   // cat → cat
-  ['ɒ','ah'],  // lot → laht（英式）
+  ['ɒ','o'],   // lot → lot（英式短o）
+  ['ɑ','ah'],  // lot → laht（美音）
   ['ʌ','u'],   // cup → cup（比 uh 更直覺）
   ['ʊ','oo'],  // book → book（短oo）
   ['ə','uh'],  // schwa，輕讀音節
