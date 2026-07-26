@@ -1011,23 +1011,35 @@ function drawStatPill(ctx, x, y, w, h, icon, label, value, color, wide = false){
   ctx.lineWidth = 1.2;
   ctx.stroke();
 
-  const iconSize = wide ? 36 : 28;
-  const labelSize = wide ? 16 : 14;
-  const valueSize = wide ? 30 : 24;
-  const yOffset = wide ? 4 : 0; // 稍微往下壓一點讓視覺平衡
-
-  ctx.textAlign = 'center';
-  ctx.font = `${iconSize}px serif`;
-  const iconOffsetX = icon === '🎙️' ? -5 : 0; // 修正麥克風的視覺偏心(向左移)
-  ctx.fillText(icon, x + w / 2 + iconOffsetX, y + 36 + yOffset);
-  
-  ctx.font = `500 ${labelSize}px Inter, "Noto Sans TC", sans-serif`;
-  ctx.fillStyle = '#9a9488';
-  ctx.fillText(label, x + w / 2, y + 62 + yOffset * 1.5);
-  
-  ctx.font = `700 ${valueSize}px Inter, "Noto Sans TC", sans-serif`;
-  ctx.fillStyle = color;
-  ctx.fillText(value, x + w / 2, y + 92 + yOffset * 2.5);
+  if (wide) {
+    // 寬版排版：左側 Icon + Label，右側 Value
+    ctx.textAlign = 'left';
+    ctx.font = '28px serif';
+    ctx.fillText(icon, x + 24, y + h / 2 + 10);
+    
+    ctx.font = '600 16px Inter, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = '#9a9488';
+    ctx.fillText(label, x + 60, y + h / 2 + 6);
+    
+    ctx.textAlign = 'right';
+    ctx.font = '700 28px Inter, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = color;
+    ctx.fillText(value, x + w - 24, y + h / 2 + 10);
+  } else {
+    // 窄版排版：上下置中
+    ctx.textAlign = 'center';
+    ctx.font = '28px serif';
+    const iconOffsetX = icon === '🎙️' ? -12 : 0; // 修正麥克風的視覺偏心(向左移更多)
+    ctx.fillText(icon, x + w / 2 + iconOffsetX, y + 36);
+    
+    ctx.font = '500 14px Inter, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = '#9a9488';
+    ctx.fillText(label, x + w / 2, y + 62);
+    
+    ctx.font = '700 24px Inter, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = color;
+    ctx.fillText(value, x + w / 2, y + 92);
+  }
 }
 
 // 依「實際擁有的花朵數量」畫花瓶,而不是每次都固定畫滿 5 朵——
@@ -2076,7 +2088,7 @@ function renderReview(){
     // 莖長整體壓低,即使三層都滿(15朵)也確保不會超出容器範圍,且花會更靠近瓶口的葉子。
     const PER_LAYER = 5;
     const SLOT_GAP = 9;                    // 張開用 slotX 計算：5朵的總寬度 = 4×9 = 36px，最外側共±18px
-    const LAYER_X_OFFSET = [0, 6, -3];    // 層間微下錯位仳防止完全重疊，但不冺天偏很遠
+    const LAYER_X_OFFSET = [0, 0, 0];    // 移除寫死的偏移，讓花朵根據真實數量自然置中對齊
     const LAYER_STEM = [6, 13, 21];
     const LAYER_STEM_JITTER = 2;
     const LAYER_ARC = 15;                  // 微縮弧幅，不讓中間花跟外側花建差太大
@@ -2095,7 +2107,6 @@ function renderReview(){
       const jitterX = (hash01(globalIdx * 2) - 0.5) * 2; // 抖動改為固定小値，不隨 SLOT_GAP 放大
       const tx = slotX + LAYER_X_OFFSET[layer] + jitterX;
 
-      // 修正：無論該層有幾朵花，計算弧度時都應該使用滿層的寬度，否則不滿層時邊緣的花會因為 arcBoost 過小而掉到前一層下方。
       const fullHalfWidth = ((PER_LAYER - 1) / 2) * SLOT_GAP + 1;
       const normalized = Math.abs(slotX) / fullHalfWidth; // 0=中央, 1=兩側
       const arcBoost = LAYER_ARC * (1 - normalized * normalized); // 拋物線弧度 → 中央高兩側低更自然
@@ -2103,9 +2114,9 @@ function renderReview(){
       const stem = LAYER_STEM[layer] + (hash01(globalIdx * 4 + 3) - 0.5) * LAYER_STEM_JITTER;
       const ty = -(stem + arcBoost + jitterY);
 
-      // 花朵旋轉：用 atan2 計算莖方向角，強制限制在±28°以內，就算兩側花也不會倒得太夠去
+      // 花朵旋轉：用 atan2 計算莖方向角，強制限制在±18°以內，就算兩側花也不會倒得太過去
       const rawAngle = Math.atan2(tx, -ty) * (180 / Math.PI);
-      const clampedAngle = Math.max(-28, Math.min(28, rawAngle)); // 強制不超過±28°
+      const clampedAngle = Math.max(-18, Math.min(18, rawAngle)); // 強制不超過±18°
       const flowerRot = clampedAngle + (hash01(globalIdx * 7 + 3) - 0.5) * 4;
 
       const size = LAYER_SIZE[layer] + hash01(globalIdx * 5 + 11) * LAYER_SIZE_JITTER;
