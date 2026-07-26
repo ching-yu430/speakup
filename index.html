@@ -2234,6 +2234,35 @@ async function fetchZhViaGemini(text){
   }
 }
 
+function applyVoice(u, langCode) {
+  u.lang = langCode;
+  const voices = speechSynthesis.getVoices();
+  if (voices && voices.length > 0) {
+    let voice = voices.find(v => v.lang === langCode || v.lang.replace('_','-') === langCode);
+    if (!voice) voice = voices.find(v => v.lang.startsWith(langCode.split('-')[0]));
+    if (voice) u.voice = voice;
+  }
+}
+
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(text);
+  applyVoice(u, 'en-US');
+  u.rate = 0.9;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+// 發音：改為全面使用瀏覽器內建 TTS (speechSynthesis)
+function playAudio(item, rate = 0.9){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel(); // 中斷現有音訊
+  const u = new SpeechSynthesisUtterance(item.en);
+  applyVoice(u, accentPref === 'uk' ? 'en-GB' : 'en-US');
+  u.rate = rate;
+  speechSynthesis.speak(u);
+}
+
 // 背景查詢單字資料（音檔、音標），完成後如果還在看同一題就重繪
 function fetchAndEnrich(item){
   if(item._fetching || item._fetched) return;
@@ -2488,26 +2517,6 @@ function render(){
   }
 }
 
-function speak(text){
-  if(!('speechSynthesis' in window)) return;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-US';
-  u.rate = 0.9;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(u);
-}
-
-// 播放發音：改為全面使用瀏覽器內建 TTS (speechSynthesis)
-// 原因：1. 無雜音 (Free Dictionary 的 MP3 常有嚴重底噪)
-//       2. 同步執行 (iOS Safari 嚴格禁止非同步或 Promise catch 內的語音合成，導致先前音檔失效時連備援 TTS 都播不出來)
-function playAudio(item, rate = 0.9){
-  if(!('speechSynthesis' in window)) return;
-  speechSynthesis.cancel(); // 中斷現有音訊
-  const u = new SpeechSynthesisUtterance(item.en);
-  u.lang = accentPref === 'uk' ? 'en-GB' : 'en-US';
-  u.rate = rate;
-  speechSynthesis.speak(u);
-}
 
 function levenshtein(a, b){
   const m = a.length, n = b.length;
@@ -3236,7 +3245,7 @@ async function fetchRpResponse(contents) {
     
     // Play audio
     const u = new SpeechSynthesisUtterance(parsed.next_response_en);
-    u.lang = accentPref === 'uk' ? 'en-GB' : 'en-US';
+    applyVoice(u, accentPref === 'uk' ? 'en-GB' : 'en-US');
     u.rate = 0.9;
     speechSynthesis.speak(u);
     
