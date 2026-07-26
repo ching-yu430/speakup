@@ -985,6 +985,14 @@ function generateRandomReview() {
   randomReviewItems = [...topPool, ...rest].slice(0, pickCount).map(x => x.it);
 }
 
+function triggerAnim(elId, animClass) {
+  const elem = el(elId);
+  if (!elem || elem.style.display === 'none') return;
+  elem.classList.remove(animClass);
+  void elem.offsetWidth;
+  elem.classList.add(animClass);
+}
+
 function setAppMode(mode, isInitial = false) {
   appMode = mode;
   lsSet('speakup_appMode', appMode);
@@ -1033,6 +1041,15 @@ function setAppMode(mode, isInitial = false) {
   if(mode === 'favorites') renderFavorites();
   render();
   updateTriggerTexts();
+
+  if (!isInitial) {
+    if (mode === 'roleplay') triggerAnim('rpContainer', 'anim-slide-up-fade');
+    else if (mode === 'news') triggerAnim('newsContainer', 'anim-slide-up-fade');
+    else if (mode === 'favorites') triggerAnim('favoritesContainer', 'anim-slide-up-fade');
+    else if (mode === 'completed') triggerAnim('completedContainer', 'anim-slide-up-fade');
+    else if (mode === 'review') triggerAnim('reviewContainer', 'anim-slide-up-fade');
+    else triggerAnim('mainCard', 'anim-slide-up-fade');
+  }
 }
 
 el('tabGeneral').onclick = () => setAppMode('general');
