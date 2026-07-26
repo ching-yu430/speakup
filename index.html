@@ -1773,8 +1773,7 @@ function renderReview(){
     }
 
     vasesHtml += `
-      <div class="vase-slide" style="flex:0 0 100%; scroll-snap-align:center; position:relative; width:100%; height:215px; display:flex; justify-content:center; align-items:flex-end;">
-        ${flowersInThisVase > 0 ? `<div style="position:absolute; top:0; left:0; right:0; text-align:center; font-size:10px; color:var(--muted); z-index:5;">第${v + 1}瓶${vaseDateLabel ? ' · ' + vaseDateLabel : ''}</div>` : ''}
+      <div class="vase-slide" style="flex:0 0 100%; scroll-snap-align:center; position:relative; width:100%; height:240px; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; padding-bottom:8px; gap:8px;">
         <div style="position:relative; width:100%; height:165px; transform:scale(1.3); transform-origin:bottom center;">
           ${flowersHtml}
           ${leavesHtml}
@@ -1791,6 +1790,7 @@ function renderReview(){
             <ellipse cx="30" cy="2" rx="6.2" ry="1.7" fill="#efece3" stroke="#ddd7c9" stroke-width="0.6"/>
           </svg>
         </div>
+        ${flowersInThisVase > 0 ? `<div style="background:rgba(255,255,255,0.85); border:1px solid var(--line); border-radius:999px; padding:3px 12px; font-size:11px; font-weight:700; color:var(--sage-dark); box-shadow:0 1px 4px rgba(0,0,0,0.06); z-index:5;">第${v + 1}瓶${vaseDateLabel ? ' · ' + vaseDateLabel : ''}</div>` : ''}
         ${flowersInThisVase === 0 ? `<div style="font-size:13px; color:var(--muted); position:absolute; top:40px; width:100%; text-align:center; z-index:2;">🌱 再練 ${5 - (list.length % 5)} 詞<br>會開出第一朵花</div>` : ''}
       </div>
     `;
