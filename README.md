@@ -7,9 +7,10 @@
 ## ✨ 核心特色功能
 
 ### 1. 📚 系統題庫 (System Vocabulary Bank)
-內建豐富的單字、片語及實用句型，並透過「階梯式學習」幫助你循序漸進地掌握：
+內建高達 15 種生活與職場情境（包含：多益必考、雅思常見、商用英文、面試、開會、科技、醫療等），總計超過 700+ 筆的實用單字、片語及句型。並透過「階梯式學習」幫助你循序漸進：
 - **階段學習**：從單字 (Word) 基礎開始，進階到片語 (Phrase) 與完整句子 (Sentence)。
 - **盲測模式**：可隱藏中文翻譯，強迫大腦直接將英文與情境連結，不再依賴死記硬背。
+- **自然發音與音標 (Phonics)**：自動將單字轉換為直覺的「白話英文拼法」與精準音標，並支援美式 (US) 與英式 (UK) 發音切換。
 
 ### 2. ✨ AI 情境擴充 (AI Scenario Generation)
 覺得系統題庫不夠用？只要輸入你想練習的「特定情境」（例如：去健身房詢問會員方案、在機場行李遺失），系統會即時呼叫 Gemini API，為你客製化生成專屬的單字、片語及對話句子，讓你的英文學習完全貼合實際生活需求。
@@ -31,10 +32,10 @@
 ## 🛠️ 技術架構
 
 本專案秉持「極簡而強大」的原則，完全無需後端伺服器：
-- **前端核心**：純 HTML5 + CSS3 (自訂設計系統) + Vanilla JavaScript。
+- **前端核心**：純 HTML5 + CSS3 (自訂設計系統) + Vanilla JavaScript。響應式設計完美適配手機與電腦版面。
 - **資料儲存**：高度依賴瀏覽器的 `localStorage`，所有使用者的練習進度、連勝紀錄、AI 生成單字、收藏清單皆儲存於本地端。並具備完整的防崩潰保護 (`try...catch` 封裝)，確保在 iOS Safari 的隱私模式下也能穩定運作。
 - **AI 驅動**：透過 fetch 直接與 Google Gemini (Generative Language API) 對接。
-- **語音系統**：深度整合瀏覽器原生的 `Web Speech API` (包含 `SpeechSynthesisUtterance` 與 `webkitSpeechRecognition`)，支援跨平台（包含 iOS / Safari）的語音朗讀與麥克風收音。
+- **語音系統**：深度整合瀏覽器原生的 `Web Speech API` (包含 `SpeechSynthesis` 與 `SpeechRecognition`)，完美支援跨平台語音朗讀與麥克風收音，**實測在 Android 系統、Chrome 瀏覽器，以及 iOS Safari 上皆能順暢運行**。
 
 ---
 
@@ -96,9 +97,10 @@
 ## ✨ Core Features
 
 ### 1. 📚 System Vocabulary Bank
-Includes a rich set of built-in vocabulary, phrases, and practical sentence patterns. Learn progressively through a "staged learning" approach:
+Includes a massive collection of over 700+ practical vocabulary words, phrases, and sentence patterns across 15 real-life and workplace scenarios (e.g., TOEIC, IELTS, Business, Interview, Meeting, Medical, Tech). Learn progressively through a "staged learning" approach:
 - **Stages**: Start from Words, advance to Phrases, and master full Sentences.
 - **Blind Test Mode**: Hide Chinese translations to train your brain to connect English directly with contexts without relying on rote memorization.
+- **Natural Phonics & IPA**: Automatically converts words into intuitive "plain English spellings" and precise IPA symbols, with support for switching between US and UK accents.
 
 ### 2. ✨ AI Scenario Generation
 Need more specific practice? Simply enter a "custom scenario" (e.g., asking for a gym membership, lost luggage at the airport), and the system will instantly call the Gemini API to generate custom vocabulary, phrases, and dialogue sentences tailored exactly to your real-life needs.
@@ -120,10 +122,10 @@ Automatically and randomly draws from your past "Completed" items (including bot
 ## 🛠️ Technology Stack
 
 This project embraces the principle of "Minimalist yet Powerful" and requires absolutely no backend server:
-- **Frontend Core**: Pure HTML5 + CSS3 (Custom Design System) + Vanilla JavaScript.
+- **Frontend Core**: Pure HTML5 + CSS3 (Custom Design System) + Vanilla JavaScript. Fully responsive design for both desktop and mobile devices.
 - **Data Storage**: Heavily utilizes the browser's `localStorage`. All user progress, streaks, AI-generated items, and favorite lists are stored locally. Fully equipped with crash-prevention wrappers (`try...catch`) to ensure stable operation even in iOS Safari's restricted private mode.
 - **AI Driven**: Directly interfaces with Google Gemini (Generative Language API) via fetch.
-- **Speech System**: Deep integration with the browser's native `Web Speech API` (including `SpeechSynthesisUtterance` and `webkitSpeechRecognition`), supporting cross-platform text-to-speech and microphone input (including iOS / Safari).
+- **Speech System**: Deep integration with the browser's native `Web Speech API` (including `SpeechSynthesis` and `SpeechRecognition`). It fully supports cross-platform text-to-speech and microphone input, **tested and proven to work smoothly on Android, Chrome, and iOS Safari**.
 
 ---
 
