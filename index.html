@@ -746,6 +746,16 @@ function localDateStr(d = new Date()){
   return `${y}-${m}-${day}`;
 }
 
+// 保護用:localStorage 裡的資料萬一損毀(例如匯入的備份檔壞掉、手動改壞),
+// 直接 JSON.parse 會丟出例外,讓整個頁面在載入階段就整個掛掉。
+// 用這個包一層,壞掉時安靜地回傳預設值,不會拖垮其他功能。
+function safeParse(str, fallback){
+  try {
+    const v = JSON.parse(str);
+    return (v === null || v === undefined) ? fallback : v;
+  } catch(e) { return fallback; }
+}
+
 const el = id => document.getElementById(id);
 
 /* ---------- 頂部三顆選單按鈕：各自獨立展開/收合 ---------- */
@@ -1262,7 +1272,7 @@ function recordPracticed(item, stageIdx){
     streakAtPractice: (prevRecord && prevRecord.streakAtPractice !== undefined) ? prevRecord.streakAtPractice : streakData.count
   };
   savePracticed();
-  const stored = JSON.parse(lsGet('speakup_daily') || '{"date":"","count":0}');
+  const stored = safeParse(lsGet('speakup_daily'), {date:"",count:0});
   if(stored.date === today) {
     stored.count++;
   } else {
@@ -1360,10 +1370,10 @@ try {
 } catch(e) {
   console.warn("localStorage not accessible", e);
 }
-let catProgress = (savedCatProgressStr ? JSON.parse(savedCatProgressStr) : null) || {};
+let catProgress = savedCatProgressStr ? safeParse(savedCatProgressStr, {}) : {};
 // 記住「每個模式(或模式+階段)上次選的分類」,切換分頁/階段時才能還原到原本選的分類,
 // 而不是每次都被重置回「全部」。
-let lastCat = (savedLastCatStr ? JSON.parse(savedLastCatStr) : null) || {};
+let lastCat = savedLastCatStr ? safeParse(savedLastCatStr, {}) : {};
 const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'completed', 'review', 'random'];
 let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
@@ -1928,7 +1938,7 @@ function renderReview(){
 
   // 今日練習題數
   const today = localDateStr();
-  const dailyStored = JSON.parse(lsGet('speakup_daily') || '{"date":"","count":0}');
+  const dailyStored = safeParse(lsGet('speakup_daily'), {date:"",count:0});
   const todayCount = (dailyStored.date === today) ? dailyStored.count : 0;
 
   // 距離下一朵花：永遠算「還差幾詞才會長出下一朵」
@@ -3025,7 +3035,7 @@ if(el('settingsBtn')) {
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    const stamp = new Date().toISOString().slice(0, 10);
+    const stamp = localDateStr();
     a.href = url;
     a.download = `speakup_backup_${stamp}.json`;
     a.click();
@@ -3140,9 +3150,13 @@ el('coachBtn').onclick = async () => {
       el('coachAddVocabBtn').onclick = () => {
         parsed.vocab.forEach(v => {
           if (!WORD_BANK.word) WORD_BANK.word = [];
+          v._type = 'word';
+          v.cat = v.cat || '教練推薦';
           WORD_BANK.word.unshift(v);
+          aiGeneratedItems.unshift(v);
         });
-        lsSet('speakup_custom', JSON.stringify(WORD_BANK));
+        lsSet('speakup_ai_items', JSON.stringify(aiGeneratedItems));
+        initBank(); // 立即把新單字補進 STAGES,不用重新整理頁面才看得到
         if (typeof generateRandomReview === 'function') generateRandomReview();
         vocabArea.innerHTML = `<div style="text-align:center; color:var(--sage); font-size:13px; font-weight:bold; padding:8px;">✅ 已成功加入你的專屬題庫！</div>`;
       };
