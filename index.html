@@ -1156,6 +1156,24 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     ctx.textBaseline = 'middle';
     ctx.fillText(pillText, W / 2, py + ph / 2 + 1.5);
     ctx.textBaseline = 'alphabetic'; // Reset baseline for subsequent rendering
+
+    // 本瓶專屬花語
+    let flowerLang = '【花語】含苞待放 · 每一次練習都是成長的養分';
+    if (renderStreak >= 14) {
+      flowerLang = '【花語】堅如磐石 · 連續兩週澆灌出的執著';
+    } else if (renderStreak >= 7) {
+      flowerLang = '【花語】堅韌不拔 · 連續七天不間斷的學習';
+    } else if (renderStreak >= 3) {
+      flowerLang = '【花語】漸入佳境 · 正在建立絕佳的語感習慣';
+    } else if (flowerTypes.length >= 15) {
+      flowerLang = '【花語】繁花盛開 · 滿載著豐碩的單字果實';
+    } else if (wordCount > 50) {
+      flowerLang = '【花語】生機盎然 · 已經累積了可觀的詞彙量';
+    }
+    
+    ctx.font = '500 14px Inter, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = '#6b806d';
+    ctx.fillText(flowerLang, W / 2, cardY + 540);
   } else {
     ctx.font = '500 15px Inter, "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#9a9488';
@@ -1172,6 +1190,51 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
   drawStatPill(ctx, startX, pillY, pillW, pillH, '🌷', '已掌握', `${wordCount} 詞`, '#5aa06a');
   drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '🏅', '等級', levelLabel, levelColor || '#c98a4b');
   drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '🔥', '連續天數', renderStreak > 0 ? `${renderStreak} 天` : '今天開始', '#e0703f');
+
+  // 升級進度條
+  const levelDefs = [
+    { min:0, max:49, label:'🌱 語言新手', color:'#6b806d' },
+    { min:50, max:149, label:'🌿 探索學徒', color:'#5aa06a' },
+    { min:150, max:299, label:'🍀 溝通熟手', color:'#48995a' },
+    { min:300, max:499, label:'🍃 詞彙達人', color:'#328c46' },
+    { min:500, max:999, label:'🌳 語感大師', color:'#207532' },
+    { min:1000, max:1999, label:'🌸 雙語精靈', color:'#d66d8e' },
+    { min:2000, max:Infinity, label:'👑 傳奇大師', color:'#c0a000' }
+  ];
+  const currentLvl = levelDefs.find(l => wordCount >= l.min && wordCount <= l.max) || levelDefs[0];
+  const nextLvl = levelDefs[levelDefs.indexOf(currentLvl) + 1];
+  
+  if (nextLvl) {
+    const barW = totalW;
+    const barH = 10;
+    const barX = startX;
+    const barY = cardY + cardH - 85;
+    
+    ctx.font = '500 13px Inter, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = '#9a9488';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(`距離下一階「${nextLvl.label}」還需 ${nextLvl.min - wordCount} 詞`, W / 2, barY - 12);
+    
+    ctx.save();
+    canvasRoundRect(ctx, barX, barY, barW, barH, barH / 2);
+    ctx.fillStyle = '#efece3';
+    ctx.fill();
+    ctx.restore();
+    
+    const progress = Math.max(0, Math.min(1, (wordCount - currentLvl.min) / (nextLvl.min - currentLvl.min)));
+    if (progress > 0) {
+      canvasRoundRect(ctx, barX, barY, barW * progress, barH, barH / 2);
+      ctx.fillStyle = nextLvl.color || '#5aa06a';
+      ctx.fill();
+    }
+  } else {
+    ctx.font = '700 14px Inter, "Noto Sans TC", sans-serif';
+    ctx.fillStyle = '#c0a000';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(`👑 你已達成最高等級！`, W / 2, cardY + cardH - 85);
+  }
 
   // 底部footer
   ctx.font = '13px Inter, sans-serif';
@@ -1911,7 +1974,7 @@ function renderReview(){
 
   const levelCardHtml = `
     <div id="levelStatCard" onclick="el('levelModal').style.display='flex'" style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; text-align:left; cursor:pointer; user-select:none;">
-      <div style="font-size:11px; color:var(--muted); margin-bottom:2px;">🏅 等級 <span style="font-size:9px; opacity:0.6;">（點擊查看）</span></div>
+      <div style="font-size:11px; color:var(--muted); margin-bottom:2px; white-space:nowrap;">🏅 等級 <span style="font-size:9px; opacity:0.6;">（點擊查看）</span></div>
       <div style="font-size:16px; font-weight:700; color:${level.color};">${level.label}</div>
       ${nextLevel ? `<div style="font-size:10px; color:var(--muted); margin-top:1px;">下一階：${nextLevel.label}</div>` : `<div style="font-size:10px; color:#c0a000; margin-top:1px;">已達最高階！</div>`}
     </div>
