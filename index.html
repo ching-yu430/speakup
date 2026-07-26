@@ -1167,20 +1167,28 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
   const pillW = 168, pillH = 110, gap = 14;
   const totalW = pillW * 3 + gap * 2;
   const startX = W / 2 - totalW / 2;
-  const pillY = cardY + cardH - 240;
+  const pillY = cardY + 520;
   drawStatPill(ctx, startX, pillY, pillW, pillH, '🌷', '已掌握', `${wordCount} 詞`, '#5aa06a');
   drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '🏅', '等級', levelLabel, levelColor || '#c98a4b');
   drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '🔥', '連續天數', renderStreak > 0 ? `${renderStreak} 天` : '今天開始', '#e0703f');
 
   // 升級進度條
   const levelDefs = [
-    { min:0, max:49, label:'🌱 語言新手', color:'#6b806d' },
-    { min:50, max:149, label:'🌿 探索學徒', color:'#5aa06a' },
-    { min:150, max:299, label:'🍀 溝通熟手', color:'#48995a' },
-    { min:300, max:499, label:'🍃 詞彙達人', color:'#328c46' },
-    { min:500, max:999, label:'🌳 語感大師', color:'#207532' },
-    { min:1000, max:1999, label:'🌸 雙語精靈', color:'#d66d8e' },
-    { min:2000, max:Infinity, label:'👑 傳奇大師', color:'#c0a000' }
+    { min:0,    max:9,    label:'🌱 嫩芽',     color:'#8fba6c' },
+    { min:10,   max:24,   label:'🪴 小苗',     color:'#6dba8c' },
+    { min:25,   max:49,   label:'🌿 葉舒展',   color:'#5aaa82' },
+    { min:50,   max:79,   label:'🌼 初綻放',   color:'#f0c040' },
+    { min:80,   max:119,  label:'🌸 嬌嫩花',   color:'#e88fad' },
+    { min:120,  max:179,  label:'🌺 豔麗花',   color:'#e05090' },
+    { min:180,  max:249,  label:'🌻 向陽花',   color:'#f5a623' },
+    { min:250,  max:349,  label:'🌹 含情玫',   color:'#d63060' },
+    { min:350,  max:499,  label:'🌷 鬱金香',   color:'#9b59b6' },
+    { min:500,  max:699,  label:'🪻 薰衣草',   color:'#7e57c2' },
+    { min:700,  max:999,  label:'🏵️ 花藝師',  color:'#4caf8a' },
+    { min:1000, max:1299, label:'💐 花束大師', color:'#e67e22' },
+    { min:1300, max:1699, label:'🌳 語言之樹', color:'#27ae60' },
+    { min:1700, max:1999, label:'🌲 百年古木', color:'#1a6b3a' },
+    { min:2000, max:Infinity, label:'👑 花語宗師', color:'#c0a000' }
   ];
   const currentLvl = levelDefs.find(l => wordCount >= l.min && wordCount <= l.max) || levelDefs[0];
   const nextLvl = levelDefs[levelDefs.indexOf(currentLvl) + 1];
@@ -1189,7 +1197,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     const barW = totalW;
     const barH = 10;
     const barX = startX;
-    const barY = cardY + cardH - 95;
+    const barY = cardY + 690;
     
     ctx.font = '500 13px Inter, "Noto Sans TC", sans-serif';
     ctx.fillStyle = '#9a9488';
@@ -1214,7 +1222,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     ctx.fillStyle = '#c0a000';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`👑 你已達成最高等級！`, W / 2, cardY + cardH - 95);
+    ctx.fillText(`👑 你已達成最高等級！`, W / 2, cardY + 690);
   }
 
   // 底部footer
