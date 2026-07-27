@@ -957,6 +957,30 @@ let lastCat = savedLastCatStr ? safeParse(savedLastCatStr, {}) : {};
 const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'completed', 'review', 'random'];
 let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
+let returnSnapshot = null;
+function clearReturnSnapshot() {
+  returnSnapshot = null;
+  const banner = el('returnBanner');
+  if(banner) banner.style.display = 'none';
+}
+function showReturnBanner() {
+  const banner = el('returnBanner');
+  if(banner) banner.style.display = 'block';
+}
+function restoreSnapshot() {
+  if (!returnSnapshot) return;
+  appMode = returnSnapshot.appMode;
+  stageIdx = returnSnapshot.stageIdx;
+  activeCat = returnSnapshot.activeCat;
+  itemIdx = returnSnapshot.itemIdx;
+  
+  clearReturnSnapshot();
+  saveProgress();
+  setAppMode(appMode, false, true);
+  render(true);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function getSavedItemIdx(sIdx, cat) {
   const key = `${sIdx}_${cat}`;
   return catProgress[key] || 0;
@@ -1104,6 +1128,7 @@ function closeLevelModal(){
 }
 
 function setAppMode(mode, isInitial = false, preserveState = false) {
+  if (!preserveState) clearReturnSnapshot();
   appMode = mode;
   lsSet('speakup_appMode', appMode);
   
@@ -1162,6 +1187,7 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
   }
 }
 
+if(el('returnBtn')) el('returnBtn').onclick = restoreSnapshot;
 el('tabGeneral').onclick = () => setAppMode('general');
 el('tabAI').onclick = () => setAppMode('ai');
 el('tabRoleplay').onclick = () => setAppMode('roleplay');
@@ -1355,6 +1381,14 @@ function jumpToItem(en){
     if(STAGES[i].key === 'favorites') continue; // skip the favorites pseudo-stage
     const idx = STAGES[i].items.findIndex(x => x.en === en);
     if(idx !== -1){
+      returnSnapshot = {
+        appMode: appMode,
+        stageIdx: stageIdx,
+        activeCat: activeCat,
+        itemIdx: itemIdx
+      };
+      showReturnBanner();
+      
       const item = STAGES[i].items[idx];
       stageIdx = i;
       activeCat = 'all';
@@ -2112,6 +2146,7 @@ function renderLadder(){
     d.className = 'rung' + (i===stageIdx?' active':'');
     d.textContent = s.label;
     d.onclick = () => {
+      clearReturnSnapshot();
       stageIdx = i;
       activeCat = lastCat[`general_${stageIdx}`] || 'all';
       itemIdx = getSavedItemIdx(stageIdx, activeCat);
@@ -2129,14 +2164,14 @@ function renderCats(){
   const allPill = document.createElement('div');
   allPill.className = 'cat-pill' + (activeCat==='all'?' active':'');
   allPill.textContent = '全部';
-  allPill.onclick = () => { activeCat='all'; itemIdx = getSavedItemIdx(stageIdx, 'all'); saveProgress(); render(); };
+  allPill.onclick = () => { clearReturnSnapshot(); activeCat='all'; itemIdx = getSavedItemIdx(stageIdx, 'all'); saveProgress(); render(); };
   wrap.appendChild(allPill);
   cats.forEach(c => {
     const displayName = c.startsWith('(AI) ') ? c.replace('(AI) ', '✨ ') : c;
     const p = document.createElement('div');
     p.className = 'cat-pill' + (activeCat===c?' active':'');
     p.textContent = displayName;
-    p.onclick = () => { activeCat=c; itemIdx = getSavedItemIdx(stageIdx, c); saveProgress(); render(); };
+    p.onclick = () => { clearReturnSnapshot(); activeCat=c; itemIdx = getSavedItemIdx(stageIdx, c); saveProgress(); render(); };
     wrap.appendChild(p);
   });
 }
