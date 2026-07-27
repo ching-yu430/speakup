@@ -1082,7 +1082,7 @@ function closeLevelModal(){
   }, 300);
 }
 
-function setAppMode(mode, isInitial = false) {
+function setAppMode(mode, isInitial = false, preserveState = false) {
   appMode = mode;
   lsSet('speakup_appMode', appMode);
   
@@ -1119,7 +1119,7 @@ function setAppMode(mode, isInitial = false) {
   const quickNav = el('quickNav');
   if(quickNav) quickNav.style.display = isSpecialMode ? 'none' : 'flex';
   
-  if(!isInitial && !isSpecialMode) {
+  if(!isInitial && !isSpecialMode && !preserveState) {
     const catKey = (mode === 'ai') ? 'ai' : `general_${stageIdx}`;
     activeCat = lastCat[catKey] || 'all';
     itemIdx = getSavedItemIdx(stageIdx, activeCat);
@@ -1360,7 +1360,7 @@ function jumpToItem(en){
       itemIdx = fIdx !== -1 ? fIdx : 0;
       
       saveProgress();
-      setAppMode(targetMode);
+      setAppMode(targetMode, false, true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
