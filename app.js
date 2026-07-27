@@ -1016,6 +1016,52 @@ function triggerAnim(elId, animClass) {
   elem.classList.remove(animClass);
   void elem.offsetWidth;
   elem.classList.add(animClass);
+  // 動畫播完就把 class 拿掉——用 forwards 讓動畫停在最後一幀本身沒問題,
+  // 但如果最後一幀還留著非 none 的 transform(例如 translateY(0)),
+  // 這個元素就會變成裡面 position:fixed 子元素(例如彈出視窗)的定位基準,
+  // 導致那些視窗不是真的相對「整個畫面」置中,而是相對這個容器置中。
+  // 動畫結束後拿掉 class,把 transform 恢復成 none 就能避免這個問題。
+  const handler = (e) => {
+    if(e.target === elem){
+      elem.classList.remove(animClass);
+      elem.removeEventListener('animationend', handler);
+    }
+  };
+  elem.addEventListener('animationend', handler);
+}
+
+// 等級表彈出視窗:開啟時淡入+輕微放大,關閉時反過來淡出+縮小,
+// 兩段時間都刻意抓短一點(0.28~0.4s),感覺俐落但不生硬。
+function openLevelModal(){
+  const modal = el('levelModal');
+  const box = el('levelModalBox');
+  if(!modal) return;
+  modal.style.display = 'flex';
+  modal.classList.remove('anim-fade-out');
+  void modal.offsetWidth;
+  modal.classList.add('anim-fade-in');
+  if(box){
+    box.classList.remove('anim-gentle-modal-out');
+    void box.offsetWidth;
+    box.classList.add('anim-gentle-modal');
+  }
+}
+
+function closeLevelModal(){
+  const modal = el('levelModal');
+  const box = el('levelModalBox');
+  if(!modal) return;
+  modal.classList.remove('anim-fade-in');
+  modal.classList.add('anim-fade-out');
+  if(box){
+    box.classList.remove('anim-gentle-modal');
+    box.classList.add('anim-gentle-modal-out');
+  }
+  setTimeout(() => {
+    modal.style.display = 'none';
+    modal.classList.remove('anim-fade-out');
+    if(box) box.classList.remove('anim-gentle-modal-out');
+  }, 300);
 }
 
 function setAppMode(mode, isInitial = false) {
@@ -1064,7 +1110,7 @@ function setAppMode(mode, isInitial = false) {
   if(mode === 'review') renderReview();
   if(mode === 'completed') renderCompleted();
   if(mode === 'favorites') renderFavorites();
-  render();
+  render(!isInitial);
   updateTriggerTexts();
 
   if (!isInitial) {
@@ -1073,7 +1119,7 @@ function setAppMode(mode, isInitial = false) {
     else if (mode === 'favorites') triggerAnim('favoritesContainer', 'anim-slide-up-fade');
     else if (mode === 'completed') triggerAnim('completedContainer', 'anim-slide-up-fade');
     else if (mode === 'review') triggerAnim('reviewContainer', 'anim-slide-up-fade');
-    else triggerAnim('mainCard', 'anim-slide-up-fade');
+    else triggerAnim('mainCard', 'anim-slide-up-fade'); // general / ai / random 都共用同一張卡片
   }
 }
 
@@ -1089,7 +1135,7 @@ el('tabRandom').onclick = () => {
   setAppMode('random');
   activeCat = 'all';
   itemIdx = 0;
-  render();
+  render(true);
 };
 
 el('refreshNewsBtn').onclick = () => fetchBBCNews();
@@ -1107,7 +1153,7 @@ async function fetchBBCNews() {
     <div class="anim-shimmer" style="height:110px; background:var(--card); border:1px solid var(--line); border-radius:10px; opacity:0.7;"></div>
   `;
   listEl.innerHTML = shimmerHTML;
-  statusEl.textContent = '🌍 正在抓取 BBC 最新頭條...';
+  statusEl.textContent = '🌍 正在抓取 BBC 最新頭條...'; triggerAnim('newsStatus', 'anim-gentle-in');
   try {
     const rssUrl = encodeURIComponent('http://feeds.bbci.co.uk/news/rss.xml');
     const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
@@ -1115,7 +1161,7 @@ async function fetchBBCNews() {
     if(data.status !== 'ok') throw new Error('抓取 BBC 新聞來源失敗,該服務可能暫時無法使用。');
     const items = data.items.slice(0, 5);
     
-    statusEl.textContent = '✨ AI 正在幫您雙語翻譯今日新聞...';
+    statusEl.textContent = '✨ AI 正在幫您雙語翻譯今日新聞...'; triggerAnim('newsStatus', 'anim-gentle-in');
     
     const prompt = `請將以下 5 則英文新聞標題與摘要翻譯為繁體中文(臺灣)。
 請只回傳 JSON 格式，必須是一個陣列，不需要 markdown 標籤。
@@ -1172,8 +1218,8 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
 async function generateNewsVocab(idx) {
   const item = window.currentNewsItems[idx];
   const statusEl = el('newsStatus');
-  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先在「✨ AI情境」設定 Gemini API Key'; return; }
-  statusEl.textContent = '📝 AI 正在萃取單字與句型...';
+  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先在「✨ AI情境」設定 Gemini API Key'; triggerAnim('newsStatus', 'anim-gentle-in'); return; }
+  statusEl.textContent = '📝 AI 正在萃取單字與句型...'; triggerAnim('newsStatus', 'anim-gentle-in');
   try {
     const prompt = `請根據以下新聞，萃取 3 個重要單字與 2 個實用句型。
 新聞標題：${item.enTitle}
@@ -1210,15 +1256,15 @@ async function generateNewsVocab(idx) {
     lsSet('speakup_ai_items', JSON.stringify(aiGeneratedItems));
     
     initBank();
-    statusEl.textContent = '✅ 已加入題庫！';
+    statusEl.textContent = '✅ 已加入題庫！'; triggerAnim('newsStatus', 'anim-gentle-in');
     
     setAppMode('general');
     activeCat = "新聞時事";
     itemIdx = 0;
-    render();
+    render(true);
     updateTriggerTexts();
   } catch(e) {
-    statusEl.textContent = '⚠️ ' + e.message;
+    statusEl.textContent = '⚠️ ' + e.message; triggerAnim('newsStatus', 'anim-gentle-in');
     console.error(e);
   }
 }
@@ -1226,8 +1272,8 @@ async function generateNewsVocab(idx) {
 async function generateNewsRP(idx) {
   const item = window.currentNewsItems[idx];
   const statusEl = el('newsStatus');
-  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先在「✨ AI情境」設定 Gemini API Key'; return; }
-  statusEl.textContent = '💬 AI 正在設計實戰對話情境...';
+  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先在「✨ AI情境」設定 Gemini API Key'; triggerAnim('newsStatus', 'anim-gentle-in'); return; }
+  statusEl.textContent = '💬 AI 正在設計實戰對話情境...'; triggerAnim('newsStatus', 'anim-gentle-in');
   try {
     const prompt = `請根據這則新聞，設計一個日常口語的「實戰對話情境」描述 (例如：你正在和朋友聊這則新聞...)。
 新聞標題：${item.enTitle}
@@ -1259,7 +1305,7 @@ async function generateNewsRP(idx) {
     el('rpStartBtn').click();
     statusEl.textContent = '';
   } catch(e) {
-    statusEl.textContent = '⚠️ ' + e.message;
+    statusEl.textContent = '⚠️ ' + e.message; triggerAnim('newsStatus', 'anim-gentle-in');
     console.error(e);
   }
 }
@@ -1579,16 +1625,16 @@ function renderReview(){
   }).join('');
 
   const levelCardHtml = `
-    <div id="levelStatCard" onclick="el('levelModal').style.display='flex'" style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; text-align:left; cursor:pointer; user-select:none;">
+    <div id="levelStatCard" onclick="openLevelModal()" style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; text-align:left; cursor:pointer; user-select:none;">
       <div style="font-size:11px; color:var(--muted); margin-bottom:2px; white-space:nowrap;">🏅 等級 <span style="font-size:9px; opacity:0.6;">（點選檢視）</span></div>
       <div style="font-size:16px; font-weight:700; color:${level.color};">${level.label}</div>
       ${nextLevel ? `<div style="font-size:10px; color:var(--muted); margin-top:1px;">下一階：${nextLevel.label}</div>` : `<div style="font-size:10px; color:#c0a000; margin-top:1px;">已達最高階！</div>`}
     </div>
-    <div id="levelModal" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center; padding:20px;">
-      <div style="background:var(--card); border-radius:16px; padding:20px; max-width:320px; width:100%; max-height:80vh; overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+    <div id="levelModal" onclick="if(event.target===this)closeLevelModal()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+      <div id="levelModalBox" style="background:var(--card); border-radius:16px; padding:20px; max-width:320px; width:100%; max-height:80vh; overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
           <div style="font-size:15px; font-weight:700; color:var(--sage-dark);">🌸 等級表</div>
-          <button onclick="el('levelModal').style.display='none'" style="border:none; background:none; font-size:20px; color:var(--muted); cursor:pointer; line-height:1;">×</button>
+          <button onclick="closeLevelModal()" style="border:none; background:none; font-size:20px; color:var(--muted); cursor:pointer; line-height:1;">×</button>
         </div>
         <table style="width:100%; border-collapse:collapse;">
           ${levelModalRows}
@@ -2062,7 +2108,7 @@ function currentItem(){
   return items[itemIdx];
 }
 
-function render(){
+function render(skipTargetAnim = false){
   if(appMode === 'roleplay' || appMode === 'favorites' || appMode === 'review' || appMode === 'completed') return;
   renderLadder();
   const stage = currentStage();
@@ -2101,6 +2147,12 @@ function render(){
   
   el('target').classList.add('anim-fade-in');
   el('targetZh').classList.add('anim-fade-in');
+  if(skipTargetAnim){
+    // 這次的內容更新已經由外層容器(整個分頁切換、或上一題/下一題的左右滑動)負責動畫了,
+    // 這裡的淡入只是保底用的樣式狀態,不用真的重播一次,不然兩層動畫疊在一起節奏會亂掉。
+    el('target').classList.remove('anim-fade-in');
+    el('targetZh').classList.remove('anim-fade-in');
+  }
 
   if(typeof isBlindMode !== 'undefined' && isBlindMode) {
     el('target').classList.add('blind');
@@ -2522,7 +2574,7 @@ function navigateItem(direction){
   setTimeout(() => {
     itemIdx = (itemIdx + direction + items.length) % items.length;
     saveProgress();
-    render();
+    render(true);
 
     content.classList.remove(outClass);
     void content.offsetWidth;
