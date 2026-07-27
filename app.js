@@ -153,8 +153,8 @@ function updateTriggerTexts(){
   }
   
   const showStageAndCat = (appMode === 'general' || appMode === 'ai');
-  el('stageTrigger').style.display = (appMode === 'general') ? 'block' : 'none';
-  el('catTrigger').style.display = showStageAndCat ? 'block' : 'none';
+  el('stageTrigger').classList.toggle('trigger-collapsed', appMode !== 'general');
+  el('catTrigger').classList.toggle('trigger-collapsed', !showStageAndCat);
   
   // Dynamically adjust widths based on mode
   if (appMode === 'ai') {
