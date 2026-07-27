@@ -1381,8 +1381,9 @@ function jumpToItem(en){
     if(STAGES[i].key === 'favorites') continue; // skip the favorites pseudo-stage
     const idx = STAGES[i].items.findIndex(x => x.en === en);
     if(idx !== -1){
+      const inferredMode = (activeCat && activeCat.startsWith('(AI)')) ? 'ai' : 'general';
       returnSnapshot = {
-        appMode: appMode,
+        appMode: (appMode === 'general' || appMode === 'ai') ? appMode : inferredMode,
         stageIdx: stageIdx,
         activeCat: activeCat,
         itemIdx: itemIdx
