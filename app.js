@@ -2007,11 +2007,9 @@ const IPA_TO_PLAIN = [
   ['eə','air'], ['ɪə','eer'], ['ʊə','oor'],
   // R音化母音
   ['ɜːr','er'], ['ɜː','er'], ['ɝ','er'], ['ər','er'], ['ɚ','er'],
-  ['ɜr','er'], ['ɜ','er'],
   ['ɔːr','or'], ['ɑːr','ar'],
-  ['ɔr','or'], ['ɑr','ar'],
   // 長母音
-  ['ɔː','aw'], ['ɔ','aw'], ['ɑː','ah'], ['iː','ee'], ['uː','oo'],
+  ['ɔː','aw'], ['ɑː','ah'], ['iː','ee'], ['uː','oo'],
   // 特殊子音
   ['ʃ','sh'], ['ʒ','zh'], ['θ','th'], ['ð','th'], ['ŋ','ng'],
   // 短母音（schwa ə 放最後，因為它很常見且不能覆蓋其他音）
@@ -2646,6 +2644,7 @@ el('addBtn').onclick = async () => {
   const isSingleWord = !/\s/.test(en);
   const addBtn = el('addBtn');
   addBtn.disabled = true;
+  addBtn.classList.add('anim-soft-pulse');
 
   if(isSingleWord){
     addBtn.textContent = '查詢音標中...';
@@ -2668,12 +2667,14 @@ el('addBtn').onclick = async () => {
   }
 
   addBtn.disabled = false;
+  addBtn.classList.remove('anim-soft-pulse');
   stage.items.push(item);
   customItems.push({ _stageKey: stage.key, ...item });
   saveCustomItems();
   el('customEn').value = '';
   el('customZh').value = '';
   addBtn.textContent = '已加入 ✓';
+  triggerAnim('addBtn', 'anim-pop');
   setTimeout(()=>{ addBtn.textContent = '＋ 加入題庫'; }, 1200);
   if(idx === stageIdx) render();
 };
@@ -2685,6 +2686,22 @@ el('apiKeyInput').addEventListener('input', (e) => {
   lsSet('speakup_apikey', geminiApiKey);
 });
 
+// AI 生成彈窗:開啟時 anim-pop 蹦一下比較搶眼(呼應「生成新內容」的興奮感),
+// 關閉時改用溫和的 anim-gentle-modal-out,避免「開很有戲、關卻瞬間消失」的落差。
+function closeAiModal(){
+  const modal = el('aiModal');
+  const box = modal.querySelector('.ai-modal');
+  if(box){
+    box.classList.remove('anim-pop');
+    void box.offsetWidth;
+    box.classList.add('anim-gentle-modal-out');
+  }
+  setTimeout(() => {
+    modal.classList.remove('show');
+    if(box) box.classList.remove('anim-gentle-modal-out');
+  }, 300);
+}
+
 el('openAiModalBtn').onclick = () => {
   el('aiModal').classList.add('show');
   const box = el('aiModal').querySelector('.ai-modal');
@@ -2694,11 +2711,9 @@ el('openAiModalBtn').onclick = () => {
     box.classList.add('anim-pop');
   }
 };
-el('closeAiModalBtn').onclick = () => {
-  el('aiModal').classList.remove('show');
-};
+el('closeAiModalBtn').onclick = () => closeAiModal();
 el('aiModal').addEventListener('click', (e) => {
-  if(e.target === el('aiModal')) el('aiModal').classList.remove('show');
+  if(e.target === el('aiModal')) closeAiModal();
 });
 
 const RANDOM_SCENARIOS = [
@@ -2796,7 +2811,7 @@ zh (中文) 必須是繁體中文(臺灣)。
     
     el('aiStatus').textContent = '✅ 生成成功！已幫你切換到新類別。'; triggerAnim('aiStatus', 'anim-gentle-in');
     setTimeout(() => {
-      el('aiModal').classList.remove('show');
+      closeAiModal();
     }, 1500);
     
     activeCat = catName;
@@ -2872,6 +2887,19 @@ if(el('settingsBtn')) {
   el('settingsBtn').onclick = () => setSettingsOpen(!settingsOpen);
   el('closeSettingsBtn').onclick = () => setSettingsOpen(false);
 
+  function closeGuideModal(){
+    const modal = el('guideModal');
+    const box = modal.querySelector('.ai-modal');
+    if(box){
+      box.classList.remove('anim-gentle-modal');
+      void box.offsetWidth;
+      box.classList.add('anim-gentle-modal-out');
+    }
+    setTimeout(() => {
+      modal.classList.remove('show');
+      if(box) box.classList.remove('anim-gentle-modal-out');
+    }, 300);
+  }
   el('openGuideBtn').onclick = () => {
     el('guideModal').classList.add('show');
     const box = el('guideModal').querySelector('.ai-modal');
@@ -2881,9 +2909,9 @@ if(el('settingsBtn')) {
       box.classList.add('anim-gentle-modal');
     }
   };
-  el('guideCloseBtn').onclick = () => el('guideModal').classList.remove('show');
+  el('guideCloseBtn').onclick = () => closeGuideModal();
   el('guideModal').addEventListener('click', (e) => {
-    if(e.target === el('guideModal')) el('guideModal').classList.remove('show');
+    if(e.target === el('guideModal')) closeGuideModal();
   });
   
   // 所有需要納入「完整備份」的 localStorage key(不包含 speakup_custom,
@@ -3071,6 +3099,7 @@ el('rpStartBtn').onclick = async () => {
   el('rpChat').style.display = 'flex';
   el('rpChat').innerHTML = '';
   el('rpControls').style.display = 'block';
+  triggerAnim('rpControls', 'anim-gentle-in');
   el('rpStatus').textContent = 'AI 思考中...'; triggerAnim('rpStatus', 'anim-status-fade');
   
   rpHistory = [];
@@ -3268,6 +3297,7 @@ el('rpRestartBtn').onclick = () => {
   el('rpControls').style.display = 'none';
   el('rpHintBox').style.display = 'none';
   el('rpSetup').style.display = 'block';
+  triggerAnim('rpSetup', 'anim-gentle-in');
   el('rpStatus').textContent = '';
   el('rpRecBtn').classList.remove('recording');
 };
