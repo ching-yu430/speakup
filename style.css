@@ -41,11 +41,13 @@
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 
   /* -- 通用按壓回饋:大部分按鈕本來完全沒有按下去的感覺,加一個輕微縮放,
-     已經自己定義過 :active 效果的(像麥克風鍵、左右箭頭)優先權比較高,不受影響 -- */
-  button, .clickable-word, .review-item, .app-tab, .trigger-btn {
+     已經自己定義過 :active 效果的(像麥克風鍵、左右箭頭)優先權比較高,不受影響 --
+     階段/分類選項跟搜尋結果其實是 div 不是 button,原本完全沒有按壓回饋,一併補上 */
+  button, .clickable-word, .review-item, .app-tab, .trigger-btn, .rung, .cat-pill, .search-result-item {
     transition: transform 0.12s ease, background-color 0.15s, color 0.15s, border-color 0.15s;
   }
-  button:active { transform: scale(0.96); }
+  button:active, .rung:active, .cat-pill:active, .search-result-item:active,
+  .clickable-word:active, .review-item:active { transform: scale(0.96); }
   html{ -webkit-text-size-adjust:100%; }
   body{
     margin:0;
@@ -721,11 +723,17 @@
   .anim-gentle-modal-out { animation: gentleModalOut 0.28s cubic-bezier(0.4, 0, 1, 1) forwards; }
   .anim-soft-pulse { animation: softPulse 1.4s ease-in-out infinite; }
   .anim-flame { animation: flameFlicker 2.6s ease-in-out infinite; display:inline-block; }
+  /* 對話氣泡專屬:比通用的 gentle-in 位移幅度更明顯一點,「由下往上浮現」的感覺更清楚 */
+  .anim-bubble-in { animation: bubbleRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
   #searchBtn.open{ color:var(--sage-dark) !important; background:var(--sage-light) !important; border-radius:8px; }
 
   @keyframes gentleIn {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bubbleRise {
+    from { opacity: 0; transform: translateY(18px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
   }
   @keyframes gentleOut {
     from { opacity: 1; transform: translateY(0); }

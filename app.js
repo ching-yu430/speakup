@@ -1048,6 +1048,24 @@ function bindReviewGroupToggleAnim(container){
   });
 }
 
+// 「想加自己的內容?」展開區塊,跟上面已完成/收藏/花室的清單用同一套手法:
+// 摺疊/展開本身讓瀏覽器原生處理,只在「展開的當下」讓裡面的欄位平滑淡入,
+// 感覺是輕輕展開,而不是內容瞬間彈出來。
+(function bindAddPanelToggleAnim(){
+  const addPanelEl = document.querySelector('details.add-panel');
+  if(!addPanelEl) return;
+  addPanelEl.addEventListener('toggle', () => {
+    if(addPanelEl.open){
+      const body = addPanelEl.querySelector('.add-body');
+      if(body){
+        body.classList.remove('anim-gentle-in');
+        void body.offsetWidth;
+        body.classList.add('anim-gentle-in');
+      }
+    }
+  });
+})();
+
 // 等級表彈出視窗:開啟時淡入+輕微放大,關閉時反過來淡出+縮小,
 // 兩段時間都刻意抓短一點(0.28~0.4s),感覺俐落但不生硬。
 function openLevelModal(){
@@ -3103,7 +3121,7 @@ async function fetchRpResponse(contents) {
     
     // UI update
     const div = document.createElement('div');
-    div.className = 'msg-ai anim-gentle-in';
+    div.className = 'msg-ai anim-bubble-in';
     div.innerHTML = `<strong>AI:</strong> ${parsed.next_response_en}<div style="font-size:12px;opacity:0.7;margin-top:4px;">${parsed.next_response_zh}</div>`;
     if(parsed.feedback) {
       div.innerHTML += `<div class="msg-tip">💡 教練提示：${parsed.feedback}</div>`;
@@ -3146,7 +3164,7 @@ function initRpSR() {
     if(!heard) return;
     
     const div = document.createElement('div');
-    div.className = 'msg-user anim-gentle-in';
+    div.className = 'msg-user anim-bubble-in';
     div.innerHTML = `<strong>你:</strong> ${heard}`;
     el('rpChat').appendChild(div);
     el('rpChat').scrollTop = el('rpChat').scrollHeight;
@@ -3226,9 +3244,11 @@ el('rpHintBtn').onclick = async () => {
     hintBox.style.display = 'block';
     hintBox.innerHTML = '<div style="color:var(--sage-dark); font-weight:bold; margin-bottom:6px;">你可以這樣說：</div>' + 
       parsed.hints.map(h => `<div style="margin-bottom:6px;">• <b>${h.en}</b> <br><span style="color:var(--muted); font-size:12px;">(${h.zh})</span></div>`).join('');
+    triggerAnim('rpHintBox', 'anim-gentle-in');
   } catch(e) {
     hintBox.style.display = 'block';
     hintBox.textContent = '⚠️ ' + e.message;
+    triggerAnim('rpHintBox', 'anim-gentle-in');
   }
   
   hintBtn.disabled = false;
