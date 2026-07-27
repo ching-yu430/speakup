@@ -1030,6 +1030,24 @@ function triggerAnim(elId, animClass) {
   elem.addEventListener('animationend', handler);
 }
 
+// 已完成/收藏/語感花室這幾個清單,都是用 <details> 把題目摺疊在分類底下,
+// 摺疊起來的內容本來就看不到,初次渲染時逐項淡入是浪費;
+// 真正有意義的時機是「使用者展開某個分類」的當下，那時候才讓裡面的題目淡入。
+function bindReviewGroupToggleAnim(container){
+  container.querySelectorAll('.review-group').forEach(details => {
+    details.addEventListener('toggle', () => {
+      if(details.open){
+        const items = details.querySelector('.review-group-items');
+        if(items){
+          items.classList.remove('anim-gentle-in');
+          void items.offsetWidth;
+          items.classList.add('anim-gentle-in');
+        }
+      }
+    });
+  });
+}
+
 // 等級表彈出視窗:開啟時淡入+輕微放大,關閉時反過來淡出+縮小,
 // 兩段時間都刻意抓短一點(0.28~0.4s),感覺俐落但不生硬。
 function openLevelModal(){
@@ -1194,7 +1212,7 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
     
     translatedItems.forEach((item, idx) => {
       html += `
-        <div class="news-item" style="cursor:default;">
+        <div class="news-item anim-gentle-in" style="cursor:default; animation-delay:${Math.min(idx * 0.08, 0.4)}s; opacity:0;">
           <div class="news-title" style="margin-bottom:4px;">${makeClickable(item.enTitle)}</div>
           <div style="font-size:14px; font-weight:700; color:var(--sage-dark); margin-bottom:10px;">${item.zhTitle}</div>
           <div class="news-desc" style="display:block; margin-bottom:4px;">${makeClickable(item.enDesc)}</div>
@@ -1210,7 +1228,7 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
     window.currentNewsItems = translatedItems;
     
   } catch (e) {
-    listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:#8a4a26;">⚠️ ' + e.message + '</div>';
+    listEl.innerHTML = '<div class="anim-gentle-in" style="text-align:center; padding: 20px; color:#8a4a26;">⚠️ ' + e.message + '</div>';
     console.error(e);
   }
 }
@@ -1366,9 +1384,9 @@ function renderCompleted(){
 
   const sortedCats = Object.keys(groups).sort();
   let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);text-align:center;">這裡是你所有練習過的單字與句子</div>';
-  sortedCats.forEach(cat => {
+  sortedCats.forEach((cat, gIdx) => {
     const items = groups[cat];
-    html += `<details class="review-group">
+    html += `<details class="review-group anim-gentle-in" style="animation-delay:${Math.min(gIdx * 0.05, 0.3)}s; opacity:0;">
       <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
       <div class="review-group-items">`;
     items.forEach(it => {
@@ -1387,6 +1405,7 @@ function renderCompleted(){
   container.querySelectorAll('.review-item').forEach(row => {
     row.onclick = () => jumpToItem(row.getAttribute('data-en'));
   });
+  bindReviewGroupToggleAnim(container);
 }
 
 function renderReview(){
@@ -1735,9 +1754,9 @@ function renderFavorites(){
 
   const sortedCats = Object.keys(groups).sort();
   let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);">\u9ede專案可回到練習，點⭐可取消收藏。</div>';
-  sortedCats.forEach(cat => {
+  sortedCats.forEach((cat, gIdx) => {
     const items = groups[cat];
-    html += `<div class="review-group">
+    html += `<div class="review-group anim-gentle-in" style="animation-delay:${Math.min(gIdx * 0.05, 0.3)}s; opacity:0;">
       <div class="review-group-title"><span>${cat}</span><span class="review-group-count">${items.length} \u984c</span></div>`;
     items.forEach(it => {
       html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
@@ -2993,7 +3012,7 @@ el('coachBtn').onclick = async () => {
         lsSet('speakup_ai_items', JSON.stringify(aiGeneratedItems));
         initBank(); // 立即把新單字補進 STAGES,不用重新整理頁面才看得到
         if (typeof generateRandomReview === 'function') generateRandomReview();
-        vocabArea.innerHTML = `<div style="text-align:center; color:var(--sage); font-size:13px; font-weight:bold; padding:8px;">✅ 已成功加入你的專屬題庫！</div>`;
+        vocabArea.innerHTML = `<div class="anim-gentle-in" style="text-align:center; color:var(--sage); font-size:13px; font-weight:bold; padding:8px;">✅ 已成功加入你的專屬題庫！</div>`;
       };
     } else {
       vocabArea.style.display = 'none';
@@ -3032,7 +3051,7 @@ el('rpStartBtn').onclick = async () => {
   el('rpChat').style.display = 'flex';
   el('rpChat').innerHTML = '';
   el('rpControls').style.display = 'block';
-  el('rpStatus').textContent = 'AI 思考中...';
+  el('rpStatus').textContent = 'AI 思考中...'; triggerAnim('rpStatus', 'anim-status-fade');
   
   rpHistory = [];
   
@@ -3100,12 +3119,12 @@ async function fetchRpResponse(contents) {
     u.rate = 0.9;
     speechSynthesis.speak(u);
     
-    el('rpStatus').textContent = '請按下麥克風開始說話';
+    el('rpStatus').textContent = '請按下麥克風開始說話'; triggerAnim('rpStatus', 'anim-status-fade');
     el('rpHintBox').style.display = 'none';
     el('rpHintBox').innerHTML = '';
   } catch(err) {
     console.error('Roleplay API error:', err);
-    el('rpStatus').textContent = '⚠️ ' + err.message;
+    el('rpStatus').textContent = '⚠️ ' + err.message; triggerAnim('rpStatus', 'anim-status-fade');
   }
 }
 
@@ -3119,7 +3138,7 @@ function initRpSR() {
   rpSR.onstart = () => {
     rpIsRecording = true;
     el('rpRecBtn').classList.add('recording');
-    el('rpStatus').textContent = '聆聽中... (請說話)';
+    el('rpStatus').textContent = '聆聽中... (請說話)'; triggerAnim('rpStatus', 'anim-status-fade');
   };
   
   rpSR.onresult = async (e) => {
@@ -3132,7 +3151,7 @@ function initRpSR() {
     el('rpChat').appendChild(div);
     el('rpChat').scrollTop = el('rpChat').scrollHeight;
     
-    el('rpStatus').textContent = 'AI 思考中...';
+    el('rpStatus').textContent = 'AI 思考中...'; triggerAnim('rpStatus', 'anim-status-fade');
     
     const prompt = `我說了："${heard}"。請評估這句話是否符合情境與文法，給予簡單的繁體中文回饋(feedback)，並順著對話繼續回覆我(next_response_en)。請強制回傳 JSON 格式：{"next_response_en": "", "next_response_zh": "", "feedback": "中文提示"}`;
     
@@ -3141,7 +3160,7 @@ function initRpSR() {
   
   rpSR.onerror = (e) => {
     if(el('rpStatus').textContent !== 'AI 思考中...') {
-      el('rpStatus').textContent = '聽不清楚，請再按一次麥克風。';
+      el('rpStatus').textContent = '聽不清楚，請再按一次麥克風。'; triggerAnim('rpStatus', 'anim-status-fade');
     }
   };
   
@@ -3149,7 +3168,7 @@ function initRpSR() {
     rpIsRecording = false;
     el('rpRecBtn').classList.remove('recording');
     if(el('rpStatus').textContent.includes('聆聽中')) {
-      el('rpStatus').textContent = '請按下麥克風開始說話';
+      el('rpStatus').textContent = '請按下麥克風開始說話'; triggerAnim('rpStatus', 'anim-status-fade');
     }
     // iOS fix: SpeechRecognition instance becomes unusable after onend,
     // must create a new one before next start()

@@ -514,6 +514,13 @@
 
   /* -- 新增：和緩優雅系列，速度放慢、不用回彈(overshoot)，單純淡入+輕微位移 -- */
   .anim-gentle-in { animation: gentleIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  /* 給像「實戰對話」狀態列這種會頻繁更新的小段文字用,比 anim-gentle-in 快很多,
+     不然像「聆聽中...→AI思考中...」這樣一兩秒就換一次字,0.65秒的動畫會互相追撞、感覺卡卡的 */
+  .anim-status-fade { animation: statusFade 0.22s ease-out forwards; }
+  @keyframes statusFade {
+    from { opacity: 0; transform: translateY(3px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
   .anim-gentle-out { animation: gentleOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards; }
   .anim-gentle-modal { animation: gentleModalIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
   .anim-gentle-modal-out { animation: gentleModalOut 0.28s cubic-bezier(0.4, 0, 1, 1) forwards; }
