@@ -1527,7 +1527,7 @@ function renderReview(){
       ];
       leavesHtml = leafDefs.map((lf, li) => {
         const leafDelay = (flowersInThisVase * 0.03 + li * 0.03).toFixed(2);
-        return `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${(lf.tx - lf.size / 2).toFixed(1)}px; font-size:${lf.size}px; line-height:1; transform:translateY(${lf.ty}px) rotate(${lf.angle}deg)${lf.flip ? ' scaleX(-1)' : ''}; transform-origin:50% 100%; z-index:${8 + li}; opacity:0.93; animation:popIn 0.3s both; animation-delay:${leafDelay}s;">🌿</div>`;
+        return `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${(lf.tx - lf.size / 2).toFixed(1)}px; font-size:${lf.size}px; line-height:1; transform:translateY(${lf.ty}px) rotate(${lf.angle}deg)${lf.flip ? ' scaleX(-1)' : ''}; transform-origin:50% 100%; z-index:${8 + li}; opacity:0.93;"><div style="animation:popIn 0.3s both; animation-delay:${leafDelay}s; transform-origin:50% 100%;">🌿</div></div>`;
       }).join('');
     }
 
