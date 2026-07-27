@@ -160,6 +160,9 @@ function updateTriggerTexts(){
   if (appMode === 'ai') {
     el('modeTrigger').style.flex = '0 0 auto';
     el('catTrigger').style.flex = '1 1 0';
+  } else if (!showStageAndCat) {
+    el('modeTrigger').style.flex = '1 1 100%';
+    el('catTrigger').style.flex = '0 0 0';
   } else {
     el('modeTrigger').style.flex = '1.5';
     el('catTrigger').style.flex = '1.1';
