@@ -2224,20 +2224,23 @@ function renderCats(){
     recentLabel.className = 'anim-fade-in';
     recentLabel.style.fontSize = '12px';
     recentLabel.style.color = 'var(--muted)';
-    recentLabel.style.width = '100%';
-    recentLabel.style.margin = '4px 0 2px 4px';
-    recentLabel.textContent = '最近使用';
+    recentLabel.style.display = 'flex';
+    recentLabel.style.alignItems = 'center';
+    recentLabel.style.whiteSpace = 'nowrap';
+    recentLabel.style.marginRight = '4px';
+    recentLabel.innerHTML = '🕒 最近使用';
     wrap.appendChild(recentLabel);
     
     validRecentCats.forEach(c => wrap.appendChild(createPill(c, true)));
     
-    const div = document.createElement('div');
-    div.className = 'anim-fade-in';
-    div.style.width = '100%';
-    div.style.height = '1px';
-    div.style.background = 'var(--line)';
-    div.style.margin = '8px 0';
-    wrap.appendChild(div);
+    const divider = document.createElement('div');
+    divider.className = 'anim-fade-in';
+    divider.style.width = '1px';
+    divider.style.height = '24px';
+    divider.style.background = 'var(--line)';
+    divider.style.margin = 'auto 8px';
+    divider.style.flexShrink = '0';
+    wrap.appendChild(divider);
   }
 
   wrap.appendChild(createPill('all'));
