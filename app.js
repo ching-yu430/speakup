@@ -954,6 +954,22 @@ let catProgress = savedCatProgressStr ? safeParse(savedCatProgressStr, {}) : {};
 // 記住「每個模式(或模式+階段)上次選的分類」,切換分頁/階段時才能還原到原本選的分類,
 // 而不是每次都被重置回「全部」。
 let lastCat = savedLastCatStr ? safeParse(savedLastCatStr, {}) : {};
+
+let savedRecentCatsStr = null;
+try { savedRecentCatsStr = lsGet('speakup_recent_cats'); } catch(e){}
+let recentCats = savedRecentCatsStr ? safeParse(savedRecentCatsStr, []) : [];
+
+function saveRecentCats() {
+  lsSet('speakup_recent_cats', JSON.stringify(recentCats));
+}
+
+function updateRecentCats(cat) {
+  if(cat === 'all') return;
+  recentCats = recentCats.filter(c => c !== cat);
+  recentCats.unshift(cat);
+  if (recentCats.length > 3) recentCats = recentCats.slice(0, 3);
+  saveRecentCats();
+}
 const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'completed', 'review', 'random'];
 let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
@@ -2162,19 +2178,70 @@ function renderCats(){
   const wrap = el('cats');
   wrap.innerHTML = '';
   const cats = categoriesForMode(appMode);
-  const allPill = document.createElement('div');
-  allPill.className = 'cat-pill' + (activeCat==='all'?' active':'');
-  allPill.textContent = '全部';
-  allPill.onclick = () => { clearReturnSnapshot(); activeCat='all'; itemIdx = getSavedItemIdx(stageIdx, 'all'); saveProgress(); render(); };
-  wrap.appendChild(allPill);
-  cats.forEach(c => {
-    const displayName = c.startsWith('(AI) ') ? c.replace('(AI) ', '✨ ') : c;
+
+  function getProgressHint(cName) {
+    if (cName === 'all') return '';
+    let catItems = [];
+    if (appMode === 'ai') {
+      STAGES.forEach(stg => stg.items.forEach(it => {
+        if(it.cat && it.cat.startsWith('(AI)') && it.cat === cName) catItems.push(it);
+      }));
+    } else {
+      const stage = STAGES[stageIdx] || STAGES[0];
+      catItems = stage.items.filter(it => (!it.cat || !it.cat.startsWith('(AI)')) && it.cat === cName);
+    }
+    const total = catItems.length;
+    if(total === 0) return '';
+    const practicedCount = catItems.filter(it => practiced[it.en]).length;
+    const remaining = total - practicedCount;
+    if (remaining <= 0) return '<span class="cat-hint anim-fade-in" style="font-size:11px; opacity:0.7; margin-left:4px;">(已完成)</span>';
+    return `<span class="cat-hint anim-fade-in" style="font-size:11px; opacity:0.7; margin-left:4px;">(剩 ${remaining})</span>`;
+  }
+
+  function createPill(c, isRecentSection = false) {
+    const isAll = (c === 'all');
+    let displayName = isAll ? '全部' : c;
+    if(!isAll && displayName.startsWith('(AI) ')) displayName = displayName.replace('(AI) ', '✨ ');
+    
     const p = document.createElement('div');
-    p.className = 'cat-pill' + (activeCat===c?' active':'');
-    p.textContent = displayName;
-    p.onclick = () => { clearReturnSnapshot(); activeCat=c; itemIdx = getSavedItemIdx(stageIdx, c); saveProgress(); render(); };
-    wrap.appendChild(p);
-  });
+    p.className = 'cat-pill anim-gentle-in' + (activeCat === c ? ' active' : '');
+    p.innerHTML = displayName + (isAll ? '' : getProgressHint(c));
+    
+    p.onclick = () => { 
+      clearReturnSnapshot(); 
+      activeCat = c; 
+      if (!isAll) updateRecentCats(c);
+      itemIdx = getSavedItemIdx(stageIdx, c); 
+      saveProgress(); 
+      render(); 
+    };
+    return p;
+  }
+
+  const validRecentCats = recentCats.filter(rc => cats.includes(rc));
+  if (validRecentCats.length > 0) {
+    const recentLabel = document.createElement('div');
+    recentLabel.className = 'anim-fade-in';
+    recentLabel.style.fontSize = '12px';
+    recentLabel.style.color = 'var(--muted)';
+    recentLabel.style.width = '100%';
+    recentLabel.style.margin = '4px 0 2px 4px';
+    recentLabel.textContent = '最近使用';
+    wrap.appendChild(recentLabel);
+    
+    validRecentCats.forEach(c => wrap.appendChild(createPill(c, true)));
+    
+    const div = document.createElement('div');
+    div.className = 'anim-fade-in';
+    div.style.width = '100%';
+    div.style.height = '1px';
+    div.style.background = 'var(--line)';
+    div.style.margin = '8px 0';
+    wrap.appendChild(div);
+  }
+
+  wrap.appendChild(createPill('all'));
+  cats.forEach(c => wrap.appendChild(createPill(c)));
 }
 
 function currentStage(){ return STAGES[stageIdx]; }
