@@ -67,25 +67,94 @@ function closeSearchPanel(){
   el('searchPanel').classList.remove('open');
   el('searchBtn').classList.remove('open');
 }
+
+// Levenshtein 編輯距離,用來判斷兩個字串「像不像」
+function levenshtein(a, b){
+  if(a === b) return 0;
+  const al = a.length, bl = b.length;
+  if(al === 0) return bl;
+  if(bl === 0) return al;
+  let prev = new Array(bl + 1);
+  for(let j = 0; j <= bl; j++) prev[j] = j;
+  for(let i = 1; i <= al; i++){
+    const cur = [i];
+    for(let j = 1; j <= bl; j++){
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
+    }
+    prev = cur;
+  }
+  return prev[bl];
+}
+
+// 去掉空白/標點,只留英數字與中文字,讓比對不受大小寫、空格、標點影響
+function normalizeForSearch(s){
+  return (s || '').toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff]/g, '');
+}
+
+// 模糊比對:先看是不是「子字串」,不是的話再看是不是「依序出現的子序列」
+// (子序列比對可以容忍中間漏打字,例如查 "bfast" 也能配到 "breakfast")
+function fuzzyIncludes(text, query){
+  const t = normalizeForSearch(text);
+  const q = normalizeForSearch(query);
+  if(!q) return 0;
+  if(t.includes(q)) return 2; // 直接子字串命中,優先度較高
+  if(q.length < 2) return 0;
+  let ti = 0;
+  for(let qi = 0; qi < q.length; qi++){
+    ti = t.indexOf(q[qi], ti);
+    if(ti === -1) return 0;
+    ti++;
+  }
+  return 1; // 子序列命中,優先度較低
+}
+
 function searchAllItems(query){
-  const qLower = query.trim().toLowerCase();
   const qRaw = query.trim();
-  if(!qLower) return [];
+  if(!qRaw) return [];
   const seen = new Set();
-  const results = [];
+  const exact = [];
+  const fuzzy = [];
   STAGES.forEach(stage => {
     if(stage.key === 'favorites') return; // 收藏是既有題目的副本,跳過避免同一個字出現兩次
     stage.items.forEach(it => {
       if(seen.has(it.en)) return;
-      const enMatch = it.en.toLowerCase().includes(qLower);
-      const zhMatch = it.zh && it.zh.includes(qRaw);
-      if(enMatch || zhMatch){
+      const enScore = fuzzyIncludes(it.en, qRaw);
+      const zhScore = it.zh ? fuzzyIncludes(it.zh, qRaw) : 0;
+      const score = Math.max(enScore, zhScore);
+      if(score === 2){
         seen.add(it.en);
-        results.push(it);
+        exact.push(it);
+      } else if(score === 1){
+        seen.add(it.en);
+        fuzzy.push(it);
       }
     });
   });
-  return results.slice(0, 30);
+  return [...exact, ...fuzzy].slice(0, 30);
+}
+
+// 找出題庫裡跟這個英文字「很像」的既有項目(拼字太接近,可能是重複或打錯字)
+function findSimilarWord(enWord){
+  const target = (enWord || '').trim().toLowerCase();
+  if(!target) return null;
+  let best = null;
+  let bestDist = Infinity;
+  STAGES.forEach(stage => {
+    if(stage.key === 'favorites') return;
+    stage.items.forEach(it => {
+      const cand = (it.en || '').trim().toLowerCase();
+      if(!cand) return;
+      const dist = levenshtein(target, cand);
+      if(dist === 0){ best = it; bestDist = 0; return; }
+      const threshold = Math.max(1, Math.floor(Math.min(target.length, cand.length) * 0.25));
+      if(dist <= threshold && dist < bestDist){
+        best = it;
+        bestDist = dist;
+      }
+    });
+  });
+  return best;
 }
 function renderSearchResults(query){
   const box = el('searchResults');
@@ -120,7 +189,19 @@ el('searchBtn').onclick = () => {
     el('searchResults').innerHTML = '';
   }
 };
-el('searchInput').addEventListener('input', (e) => renderSearchResults(e.target.value));
+// 注音/中文輸入法在「組字」過程中會不斷觸發 input 事件(例如打到一半的注音符號),
+// 這時候直接拿去搜尋只會一直找不到結果、畫面閃爍。改成:組字期間先不要搜尋,
+// 等 compositionend(選完字/放開組字)才真正觸發搜尋,一般英打不受影響。
+let isSearchComposing = false;
+el('searchInput').addEventListener('compositionstart', () => { isSearchComposing = true; });
+el('searchInput').addEventListener('compositionend', (e) => {
+  isSearchComposing = false;
+  renderSearchResults(e.target.value);
+});
+el('searchInput').addEventListener('input', (e) => {
+  if(isSearchComposing) return; // 組字中,先不要搜尋
+  renderSearchResults(e.target.value);
+});
 el('searchResults').addEventListener('click', (e) => {
   const itemEl = e.target.closest('.search-result-item');
   if(!itemEl) return;
@@ -3000,8 +3081,20 @@ zh (中文) 必須是繁體中文(臺灣)。
     const items = JSON.parse(resultText);
     
     const catName = `(AI) ${scenario}`;
+    const similarWarnings = [];
     items.forEach(it => {
       if(!it.en) return;
+      const existing = findSimilarWord(it.en);
+      if(existing && existing.en.trim().toLowerCase() === it.en.trim().toLowerCase()){
+        // 完全一樣的字,題庫裡已經有了,跳過不重複加入
+        similarWarnings.push(`「${it.en}」已存在,已略過`);
+        return;
+      }
+      if(existing){
+        // 拼字很接近但不完全一樣,還是加入,但提示使用者留意
+        similarWarnings.push(`「${it.en}」跟題庫裡的「${existing.en}」很像`);
+      }
+
       const wordCount = it.en.trim().split(/\s+/).length;
       let targetKey = 'word';
       if(wordCount > 3 || it.en.includes('?')) targetKey = 'sentence';
@@ -3020,7 +3113,12 @@ zh (中文) 必須是繁體中文(臺灣)。
     
     lsSet('speakup_ai_items', JSON.stringify(aiGeneratedItems));
     
-    el('aiStatus').textContent = '✅ 生成成功！已幫你切換到新類別。'; triggerAnim('aiStatus', 'anim-gentle-in');
+    if(similarWarnings.length){
+      el('aiStatus').innerHTML = `✅ 生成成功！已幫你切換到新類別。<br><span style="color:var(--muted); font-size:12px;">⚠️ ${similarWarnings.slice(0, 4).join('；')}</span>`;
+    } else {
+      el('aiStatus').textContent = '✅ 生成成功！已幫你切換到新類別。';
+    }
+    triggerAnim('aiStatus', 'anim-gentle-in');
     setTimeout(() => {
       closeAiModal();
     }, 1500);
@@ -3349,6 +3447,19 @@ if('serviceWorker' in navigator){
    純前端網站沒有後端伺服器,沒辦法做到「瀏覽器完全關閉時仍會收到推播」的真正 Web Push。
    這裡做的是最佳可行版本:只要瀏覽器分頁,或已安裝的 PWA 還留在背景執行,
    就會在設定的時間用 Notification 跳出提醒;完全關閉瀏覽器則不會收到。 */
+// iOS/iPadOS 的 Safari「網頁分頁」完全不支援 Notification API(window 上根本沒有 Notification 這個東西)。
+// 只有把網站「加到主畫面」(Add to Home Screen)變成一個獨立 App,而且系統是 iOS 16.4 以上,
+// 才會出現 Notification API 可以用。這是蘋果的系統限制,不是這個網站的 bug。
+function isIOSDevice(){
+  const ua = navigator.userAgent || '';
+  const isiOSUA = /iPad|iPhone|iPod/.test(ua);
+  // iPadOS 13+ 的 Safari 在 UA 上偽裝成 Mac,要另外用「有觸控但是 Mac 平台」判斷
+  const isiPadOS13Plus = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+  return isiOSUA || isiPadOS13Plus;
+}
+function isStandalonePWA(){
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
 function reminderEnabled(){ return lsGet('speakup_reminder_enabled') === '1'; }
 function reminderTime(){ return lsGet('speakup_reminder_time') || '20:00'; }
 function practicedToday(){
@@ -3402,7 +3513,13 @@ function updateReminderUI(){
   const status = el('reminderStatus');
   if(status){
     if(!('Notification' in window)){
-      status.textContent = '這個瀏覽器不支援通知功能。';
+      if(isIOSDevice() && !isStandalonePWA()){
+        status.textContent = '📱 iPhone/iPad 的 Safari「網頁分頁」本身不支援通知,這是蘋果系統限制。請點右下角「分享」→「加入主畫面」,改用主畫面上的 App 圖示開啟(需要 iOS 16.4 以上),才能開啟通知。';
+      } else if(isIOSDevice()){
+        status.textContent = '這個 iOS 版本不支援通知功能,請更新到 iOS 16.4 以上再試。';
+      } else {
+        status.textContent = '這個瀏覽器不支援通知功能,建議改用 Chrome、Edge 或桌面版 Safari。';
+      }
     } else if(Notification.permission === 'denied'){
       status.textContent = '⚠️ 瀏覽器通知權限已被封鎖,請到瀏覽器的網站設定裡手動開啟。';
     } else if(enabled && Notification.permission === 'granted'){
@@ -3416,7 +3533,11 @@ function updateReminderUI(){
 if(el('reminderToggleBtn')){
   el('reminderToggleBtn').onclick = async () => {
     if(!('Notification' in window)){
-      alert('這個瀏覽器不支援通知功能。');
+      if(isIOSDevice() && !isStandalonePWA()){
+        alert('iPhone/iPad 的 Safari 網頁分頁不支援通知功能。\n請先用「分享」→「加入主畫面」把網站加成 App,再從主畫面圖示打開,才能開啟通知(需要 iOS 16.4 以上)。');
+      } else {
+        alert('這個瀏覽器不支援通知功能。');
+      }
       return;
     }
     const turningOn = !reminderEnabled();
@@ -3489,7 +3610,17 @@ el('coachBtn').onclick = async () => {
       vocabArea.innerHTML = `<button id="coachAddVocabBtn" style="background:var(--ai-dark); border:none; padding:10px 14px; border-radius:8px; color:var(--card); cursor:pointer; font-weight:bold; font-size:13px; width:100%;">➕ 將這 ${parsed.vocab.length} 個道地單字加入題庫</button>`;
       
       el('coachAddVocabBtn').onclick = () => {
+        const similarWarnings = [];
         parsed.vocab.forEach(v => {
+          if(!v.en) return;
+          const existing = findSimilarWord(v.en);
+          if(existing && existing.en.trim().toLowerCase() === v.en.trim().toLowerCase()){
+            similarWarnings.push(`「${v.en}」已存在,已略過`);
+            return; // 完全重複,不加入
+          }
+          if(existing){
+            similarWarnings.push(`「${v.en}」跟「${existing.en}」很像`);
+          }
           if (!WORD_BANK.word) WORD_BANK.word = [];
           v._type = 'word';
           v.cat = v.cat || '教練推薦';
@@ -3499,7 +3630,10 @@ el('coachBtn').onclick = async () => {
         lsSet('speakup_ai_items', JSON.stringify(aiGeneratedItems));
         initBank(); // 立即把新單字補進 STAGES,不用重新整理頁面才看得到
         if (typeof generateRandomReview === 'function') generateRandomReview();
-        vocabArea.innerHTML = `<div class="anim-gentle-in" style="text-align:center; color:var(--sage); font-size:13px; font-weight:bold; padding:8px;">✅ 已成功加入你的專屬題庫！</div>`;
+        const warnHtml = similarWarnings.length
+          ? `<div style="color:var(--muted); font-size:11px; margin-top:4px;">⚠️ ${similarWarnings.slice(0, 4).join('；')}</div>`
+          : '';
+        vocabArea.innerHTML = `<div class="anim-gentle-in" style="text-align:center; color:var(--sage); font-size:13px; font-weight:bold; padding:8px;">✅ 已成功加入你的專屬題庫！${warnHtml}</div>`;
       };
     } else {
       vocabArea.style.display = 'none';
