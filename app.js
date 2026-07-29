@@ -2193,9 +2193,16 @@ function applyVoice(u, langCode) {
   u.lang = langCode;
   const voices = speechSynthesis.getVoices();
   if (voices && voices.length > 0) {
-    let voice = voices.find(v => v.lang === langCode || v.lang.replace('_','-') === langCode);
-    if (!voice) voice = voices.find(v => v.lang.startsWith(langCode.split('-')[0]));
-    if (voice) u.voice = voice;
+    let matchingVoices = voices.filter(v => v.lang === langCode || v.lang.replace('_','-') === langCode);
+    if (matchingVoices.length === 0) {
+      matchingVoices = voices.filter(v => v.lang.startsWith(langCode.split('-')[0]));
+    }
+    if (matchingVoices.length > 0) {
+      // 優先選擇高品質雲端或加強版語音
+      let bestVoice = matchingVoices.find(v => v.name.includes('Google') || v.name.includes('Premium') || v.name.includes('Enhanced'));
+      if (!bestVoice) bestVoice = matchingVoices[0];
+      u.voice = bestVoice;
+    }
   }
 }
 
@@ -2244,9 +2251,11 @@ const IPA_TO_PLAIN = [
   ['eə','air'], ['ɪə','eer'], ['ʊə','oor'],
   // R音化母音
   ['ɜːr','er'], ['ɜː','er'], ['ɝ','er'], ['ər','er'], ['ɚ','er'],
+  ['ɜr','er'], ['ɜ','er'],
   ['ɔːr','or'], ['ɑːr','ar'],
+  ['ɔr','or'], ['ɑr','ar'],
   // 長母音
-  ['ɔː','aw'], ['ɑː','ah'], ['iː','ee'], ['uː','oo'],
+  ['ɔː','aw'], ['ɔ','aw'], ['ɑː','ah'], ['iː','ee'], ['uː','oo'],
   // 特殊子音
   ['ʃ','sh'], ['ʒ','zh'], ['θ','th'], ['ð','th'], ['ŋ','ng'],
   // 短母音（schwa ə 放最後，因為它很常見且不能覆蓋其他音）
