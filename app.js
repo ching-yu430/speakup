@@ -830,25 +830,58 @@ function recordPracticed(item, stageIdx, score){
   const today = localDateStr();
   updateStreak(today); // 先更新連續天數,才能正確記錄「這次練習當下」的連續天數
   const prevRecord = practiced[item.en];
+  const now = new Date().getTime();
+  const DAY = 24 * 60 * 60 * 1000;
 
-  // weakCount:間隔複習排序用——分數不理想就+1,講好了就慢慢-1(不會低於0)
+  // weakCount:目前的弱點程度(0~5)——分數不理想就+1,講好了就慢慢-1(不會低於0),
+  // 用在「弱點單字本」判斷這題目前算不算弱點。
   let weakCount = (prevRecord && prevRecord.weakCount) || 0;
+  // mistakeTotal:累計答錯次數,只會增加不會減少,純粹統計用。
+  let mistakeTotal = (prevRecord && prevRecord.mistakeTotal) || 0;
+
+  // 間隔複習排程(SM-2 概念的簡化版):依這次分數換算成 0~5 的「熟悉度品質」,
+  // 講得好會拉長下次複習的間隔天數,講得不好則重設回明天再考。
+  let ef = (prevRecord && typeof prevRecord.ef === 'number') ? prevRecord.ef : 2.5; // 難易係數
+  let reps = (prevRecord && prevRecord.reps) || 0; // 連續講好的次數
+  let interval = (prevRecord && prevRecord.interval) || 0; // 目前的複習間隔(天)
+
   if(typeof score === 'number'){
     weakCount = score < 0.85 ? Math.min(5, weakCount + 1) : Math.max(0, weakCount - 1);
+
+    const quality = score >= 0.95 ? 5 : score >= 0.85 ? 4 : score >= 0.7 ? 3 : score >= 0.5 ? 2 : score >= 0.3 ? 1 : 0;
+    if(quality < 3){
+      // 講得不好:視為還沒學會,明天再排一次,重新從頭累積
+      reps = 0;
+      interval = 1;
+      mistakeTotal += 1;
+    } else {
+      reps += 1;
+      if(reps === 1) interval = 1;
+      else if(reps === 2) interval = 6;
+      else interval = Math.round(interval * ef);
+    }
+    ef = ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+    ef = Math.max(1.3, Math.min(2.6, ef));
   }
+  const dueAt = now + interval * DAY;
 
   practiced[item.en] = {
     en: item.en,
     zh: item.zh || '',
     cat: item.cat || '無',
     stage: stageIdx,
-    lastPracticed: new Date().getTime(),
+    lastPracticed: now,
     // 保留第一次學會這個詞的時間,之後重複練習不會被洗掉(週報「本週新學」要用)
-    firstPracticed: (prevRecord && prevRecord.firstPracticed) ? prevRecord.firstPracticed : new Date().getTime(),
+    firstPracticed: (prevRecord && prevRecord.firstPracticed) ? prevRecord.firstPracticed : now,
     // 保留第一次練會這個詞當下的連續天數,之後重複練習不會被洗掉
     streakAtPractice: (prevRecord && prevRecord.streakAtPractice !== undefined) ? prevRecord.streakAtPractice : streakData.count,
     lastScore: (typeof score === 'number') ? score : (prevRecord ? prevRecord.lastScore : undefined),
-    weakCount
+    weakCount,
+    mistakeTotal,
+    ef,
+    reps,
+    interval,
+    dueAt
   };
   savePracticed();
   bumpDailyHistory(today);
@@ -1031,26 +1064,32 @@ function generateRandomReview() {
   }
   const now = Date.now();
   const DAY = 24 * 60 * 60 * 1000;
-  // 間隔複習(Spaced Repetition):優先度 = 「講得不好的次數」加權 + 「多久沒複習」,
-  // weakCount 影響比較大(真的講不好的字要常常出現),天數設個上限避免久遠到誇張的字一直霸榜。
+  // 間隔複習(SM-2 概念):每一題都有自己的「到期時間」dueAt,
+  // 已經到期(逾期越久)的題目優先出現,弱點程度(weakCount)當作加分項,
+  // 還沒到期的題目則依「還要等多久」排序,確保真正該複習的題目才會優先出現。
   const scored = list.map(it => {
-    const daysSince = (now - (it.lastPracticed || 0)) / DAY;
+    const dueAt = (typeof it.dueAt === 'number') ? it.dueAt : 0;
+    const overdueDays = (now - dueAt) / DAY;
     const weak = it.weakCount || 0;
-    const priority = weak * 4 + Math.min(daysSince, 14);
-    return { it, priority };
+    const priority = overdueDays + weak * 2;
+    return { it, priority, isDue: dueAt <= now };
   });
   scored.sort((a, b) => b.priority - a.priority);
 
-  // 優先度高的那一群裡面做輕微洗牌,才不會每次順序都一模一樣、但仍然維持「弱點優先」的大方向
-  const topCount = Math.max(15, Math.ceil(scored.length * 0.5));
-  const topPool = scored.slice(0, topCount);
-  const rest = scored.slice(topCount);
-  const shuffle = arr => arr.sort(() => 0.5 - Math.random());
-  shuffle(topPool);
-  shuffle(rest);
+  const dueItems = scored.filter(x => x.isDue);
+  const notDueItems = scored.filter(x => !x.isDue);
 
+  // 到期題目裡面做輕微洗牌,才不會每次順序都一模一樣、但仍然維持「越該複習的越前面」的大方向
+  const shuffle = arr => arr.sort(() => 0.5 - Math.random());
+  const topCount = Math.max(15, Math.ceil(dueItems.length * 0.5));
+  const topPool = dueItems.slice(0, topCount);
+  const restDue = dueItems.slice(topCount);
+  shuffle(topPool);
+  shuffle(restDue);
+
+  // 到期題目不夠 20 題時,用「最快到期」的題目補滿,確保每次抽考都有足夠題數
   const pickCount = Math.min(20, scored.length);
-  randomReviewItems = [...topPool, ...rest].slice(0, pickCount).map(x => x.it);
+  randomReviewItems = [...topPool, ...restDue, ...notDueItems].slice(0, pickCount).map(x => x.it);
 }
 
 function triggerAnim(elId, animClass) {
@@ -1156,8 +1195,9 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
   if(el('tabCompleted')) el('tabCompleted').classList.toggle('active', mode === 'completed');
   if(el('tabReview')) el('tabReview').classList.toggle('active', mode === 'review');
   if(el('tabRandom')) el('tabRandom').classList.toggle('active', mode === 'random');
+  if(el('tabWeak')) el('tabWeak').classList.toggle('active', mode === 'weak');
   
-  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'completed' || mode === 'favorites' || mode === 'news');
+  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'completed' || mode === 'favorites' || mode === 'news' || mode === 'weak');
   
   el('aiActions').style.display = mode === 'ai' ? 'block' : 'none';
   el('ladder').style.display = (mode === 'general') ? 'flex' : 'none';
@@ -1170,6 +1210,7 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
   if(el('favoritesContainer')) el('favoritesContainer').style.display = (mode === 'favorites') ? 'block' : 'none';
   if(el('completedContainer')) el('completedContainer').style.display = (mode === 'completed') ? 'block' : 'none';
   if(el('reviewContainer')) el('reviewContainer').style.display = (mode === 'review') ? 'block' : 'none';
+  if(el('weakContainer')) el('weakContainer').style.display = (mode === 'weak') ? 'block' : 'none';
   
   if(mode === 'news' && el('newsList').innerHTML === '載入中...') {
     if(typeof fetchBBCNews === 'function') fetchBBCNews();
@@ -1190,6 +1231,7 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
   if(mode === 'review') renderReview();
   if(mode === 'completed') renderCompleted();
   if(mode === 'favorites') renderFavorites();
+  if(mode === 'weak') renderWeak();
   render(!isInitial);
   updateTriggerTexts();
 
@@ -1199,6 +1241,7 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
     else if (mode === 'favorites') triggerAnim('favoritesContainer', 'anim-slide-up-fade');
     else if (mode === 'completed') triggerAnim('completedContainer', 'anim-slide-up-fade');
     else if (mode === 'review') triggerAnim('reviewContainer', 'anim-slide-up-fade');
+    else if (mode === 'weak') triggerAnim('weakContainer', 'anim-slide-up-fade');
     else triggerAnim('mainCard', 'anim-slide-up-fade'); // general / ai / random 都共用同一張卡片
   }
 }
@@ -1211,6 +1254,7 @@ el('tabFavorites').onclick = () => setAppMode('favorites');
 el('tabCompleted').onclick = () => setAppMode('completed');
 el('tabReview').onclick = () => setAppMode('review');
 el('tabNews').onclick = () => setAppMode('news');
+if(el('tabWeak')) el('tabWeak').onclick = () => setAppMode('weak');
 el('tabRandom').onclick = () => {
   generateRandomReview();
   setAppMode('random');
@@ -1466,6 +1510,64 @@ function renderCompleted(){
         <div>
           <div class="review-item-en">${it.en}</div>
           ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
+        </div>
+        <div style="color:var(--muted);">▶</div>
+      </div>`;
+    });
+    html += `</div></details>`;
+  });
+  container.innerHTML = html;
+
+  container.querySelectorAll('.review-item').forEach(row => {
+    row.onclick = () => jumpToItem(row.getAttribute('data-en'));
+  });
+  bindReviewGroupToggleAnim(container);
+}
+
+function renderWeak(){
+  const container = el('weakContainer');
+  if(!container) return;
+  const now = Date.now();
+  const all = Object.values(practiced);
+  // 弱點單字:目前還算弱點(weakCount > 0)或曾經答錯過(mistakeTotal > 0)的題目
+  const list = all.filter(it => (it.weakCount || 0) > 0 || (it.mistakeTotal || 0) > 0);
+
+  if(list.length === 0){
+    container.innerHTML = '<div class="review-empty">目前沒有弱點單字!<br>持續在「系統題庫」開口練習,講得不順的題目會自動整理在這裡。</div>';
+    return;
+  }
+
+  // 排序:目前弱點程度高的優先 → 累計答錯次數多的優先 → 越快到期複習的優先
+  list.sort((a, b) => {
+    if((b.weakCount || 0) !== (a.weakCount || 0)) return (b.weakCount || 0) - (a.weakCount || 0);
+    if((b.mistakeTotal || 0) !== (a.mistakeTotal || 0)) return (b.mistakeTotal || 0) - (a.mistakeTotal || 0);
+    return (a.dueAt || 0) - (b.dueAt || 0);
+  });
+
+  const groups = {};
+  list.forEach(it => {
+    const cat = it.cat || '未分類';
+    if(!groups[cat]) groups[cat] = [];
+    groups[cat].push(it);
+  });
+
+  let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);text-align:center;">這裡整理出你講得比較不順的單字與句子,排越前面代表越需要多練幾次</div>';
+  Object.keys(groups).forEach((cat, gIdx) => {
+    const items = groups[cat];
+    html += `<details class="review-group anim-gentle-in" open style="animation-delay:${Math.min(gIdx * 0.05, 0.3)}s; opacity:0;">
+      <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
+      <div class="review-group-items">`;
+    items.forEach(it => {
+      const due = (typeof it.dueAt === 'number') ? it.dueAt : 0;
+      const dueLabel = due <= now
+        ? '<span style="color:var(--danger);font-weight:700;">🔴 該複習了</span>'
+        : `<span style="color:var(--muted);">⏳ ${Math.max(1, Math.ceil((due - now) / 86400000))} 天後複習</span>`;
+      const mistakeLabel = it.mistakeTotal ? `<span style="color:var(--clay);">累計答錯 ${it.mistakeTotal} 次</span>` : '';
+      html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
+        <div>
+          <div class="review-item-en">${it.en}</div>
+          ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
+          <div style="font-size:11px;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;">${dueLabel}${mistakeLabel}</div>
         </div>
         <div style="color:var(--muted);">▶</div>
       </div>`;
@@ -3032,13 +3134,32 @@ if(el('settingsBtn')) {
     'speakup_streak', 'speakup_last_cat', 'speakup_last_celebrated', 'speakup_last_level'
   ];
 
-  el('exportBackupBtn').onclick = () => {
+  // 打包成完整備份用的 payload,匯出檔案與上傳 Gist 共用同一份邏輯
+  function buildBackupPayload(){
     const data = {};
     BACKUP_KEYS.forEach(k => {
       const v = lsGet(k);
       if(v !== null && v !== undefined) data[k] = v;
     });
-    const payload = { app: 'SpeakUp', version: 1, exportedAt: new Date().toISOString(), data };
+    return { app: 'SpeakUp', version: 1, exportedAt: new Date().toISOString(), data };
+  }
+
+  // 還原備份資料,回傳實際還原的項目數;匯入檔案與從 Gist 下載共用同一份邏輯
+  function applyBackupPayload(parsed){
+    const data = (parsed && typeof parsed === 'object' && parsed.data) ? parsed.data : parsed;
+    if(!data || typeof data !== 'object') return 0;
+    let count = 0;
+    BACKUP_KEYS.forEach(k => {
+      if(Object.prototype.hasOwnProperty.call(data, k)){
+        lsSet(k, data[k]);
+        count++;
+      }
+    });
+    return count;
+  }
+
+  el('exportBackupBtn').onclick = () => {
+    const payload = buildBackupPayload();
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -3061,16 +3182,7 @@ if(el('settingsBtn')) {
     reader.onload = (ev) => {
       try {
         const parsed = JSON.parse(ev.target.result);
-        const data = (parsed && typeof parsed === 'object' && parsed.data) ? parsed.data : parsed;
-        if(!data || typeof data !== 'object') throw new Error('empty');
-
-        let count = 0;
-        BACKUP_KEYS.forEach(k => {
-          if(Object.prototype.hasOwnProperty.call(data, k)){
-            lsSet(k, data[k]);
-            count++;
-          }
-        });
+        const count = applyBackupPayload(parsed);
         if(count === 0){
           alert('這個檔案裡沒有找到可以還原的備份資料,請確認選的是「匯出完整備份」下載的 .json 檔。');
           return;
@@ -3083,6 +3195,116 @@ if(el('settingsBtn')) {
     };
     reader.readAsText(file);
   });
+
+  /* ---------- GitHub Gist 雲端同步 ---------- */
+  const GIST_FILENAME = 'speakup_backup.json';
+  let ghToken = lsGet('speakup_gh_token') || '';
+  let ghGistId = lsGet('speakup_gh_gistid') || '';
+
+  function updateGistIdDisplay(){
+    const row = el('ghGistIdRow');
+    const txt = el('ghGistIdText');
+    if(!row || !txt) return;
+    if(ghGistId){
+      row.style.display = 'block';
+      txt.textContent = ghGistId;
+    } else {
+      row.style.display = 'none';
+    }
+  }
+  if(el('ghTokenInput')) el('ghTokenInput').value = ghToken;
+  updateGistIdDisplay();
+
+  if(el('ghTokenInput')){
+    el('ghTokenInput').addEventListener('change', () => {
+      ghToken = el('ghTokenInput').value.trim();
+      lsSet('speakup_gh_token', ghToken);
+    });
+  }
+
+  function setGhStatus(msg, isError){
+    const s = el('ghSyncStatus');
+    if(!s) return;
+    s.textContent = msg;
+    s.style.color = isError ? 'var(--danger)' : 'var(--muted)';
+  }
+
+  if(el('ghUploadBtn')){
+    el('ghUploadBtn').onclick = async () => {
+      if(!ghToken){ setGhStatus('請先貼上 GitHub Token。', true); return; }
+      const btn = el('ghUploadBtn');
+      btn.disabled = true;
+      setGhStatus('上傳中...');
+      try {
+        const payload = buildBackupPayload();
+        const body = {
+          description: 'Speak Up 開口練習 - 雲端備份(自動產生,請勿手動編輯)',
+          public: false,
+          files: { [GIST_FILENAME]: { content: JSON.stringify(payload, null, 2) } }
+        };
+        const url = ghGistId ? `https://api.github.com/gists/${ghGistId}` : 'https://api.github.com/gists';
+        const method = ghGistId ? 'PATCH' : 'POST';
+        const res = await fetch(url, {
+          method,
+          headers: {
+            'Authorization': `Bearer ${ghToken}`,
+            'Accept': 'application/vnd.github+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+        if(!res.ok){
+          if(res.status === 404 && ghGistId){
+            // 原本綁定的 Gist 不見了(可能被手動刪除),清掉綁定,提示使用者重新上傳一次建立新的
+            ghGistId = '';
+            lsSet('speakup_gh_gistid', '');
+            updateGistIdDisplay();
+            throw new Error('找不到原本綁定的 Gist,已清除綁定,請再按一次上傳建立新的。');
+          }
+          throw new Error(`GitHub API 錯誤 (${res.status}):請確認 Token 是否正確、是否有勾選 gist 權限。`);
+        }
+        const json = await res.json();
+        ghGistId = json.id;
+        lsSet('speakup_gh_gistid', ghGistId);
+        updateGistIdDisplay();
+        setGhStatus(`✅ 上傳成功!(${new Date().toLocaleString('zh-TW')})`);
+      } catch(err){
+        setGhStatus('❌ ' + err.message, true);
+      }
+      btn.disabled = false;
+    };
+  }
+
+  if(el('ghDownloadBtn')){
+    el('ghDownloadBtn').onclick = async () => {
+      if(!ghToken){ setGhStatus('請先貼上 GitHub Token。', true); return; }
+      if(!ghGistId){ setGhStatus('目前還沒有綁定任何 Gist,請先在另一台裝置上傳過一次進度。', true); return; }
+      if(!confirm('從雲端下載還原,會覆蓋這臺裝置上目前的學習進度與資料,確定要繼續嗎？')) return;
+      const btn = el('ghDownloadBtn');
+      btn.disabled = true;
+      setGhStatus('下載中...');
+      try {
+        const res = await fetch(`https://api.github.com/gists/${ghGistId}`, {
+          headers: {
+            'Authorization': `Bearer ${ghToken}`,
+            'Accept': 'application/vnd.github+json'
+          }
+        });
+        if(!res.ok) throw new Error(`GitHub API 錯誤 (${res.status}):請確認 Token 與 Gist ID 是否正確。`);
+        const json = await res.json();
+        const file = json.files && json.files[GIST_FILENAME];
+        if(!file || !file.content) throw new Error('這個 Gist 裡沒有找到備份檔案。');
+        const parsed = JSON.parse(file.content);
+        const count = applyBackupPayload(parsed);
+        if(count === 0) throw new Error('備份內容是空的,還原失敗。');
+        alert(`已從雲端還原 ${count} 項備份資料,頁面即將重新整理套用。`);
+        location.reload();
+      } catch(err){
+        setGhStatus('❌ ' + err.message, true);
+      }
+      btn.disabled = false;
+    };
+  }
 
   el('exportBtn').onclick = () => {
     const combinedBank = {};
@@ -3114,6 +3336,114 @@ if(el('settingsBtn')) {
     }
   };
 }
+
+/* ---------- Service Worker 註冊(離線快取 + 背景通知用) ---------- */
+let swRegistration = null;
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js')
+    .then(reg => { swRegistration = reg; })
+    .catch(() => {}); // 註冊失敗(例如不支援)就靜靜略過,不影響其他功能
+}
+
+/* ---------- 每日練習提醒 ----------
+   純前端網站沒有後端伺服器,沒辦法做到「瀏覽器完全關閉時仍會收到推播」的真正 Web Push。
+   這裡做的是最佳可行版本:只要瀏覽器分頁,或已安裝的 PWA 還留在背景執行,
+   就會在設定的時間用 Notification 跳出提醒;完全關閉瀏覽器則不會收到。 */
+function reminderEnabled(){ return lsGet('speakup_reminder_enabled') === '1'; }
+function reminderTime(){ return lsGet('speakup_reminder_time') || '20:00'; }
+function practicedToday(){
+  const stored = safeParse(lsGet('speakup_daily'), {date:'', count:0});
+  return stored.date === localDateStr() && stored.count > 0;
+}
+
+function showReminderNotification(){
+  const title = '🗣️ 開口練習提醒';
+  const options = {
+    body: '今天還沒開口練習喔,花幾分鐘念幾句吧！',
+    icon: 'apple-touch-icon.jpg',
+    tag: 'speakup-daily-reminder'
+  };
+  if(swRegistration && swRegistration.showNotification){
+    swRegistration.showNotification(title, options);
+  } else if('Notification' in window && Notification.permission === 'granted'){
+    new Notification(title, options);
+  }
+}
+
+let reminderTimer = null;
+function scheduleNextReminder(){
+  if(reminderTimer){ clearTimeout(reminderTimer); reminderTimer = null; }
+  if(!('Notification' in window)) return;
+  if(!reminderEnabled() || Notification.permission !== 'granted') return;
+
+  const [hh, mm] = reminderTime().split(':').map(Number);
+  const now = new Date();
+  const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hh || 0, mm || 0, 0, 0);
+  if(target.getTime() <= now.getTime()) target.setDate(target.getDate() + 1);
+
+  const delay = target.getTime() - now.getTime();
+  reminderTimer = setTimeout(() => {
+    if(reminderEnabled() && !practicedToday()) showReminderNotification();
+    scheduleNextReminder(); // 排下一次(隔天同一時間)
+  }, delay);
+}
+
+function updateReminderUI(){
+  const enabled = reminderEnabled();
+  const btn = el('reminderToggleBtn');
+  const timeInput = el('reminderTimeInput');
+  if(timeInput) timeInput.value = reminderTime();
+  if(btn){
+    btn.textContent = enabled ? '🔔 提醒: 開' : '🔕 提醒: 關';
+    btn.style.background = enabled ? 'var(--sage)' : 'var(--card)';
+    btn.style.color = enabled ? '#fff' : 'var(--muted)';
+    btn.style.borderColor = enabled ? 'var(--sage)' : 'var(--line)';
+  }
+  const status = el('reminderStatus');
+  if(status){
+    if(!('Notification' in window)){
+      status.textContent = '這個瀏覽器不支援通知功能。';
+    } else if(Notification.permission === 'denied'){
+      status.textContent = '⚠️ 瀏覽器通知權限已被封鎖,請到瀏覽器的網站設定裡手動開啟。';
+    } else if(enabled && Notification.permission === 'granted'){
+      status.textContent = '✅ 已開啟。提醒只會在瀏覽器分頁或已安裝的App留在背景執行時跳出,完全關閉瀏覽器不會收到通知——這是純前端網站(沒有後端伺服器)能做到的極限。';
+    } else {
+      status.textContent = '開啟後,只要今天還沒練習,就會在指定時間跳出提醒(需要瀏覽器/App留在背景執行)。';
+    }
+  }
+}
+
+if(el('reminderToggleBtn')){
+  el('reminderToggleBtn').onclick = async () => {
+    if(!('Notification' in window)){
+      alert('這個瀏覽器不支援通知功能。');
+      return;
+    }
+    const turningOn = !reminderEnabled();
+    if(turningOn){
+      let perm = Notification.permission;
+      if(perm === 'default') perm = await Notification.requestPermission();
+      if(perm !== 'granted'){
+        alert('沒有取得通知權限,無法開啟提醒。');
+        updateReminderUI();
+        return;
+      }
+    }
+    lsSet('speakup_reminder_enabled', turningOn ? '1' : '0');
+    updateReminderUI();
+    scheduleNextReminder();
+  };
+}
+
+if(el('reminderTimeInput')){
+  el('reminderTimeInput').addEventListener('change', () => {
+    lsSet('speakup_reminder_time', el('reminderTimeInput').value || '20:00');
+    scheduleNextReminder();
+  });
+}
+
+updateReminderUI();
+scheduleNextReminder();
 
 el('coachBtn').onclick = async () => {
   const item = currentItem();

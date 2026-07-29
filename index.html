@@ -48,6 +48,7 @@
       <button class="app-tab" id="tabRoleplay"><span class="tab-icon">💬</span><span class="tab-label">實戰對話</span></button>
       <button class="app-tab" id="tabCompleted"><span class="tab-icon">✅</span><span class="tab-label">已完成</span></button>
       <button class="app-tab" id="tabRandom"><span class="tab-icon">🔁</span><span class="tab-label">隨機抽考</span></button>
+      <button class="app-tab" id="tabWeak"><span class="tab-icon">🧠</span><span class="tab-label">弱點單字</span></button>
       <button class="app-tab" id="tabFavorites"><span class="tab-icon">⭐</span><span class="tab-label">收藏</span></button>
       <button class="app-tab" id="tabReview"><span class="tab-icon">🏺</span><span class="tab-label">語感花室</span></button>
     </nav>
@@ -96,6 +97,7 @@
   <div class="review-container" id="favoritesContainer" style="display:none;"></div>
   <div class="review-container" id="completedContainer" style="display:none;"></div>
   <div class="review-container" id="reviewContainer" style="display:none;"></div>
+  <div class="review-container" id="weakContainer" style="display:none;"></div>
   
   <div class="card" id="newsContainer" style="display:none; padding:20px;">
     <div style="font-size:16px; font-weight:700; color:var(--sage-dark); margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
@@ -231,6 +233,34 @@
 
     <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
 
+    <div style="margin-bottom:14px;">
+      <div style="font-weight:600; margin-bottom:6px; font-size:15px;">🔗 GitHub Gist 雲端同步</div>
+      <div style="font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:8px;">
+        用你自己的 GitHub 帳號建立一個私人 Gist 存放備份，就能在多台裝置間同步進度，不用每次手動匯出/匯入檔案。<br>
+        請先到<a href="https://github.com/settings/tokens/new?scopes=gist&amp;description=SpeakUp%20Sync" target="_blank" rel="noopener" style="color:var(--sage-dark); font-weight:600;">這裡產生 GitHub Token</a>，確認勾選 <code>gist</code> 權限(注意要選 classic token，不是 fine-grained token)。
+      </div>
+      <input type="password" id="ghTokenInput" placeholder="貼上你的 GitHub Token (僅存在本地瀏覽器)" style="width:100%; margin-bottom:8px; border:1px solid var(--line); padding:10px; border-radius:8px; font-family:'Inter'; box-sizing:border-box;">
+      <div id="ghGistIdRow" style="font-size:12px; color:var(--muted); margin-bottom:8px; display:none;">目前綁定的 Gist ID：<span id="ghGistIdText" style="font-weight:600;"></span></div>
+      <div style="display:flex; gap:8px; margin-bottom:8px;">
+        <button id="ghUploadBtn" style="flex:1; background:var(--sage); border:none; padding:12px; border-radius:10px; color:var(--card); cursor:pointer; font-weight:bold; font-size:14px;">⬆️ 上傳目前進度</button>
+        <button id="ghDownloadBtn" style="flex:1; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); cursor:pointer; font-weight:bold; font-size:14px;">⬇️ 下載雲端還原</button>
+      </div>
+      <div id="ghSyncStatus" style="font-size:12px; color:var(--muted); text-align:center; min-height:16px;"></div>
+    </div>
+
+    <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
+
+    <div style="margin-bottom:14px;">
+      <div style="font-weight:600; margin-bottom:6px; font-size:15px;">🔔 每日練習提醒</div>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+        <button id="reminderToggleBtn" style="flex:1; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--muted); cursor:pointer; font-weight:bold; font-size:14px;">🔕 提醒: 關</button>
+        <input type="time" id="reminderTimeInput" value="20:00" style="border:1px solid var(--line); padding:10px; border-radius:8px; font-family:'Inter'; color:var(--ink); background:var(--card);">
+      </div>
+      <div id="reminderStatus" style="font-size:12px; color:var(--muted); line-height:1.4;"></div>
+    </div>
+
+    <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
+
     <div style="margin-bottom:16px;">
       <div style="font-weight:600; margin-bottom:6px; font-size:15px; color:var(--danger);">🗑️ 清除資料</div>
       <button id="clearDataBtn" style="background: var(--danger-bg); border: 1px solid var(--danger-border); padding: 12px; border-radius: 10px; color:var(--danger); cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">清除所有學習紀錄與單字</button>
@@ -250,13 +280,22 @@
         <strong style="color:var(--sage-dark);">1. 📚 系統題庫與自然發音</strong><br>
         內建 15 大主題、超過 700 筆對話與單字題庫。系統會自動顯示「自然發音拼寫」與音標，並支援自由切換美式/英式口音，跟著聲音唸就對了！<br><br>
 
-        <strong style="color:var(--sage-dark);">2. 🏺 語感花室與成就分享</strong><br>
+        <strong style="color:var(--sage-dark);">2. 🧠 弱點單字本與間隔複習</strong><br>
+        系統會依照你每次唸的分數自動排定「下次該複習的時間」(講得不好會提早重考,講得好會拉長間隔)。點選「隨機抽考」時,真正到期、講得不順的題目會優先出現;點選「弱點單字」則能直接看到目前所有還沒克服的題目清單,一鍵跳過去複習。<br><br>
+
+        <strong style="color:var(--sage-dark);">3. 🏺 語感花室與成就分享</strong><br>
         每天登入練習就能為你的專屬盆栽澆水，連續學習還會長出不同品種的花朵與特效。你還可以一鍵將「語感花室」或「本週學習週報」生成精美的專屬小卡下載，與朋友分享你的學習成就！<br><br>
 
-        <strong style="color:var(--sage-dark);">3. ✨ 解鎖 AI 情境與對話教練</strong><br>
+        <strong style="color:var(--sage-dark);">4. ✨ 解鎖 AI 情境與對話教練</strong><br>
         前往 Google AI Studio 免費申請 Gemini API Key 並在設定中貼上，即可解鎖「自訂情境生成」、「BBC 新聞每日對話」與「麥克風實戰角色扮演 (Roleplay)」的強大功能！<br><br>
 
-        <strong style="color:var(--sage-dark);">4. 🔒 隱私安全與跨平台支援</strong><br>
+        <strong style="color:var(--sage-dark);">5. 🔗 GitHub Gist 雲端同步</strong><br>
+        在設定裡貼上自己的 GitHub Token,就能把學習進度上傳到一個只有你自己看得到的私人 Gist,在另一台裝置貼上同一組 Token 後按「下載雲端還原」即可同步過去,不用再手動傳檔案。<br><br>
+
+        <strong style="color:var(--sage-dark);">6. 🔔 每日練習提醒</strong><br>
+        在設定裡開啟提醒並選好時間,只要當天還沒開口練習,系統就會跳出通知提醒你。提醒需要瀏覽器分頁或已安裝的 App 留在背景執行才會跳出來,完全關閉瀏覽器是收不到的——這是純前端網站(沒有後端伺服器)能做到的極限。<br><br>
+
+        <strong style="color:var(--sage-dark);">7. 🔒 隱私安全與跨平台支援</strong><br>
         所有的學習資料、連勝紀錄和 API Key 都只會安全地儲存於你的瀏覽器中。完美支援 Android、Chrome 以及 iOS 系統的語音引擎。
       </div>
     </div>
