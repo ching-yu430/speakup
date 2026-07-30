@@ -2703,7 +2703,9 @@ function jumpToStageCategory(stage, cat){
   itemIdx = getSavedItemIdx(stageIdx, activeCat);
   saveProgress();
   const isAI = cat !== 'all' && cat.startsWith('(AI)');
-  setAppMode(isAI ? 'ai' : 'general');
+  // preserveState=true: 避免 setAppMode 內部的「還原上次瀏覽分類」邏輯把我們剛剛
+  // 設定好的 activeCat/itemIdx 蓋掉,導致每次都跳回「上次瀏覽的分類」而不是使用者點的那個分類。
+  setAppMode(isAI ? 'ai' : 'general', false, true);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
