@@ -1122,7 +1122,9 @@ function updateRecentCats(cat) {
   if (recentCats.length > 3) recentCats = recentCats.slice(0, 3);
   saveRecentCats();
 }
-const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'completed', 'review', 'random', 'weakpractice'];
+const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'completed', 'review', 'random', 'weakpractice', 'progress'];
+// 學習進度分頁目前顯示哪一層:null = 單字/片語/句子總覽,非 null = 該階段索引的分類列表。
+let progressViewStageIdx = null;
 let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
 let returnSnapshot = null;
@@ -1328,8 +1330,9 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
   if(el('tabReview')) el('tabReview').classList.toggle('active', mode === 'review');
   if(el('tabRandom')) el('tabRandom').classList.toggle('active', mode === 'random');
   if(el('tabWeak')) el('tabWeak').classList.toggle('active', mode === 'weak');
+  if(el('tabProgress')) el('tabProgress').classList.toggle('active', mode === 'progress');
   
-  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'completed' || mode === 'favorites' || mode === 'news' || mode === 'weak');
+  const isSpecialMode = (mode === 'roleplay' || mode === 'review' || mode === 'completed' || mode === 'favorites' || mode === 'news' || mode === 'weak' || mode === 'progress');
   
   el('aiActions').style.display = mode === 'ai' ? 'block' : 'none';
   el('ladder').style.display = (mode === 'general') ? 'flex' : 'none';
@@ -1343,6 +1346,7 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
   if(el('completedContainer')) el('completedContainer').style.display = (mode === 'completed') ? 'block' : 'none';
   if(el('reviewContainer')) el('reviewContainer').style.display = (mode === 'review') ? 'block' : 'none';
   if(el('weakContainer')) el('weakContainer').style.display = (mode === 'weak') ? 'block' : 'none';
+  if(el('progressContainer')) el('progressContainer').style.display = (mode === 'progress') ? 'block' : 'none';
   
   if(mode === 'news' && el('newsList').innerHTML === '載入中...') {
     if(typeof fetchBBCNews === 'function') fetchBBCNews();
@@ -1364,6 +1368,7 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
   if(mode === 'completed') renderCompleted();
   if(mode === 'favorites') renderFavorites();
   if(mode === 'weak') renderWeak();
+  if(mode === 'progress') { progressViewStageIdx = null; renderProgress(); }
   render(!isInitial);
   updateTriggerTexts();
 
@@ -1374,6 +1379,7 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
     else if (mode === 'completed') triggerAnim('completedContainer', 'anim-slide-up-fade');
     else if (mode === 'review') triggerAnim('reviewContainer', 'anim-slide-up-fade');
     else if (mode === 'weak') triggerAnim('weakContainer', 'anim-slide-up-fade');
+    else if (mode === 'progress') triggerAnim('progressContainer', 'anim-slide-up-fade');
     else triggerAnim('mainCard', 'anim-slide-up-fade'); // general / ai / random 都共用同一張卡片
   }
 }
@@ -1387,6 +1393,7 @@ el('tabCompleted').onclick = () => setAppMode('completed');
 el('tabReview').onclick = () => setAppMode('review');
 el('tabNews').onclick = () => setAppMode('news');
 if(el('tabWeak')) el('tabWeak').onclick = () => setAppMode('weak');
+if(el('tabProgress')) el('tabProgress').onclick = () => setAppMode('progress');
 el('tabRandom').onclick = () => {
   generateRandomReview();
   setAppMode('random');
@@ -2610,6 +2617,89 @@ function updateCatProgress(items){
     }
   }
   wrap.style.display = 'block';
+}
+
+// 「學習進度」分頁:第一層顯示 單字/片語/句子 三個階段各自的完成度進度條,
+// 點某個階段後,第二層顯示該階段底下每個分類的完成度進度條,
+// 點某個分類就直接跳去「系統題庫」該階段+該分類的練習畫面。
+function buildProgressRow(label, done, total, onClick){
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  const row = document.createElement('div');
+  row.className = 'card';
+  row.style.cssText = 'padding:14px 16px; margin-bottom:12px; cursor:pointer;';
+  row.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <span style="font-weight:700; color:var(--ink); font-size:14px;">${label}</span>
+      <span style="font-size:12px; color:var(--muted);">${done} / ${total}（${pct}%）</span>
+    </div>
+    <div class="cat-progress-bar"><div class="cat-progress-fill" style="width:${pct}%;"></div></div>
+  `;
+  row.onclick = onClick;
+  return row;
+}
+
+function renderProgress(){
+  const container = el('progressContainer');
+  if(!container) return;
+  container.innerHTML = '';
+  const wrap = document.createElement('div');
+
+  if(progressViewStageIdx === null){
+    // 第一層:單字 / 片語 / 句子
+    const title = document.createElement('div');
+    title.textContent = '📊 學習進度';
+    title.style.cssText = 'font-size:16px; font-weight:700; color:var(--sage-dark); margin-bottom:6px;';
+    wrap.appendChild(title);
+    const hint = document.createElement('div');
+    hint.textContent = '點一個階段可以看各分類的細部進度,再點分類就直接跳去練習。';
+    hint.style.cssText = 'font-size:12px; color:var(--muted); margin-bottom:14px; line-height:1.5;';
+    wrap.appendChild(hint);
+
+    STAGES.forEach((stage, idx) => {
+      if(stage.key === 'favorites') return;
+      const total = stage.items.length;
+      const done = stage.items.filter(it => practiced[it.en]).length;
+      wrap.appendChild(buildProgressRow(stage.label, done, total, () => {
+        progressViewStageIdx = idx;
+        renderProgress();
+      }));
+    });
+  } else {
+    // 第二層:某個階段底下的各分類
+    const stage = STAGES[progressViewStageIdx];
+    const backRow = document.createElement('div');
+    backRow.style.cssText = 'display:flex; align-items:center; gap:6px; margin-bottom:14px; cursor:pointer; color:var(--sage-dark);';
+    backRow.innerHTML = `<span style="font-size:18px; line-height:1;">←</span><span style="font-size:16px; font-weight:700;">${stage.label} · 分類進度</span>`;
+    backRow.onclick = () => {
+      progressViewStageIdx = null;
+      renderProgress();
+    };
+    wrap.appendChild(backRow);
+
+    const allTotal = stage.items.length;
+    const allDone = stage.items.filter(it => practiced[it.en]).length;
+    wrap.appendChild(buildProgressRow('全部', allDone, allTotal, () => jumpToStageCategory(stage, 'all')));
+
+    const cats = [];
+    stage.items.forEach(it => { if(it.cat && !cats.includes(it.cat)) cats.push(it.cat); });
+    cats.forEach(cat => {
+      const catItems = stage.items.filter(it => it.cat === cat);
+      const done = catItems.filter(it => practiced[it.en]).length;
+      wrap.appendChild(buildProgressRow(cat, done, catItems.length, () => jumpToStageCategory(stage, cat)));
+    });
+  }
+
+  container.appendChild(wrap);
+}
+
+// 從「學習進度」分頁點某個分類,直接切回系統題庫並停在該階段+該分類上。
+function jumpToStageCategory(stage, cat){
+  stageIdx = STAGES.indexOf(stage);
+  activeCat = cat;
+  itemIdx = getSavedItemIdx(stageIdx, activeCat);
+  saveProgress();
+  setAppMode('general');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function render(skipTargetAnim = false){
