@@ -217,84 +217,85 @@
   </div>
 
   <div id="settingsPage" style="display:none; background:var(--paper); border-radius:16px; padding:20px 18px;">
-    <h2 style="margin:0 0 16px; color:var(--sage-dark); font-size:19px;">⚙️ 設定</h2>
+    <h2 style="margin:0 0 10px; color:var(--sage-dark); font-size:19px;">⚙️ 設定</h2>
+    <div class="settings-intro">這裡管理題庫備份、雲端同步與提醒。找 Gemini API Key？那個要在「✨ AI 情境」視窗裡貼上，不在這一頁。</div>
 
-    <button id="openGuideBtn" style="background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--sage-dark); cursor:pointer; width:100%; font-weight:bold; font-size:14px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; gap:6px;">📖 快速上手指南</button>
+    <button id="openGuideBtn" class="settings-btn settings-btn-secondary" style="margin-bottom:18px;">📖 快速上手指南</button>
 
-    <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
+    <div class="settings-group">
+      <div class="settings-group-label">資料備份與管理</div>
 
-    <div style="margin-bottom:14px;">
-      <div style="font-weight:600; margin-bottom:6px; font-size:15px;">💾 題庫備份</div>
-      <button id="exportBtn" style="background: var(--sage); border:none; padding: 12px; border-radius: 10px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">📥 下載 word_bank.js</button>
-      <button id="exportCsvBtn" style="background: var(--card); border: 1px solid var(--line); padding: 12px; border-radius: 10px; color:var(--ink); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">🃏 匯出 Anki / Quizlet (.csv)</button>
-      <div style="font-size:12px; color:var(--muted); line-height:1.4;">題庫本身的備份，方便搬到別臺裝置，或匯入單字卡軟體背誦。</div>
-    </div>
-
-    <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
-
-    <div style="margin-bottom:14px;">
-      <div style="font-weight:600; margin-bottom:6px; font-size:15px;">📝 自訂單字管理</div>
-      <button id="openCustomMgmtBtn" style="background: var(--card); border: 1px solid var(--line); padding: 12px; border-radius: 10px; color:var(--ink); cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">✏️ 批次編輯／刪除自訂單字 (<span id="customMgmtCount">0</span>)</button>
-      <div style="font-size:12px; color:var(--muted); line-height:1.4; margin-top:6px;">管理你自己用「想加自己的內容」加進來的題目,可以直接改英文/中文/階段,或整批刪除。</div>
-    </div>
-
-    <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
-
-    <div style="margin-bottom:14px;">
-      <div style="font-weight:600; margin-bottom:6px; font-size:15px;">☁️ 完整備份／還原</div>
-      <button id="exportBackupBtn" style="background: var(--sage); border:none; padding: 12px; border-radius: 10px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">📦 匯出完整備份 (.json)</button>
-      <button id="importBackupBtn" style="background: var(--card); border: 1px solid var(--line); padding: 12px; border-radius: 10px; color:var(--ink); cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">📤 匯入備份還原</button>
-      <input type="file" id="importBackupFile" accept="application/json,.json" style="display:none;">
-      <div style="font-size:12px; color:var(--muted); line-height:1.4; margin-top:6px;">含收藏、進度、自訂單字與 API Key，換裝置前記得先匯出。⚠️ 匯入會覆蓋目前資料。</div>
-    </div>
-
-    <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
-
-    <div style="margin-bottom:14px;">
-      <div style="font-weight:600; margin-bottom:6px; font-size:15px;">🔗 GitHub Gist 雲端同步</div>
-      <div style="font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:8px;">
-        用你自己的 GitHub 帳號建立一個私人 Gist 存放備份，就能在多台裝置間同步進度，不用每次手動匯出/匯入檔案。<br>
-        請先到<a href="https://github.com/settings/tokens/new?scopes=gist&amp;description=SpeakUp%20Sync" target="_blank" rel="noopener" style="color:var(--sage-dark); font-weight:600;">這裡產生 GitHub Token</a>，確認勾選 <code>gist</code> 權限(注意要選 classic token，不是 fine-grained token)。
+      <div class="settings-card">
+        <div class="settings-section-title">💾 題庫備份</div>
+        <button id="exportBtn" class="settings-btn settings-btn-primary">📥 下載 word_bank.js</button>
+        <button id="exportCsvBtn" class="settings-btn settings-btn-secondary">🃏 匯出 Anki / Quizlet (.csv)</button>
+        <div class="settings-hint">題庫本身的備份，方便搬到別台裝置，或匯入單字卡軟體背誦。</div>
       </div>
-      <input type="password" id="ghTokenInput" placeholder="貼上你的 GitHub Token (僅存在本地瀏覽器)" style="width:100%; margin-bottom:8px; border:1px solid var(--line); padding:10px; border-radius:8px; font-family:'Inter'; box-sizing:border-box;">
-      <div id="ghGistIdRow" style="font-size:12px; color:var(--muted); margin-bottom:8px; display:none;">目前綁定的 Gist ID：<span id="ghGistIdText" style="font-weight:600;"></span></div>
-      <div style="display:flex; gap:8px; margin-bottom:8px;">
-        <button id="ghUploadBtn" style="flex:1; background:var(--sage); border:none; padding:12px; border-radius:10px; color:var(--card); cursor:pointer; font-weight:bold; font-size:14px;">⬆️ 上傳目前進度</button>
-        <button id="ghDownloadBtn" style="flex:1; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); cursor:pointer; font-weight:bold; font-size:14px;">⬇️ 下載雲端還原</button>
+
+      <div class="settings-card">
+        <div class="settings-section-title">📝 自訂單字管理</div>
+        <button id="openCustomMgmtBtn" class="settings-btn settings-btn-secondary">✏️ 批次編輯／刪除自訂單字 (<span id="customMgmtCount">0</span>)</button>
+        <div class="settings-hint">管理你自己用「想加自己的內容」加進來的題目，可以直接改英文／中文／階段，或整批刪除。</div>
       </div>
-      <div style="display:flex; align-items:center; justify-content:space-between; background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:8px;">
-        <div>
-          <div style="font-size:13px; font-weight:600; color:var(--ink);">🔁 自動定期同步</div>
-          <div style="font-size:11px; color:var(--muted); margin-top:2px;">開啟後,這個分頁留在背景時每 5 分鐘自動同步一次,切換回分頁時也會同步一次。</div>
+
+      <div class="settings-card">
+        <div class="settings-section-title">☁️ 完整備份／還原</div>
+        <button id="exportBackupBtn" class="settings-btn settings-btn-primary">📦 匯出完整備份 (.json)</button>
+        <button id="importBackupBtn" class="settings-btn settings-btn-secondary">📤 匯入備份還原</button>
+        <input type="file" id="importBackupFile" accept="application/json,.json" style="display:none;">
+        <div class="settings-hint">含收藏、進度、自訂單字與 API Key，換裝置前記得先匯出。⚠️ 匯入會直接覆蓋目前資料，且無法復原。</div>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <div class="settings-group-label">雲端同步與提醒</div>
+
+      <div class="settings-card">
+        <div class="settings-section-title">🔗 GitHub Gist 雲端同步</div>
+        <div class="settings-hint" style="margin-top:0; margin-bottom:10px;">
+          用你自己的 GitHub 帳號建立一個私人 Gist 存放備份，就能在多台裝置間同步進度，不用每次手動匯出／匯入檔案。<br>
+          請先到<a href="https://github.com/settings/tokens/new?scopes=gist&amp;description=SpeakUp%20Sync" target="_blank" rel="noopener">這裡產生 GitHub Token</a>，記得勾選 <code>gist</code> 權限（要選 classic token，不是 fine-grained token）。
         </div>
-        <button id="ghAutoSyncToggle" style="flex-shrink:0; background:var(--card); border:1px solid var(--line); padding:8px 12px; border-radius:999px; color:var(--muted); cursor:pointer; font-weight:700; font-size:12px; margin-left:10px;">關</button>
+        <input type="password" id="ghTokenInput" class="settings-input" placeholder="貼上你的 GitHub Token（僅存在本地瀏覽器）" style="margin-bottom:8px;">
+        <div id="ghGistIdRow" style="font-size:12px; color:var(--muted); margin-bottom:8px; display:none;">目前綁定的 Gist ID：<span id="ghGistIdText" style="font-weight:600;"></span></div>
+        <div class="settings-btn-row" style="margin-bottom:8px;">
+          <button id="ghUploadBtn" class="settings-btn settings-btn-primary">⬆️ 上傳目前進度</button>
+          <button id="ghDownloadBtn" class="settings-btn settings-btn-secondary">⬇️ 下載雲端還原</button>
+        </div>
+        <div class="settings-toggle-row" style="margin-bottom:8px;">
+          <div>
+            <div class="settings-toggle-row-title">🔁 自動定期同步</div>
+            <div class="settings-toggle-row-hint">開啟後，這個分頁留在背景時每 5 分鐘自動同步一次，切換回分頁時也會同步一次。</div>
+          </div>
+          <button id="ghAutoSyncToggle" class="settings-toggle-btn">關</button>
+        </div>
+        <div id="ghSyncStatus" style="font-size:12px; color:var(--muted); text-align:center; min-height:16px;"></div>
       </div>
-      <div id="ghSyncStatus" style="font-size:12px; color:var(--muted); text-align:center; min-height:16px;"></div>
-    </div>
 
-    <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
-
-    <div style="margin-bottom:14px;">
-      <div style="font-weight:600; margin-bottom:6px; font-size:15px;">🔔 每日練習提醒</div>
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-        <button id="reminderToggleBtn" style="flex:1; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--muted); cursor:pointer; font-weight:bold; font-size:14px;">🔕 提醒: 關</button>
-        <input type="time" id="reminderTimeInput" value="20:00" style="border:1px solid var(--line); padding:10px; border-radius:8px; font-family:'Inter'; color:var(--ink); background:var(--card);">
+      <div class="settings-card">
+        <div class="settings-section-title">🔔 每日練習提醒</div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+          <button id="reminderToggleBtn" class="settings-btn settings-btn-secondary" style="flex:1;">🔕 提醒：關</button>
+          <input type="time" id="reminderTimeInput" value="20:00" style="border:1px solid var(--line); padding:10px; border-radius:8px; font-family:'Inter'; color:var(--ink); background:var(--card);">
+        </div>
+        <div id="reminderStatus" class="settings-hint" style="margin-top:0;"></div>
       </div>
-      <div id="reminderStatus" style="font-size:12px; color:var(--muted); line-height:1.4;"></div>
     </div>
 
-    <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
-
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:600; margin-bottom:6px; font-size:15px; color:var(--danger);">🗑️ 清除資料</div>
-      <button id="clearDataBtn" style="background: var(--danger-bg); border: 1px solid var(--danger-border); padding: 12px; border-radius: 10px; color:var(--danger); cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">清除所有學習紀錄與單字</button>
-      <div style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4;">⚠️ 動作無法復原，建議先匯出備份。</div>
+    <div class="settings-group">
+      <div class="settings-group-label">危險操作</div>
+      <div class="settings-card">
+        <div class="settings-section-title danger">🗑️ 清除資料</div>
+        <button id="clearDataBtn" class="settings-btn settings-btn-danger">清除所有學習紀錄與單字</button>
+        <div class="settings-hint">⚠️ 動作無法復原，建議先在上方匯出完整備份再清除。</div>
+      </div>
     </div>
 
-    <div style="display:flex; justify-content:center; margin-top:6px;">
-      <button id="closeSettingsBtn" style="width:62px; height:62px; border-radius:50%; background:var(--card); border:1px solid var(--line); color:var(--ink); font-size:26px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1; padding:0;">✕</button>
+    <div class="settings-close-wrap">
+      <button id="closeSettingsBtn" class="settings-close-btn">✕</button>
     </div>
   </div>
+
 
   <div class="ai-modal-overlay" id="guideModal">
     <div class="ai-modal">
@@ -311,7 +312,7 @@
         每天登入練習就能為你的專屬盆栽澆水，連續學習還會長出不同品種的花朵與特效。你還可以一鍵將「語感花室」或「本週學習週報」生成精美的專屬小卡下載，與朋友分享你的學習成就！<br><br>
 
         <strong style="color:var(--sage-dark);">4. ✨ 解鎖 AI 情境與對話教練</strong><br>
-        前往 Google AI Studio 免費申請 Gemini API Key 並在設定中貼上，即可解鎖「自訂情境生成」、「BBC 新聞每日對話」與「麥克風實戰角色扮演 (Roleplay)」的強大功能！<br><br>
+        前往 Google AI Studio 免費申請 Gemini API Key，並在「✨ AI 情境」視窗中貼上，即可解鎖「自訂情境生成」、「BBC 新聞每日對話」與「麥克風實戰角色扮演 (Roleplay)」的強大功能！<br><br>
 
         <strong style="color:var(--sage-dark);">5. 🔗 GitHub Gist 雲端同步</strong><br>
         在設定裡貼上自己的 GitHub Token,就能把學習進度上傳到一個只有你自己看得到的私人 Gist,在另一台裝置貼上同一組 Token 後按「下載雲端還原」即可同步過去,不用再手動傳檔案。<br><br>

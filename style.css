@@ -846,3 +846,67 @@
   font-size:18px; padding:6px; line-height:1;
 }
 .cm-del-btn:hover{ color:var(--danger); }
+
+/* ---------- 設定頁:整理成統一的卡片/群組樣式,不再每個按鈕都各自寫一次 inline style ---------- */
+.settings-intro{
+  font-size:12px; color:var(--muted); line-height:1.5; margin:-4px 0 16px;
+}
+.settings-group{ margin-bottom:20px; }
+.settings-group:last-of-type{ margin-bottom:16px; }
+.settings-group-label{
+  font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 10px 2px;
+}
+.settings-card{
+  background:var(--card); border:1px solid var(--line); border-radius:12px;
+  padding:14px; margin-bottom:10px;
+}
+.settings-card:last-child{ margin-bottom:0; }
+.settings-section-title{
+  font-weight:700; font-size:14px; margin-bottom:8px;
+  display:flex; align-items:center; gap:6px; color:var(--ink);
+}
+.settings-section-title.danger{ color:var(--danger); }
+.settings-hint{
+  font-size:12px; color:var(--muted); line-height:1.5; margin-top:8px;
+}
+.settings-hint a{ color:var(--sage-dark); font-weight:600; }
+.settings-hint code{
+  background:var(--paper); border:1px solid var(--line); border-radius:4px;
+  padding:1px 5px; font-size:11px;
+}
+.settings-btn{
+  border-radius:10px; padding:12px; font-weight:700; font-size:14px;
+  cursor:pointer; width:100%; box-sizing:border-box;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.settings-btn + .settings-btn{ margin-top:8px; }
+.settings-btn-row{ display:flex; gap:8px; }
+.settings-btn-row .settings-btn{ flex:1; }
+.settings-btn-row .settings-btn + .settings-btn{ margin-top:0; }
+.settings-btn-primary{ background:var(--sage); border:none; color:var(--card); }
+.settings-btn-secondary{ background:var(--paper); border:1px solid var(--line); color:var(--ink); }
+.settings-btn-danger{ background:var(--danger-bg); border:1px solid var(--danger-border); color:var(--danger); }
+.settings-toggle-row{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  background:var(--paper); border:1px solid var(--line); border-radius:10px;
+  padding:10px 12px;
+}
+.settings-toggle-row-title{ font-size:13px; font-weight:600; color:var(--ink); }
+.settings-toggle-row-hint{ font-size:11px; color:var(--muted); margin-top:2px; }
+.settings-toggle-btn{
+  flex-shrink:0; background:var(--card); border:1px solid var(--line); padding:8px 12px;
+  border-radius:999px; color:var(--muted); cursor:pointer; font-weight:700; font-size:12px;
+}
+.settings-input{
+  width:100%; box-sizing:border-box; border:1px solid var(--line); padding:10px;
+  border-radius:8px; font-family:'Inter',sans-serif; background:var(--card); color:var(--ink);
+  margin-bottom:8px;
+}
+.settings-close-wrap{ display:flex; justify-content:center; margin-top:4px; }
+.settings-close-btn{
+  width:56px; height:56px; border-radius:50%; background:var(--card); border:1px solid var(--line);
+  color:var(--muted); font-size:24px; font-weight:700; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; line-height:1; padding:0;
+}
+.settings-close-btn:hover{ color:var(--ink); border-color:var(--muted); }
