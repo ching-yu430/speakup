@@ -5,6 +5,12 @@ function lsSet(key, val) {
   try { localStorage.setItem(key, val); } catch(e) {}
 }
 
+// 記錄「本機資料最後一次變動的時間」,GitHub Gist 自動同步要靠這個時間
+// 跟雲端 Gist 的最後修改時間比對,才知道要不要提示同步衝突。
+function bumpLocalDirty(){
+  try { localStorage.setItem('speakup_local_dirty_at', String(Date.now())); } catch(e) {}
+}
+
 // 用「使用者所在時區」的日期,而不是 UTC 日期。
 // toISOString() 會用 UTC 時間,對臺灣(UTC+8)來說,每天 00:00~08:00 之間
 // 算出來的日期其實還是「昨天」,導致連續天數/今日題數在這段時間算錯。
@@ -273,6 +279,7 @@ try {
 
 function saveFavorites() {
   lsSet('speakup_favorites', JSON.stringify(favorites));
+  bumpLocalDirty();
 }
 
 /* ---------- 已完成題目記錄(記憶功能) ---------- */
@@ -284,6 +291,7 @@ try {
 
 function savePracticed() {
   lsSet('speakup_practiced', JSON.stringify(practiced));
+  bumpLocalDirty();
   updateWeakDueBadge();
 }
 
@@ -324,6 +332,7 @@ function updateStreak(todayStr) {
   }
   streakData.lastActive = todayStr;
   lsSet('speakup_streak', JSON.stringify(streakData));
+  bumpLocalDirty();
 }
 
 // 裡程碑慶祝動畫:每累積 25 個新單字就撒一次花瓣,給一個小小的儀式感
@@ -2121,6 +2130,7 @@ try {
 } catch(e) {}
 function saveCustomItems(){
   lsSet('speakup_custom_items', JSON.stringify(customItems));
+  bumpLocalDirty();
 }
 function restoreCustomItems(){
   customItems.forEach(saved => {
@@ -3658,49 +3668,58 @@ if(el('settingsBtn')) {
   }
 
   if(el('ghUploadBtn')){
-    el('ghUploadBtn').onclick = async () => {
-      if(!ghToken){ setGhStatus('請先貼上 GitHub Token。', true); return; }
-      const btn = el('ghUploadBtn');
-      btn.disabled = true;
-      setGhStatus('上傳中...');
-      try {
-        const payload = buildBackupPayload();
-        const body = {
-          description: 'Speak Up 開口練習 - 雲端備份(自動產生,請勿手動編輯)',
-          public: false,
-          files: { [GIST_FILENAME]: { content: JSON.stringify(payload, null, 2) } }
-        };
-        const url = ghGistId ? `https://api.github.com/gists/${ghGistId}` : 'https://api.github.com/gists';
-        const method = ghGistId ? 'PATCH' : 'POST';
-        const res = await fetch(url, {
-          method,
-          headers: {
-            'Authorization': `Bearer ${ghToken}`,
-            'Accept': 'application/vnd.github+json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(body)
-        });
-        if(!res.ok){
-          if(res.status === 404 && ghGistId){
-            // 原本綁定的 Gist 不見了(可能被手動刪除),清掉綁定,提示使用者重新上傳一次建立新的
-            ghGistId = '';
-            lsSet('speakup_gh_gistid', '');
-            updateGistIdDisplay();
-            throw new Error('找不到原本綁定的 Gist,已清除綁定,請再按一次上傳建立新的。');
-          }
-          throw new Error(`GitHub API 錯誤 (${res.status}):請確認 Token 是否正確、是否有勾選 gist 權限。`);
+    el('ghUploadBtn').onclick = () => uploadToGist({ manual: true });
+  }
+
+  // 上傳目前進度到 Gist,回傳 Gist 的 updated_at(用來記錄「我們目前同步到雲端的哪個版本」)。
+  // manual=true 時會更新畫面上的按鈕 disabled 狀態跟顯示訊息;自動同步時就靜靜做,不要一直閃字。
+  async function uploadToGist({ manual = false, payloadOverride = null } = {}){
+    if(!ghToken) { if(manual) setGhStatus('請先貼上 GitHub Token。', true); return null; }
+    const btn = el('ghUploadBtn');
+    if(manual && btn) btn.disabled = true;
+    if(manual) setGhStatus('上傳中...');
+    try {
+      const payload = payloadOverride || buildBackupPayload();
+      const body = {
+        description: 'Speak Up 開口練習 - 雲端備份(自動產生,請勿手動編輯)',
+        public: false,
+        files: { [GIST_FILENAME]: { content: JSON.stringify(payload, null, 2) } }
+      };
+      const url = ghGistId ? `https://api.github.com/gists/${ghGistId}` : 'https://api.github.com/gists';
+      const method = ghGistId ? 'PATCH' : 'POST';
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'Authorization': `Bearer ${ghToken}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+      if(!res.ok){
+        if(res.status === 404 && ghGistId){
+          // 原本綁定的 Gist 不見了(可能被手動刪除),清掉綁定,提示使用者重新上傳一次建立新的
+          ghGistId = '';
+          lsSet('speakup_gh_gistid', '');
+          updateGistIdDisplay();
+          throw new Error('找不到原本綁定的 Gist,已清除綁定,請再按一次上傳建立新的。');
         }
-        const json = await res.json();
-        ghGistId = json.id;
-        lsSet('speakup_gh_gistid', ghGistId);
-        updateGistIdDisplay();
-        setGhStatus(`✅ 上傳成功!(${new Date().toLocaleString('zh-TW')})`);
-      } catch(err){
-        setGhStatus('❌ ' + err.message, true);
+        throw new Error(`GitHub API 錯誤 (${res.status}):請確認 Token 是否正確、是否有勾選 gist 權限。`);
       }
-      btn.disabled = false;
-    };
+      const json = await res.json();
+      ghGistId = json.id;
+      lsSet('speakup_gh_gistid', ghGistId);
+      updateGistIdDisplay();
+      lsSet('speakup_gh_last_remote_updated', json.updated_at || '');
+      lsSet('speakup_gh_last_sync_at', String(Date.now()));
+      setGhStatus(`✅ 上傳成功!(${new Date().toLocaleString('zh-TW')})`);
+      if(manual && btn) btn.disabled = false;
+      return json.updated_at || null;
+    } catch(err){
+      setGhStatus('❌ ' + friendlyNetErrorMsg(err), true);
+      if(manual && btn) btn.disabled = false;
+      return null;
+    }
   }
 
   if(el('ghDownloadBtn')){
@@ -3712,26 +3731,227 @@ if(el('settingsBtn')) {
       btn.disabled = true;
       setGhStatus('下載中...');
       try {
-        const res = await fetch(`https://api.github.com/gists/${ghGistId}`, {
-          headers: {
-            'Authorization': `Bearer ${ghToken}`,
-            'Accept': 'application/vnd.github+json'
-          }
-        });
-        if(!res.ok) throw new Error(`GitHub API 錯誤 (${res.status}):請確認 Token 與 Gist ID 是否正確。`);
-        const json = await res.json();
-        const file = json.files && json.files[GIST_FILENAME];
-        if(!file || !file.content) throw new Error('這個 Gist 裡沒有找到備份檔案。');
-        const parsed = JSON.parse(file.content);
-        const count = applyBackupPayload(parsed);
+        const fetched = await fetchGistPayload();
+        if(!fetched) throw new Error('這個 Gist 裡沒有找到備份檔案。');
+        const count = applyBackupPayload(fetched.payload);
         if(count === 0) throw new Error('備份內容是空的,還原失敗。');
+        lsSet('speakup_gh_last_remote_updated', fetched.updatedAt || '');
+        lsSet('speakup_gh_last_sync_at', String(Date.now()));
         alert(`已從雲端還原 ${count} 項備份資料,頁面即將重新整理套用。`);
         location.reload();
       } catch(err){
-        setGhStatus('❌ ' + err.message, true);
+        setGhStatus('❌ ' + friendlyNetErrorMsg(err), true);
       }
       btn.disabled = false;
     };
+  }
+
+  // 抓取 Gist 目前的內容跟它的 updated_at 時間戳,自動同步跟手動下載共用同一份邏輯。
+  async function fetchGistPayload(){
+    const res = await fetch(`https://api.github.com/gists/${ghGistId}`, {
+      headers: {
+        'Authorization': `Bearer ${ghToken}`,
+        'Accept': 'application/vnd.github+json'
+      }
+    });
+    if(!res.ok) throw new Error(`GitHub API 錯誤 (${res.status}):請確認 Token 與 Gist ID 是否正確。`);
+    const json = await res.json();
+    const file = json.files && json.files[GIST_FILENAME];
+    if(!file || !file.content) return null;
+    return { payload: JSON.parse(file.content), updatedAt: json.updated_at };
+  }
+
+  /* ---------- 自動定期同步 + 衝突偵測/合併 ----------
+     判斷方式:每次同步前先比對兩個時間點:
+     1) 本機資料最後一次變動的時間(bumpLocalDirty() 記的 speakup_local_dirty_at)
+     2) 雲端 Gist 最後一次修改的時間(GitHub 回傳的 updated_at)
+     如果本機自從「上次同步完成」之後有新變動,而且雲端也在那之後被更新過(代表是別台裝置上傳的),
+     兩邊都動過就無法自動判斷該聽誰的,跳出衝突視窗讓使用者選擇。 */
+  let gistSyncInFlight = false;
+  let gistAutoSyncTimer = null;
+  let ghAutoSyncOn = lsGet('speakup_gh_autosync') === '1';
+
+  function updateAutoSyncBtn(){
+    const btn = el('ghAutoSyncToggle');
+    if(!btn) return;
+    btn.textContent = ghAutoSyncOn ? '開' : '關';
+    btn.style.background = ghAutoSyncOn ? 'var(--sage)' : 'var(--card)';
+    btn.style.color = ghAutoSyncOn ? 'var(--card)' : 'var(--muted)';
+    btn.style.borderColor = ghAutoSyncOn ? 'var(--sage)' : 'var(--line)';
+  }
+  updateAutoSyncBtn();
+
+  function startAutoSyncTimer(){
+    if(gistAutoSyncTimer) clearInterval(gistAutoSyncTimer);
+    gistAutoSyncTimer = setInterval(() => { runGistSync({ auto: true }); }, 5 * 60 * 1000);
+  }
+  function stopAutoSyncTimer(){
+    if(gistAutoSyncTimer) clearInterval(gistAutoSyncTimer);
+    gistAutoSyncTimer = null;
+  }
+
+  if(el('ghAutoSyncToggle')){
+    el('ghAutoSyncToggle').onclick = () => {
+      if(!ghAutoSyncOn && (!ghToken || !ghGistId)){
+        setGhStatus('請先貼上 Token 並至少手動上傳/下載一次,才能開啟自動同步。', true);
+        return;
+      }
+      ghAutoSyncOn = !ghAutoSyncOn;
+      lsSet('speakup_gh_autosync', ghAutoSyncOn ? '1' : '0');
+      updateAutoSyncBtn();
+      if(ghAutoSyncOn){
+        startAutoSyncTimer();
+        runGistSync({ auto: true });
+      } else {
+        stopAutoSyncTimer();
+      }
+    };
+  }
+
+  // 分頁從背景切回前景時,順便同步一次,涵蓋「切去手機練完習再切回電腦」這種情境。
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'visible' && ghAutoSyncOn && ghToken && ghGistId){
+      runGistSync({ auto: true });
+    }
+  });
+
+  if(ghAutoSyncOn && ghToken && ghGistId) startAutoSyncTimer();
+
+  async function runGistSync({ auto = false } = {}){
+    if(!ghToken || !ghGistId) return;
+    if(gistSyncInFlight) return;
+    if(!navigator.onLine) return; // 離線就不用白費力氣打 API,等下次有網路再說
+    gistSyncInFlight = true;
+    if(!auto) setGhStatus('同步中...');
+    try {
+      const fetched = await fetchGistPayload();
+      const remoteUpdatedAt = fetched ? fetched.updatedAt : null;
+
+      const lastKnownRemote = lsGet('speakup_gh_last_remote_updated') || '';
+      const lastSyncAt = parseInt(lsGet('speakup_gh_last_sync_at') || '0', 10);
+      const localDirtyAt = parseInt(lsGet('speakup_local_dirty_at') || '0', 10);
+      const localChangedSinceSync = localDirtyAt > lastSyncAt;
+      const remoteChangedSinceSync = !!remoteUpdatedAt && remoteUpdatedAt !== lastKnownRemote;
+
+      if(!fetched){
+        // 雲端還沒有任何備份檔案(第一次使用),本機有東西的話就直接上傳建立
+        if(localChangedSinceSync) await uploadToGist({ manual: !auto });
+        gistSyncInFlight = false;
+        return;
+      }
+
+      if(remoteChangedSinceSync && localChangedSinceSync){
+        // 兩邊都變了:無法自動判斷該用哪一份,交給使用者選
+        pendingSyncConflict = fetched;
+        showSyncConflictModal(fetched);
+        setGhStatus('⚠️ 偵測到雲端與本機都有新的變動,請選擇要怎麼處理。', true);
+      } else if(remoteChangedSinceSync && !localChangedSinceSync){
+        // 只有雲端變了,本機這段時間沒動過:直接套用雲端版本(fast-forward)
+        applyBackupPayload(fetched.payload);
+        lsSet('speakup_gh_last_remote_updated', remoteUpdatedAt || '');
+        lsSet('speakup_gh_last_sync_at', String(Date.now()));
+        setGhStatus(`✅ 已從雲端同步最新進度 (${new Date().toLocaleString('zh-TW')})`);
+        location.reload();
+      } else if(localChangedSinceSync){
+        // 只有本機變了:直接上傳
+        await uploadToGist({ manual: !auto });
+      } else if(!auto){
+        setGhStatus(`✅ 已經是最新狀態 (${new Date().toLocaleString('zh-TW')})`);
+      }
+    } catch(err){
+      if(!auto) setGhStatus('❌ ' + friendlyNetErrorMsg(err), true);
+    }
+    gistSyncInFlight = false;
+  }
+
+  let pendingSyncConflict = null; // { payload, updatedAt } 從雲端抓下來、還沒處理的衝突版本
+
+  function showSyncConflictModal(fetched){
+    pendingSyncConflict = fetched;
+    const detail = el('syncConflictDetail');
+    if(detail){
+      const remoteTime = fetched.updatedAt ? new Date(fetched.updatedAt).toLocaleString('zh-TW') : '不明';
+      const localTime = new Date(parseInt(lsGet('speakup_local_dirty_at') || '0', 10) || Date.now()).toLocaleString('zh-TW');
+      detail.textContent = `這台裝置最後變動:${localTime}　／　雲端最後變動:${remoteTime}`;
+    }
+    const modal = el('syncConflictModal');
+    if(modal) modal.classList.add('show');
+  }
+
+  if(el('syncConflictLocalBtn')) el('syncConflictLocalBtn').onclick = async () => {
+    el('syncConflictModal').classList.remove('show');
+    setGhStatus('以本機版本覆蓋雲端中...');
+    await uploadToGist({ manual: true });
+    pendingSyncConflict = null;
+  };
+
+  if(el('syncConflictRemoteBtn')) el('syncConflictRemoteBtn').onclick = () => {
+    if(!pendingSyncConflict) return;
+    el('syncConflictModal').classList.remove('show');
+    const count = applyBackupPayload(pendingSyncConflict.payload);
+    lsSet('speakup_gh_last_remote_updated', pendingSyncConflict.updatedAt || '');
+    lsSet('speakup_gh_last_sync_at', String(Date.now()));
+    alert(`已改用雲端版本,還原 ${count} 項資料,頁面即將重新整理。`);
+    location.reload();
+  };
+
+  if(el('syncConflictMergeBtn')) el('syncConflictMergeBtn').onclick = async () => {
+    if(!pendingSyncConflict) return;
+    el('syncConflictModal').classList.remove('show');
+    setGhStatus('合併中...');
+    const localPayload = buildBackupPayload();
+    const mergedData = mergeBackupPayloads(localPayload.data, pendingSyncConflict.payload.data || pendingSyncConflict.payload);
+    const mergedPayload = { app: 'SpeakUp', version: 1, exportedAt: new Date().toISOString(), data: mergedData };
+    applyBackupPayload(mergedPayload);
+    const updatedAt = await uploadToGist({ manual: true, payloadOverride: mergedPayload });
+    pendingSyncConflict = null;
+    alert('已將雲端與本機的練習紀錄、收藏、自訂單字合併完成,頁面即將重新整理。');
+    location.reload();
+  };
+
+  // 兩份備份資料合併:practiced 逐字比對留下 lastPracticed 較新的一筆;
+  // favorites / custom_items / ai_items 用 en 當 key 取聯集,避免同一題出現兩次;
+  // streak 用「最近有練習的那天」為準;其他偏 UI 狀態的欄位保留本機當下的值即可。
+  function mergeBackupPayloads(localData, remoteData){
+    localData = localData || {};
+    remoteData = remoteData || {};
+    const merged = {};
+    function parseJSON(str, fallback){
+      try { return str ? JSON.parse(str) : fallback; } catch(e){ return fallback; }
+    }
+    function mergeArraysByEn(a, b){
+      const map = new Map();
+      (a || []).forEach(it => { if(it && it.en) map.set(it.en, it); });
+      (b || []).forEach(it => { if(it && it.en && !map.has(it.en)) map.set(it.en, it); });
+      return Array.from(map.values());
+    }
+
+    const localPracticed = parseJSON(localData.speakup_practiced, {});
+    const remotePracticed = parseJSON(remoteData.speakup_practiced, {});
+    const mergedPracticed = { ...localPracticed };
+    Object.keys(remotePracticed).forEach(en => {
+      const r = remotePracticed[en];
+      const l = mergedPracticed[en];
+      if(!l || (r.lastPracticed || 0) > (l.lastPracticed || 0)) mergedPracticed[en] = r;
+    });
+    merged.speakup_practiced = JSON.stringify(mergedPracticed);
+
+    merged.speakup_favorites = JSON.stringify(mergeArraysByEn(parseJSON(localData.speakup_favorites, []), parseJSON(remoteData.speakup_favorites, [])));
+    merged.speakup_custom_items = JSON.stringify(mergeArraysByEn(parseJSON(localData.speakup_custom_items, []), parseJSON(remoteData.speakup_custom_items, [])));
+    merged.speakup_ai_items = JSON.stringify(mergeArraysByEn(parseJSON(localData.speakup_ai_items, []), parseJSON(remoteData.speakup_ai_items, [])));
+
+    const localStreak = parseJSON(localData.speakup_streak, { count: 0, lastActive: '' });
+    const remoteStreak = parseJSON(remoteData.speakup_streak, { count: 0, lastActive: '' });
+    if((remoteStreak.lastActive || '') > (localStreak.lastActive || '')) merged.speakup_streak = JSON.stringify(remoteStreak);
+    else if((remoteStreak.lastActive || '') === (localStreak.lastActive || '') && (remoteStreak.count || 0) > (localStreak.count || 0)) merged.speakup_streak = JSON.stringify(remoteStreak);
+    else merged.speakup_streak = JSON.stringify(localStreak);
+
+    ['speakup_apikey','speakup_appMode','speakup_cat','speakup_cat_progress','speakup_daily',
+     'speakup_stageIdx','speakup_last_cat','speakup_last_celebrated','speakup_last_level'].forEach(k => {
+      merged[k] = (localData[k] !== undefined) ? localData[k] : remoteData[k];
+    });
+
+    return merged;
   }
 
   el('exportBtn').onclick = () => {

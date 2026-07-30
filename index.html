@@ -262,6 +262,13 @@
         <button id="ghUploadBtn" style="flex:1; background:var(--sage); border:none; padding:12px; border-radius:10px; color:var(--card); cursor:pointer; font-weight:bold; font-size:14px;">⬆️ 上傳目前進度</button>
         <button id="ghDownloadBtn" style="flex:1; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); cursor:pointer; font-weight:bold; font-size:14px;">⬇️ 下載雲端還原</button>
       </div>
+      <div style="display:flex; align-items:center; justify-content:space-between; background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:8px;">
+        <div>
+          <div style="font-size:13px; font-weight:600; color:var(--ink);">🔁 自動定期同步</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:2px;">開啟後,這個分頁留在背景時每 5 分鐘自動同步一次,切換回分頁時也會同步一次。</div>
+        </div>
+        <button id="ghAutoSyncToggle" style="flex-shrink:0; background:var(--card); border:1px solid var(--line); padding:8px 12px; border-radius:999px; color:var(--muted); cursor:pointer; font-weight:700; font-size:12px; margin-left:10px;">關</button>
+      </div>
       <div id="ghSyncStatus" style="font-size:12px; color:var(--muted); text-align:center; min-height:16px;"></div>
     </div>
 
@@ -315,6 +322,20 @@
         <strong style="color:var(--sage-dark);">7. 🔒 隱私安全與跨平台支援</strong><br>
         所有的學習資料、連勝紀錄和 API Key 都只會安全地儲存於你的瀏覽器中。完美支援 Android、Chrome 以及 iOS 系統的語音引擎。
       </div>
+    </div>
+  </div>
+
+  <div class="ai-modal-overlay" id="syncConflictModal">
+    <div class="ai-modal" style="max-width:420px;">
+      <h2 style="margin-top:0; color:var(--danger); font-size: 19px;">⚠️ 同步發現衝突</h2>
+      <div style="font-size:13px; color:var(--ink); line-height:1.6; margin-bottom:14px;">
+        這台裝置跟雲端 Gist 上的進度都有新的變動(可能是在別台裝置練習過),直接互相覆蓋會遺失資料。<br><br>
+        <span id="syncConflictDetail" style="color:var(--muted); font-size:12px;"></span>
+      </div>
+      <button id="syncConflictMergeBtn" style="width:100%; background:var(--sage); border:none; padding:12px; border-radius:10px; color:var(--card); cursor:pointer; font-weight:bold; font-size:14px; margin-bottom:8px;">🔀 自動合併(推薦)</button>
+      <button id="syncConflictLocalBtn" style="width:100%; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); cursor:pointer; font-weight:bold; font-size:14px; margin-bottom:8px;">📱 使用這台裝置的版本(覆蓋雲端)</button>
+      <button id="syncConflictRemoteBtn" style="width:100%; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); cursor:pointer; font-weight:bold; font-size:14px; margin-bottom:8px;">☁️ 使用雲端的版本(覆蓋這台裝置)</button>
+      <div style="font-size:11px; color:var(--muted); line-height:1.4;">🔀 自動合併會把兩邊的練習紀錄、收藏、自訂單字都保留下來(同一題以較新的練習時間為準),通常是最安全的選擇。</div>
     </div>
   </div>
 
