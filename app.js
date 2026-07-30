@@ -237,6 +237,8 @@ function updateTriggerTexts(){
   if(appMode==='news') modeName = '📰 新聞時事';
   if(appMode==='random') modeName = '🔁 隨機抽考';
   if(appMode==='weakpractice') modeName = '🧠 弱點單字';
+  if(appMode==='weak') modeName = '🧠 弱點單字';
+  if(appMode==='progress') modeName = '📊 學習進度';
   
   el('modeTriggerText').textContent = modeName;
   if(appMode === 'random' || appMode === 'weakpractice') {
@@ -2692,13 +2694,16 @@ function renderProgress(){
   container.appendChild(wrap);
 }
 
-// 從「學習進度」分頁點某個分類,直接切回系統題庫並停在該階段+該分類上。
+// 從「學習進度」分頁點某個分類,直接切回對應的分頁(系統題庫或 AI 情境)並停在該階段+該分類上。
+// 注意:AI 情境生成的單字/片語/句子,cat 會是 "(AI) xxx" 開頭,必須切去 'ai' 模式才找得到,
+// 如果固定切去 'general' 模式,filteredItems() 會把這些 AI 題目濾掉,造成連結不回去、顯示找不到題庫資料。
 function jumpToStageCategory(stage, cat){
   stageIdx = STAGES.indexOf(stage);
   activeCat = cat;
   itemIdx = getSavedItemIdx(stageIdx, activeCat);
   saveProgress();
-  setAppMode('general');
+  const isAI = cat !== 'all' && cat.startsWith('(AI)');
+  setAppMode(isAI ? 'ai' : 'general');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
