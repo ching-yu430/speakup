@@ -236,9 +236,10 @@ function updateTriggerTexts(){
   if(appMode==='review') modeName = '🏺 語感花室';
   if(appMode==='news') modeName = '📰 新聞時事';
   if(appMode==='random') modeName = '🔁 隨機抽考';
+  if(appMode==='weakpractice') modeName = '🧠 弱點單字';
   
   el('modeTriggerText').textContent = modeName;
-  if(appMode === 'random') {
+  if(appMode === 'random' || appMode === 'weakpractice') {
     el('stageTriggerText').textContent = '複習中';
     el('catTriggerText').textContent = '全部';
   } else {
@@ -1121,7 +1122,7 @@ function updateRecentCats(cat) {
   if (recentCats.length > 3) recentCats = recentCats.slice(0, 3);
   saveRecentCats();
 }
-const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'completed', 'review', 'random'];
+const VALID_MODES = ['general', 'ai', 'roleplay', 'favorites', 'completed', 'review', 'random', 'weakpractice'];
 let appMode = (savedMode && VALID_MODES.includes(savedMode)) ? savedMode : 'general';
 
 let returnSnapshot = null;
@@ -1157,13 +1158,25 @@ let stageIdx = savedStageIdx ? parseInt(savedStageIdx, 10) : 0;
 let activeCat = savedCat || 'all';
 let itemIdx = getSavedItemIdx(stageIdx, activeCat);
 let randomReviewItems = [];
+// 弱點單字「連續練習」用的題目清單:從弱點單字本點進去之後，
+// 上一題/下一題會在這份清單裡移動，而不是掉回整個階段的全部題目。
+let weakPracticeItems = [];
+// 這兩個記錄的是「這一輪」(這次隨機抽考 / 這次弱點單字連續練習)裡，
+// 使用者已經開口練過的題目，只用來畫進度條，跟 practiced 的「歷史上有沒有練過」是不同的東西。
+let randomSessionDone = {};
+let weakSessionDone = {};
 
 function saveProgress(){
   lsSet('speakup_stageIdx', stageIdx);
   lsSet('speakup_cat', activeCat);
-  const key = `${stageIdx}_${activeCat}`;
-  catProgress[key] = itemIdx;
-  lsSet('speakup_cat_progress', JSON.stringify(catProgress));
+  // 隨機抽考 / 弱點單字連續練習的 itemIdx,指的是「在這次暫時抽出的清單裡排第幾題」,
+  // 跟 stageIdx/activeCat 所代表的「系統題庫實際進度」是兩回事。
+  // 如果還是照樣寫進 catProgress,回到系統題庫時,原本的進度就會被這個暫時的索引蓋掉。
+  if(appMode !== 'random' && appMode !== 'weakpractice'){
+    const key = `${stageIdx}_${activeCat}`;
+    catProgress[key] = itemIdx;
+    lsSet('speakup_cat_progress', JSON.stringify(catProgress));
+  }
 
   // 記住這個模式(一般模式再細分到每個階段)上次選的分類,
   // 下次切回來才能還原,而不是每次都跳回「全部」。
@@ -1175,6 +1188,7 @@ function saveProgress(){
 }
 
 function generateRandomReview() {
+  randomSessionDone = {}; // 重新抽一輪，進度條也跟著歸零重算
   const list = Object.values(practiced);
   if (list.length === 0) {
     randomReviewItems = [{en: 'Practice more', zh: '請先在其他模式練習', cat: '提示'}];
@@ -1670,6 +1684,10 @@ function renderWeak(){
   // 排程中清單排序:越快到期的排越前面
   scheduledList.sort((a, b) => (a.dueAt || 0) - (b.dueAt || 0));
 
+  // 依畫面上實際顯示的順序(到期清單分組 → 排程中清單)記錄下來,
+  // 點進去連續練習時才能照著同一個順序一題接一題,不會跳來跳去。
+  const flatOrder = [...dueList, ...scheduledList];
+
   let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);text-align:center;">這裡整理出你講得比較不順的單字與句子,排越前面代表越需要多練幾次</div>';
 
   if(dueList.length === 0){
@@ -1723,9 +1741,47 @@ function renderWeak(){
   container.innerHTML = html;
 
   container.querySelectorAll('.review-item').forEach(row => {
-    row.onclick = () => jumpToItem(row.getAttribute('data-en'));
+    row.onclick = () => startWeakPractice(row.getAttribute('data-en'), flatOrder);
   });
   bindReviewGroupToggleAnim(container);
+}
+
+// 點一個弱點單字之後,開一輪「弱點單字連續練習」:
+// 上一題/下一題會在同一份弱點清單裡移動,練完一題不用回弱點單字本重新選下一個。
+function startWeakPractice(en, orderedList){
+  if(!orderedList || orderedList.length === 0) return;
+
+  // orderedList 裡的每一筆只是 practiced 記錄(en/zh/cat 等統計欄位),
+  // 這裡改成去題庫(STAGES)裡找回真正完整的題目物件(含音標、例句變化等),
+  // 練習畫面才能正常顯示,跟系統題庫裡點開是一樣的資料。
+  const resolved = [];
+  orderedList.forEach(rec => {
+    let found = null;
+    for(let i = 0; i < STAGES.length && !found; i++){
+      if(STAGES[i].key === 'favorites') continue;
+      found = STAGES[i].items.find(x => x.en === rec.en);
+    }
+    if(found) resolved.push(found);
+  });
+  if(resolved.length === 0) return;
+
+  const targetIdx = resolved.findIndex(x => x.en === en);
+
+  returnSnapshot = {
+    appMode: 'weak',
+    stageIdx: stageIdx,
+    activeCat: activeCat,
+    itemIdx: itemIdx
+  };
+  showReturnBanner();
+
+  weakSessionDone = {}; // 開新的一輪,進度條歸零重算
+  weakPracticeItems = resolved;
+  itemIdx = targetIdx !== -1 ? targetIdx : 0;
+  activeCat = 'all';
+
+  setAppMode('weakpractice', false, true);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function renderReview(){
@@ -2394,6 +2450,7 @@ function categoriesForMode(mode) {
 
 function filteredItems(){
   if(appMode === 'random') return randomReviewItems;
+  if(appMode === 'weakpractice') return weakPracticeItems;
   if(appMode === 'ai') {
     let items = [];
     STAGES.forEach(stg => {
@@ -2519,16 +2576,38 @@ function updateCatProgress(items){
   if(!wrap) return;
   const total = items.length;
   if(total === 0){ wrap.style.display = 'none'; return; }
-  const doneCount = items.filter(it => practiced[it.en]).length;
+
+  // 隨機抽考 / 弱點單字連續練習:這兩個模式抽出來的題目本來就是「已經練過的題目」,
+  // 如果還是用 practiced[it.en] 判斷完成度,一進來就會被判定 100% 完成、進度條卡住不動。
+  // 這裡改用「這一輪自己有沒有練過」(randomSessionDone / weakSessionDone) 來算進度。
+  let doneCount;
+  if(appMode === 'random'){
+    doneCount = items.filter(it => randomSessionDone[it.en]).length;
+  } else if(appMode === 'weakpractice'){
+    doneCount = items.filter(it => weakSessionDone[it.en]).length;
+  } else {
+    doneCount = items.filter(it => practiced[it.en]).length;
+  }
+
   const remaining = total - doneCount;
   const pct = Math.round((doneCount / total) * 100);
   const fill = el('catProgressFill');
   if(fill) fill.style.width = pct + '%';
   const label = el('catProgressLabel');
   if(label){
-    label.textContent = remaining <= 0
-      ? `這個分類已經全部練完了 🎉 (${doneCount}/${total})`
-      : `這個分類還剩 ${remaining} 題 (已完成 ${doneCount}/${total})`;
+    if(appMode === 'random'){
+      label.textContent = remaining <= 0
+        ? `本輪抽考都複習完了 🎉 (${doneCount}/${total})`
+        : `本輪抽考還剩 ${remaining} 題 (已複習 ${doneCount}/${total})`;
+    } else if(appMode === 'weakpractice'){
+      label.textContent = remaining <= 0
+        ? `這輪弱點單字都練完了 🎉 (${doneCount}/${total})`
+        : `這輪弱點單字還剩 ${remaining} 題 (已練 ${doneCount}/${total})`;
+    } else {
+      label.textContent = remaining <= 0
+        ? `這個分類已經全部練完了 🎉 (${doneCount}/${total})`
+        : `這個分類還剩 ${remaining} 題 (已完成 ${doneCount}/${total})`;
+    }
   }
   wrap.style.display = 'block';
 }
@@ -2740,6 +2819,13 @@ function celebrateCorrectAnswer(){
   setTimeout(() => overlay.remove(), 2000);
 }
 
+// 標記「這一輪」已經練過這一題,只給隨機抽考 / 弱點單字連續練習的進度條用。
+function markSessionProgress(item){
+  if(!item || !item.en) return;
+  if(appMode === 'random') randomSessionDone[item.en] = true;
+  if(appMode === 'weakpractice') weakSessionDone[item.en] = true;
+}
+
 function showResult(heardText){
   const item = currentItem();
   const isFree = currentStage().key === 'free';
@@ -2751,7 +2837,7 @@ function showResult(heardText){
   if(diffBox) diffBox.innerHTML = '';
 
   if(isFree){
-    if(heardText) recordPracticed(item, stageIdx);
+    if(heardText){ recordPracticed(item, stageIdx); markSessionProgress(item); }
     fb.className = 'feedback';
     fb.textContent = heardText ? '你講出來了——這就是重點,內容不用完美。' : '再試一次,講出你想到的任何一句話就好。';
     return;
@@ -2771,6 +2857,7 @@ function showResult(heardText){
 
   // 先算出這次的分數,再記錄練習(這樣間隔複習才能依分數判斷這個字「講得好不好」)
   recordPracticed(item, stageIdx, closeness);
+  markSessionProgress(item);
 
   // 逐字比對:目標句子裡,講對的字綠色、講錯或漏掉的字紅色
   if(diffBox) diffBox.innerHTML = renderWordDiff(item.en, heardText);
