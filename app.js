@@ -3656,7 +3656,8 @@ if(el('settingsBtn')) {
     'speakup_ai_items', 'speakup_apikey', 'speakup_appMode', 'speakup_cat',
     'speakup_cat_progress', 'speakup_custom_items', 'speakup_daily',
     'speakup_favorites', 'speakup_practiced', 'speakup_stageIdx',
-    'speakup_streak', 'speakup_last_cat', 'speakup_last_celebrated', 'speakup_last_level'
+    'speakup_streak', 'speakup_last_cat', 'speakup_last_celebrated', 'speakup_last_level',
+    'speakup_daily_history', 'speakup_recent_cats', 'speakup_reminder_enabled', 'speakup_reminder_time'
   ];
 
   // 打包成完整備份用的 payload,匯出檔案與上傳 Gist 共用同一份邏輯
