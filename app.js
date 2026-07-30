@@ -167,15 +167,24 @@ function renderSearchResults(query){
     box.innerHTML = `<div style="padding:12px; color:var(--muted); font-size:13px; text-align:center;">找不到符合的單字或片語</div>`;
     return;
   }
-  box.innerHTML = results.map((it, idx) => `
+  box.innerHTML = results.map((it, idx) => {
+    const isDone = !!practiced[it.en];
+    const isFav = favorites.some(f => f.en === it.en);
+    const statusBadges = `
+      ${isFav ? '<span style="font-size:10px; color:#b8860b; background:#fff6e0; padding:1px 6px; border-radius:999px; flex-shrink:0;">⭐ 收藏</span>' : ''}
+      <span style="font-size:10px; ${isDone ? 'color:var(--sage-dark); background:var(--sage-light);' : 'color:var(--muted); background:var(--paper);'} padding:1px 6px; border-radius:999px; flex-shrink:0;">${isDone ? '✅ 已完成' : '⭘ 未完成'}</span>
+    `;
+    return `
     <div class="search-result-item anim-gentle-in" style="padding:10px 12px; border-radius:8px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:8px; animation-delay:${Math.min(idx * 0.03, 0.3)}s; opacity:0;" data-en="${it.en.replace(/"/g, '&quot;')}">
       <div style="min-width:0;">
         <div style="font-weight:600; font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.en}</div>
         <div style="font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.zh || ''}</div>
+        <div style="display:flex; gap:4px; margin-top:4px; flex-wrap:wrap;">${statusBadges}</div>
       </div>
       <div style="font-size:11px; color:var(--sage-dark); background:var(--card); padding:2px 8px; border-radius:999px; flex-shrink:0;">${(it.cat || '').replace('(AI) ', '✨')}</div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 el('searchBtn').onclick = () => {
   const willOpen = !el('searchPanel').classList.contains('open');
@@ -275,6 +284,25 @@ try {
 
 function savePracticed() {
   lsSet('speakup_practiced', JSON.stringify(practiced));
+  updateWeakDueBadge();
+}
+
+// 弱點單字分頁上的小紅點:顯示「今天已經到期、該複習」的弱點題目數量,
+// 讓使用者不用點進去就知道有沒有事要做;還在間隔天數內的題目不算進來。
+function updateWeakDueBadge(){
+  const badge = el('weakDueBadge');
+  if(!badge) return;
+  const now = Date.now();
+  const dueCount = Object.values(practiced).filter(it =>
+    ((it.weakCount || 0) > 0 || (it.mistakeTotal || 0) > 0) &&
+    (!(typeof it.dueAt === 'number') || it.dueAt <= now)
+  ).length;
+  if(dueCount > 0){
+    badge.textContent = dueCount > 99 ? '99+' : String(dueCount);
+    badge.style.display = 'flex';
+  } else {
+    badge.style.display = 'none';
+  }
 }
 
 let streakData = { count: 0, lastActive: '' };
@@ -1470,7 +1498,7 @@ async function generateNewsVocab(idx) {
     render(true);
     updateTriggerTexts();
   } catch(e) {
-    statusEl.textContent = '⚠️ ' + e.message; triggerAnim('newsStatus', 'anim-gentle-in');
+    statusEl.textContent = '⚠️ ' + friendlyNetErrorMsg(e); triggerAnim('newsStatus', 'anim-gentle-in');
     console.error(e);
   }
 }
@@ -1511,7 +1539,7 @@ async function generateNewsRP(idx) {
     el('rpStartBtn').click();
     statusEl.textContent = '';
   } catch(e) {
-    statusEl.textContent = '⚠️ ' + e.message; triggerAnim('newsStatus', 'anim-gentle-in');
+    statusEl.textContent = '⚠️ ' + friendlyNetErrorMsg(e); triggerAnim('newsStatus', 'anim-gentle-in');
     console.error(e);
   }
 }
@@ -1618,43 +1646,71 @@ function renderWeak(){
     return;
   }
 
-  // 排序:目前弱點程度高的優先 → 累計答錯次數多的優先 → 越快到期複習的優先
-  list.sort((a, b) => {
+  // 間隔重複:只有「已經到期」的弱點題目才會排進今天要複習的清單,
+  // 還在間隔天數內的題目先收進「排程複習中」摺疊區,等排程到期那天才會自動浮出來,
+  // 不會讓使用者永遠面對一整包混在一起的清單。
+  const dueList = list.filter(it => !(typeof it.dueAt === 'number') || it.dueAt <= now);
+  const scheduledList = list.filter(it => typeof it.dueAt === 'number' && it.dueAt > now);
+
+  // 到期清單排序:目前弱點程度高的優先 → 累計答錯次數多的優先 → 越快到期複習的優先
+  dueList.sort((a, b) => {
     if((b.weakCount || 0) !== (a.weakCount || 0)) return (b.weakCount || 0) - (a.weakCount || 0);
     if((b.mistakeTotal || 0) !== (a.mistakeTotal || 0)) return (b.mistakeTotal || 0) - (a.mistakeTotal || 0);
     return (a.dueAt || 0) - (b.dueAt || 0);
   });
-
-  const groups = {};
-  list.forEach(it => {
-    const cat = it.cat || '未分類';
-    if(!groups[cat]) groups[cat] = [];
-    groups[cat].push(it);
-  });
+  // 排程中清單排序:越快到期的排越前面
+  scheduledList.sort((a, b) => (a.dueAt || 0) - (b.dueAt || 0));
 
   let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);text-align:center;">這裡整理出你講得比較不順的單字與句子,排越前面代表越需要多練幾次</div>';
-  Object.keys(groups).forEach((cat, gIdx) => {
-    const items = groups[cat];
-    html += `<details class="review-group anim-gentle-in" open style="animation-delay:${Math.min(gIdx * 0.05, 0.3)}s; opacity:0;">
-      <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
+
+  if(dueList.length === 0){
+    html += `<div class="review-empty" style="margin-bottom:14px;">目前沒有到期要複習的弱點單字,都已經排進間隔複習排程了 👏</div>`;
+  } else {
+    const groups = {};
+    dueList.forEach(it => {
+      const cat = it.cat || '未分類';
+      if(!groups[cat]) groups[cat] = [];
+      groups[cat].push(it);
+    });
+    Object.keys(groups).forEach((cat, gIdx) => {
+      const items = groups[cat];
+      html += `<details class="review-group anim-gentle-in" open style="animation-delay:${Math.min(gIdx * 0.05, 0.3)}s; opacity:0;">
+        <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
+        <div class="review-group-items">`;
+      items.forEach(it => {
+        const mistakeLabel = it.mistakeTotal ? `<span style="color:var(--clay);">累計答錯 ${it.mistakeTotal} 次</span>` : '';
+        html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
+          <div>
+            <div class="review-item-en">${it.en}</div>
+            ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
+            <div style="font-size:11px;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;"><span style="color:var(--danger);font-weight:700;">🔴 該複習了</span>${mistakeLabel}</div>
+          </div>
+          <div style="color:var(--muted);">▶</div>
+        </div>`;
+      });
+      html += `</div></details>`;
+    });
+  }
+
+  if(scheduledList.length > 0){
+    html += `<details class="review-group anim-gentle-in" style="opacity:0;">
+      <summary><div class="review-group-title-left"><span>⏳ 排程複習中(尚未到期)</span></div><span class="review-group-count">${scheduledList.length} 題</span></summary>
       <div class="review-group-items">`;
-    items.forEach(it => {
-      const due = (typeof it.dueAt === 'number') ? it.dueAt : 0;
-      const dueLabel = due <= now
-        ? '<span style="color:var(--danger);font-weight:700;">🔴 該複習了</span>'
-        : `<span style="color:var(--muted);">⏳ ${Math.max(1, Math.ceil((due - now) / 86400000))} 天後複習</span>`;
+    scheduledList.forEach(it => {
+      const daysLeft = Math.max(1, Math.ceil((it.dueAt - now) / 86400000));
       const mistakeLabel = it.mistakeTotal ? `<span style="color:var(--clay);">累計答錯 ${it.mistakeTotal} 次</span>` : '';
       html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
         <div>
           <div class="review-item-en">${it.en}</div>
           ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
-          <div style="font-size:11px;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;">${dueLabel}${mistakeLabel}</div>
+          <div style="font-size:11px;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;"><span style="color:var(--muted);">⏳ ${daysLeft} 天後複習</span>${mistakeLabel}<span style="color:var(--muted);">${it.cat || '未分類'}</span></div>
         </div>
         <div style="color:var(--muted);">▶</div>
       </div>`;
     });
     html += `</div></details>`;
-  });
+  }
+
   container.innerHTML = html;
 
   container.querySelectorAll('.review-item').forEach(row => {
@@ -2446,6 +2502,27 @@ function currentItem(){
   return items[itemIdx];
 }
 
+// 主畫面「這個分類還剩幾題」進度條:用目前篩選出來的題目清單(已含分類/階段篩選)
+// 算出已經練過幾題,讓使用者不用點開分類清單也知道大概還要練多久。
+function updateCatProgress(items){
+  const wrap = el('catProgressWrap');
+  if(!wrap) return;
+  const total = items.length;
+  if(total === 0){ wrap.style.display = 'none'; return; }
+  const doneCount = items.filter(it => practiced[it.en]).length;
+  const remaining = total - doneCount;
+  const pct = Math.round((doneCount / total) * 100);
+  const fill = el('catProgressFill');
+  if(fill) fill.style.width = pct + '%';
+  const label = el('catProgressLabel');
+  if(label){
+    label.textContent = remaining <= 0
+      ? `這個分類已經全部練完了 🎉 (${doneCount}/${total})`
+      : `這個分類還剩 ${remaining} 題 (已完成 ${doneCount}/${total})`;
+  }
+  wrap.style.display = 'block';
+}
+
 function render(skipTargetAnim = false){
   if(appMode === 'roleplay' || appMode === 'favorites' || appMode === 'review' || appMode === 'completed') return;
   renderLadder();
@@ -2507,6 +2584,7 @@ function render(skipTargetAnim = false){
   el('targetZh').textContent = item.zh || '';
   el('targetCat').textContent = item.cat ? (item.cat.startsWith('(AI) ') ? item.cat.replace('(AI) ', '✨ ') : item.cat) : '';
   el('counter').textContent = (itemIdx+1) + ' / ' + items.length;
+  updateCatProgress(items);
 
   // Update Favorite Button
   const isFav = favorites.some(f => f.en === item.en);
@@ -2923,6 +3001,75 @@ function navigateItem(direction){
 el('skipBtn').onclick = () => navigateItem(1);
 el('prevBtn').onclick = () => navigateItem(-1);
 
+// 手機滑動手勢:在主要題目卡片上左右滑動可以直接切換上一題/下一題,
+// 跟按左右箭頭效果一樣,減少要伸手點小按鈕的麻煩。
+// 只在「明顯是水平滑動」且滑動距離夠大時才觸發,避免跟一般上下捲動或點擊單字/按鈕衝突。
+(function setupSwipeNav(){
+  const swipeTarget = el('mainCard');
+  if(!swipeTarget) return;
+
+  const SWIPE_MIN_DISTANCE = 55; // 至少滑多少 px 才算數
+  const SWIPE_MAX_OFF_AXIS = 60; // 垂直方向偏移超過這個值就當作是在捲動,不當滑動題目
+  let startX = 0, startY = 0, tracking = false;
+
+  // 開始滑動時如果手指按在按鈕、輸入框、滑桿、可點擊單字上,就不要攔截,
+  // 讓原本的點擊/拖曳行為(例如錄音、調整速度)正常運作。
+  const ignoreSelector = 'button, input, a, .clickable-word, #speedSlider, #recBtn, #slowPlayBtn, #playBtn';
+
+  swipeTarget.addEventListener('touchstart', (e) => {
+    if(e.target.closest(ignoreSelector)) { tracking = false; return; }
+    if(e.touches.length !== 1) { tracking = false; return; }
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+  }, { passive: true });
+
+  swipeTarget.addEventListener('touchend', (e) => {
+    if(!tracking) return;
+    tracking = false;
+    const touch = e.changedTouches[0];
+    if(!touch) return;
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+    if(Math.abs(dy) > SWIPE_MAX_OFF_AXIS) return; // 太斜,視為捲動手勢
+    if(Math.abs(dx) < SWIPE_MIN_DISTANCE) return; // 滑太短,可能只是手抖或點擊
+    if(appMode === 'roleplay' || appMode === 'favorites' || appMode === 'review' || appMode === 'completed') return;
+    if(dx < 0) navigateItem(1);  // 向左滑 → 下一題
+    else navigateItem(-1);       // 向右滑 → 上一題
+  }, { passive: true });
+
+  swipeTarget.addEventListener('touchcancel', () => { tracking = false; }, { passive: true });
+})();
+
+// 桌面快捷鍵:空白鍵 = 播放發音,Enter = 開始/停止錄音,減少滑鼠移動。
+// 只在主要練習卡片顯示時生效,而且如果使用者正在輸入框、textarea 或彈窗裡打字,
+// 就完全不攔截,讓空白鍵/Enter 的原本行為(打字、送出表單)正常運作。
+document.addEventListener('keydown', (e) => {
+  if(e.key !== ' ' && e.key !== 'Spacebar' && e.key !== 'Enter') return;
+
+  const activeTag = document.activeElement ? document.activeElement.tagName : '';
+  const isTypingField = ['INPUT', 'TEXTAREA', 'SELECT'].includes(activeTag) ||
+    (document.activeElement && document.activeElement.isContentEditable);
+  if(isTypingField) return;
+
+  if(appMode === 'roleplay' || appMode === 'favorites' || appMode === 'review' || appMode === 'completed') return;
+  if(el('mainCard') && el('mainCard').style.display === 'none') return;
+
+  // 有彈窗開著(AI 生成、上手指南)時不要搶走空白鍵/Enter
+  const aiModal = el('aiModal');
+  const guideModal = el('guideModal');
+  if((aiModal && aiModal.classList.contains('show')) || (guideModal && guideModal.classList.contains('show'))) return;
+
+  if(e.key === ' ' || e.key === 'Spacebar'){
+    e.preventDefault();
+    playAudio(currentItem());
+  } else if(e.key === 'Enter'){
+    e.preventDefault();
+    if(!SRClass) return; // 瀏覽器不支援語音辨識就不處理
+    if(isRecording){ stopRecording(); } else { startRecording(); }
+  }
+});
+
 function populateCustomStageSelect(){
   const sel = el('customStage');
   sel.innerHTML = '';
@@ -2944,6 +3091,22 @@ el('addBtn').onclick = async () => {
   const item = { en, zh, cat:'自訂' };
   const isSingleWord = !/\s/.test(en);
   const addBtn = el('addBtn');
+  const addStatus = el('addStatus');
+  if(addStatus) addStatus.textContent = '';
+
+  // 相似字提醒:跟 AI 生成情境用的是同一套 findSimilarWord() 比對邏輯——
+  // 完全一樣(含大小寫)就直接擋下來,不讓題庫裡出現重複題目;
+  // 拼字很接近但不完全一樣,還是讓使用者加進去,只是先提醒一下,可能是想加的字打錯,也可能就是刻意要練的相似字。
+  const existing = findSimilarWord(en);
+  if(existing && existing.en.trim().toLowerCase() === en.trim().toLowerCase()){
+    if(addStatus) addStatus.innerHTML = `⚠️ 「${en}」題庫裡已經有了,沒有重複加入。`;
+    return;
+  }
+  let similarNote = '';
+  if(existing){
+    similarNote = `⚠️ 跟題庫裡的「${existing.en}」很像,已幫你加入,記得留意兩者的差異。`;
+  }
+
   addBtn.disabled = true;
   addBtn.classList.add('anim-soft-pulse');
 
@@ -2972,13 +3135,171 @@ el('addBtn').onclick = async () => {
   stage.items.push(item);
   customItems.push({ _stageKey: stage.key, ...item });
   saveCustomItems();
+  if(typeof updateCustomMgmtCount === 'function') updateCustomMgmtCount();
   el('customEn').value = '';
   el('customZh').value = '';
   addBtn.textContent = '已加入 ✓';
   triggerAnim('addBtn', 'anim-pop');
   setTimeout(()=>{ addBtn.textContent = '＋ 加入題庫'; }, 1200);
+  if(addStatus) addStatus.innerHTML = similarNote;
   if(idx === stageIdx) render();
 };
+
+/* ---------- 自訂單字管理:批次編輯／刪除 ---------- */
+// 幫「自訂單字」找出它目前實際存在於哪個 stage.items 陣列裡(用 en 字串比對),
+// 因為 customItems 只是拿來持久化用的副本,畫面上真正在用的是 STAGES 裡的物件。
+function findLiveCustomItem(stageKey, en){
+  const stage = STAGES.find(s => s.key === stageKey);
+  if(!stage) return null;
+  const item = stage.items.find(it => it.en === en);
+  return item ? { stage, item } : null;
+}
+
+function updateCustomMgmtSelCount(){
+  const count = document.querySelectorAll('#customMgmtList input.cm-check:checked').length;
+  const el2 = el('customMgmtSelCount');
+  if(el2) el2.textContent = String(count);
+}
+
+function renderCustomMgmtList(){
+  const list = el('customMgmtList');
+  const empty = el('customMgmtEmpty');
+  if(!list) return;
+  list.innerHTML = '';
+  if(customItems.length === 0){
+    if(empty) empty.style.display = 'block';
+    if(el('customMgmtSelectAll')) el('customMgmtSelectAll').checked = false;
+    updateCustomMgmtSelCount();
+    return;
+  }
+  if(empty) empty.style.display = 'none';
+
+  customItems.forEach((ci, i) => {
+    const row = document.createElement('div');
+    row.className = 'cm-row';
+    row.dataset.idx = i;
+
+    const stageOptions = STAGES.filter(s => s.key !== 'favorites').map(s =>
+      `<option value="${s.key}" ${s.key === ci._stageKey ? 'selected' : ''}>${s.label}</option>`
+    ).join('');
+
+    row.innerHTML = `
+      <input type="checkbox" class="cm-check">
+      <div class="cm-fields">
+        <input type="text" class="cm-en" value="${(ci.en || '').replace(/"/g,'&quot;')}" placeholder="英文">
+        <input type="text" class="cm-zh" value="${(ci.zh || '').replace(/"/g,'&quot;')}" placeholder="中文">
+        <select class="cm-stage">${stageOptions}</select>
+      </div>
+      <button class="cm-del-btn" title="刪除這一題">🗑️</button>
+    `;
+    list.appendChild(row);
+
+    row.querySelector('.cm-check').addEventListener('change', updateCustomMgmtSelCount);
+
+    // 改英文:同步更新 customItems、STAGES 裡的真實物件,並把 practiced / favorites 紀錄搬過去,
+    // 這樣改名不會弄丟原本已經累積的間隔複習排程或收藏狀態。
+    row.querySelector('.cm-en').addEventListener('blur', (e) => {
+      const newEn = e.target.value.trim();
+      const oldEn = ci.en;
+      if(!newEn || newEn === oldEn) { e.target.value = oldEn; return; }
+      const found = findLiveCustomItem(ci._stageKey, oldEn);
+      if(found) found.item.en = newEn;
+      ci.en = newEn;
+      if(practiced[oldEn]){
+        practiced[newEn] = { ...practiced[oldEn], en: newEn };
+        delete practiced[oldEn];
+        savePracticed();
+      }
+      favorites.forEach(f => { if(f.en === oldEn) f.en = newEn; });
+      if(typeof saveFavorites === 'function') saveFavorites();
+      saveCustomItems();
+      render();
+    });
+
+    row.querySelector('.cm-zh').addEventListener('blur', (e) => {
+      const newZh = e.target.value.trim();
+      ci.zh = newZh;
+      const found = findLiveCustomItem(ci._stageKey, ci.en);
+      if(found) found.item.zh = newZh;
+      saveCustomItems();
+      render();
+    });
+
+    // 改階段:把題目從舊 stage.items 搬到新 stage.items
+    row.querySelector('.cm-stage').addEventListener('change', (e) => {
+      const newStageKey = e.target.value;
+      const oldStageKey = ci._stageKey;
+      if(newStageKey === oldStageKey) return;
+      const found = findLiveCustomItem(oldStageKey, ci.en);
+      const newStage = STAGES.find(s => s.key === newStageKey);
+      if(found && newStage){
+        found.stage.items = found.stage.items.filter(it => it !== found.item);
+        newStage.items.push(found.item);
+      }
+      ci._stageKey = newStageKey;
+      saveCustomItems();
+      render();
+    });
+
+    row.querySelector('.cm-del-btn').addEventListener('click', () => {
+      deleteCustomItemsByEn([{ en: ci.en, stageKey: ci._stageKey }]);
+      renderCustomMgmtList();
+      render();
+    });
+  });
+
+  updateCustomMgmtSelCount();
+}
+
+// 真正執行刪除:同時清掉 customItems 副本跟 STAGES 裡的實際物件。
+// 不動 practiced/favorites 紀錄本身(維持跟其他刪除場景一致的保守做法,萬一手滑刪錯也不會連學習紀錄一起不見)。
+function deleteCustomItemsByEn(targets){
+  const targetSet = new Set(targets.map(t => t.stageKey + '::' + t.en));
+  customItems = customItems.filter(ci => !targetSet.has(ci._stageKey + '::' + ci.en));
+  saveCustomItems();
+  targets.forEach(t => {
+    const stage = STAGES.find(s => s.key === t.stageKey);
+    if(stage) stage.items = stage.items.filter(it => it.en !== t.en);
+  });
+  if(el('customMgmtCount')) el('customMgmtCount').textContent = String(customItems.length);
+}
+
+function updateCustomMgmtCount(){
+  if(el('customMgmtCount')) el('customMgmtCount').textContent = String(customItems.length);
+}
+updateCustomMgmtCount();
+
+if(el('openCustomMgmtBtn')) el('openCustomMgmtBtn').onclick = () => {
+  renderCustomMgmtList();
+  el('customMgmtModal').classList.add('show');
+};
+if(el('customMgmtCloseBtn')) el('customMgmtCloseBtn').onclick = () => el('customMgmtModal').classList.remove('show');
+if(el('customMgmtModal')) el('customMgmtModal').addEventListener('click', (e) => {
+  if(e.target === el('customMgmtModal')) el('customMgmtModal').classList.remove('show');
+});
+
+if(el('customMgmtSelectAll')) el('customMgmtSelectAll').onchange = (e) => {
+  document.querySelectorAll('#customMgmtList input.cm-check').forEach(cb => { cb.checked = e.target.checked; });
+  updateCustomMgmtSelCount();
+};
+
+if(el('customMgmtDeleteSelBtn')) el('customMgmtDeleteSelBtn').onclick = () => {
+  const checked = document.querySelectorAll('#customMgmtList input.cm-check:checked');
+  if(checked.length === 0) return;
+  if(!confirm(`確定要刪除選取的 ${checked.length} 題自訂單字嗎?這個動作無法復原。`)) return;
+  const targets = [];
+  checked.forEach(cb => {
+    const row = cb.closest('.cm-row');
+    const idx = parseInt(row.dataset.idx, 10);
+    const ci = customItems[idx];
+    if(ci) targets.push({ en: ci.en, stageKey: ci._stageKey });
+  });
+  deleteCustomItemsByEn(targets);
+  if(el('customMgmtSelectAll')) el('customMgmtSelectAll').checked = false;
+  renderCustomMgmtList();
+  render();
+};
+
 
 /* ---------- AI 情境生成器 ---------- */
 if(geminiApiKey) el('apiKeyInput').value = geminiApiKey;
@@ -3138,7 +3459,7 @@ zh (中文) 必須是繁體中文(臺灣)。
     render();
     
   } catch(err) {
-    el('aiStatus').textContent = '❌ 生成失敗：' + err.message; triggerAnim('aiStatus', 'anim-gentle-in');
+    el('aiStatus').textContent = '❌ 生成失敗：' + friendlyNetErrorMsg(err); triggerAnim('aiStatus', 'anim-gentle-in');
   }
   
   if(modalBox) modalBox.classList.remove('anim-pulse-border');
@@ -3452,6 +3773,31 @@ if('serviceWorker' in navigator){
     .catch(() => {}); // 註冊失敗(例如不支援)就靜靜略過,不影響其他功能
 }
 
+/* ---------- 離線狀態提示 ----------
+   純前端網站沒有網路時,系統題庫(靠 Service Worker 快取)還是可以照常練習,
+   但 AI 情境生成、每日新聞、實戰對話這些需要打 API 的功能就會失敗。
+   這裡用 navigator.onLine + online/offline 事件顯示一條提示,
+   讓使用者知道「不是壞掉,是現在沒有網路」,而不是誤以為系統出錯。 */
+function updateOfflineBanner(){
+  const banner = el('offlineBanner');
+  if(!banner) return;
+  banner.style.display = navigator.onLine ? 'none' : 'block';
+}
+window.addEventListener('online', updateOfflineBanner);
+window.addEventListener('offline', updateOfflineBanner);
+updateOfflineBanner();
+
+// 把「打 API 失敗」的錯誤訊息轉成人看得懂的話:
+// 如果當下根本沒有網路,或錯誤訊息看起來就是連線失敗(例如瀏覽器丟出的 "Failed to fetch"),
+// 就不要直接把英文技術錯誤丟給使用者,改成講清楚「現在沒有網路」。
+function friendlyNetErrorMsg(err){
+  const raw = (err && err.message) ? err.message : String(err || '');
+  if(!navigator.onLine || /failed to fetch|networkerror|network request failed/i.test(raw)){
+    return '目前沒有網路連線,這個功能需要連網才能使用,請確認網路後再試一次。';
+  }
+  return raw;
+}
+
 /* ---------- 每日練習提醒 ----------
    純前端網站沒有後端伺服器,沒辦法做到「瀏覽器完全關閉時仍會收到推播」的真正 Web Push。
    這裡做的是最佳可行版本:只要瀏覽器分頁,或已安裝的 PWA 還留在背景執行,
@@ -3755,7 +4101,7 @@ async function fetchRpResponse(contents) {
     el('rpHintBox').innerHTML = '';
   } catch(err) {
     console.error('Roleplay API error:', err);
-    el('rpStatus').textContent = '⚠️ ' + err.message; triggerAnim('rpStatus', 'anim-status-fade');
+    el('rpStatus').textContent = '⚠️ ' + friendlyNetErrorMsg(err); triggerAnim('rpStatus', 'anim-status-fade');
   }
 }
 
@@ -3887,3 +4233,4 @@ el('rpRestartBtn').onclick = () => {
 setupRecognition();
 // Initial App mode setup
 setAppMode(appMode, true);
+updateWeakDueBadge();

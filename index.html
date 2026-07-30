@@ -17,6 +17,10 @@
 
 <div class="wrap">
 
+  <div id="offlineBanner" style="display:none; background:#fff6e0; color:#8a6d1a; border:1px solid #f0d98a; border-radius:10px; padding:8px 12px; font-size:12px; text-align:center; margin-bottom:10px; line-height:1.4;">
+    📡 目前沒有網路連線,可以繼續用「系統題庫」離線練習;AI 情境、每日新聞、實戰對話這幾個功能需要連網才能使用。
+  </div>
+
   <div class="topbar">
     <div class="brand">
       <span>🗣️ Speak Up</span>
@@ -48,7 +52,7 @@
       <button class="app-tab" id="tabRoleplay"><span class="tab-icon">💬</span><span class="tab-label">實戰對話</span></button>
       <button class="app-tab" id="tabCompleted"><span class="tab-icon">✅</span><span class="tab-label">已完成</span></button>
       <button class="app-tab" id="tabRandom"><span class="tab-icon">🔁</span><span class="tab-label">隨機抽考</span></button>
-      <button class="app-tab" id="tabWeak"><span class="tab-icon">🧠</span><span class="tab-label">弱點單字</span></button>
+      <button class="app-tab" id="tabWeak"><span class="tab-icon">🧠<span class="tab-due-badge" id="weakDueBadge" style="display:none;"></span></span><span class="tab-label">弱點單字</span></button>
       <button class="app-tab" id="tabFavorites"><span class="tab-icon">⭐</span><span class="tab-label">收藏</span></button>
       <button class="app-tab" id="tabReview"><span class="tab-icon">🏺</span><span class="tab-label">語感花室</span></button>
     </nav>
@@ -170,6 +174,10 @@
       <span class="counter" id="counter"></span>
       <button class="nav-arrow" id="skipBtn" title="下一題">→</button>
     </div>
+    <div class="cat-progress-wrap" id="catProgressWrap">
+      <div class="cat-progress-bar"><div class="cat-progress-fill" id="catProgressFill"></div></div>
+      <div class="cat-progress-label" id="catProgressLabel"></div>
+    </div>
   </div>
 
   <div class="ai-modal-overlay" id="aiModal">
@@ -202,6 +210,7 @@
         <input type="text" id="customZh" placeholder="留空且已設定AI Key會自動翻譯">
       </div>
       <button id="addBtn" class="add-submit-btn">＋ 加入題庫</button>
+      <div id="addStatus" style="font-size:12px; color:var(--muted); margin-top:8px; line-height:1.5; text-align:center;"></div>
     </div>
   </details>
 
@@ -219,6 +228,14 @@
       <button id="exportBtn" style="background: var(--sage); border:none; padding: 12px; border-radius: 10px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">📥 下載 word_bank.js</button>
       <button id="exportCsvBtn" style="background: var(--card); border: 1px solid var(--line); padding: 12px; border-radius: 10px; color:var(--ink); cursor:pointer; width:100%; font-weight: bold; font-size: 14px; margin-bottom:8px;">🃏 匯出 Anki / Quizlet (.csv)</button>
       <div style="font-size:12px; color:var(--muted); line-height:1.4;">題庫本身的備份，方便搬到別臺裝置，或匯入單字卡軟體背誦。</div>
+    </div>
+
+    <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
+
+    <div style="margin-bottom:14px;">
+      <div style="font-weight:600; margin-bottom:6px; font-size:15px;">📝 自訂單字管理</div>
+      <button id="openCustomMgmtBtn" style="background: var(--card); border: 1px solid var(--line); padding: 12px; border-radius: 10px; color:var(--ink); cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">✏️ 批次編輯／刪除自訂單字 (<span id="customMgmtCount">0</span>)</button>
+      <div style="font-size:12px; color:var(--muted); line-height:1.4; margin-top:6px;">管理你自己用「想加自己的內容」加進來的題目,可以直接改英文/中文/階段,或整批刪除。</div>
     </div>
 
     <hr style="border:none; border-top:1px dashed var(--line); margin:0 0 14px;">
@@ -298,6 +315,23 @@
         <strong style="color:var(--sage-dark);">7. 🔒 隱私安全與跨平台支援</strong><br>
         所有的學習資料、連勝紀錄和 API Key 都只會安全地儲存於你的瀏覽器中。完美支援 Android、Chrome 以及 iOS 系統的語音引擎。
       </div>
+    </div>
+  </div>
+
+  <div class="ai-modal-overlay" id="customMgmtModal">
+    <div class="ai-modal" style="max-width:480px;">
+      <button class="ai-modal-close" id="customMgmtCloseBtn">×</button>
+      <h2 style="margin-top:0; color:var(--sage-dark); font-size: 19px;">✏️ 自訂單字管理</h2>
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; font-size:13px;">
+        <label style="display:flex; align-items:center; gap:6px; cursor:pointer; flex:1;">
+          <input type="checkbox" id="customMgmtSelectAll">
+          <span>全選</span>
+        </label>
+        <button id="customMgmtDeleteSelBtn" style="background:var(--danger-bg); border:1px solid var(--danger-border); color:var(--danger); padding:8px 12px; border-radius:8px; cursor:pointer; font-size:12px; font-weight:700;">🗑️ 刪除已選 (<span id="customMgmtSelCount">0</span>)</button>
+      </div>
+      <div id="customMgmtList" style="max-height:50vh; overflow-y:auto; display:flex; flex-direction:column; gap:8px;"></div>
+      <div id="customMgmtEmpty" style="display:none; text-align:center; color:var(--muted); font-size:13px; padding:20px 0;">還沒有自訂單字。</div>
+      <div style="font-size:11px; color:var(--muted); margin-top:10px; line-height:1.4;">改英文/中文欄位後離開輸入框就會自動存檔;改「階段」會直接把題目搬到該階段。</div>
     </div>
   </div>
 
