@@ -257,7 +257,10 @@
           請先到<a href="https://github.com/settings/tokens/new?scopes=gist&amp;description=SpeakUp%20Sync" target="_blank" rel="noopener">這裡產生 GitHub Token</a>，記得勾選 <code>gist</code> 權限（要選 classic token，不是 fine-grained token）。
         </div>
         <input type="password" id="ghTokenInput" class="settings-input" placeholder="貼上你的 GitHub Token（僅存在本地瀏覽器）" style="margin-bottom:8px;">
-        <div id="ghGistIdRow" style="font-size:12px; color:var(--muted); margin-bottom:8px; display:none;">目前綁定的 Gist ID：<span id="ghGistIdText" style="font-weight:600;"></span></div>
+        <div id="ghGistIdRow" style="font-size:12px; color:var(--muted); margin-bottom:8px; display:none; flex-direction:column; gap:4px;">
+          <span>目前綁定的 Gist ID (可修改以綁定至其他裝置)：</span>
+          <input type="text" id="ghGistIdInput" class="settings-input" style="font-size:11px; padding:4px 8px; font-family:monospace;" placeholder="若留空，上傳時將建立新 Gist">
+        </div>
         <div class="settings-btn-row" style="margin-bottom:8px;">
           <button id="ghUploadBtn" class="settings-btn settings-btn-primary">⬆️ 上傳目前進度</button>
           <button id="ghDownloadBtn" class="settings-btn settings-btn-secondary">⬇️ 下載雲端還原</button>
@@ -360,6 +363,6 @@
   <footer>沒有標準答案,只有講出口的你。</footer>
 </div>
 
-<script src="app.js?v=9"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>

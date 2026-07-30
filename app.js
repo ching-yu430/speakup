@@ -3729,11 +3729,11 @@ if(el('settingsBtn')) {
 
   function updateGistIdDisplay(){
     const row = el('ghGistIdRow');
-    const txt = el('ghGistIdText');
-    if(!row || !txt) return;
-    if(ghGistId){
-      row.style.display = 'block';
-      txt.textContent = ghGistId;
+    const input = el('ghGistIdInput');
+    if(!row || !input) return;
+    if(ghToken){
+      row.style.display = 'flex';
+      if(document.activeElement !== input) input.value = ghGistId;
     } else {
       row.style.display = 'none';
     }
@@ -3741,10 +3741,18 @@ if(el('settingsBtn')) {
   if(el('ghTokenInput')) el('ghTokenInput').value = ghToken;
   updateGistIdDisplay();
 
+  if(el('ghGistIdInput')){
+    el('ghGistIdInput').addEventListener('change', () => {
+      ghGistId = el('ghGistIdInput').value.trim();
+      lsSet('speakup_gh_gistid', ghGistId);
+    });
+  }
+
   if(el('ghTokenInput')){
     el('ghTokenInput').addEventListener('change', () => {
       ghToken = el('ghTokenInput').value.trim();
       lsSet('speakup_gh_token', ghToken);
+      updateGistIdDisplay();
     });
   }
 
