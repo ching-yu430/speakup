@@ -138,8 +138,17 @@
     <div class="target-zh" id="targetZh"></div>
 
     <div class="phon-block" id="phonBlock" style="display:none;">
-      <div class="phon-label">🔊 自然發音拼法 · 大寫 = 重音節</div>
-      <div class="phon-visual" id="phonVisual"></div>
+      <div class="phon-cols">
+        <div class="phon-col">
+          <div class="phon-label">🔤 英文拼法</div>
+          <div class="phon-visual" id="phonVisual"></div>
+        </div>
+        <div class="phon-col">
+          <div class="phon-label">ㄅㄆ 注音近似</div>
+          <div class="phon-visual phon-zhuyin" id="phonZhuyin"></div>
+        </div>
+      </div>
+      <div class="phon-hint">大字／深色 = 重音節・注音為近似發音，部分英文特有音（如 th、v）無法完全對應，僅供輔助參考</div>
       <div class="phon-raw-row" id="phonRawRow"></div>
     </div>
     </div>
@@ -309,7 +318,7 @@
       <h2 style="margin-top:0; color:var(--sage-dark); font-size: 20px;">📖 快速上手指南</h2>
       <div style="font-size:13px; color:var(--ink); line-height:1.7;">
         <strong style="color:var(--sage-dark);">1. 📚 系統題庫與自然發音</strong><br>
-        內建 15 大主題、超過 700 筆對話與單字題庫。系統會自動顯示「自然發音拼寫」與音標，並支援自由切換美式/英式口音，跟著聲音唸就對了！<br><br>
+        內建 15 大主題、超過 700 筆對話與單字題庫。系統會自動顯示「英文拼法」與「注音近似」兩種對照拼寫（大字/深色代表重音節），並支援自由切換美式/英式口音，跟著聲音唸就對了！<br><br>
 
         <strong style="color:var(--sage-dark);">2. 🧠 弱點單字本與間隔複習</strong><br>
         系統會依照你每次唸的分數自動排定「下次該複習的時間」(講得不好會提早重考,講得好會拉長間隔)。點選「隨機抽考」時,真正到期、講得不順的題目會優先出現;點選「弱點單字」則能直接看到目前所有還沒克服的題目清單,一鍵跳過去複習。<br><br>

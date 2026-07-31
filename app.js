@@ -2410,12 +2410,55 @@ function ipaToPlain(syl){
   return s.replace(/[ːˑ]/g, '');
 }
 
+// IPA → 注音符號近似對照表（給完全不熟悉英文拼讀規則的人用；
+// 注音本身沒有 th / v / 捲舌 r 等音，這裡用最接近的符號近似，僅供輔助發音直覺，不是精確標音）
+const IPA_TO_ZHUYIN = [
+  // 子音組合（優先處理，避免被單音節拆散）
+  ['tʃ','ㄑ'], ['dʒ','ㄐ'],
+  // 雙母音與三母音
+  ['aɪə','ㄞㄦ'], ['aʊə','ㄠㄦ'],
+  ['eɪ','ㄟ'], ['aɪ','ㄞ'], ['ɔɪ','ㄛㄧ'], ['aʊ','ㄠ'], ['oʊ','ㄡ'], ['əʊ','ㄡ'],
+  ['eə','ㄝㄦ'], ['ɪə','ㄧㄦ'], ['ʊə','ㄨㄦ'],
+  // R音化母音
+  ['ɜːr','ㄦ'], ['ɜː','ㄜ'], ['ɝ','ㄦ'], ['ər','ㄦ'], ['ɚ','ㄦ'],
+  ['ɜr','ㄦ'], ['ɜ','ㄜ'],
+  ['ɔːr','ㄛㄦ'], ['ɑːr','ㄚㄦ'],
+  ['ɔr','ㄛㄦ'], ['ɑr','ㄚㄦ'],
+  // 長母音
+  ['ɔː','ㄛ'], ['ɔ','ㄛ'], ['ɑː','ㄚ'], ['iː','ㄧ'], ['uː','ㄨ'],
+  // 特殊子音
+  ['ʃ','ㄒ'], ['ʒ','ㄖ'], ['θ','ㄙ'], ['ð','ㄗ'], ['ŋ','ㄥ'],
+  // 短母音
+  ['ɪ','ㄧ'],
+  ['ɛ','ㄝ'],
+  ['æ','ㄝ'],
+  ['ɒ','ㄛ'],
+  ['ɑ','ㄚ'],
+  ['ʌ','ㄚ'],
+  ['ʊ','ㄨ'],
+  ['ə','ㄜ'],
+  ['x','ㄎ'],
+  ['ʔ',''],
+  // 一般子音字母（原始音標字串裡直接以英文字母呈現的音）
+  ['p','ㄆ'], ['b','ㄅ'], ['t','ㄊ'], ['d','ㄉ'], ['k','ㄎ'], ['g','ㄍ'],
+  ['f','ㄈ'], ['v','ㄪ'], ['s','ㄙ'], ['z','ㄗ'], ['h','ㄏ'],
+  ['m','ㄇ'], ['n','ㄋ'], ['l','ㄌ'], ['r','ㄖ'], ['w','ㄨ'],
+  ['j','ㄧ'], ['y','ㄧ'],
+];
+
+function ipaToZhuyin(syl){
+  let s = syl;
+  IPA_TO_ZHUYIN.forEach(([ipa, zy]) => { s = s.split(ipa).join(zy); });
+  return s.replace(/[ːˑ]/g, '');
+}
+
 // 把音標字串拆成音節，轉換成白話拼音，並把重音節放大加粗
 function renderPhonetics(phon){
   const block = el('phonBlock');
   const visual = el('phonVisual');
+  const zhuyin = el('phonZhuyin');
   const rawRow = el('phonRawRow');
-  if(!phon){ block.style.display = 'none'; visual.innerHTML = ''; if(rawRow) rawRow.textContent = ''; return; }
+  if(!phon){ block.style.display = 'none'; visual.innerHTML = ''; if(zhuyin) zhuyin.innerHTML = ''; if(rawRow) rawRow.textContent = ''; return; }
   block.style.display = 'block';
   const clean = phon.replace(/^\/|\/$/g,'').trim().replace(/ɹ/g, 'r').replace(/ɡ/g, 'g');
 
@@ -2432,11 +2475,25 @@ function renderPhonetics(phon){
     secondary: syl.includes('ˌ')
   }));
 
+  // 若多音節單字完全沒有標示重音（少數字典資料缺漏），預設把第一音節當重音，
+  // 避免整串看起來跟其他有標重音的單字不一致
+  if(syllables.length > 1 && !syllables.some(s => s.stressed)){
+    syllables[0].stressed = true;
+  }
+
   visual.innerHTML = syllables.map(s => {
     const cls = s.stressed ? ' stressed' : (s.secondary ? ' secondary' : '');
     const plain = ipaToPlain(s.raw) || s.raw;
     return '<span class="syl' + cls + '">' + plain + '</span>';
   }).join('<span class="dot">-</span>');
+
+  if(zhuyin){
+    zhuyin.innerHTML = syllables.map(s => {
+      const cls = s.stressed ? ' stressed' : (s.secondary ? ' secondary' : '');
+      const zy = ipaToZhuyin(s.raw) || s.raw;
+      return '<span class="syl' + cls + '">' + zy + '</span>';
+    }).join('<span class="dot">·</span>');
+  }
 
   if(rawRow) rawRow.textContent = '音標參考：/' + clean + '/';
 }
