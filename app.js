@@ -566,27 +566,11 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
   const startX = W / 2 - totalW / 2;
   const pillY = cardY + 520;
   drawStatPill(ctx, startX, pillY, pillW, pillH, '01', '已練習', `${wordCount} 題`, '#5aa06a');
-  drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '02', '等級', levelLabel.replace(/^\S+\s/,''), '#28565b' || '#c98a4b');
+  drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '02', '等級', levelLabel, '#28565b');
   drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '03', '連續天數', renderStreak > 0 ? `${renderStreak} 天` : '今天開始', '#e0703f');
 
   // 升級進度條
-  const levelDefs = [
-    { min:0,    max:9,    label:'🌱 嫩芽',     color:'#8fba6c' },
-    { min:10,   max:24,   label:'🪴 小苗',     color:'#6dba8c' },
-    { min:25,   max:49,   label:'🌿 茁壯',   color:'#5aaa82' },
-    { min:50,   max:79,   label:'🌼 初綻放',   color:'#f0c040' },
-    { min:80,   max:119,  label:'🌸 嬌嫩花',   color:'#e88fad' },
-    { min:120,  max:179,  label:'🌺 豔麗花',   color:'#e05090' },
-    { min:180,  max:249,  label:'🌻 向陽花',   color:'#f5a623' },
-    { min:250,  max:349,  label:'🌹 含情玫',   color:'#d63060' },
-    { min:350,  max:499,  label:'🌷 鬱金香',   color:'#9b59b6' },
-    { min:500,  max:699,  label:'🪻 薰衣草',   color:'#7e57c2' },
-    { min:700,  max:999,  label:'🏵️ 花藝師',  color:'#4caf8a' },
-    { min:1000, max:1299, label:'💐 花束大師', color:'#e67e22' },
-    { min:1300, max:1699, label:'🌳 語言之樹', color:'#27ae60' },
-    { min:1700, max:1999, label:'🌲 百年古木', color:'#1a6b3a' },
-    { min:2000, max:Infinity, label:'👑 花語宗師', color:'#c0a000' }
-  ];
+  const levelDefs = BotanicalBouquet.levels;
   const currentLvl = levelDefs.find(l => wordCount >= l.min && wordCount <= l.max) || levelDefs[0];
   const nextLvl = levelDefs[levelDefs.indexOf(currentLvl) + 1];
   
@@ -600,7 +584,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     ctx.fillStyle = '#9a9488';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`距離下一階「${nextLvl.label.replace(/^\S+\s/,'')}」還需 ${nextLvl.min - wordCount} 題`, W / 2, barY - 12);
+    ctx.fillText(`距離下一階「${nextLvl.label}」還需 ${nextLvl.min - wordCount} 題`, W / 2, barY - 12);
     
     ctx.save();
     canvasRoundRect(ctx, barX, barY, barW, barH, barH / 2);
@@ -1203,6 +1187,7 @@ function setAppMode(mode, isInitial = false, preserveState = false) {
   appMode = mode;
   lsSet('speakup_appMode', appMode);
   document.body.classList.toggle('botanical-room', mode === 'review');
+  applyGardenTheme();
   
   el('tabGeneral').classList.toggle('active', mode === 'general');
   el('tabAI').classList.toggle('active', mode === 'ai');
@@ -1749,32 +1734,16 @@ function renderReview(){
     if(diff > 1) renderStreak = 0;
   }
   // 等級系統（15 階，涵蓋 0–2000+ 詞）
-  const levelDefs = [
-    { min:0,    max:9,    label:'🌱 嫩芽',     color:'#8fba6c' },
-    { min:10,   max:24,   label:'🪴 小苗',     color:'#6dba8c' },
-    { min:25,   max:49,   label:'🌿 茁壯',   color:'#5aaa82' },
-    { min:50,   max:79,   label:'🌼 初綻放',   color:'#f0c040' },
-    { min:80,   max:119,  label:'🌸 嬌嫩花',   color:'#e88fad' },
-    { min:120,  max:179,  label:'🌺 豔麗花',   color:'#e05090' },
-    { min:180,  max:249,  label:'🌻 向陽花',   color:'#f5a623' },
-    { min:250,  max:349,  label:'🌹 含情玫',   color:'#d63060' },
-    { min:350,  max:499,  label:'🌷 鬱金香',   color:'#9b59b6' },
-    { min:500,  max:699,  label:'🪻 薰衣草',   color:'#7e57c2' },
-    { min:700,  max:999,  label:'🏵️ 花藝師',  color:'#4caf8a' },
-    { min:1000, max:1299, label:'💐 花束大師', color:'#e67e22' },
-    { min:1300, max:1699, label:'🌳 語言之樹', color:'#27ae60' },
-    { min:1700, max:1999, label:'🌲 百年古木', color:'#1a6b3a' },
-    { min:2000, max:Infinity, label:'👑 花語宗師', color:'#c0a000' }
-  ];
+  const levelDefs = BotanicalBouquet.levels;
   const level = levelDefs.find(l => list.length >= l.min && list.length <= l.max) || levelDefs[0];
   const nextLevel = levelDefs[levelDefs.indexOf(level) + 1];
 
-  // 偵測「升級」這個時刻:跟上次記錄的等級不一樣才慶祝,避免每次重新整理都跳出來
-  const prevLevelLabel = lsGet('speakup_last_level');
-  if(prevLevelLabel && prevLevelLabel !== level.label){
-    setTimeout(() => celebrateLevelUp(level.label, level.color), 500);
-  }
-  lsSet('speakup_last_level', level.label);
+  // Renaming levels migrates quietly; celebrate only actual upward progress.
+  const prevLevelId=lsGet('speakup_garden_level');
+  const prevLevel=levelDefs.find(l=>l.id===prevLevelId);
+  if(prevLevel && level.min>prevLevel.min)setTimeout(()=>celebrateLevelUp(level.label,level.color),500);
+  lsSet('speakup_garden_level',level.id);
+  lsSet('speakup_last_level',level.label);
 
   // 今日練習題數
   const today = localDateStr();
@@ -1786,14 +1755,12 @@ function renderReview(){
   const remainder = list.length % 5;
   const toNextFlower = remainder === 0 ? 5 : (5 - remainder);
 
-  const levelModalRows = levelDefs.map((l, i) => {
-    const isCurrent = list.length >= l.min && list.length <= l.max;
-    return `<tr style="background:${isCurrent ? 'rgba(123,174,127,0.12)' : 'transparent'}; font-weight:${isCurrent ? '700' : '400'}">
-      <td style="padding:5px 8px; font-size:13px;">${l.label.replace(/^\S+\s/,'')}</td>
-      <td style="padding:5px 8px; font-size:12px; color:var(--muted); text-align:right;">${l.max === Infinity ? `${l.min}+` : `${l.min}–${l.max}`} 題</td>
-      ${isCurrent ? `<td style="padding:5px 4px; font-size:11px; color:#7BAE7F;">← 你在這</td>` : '<td></td>'}
-    </tr>`;
+  const levelModalRows = levelDefs.map((l,i)=>{
+    const isCurrent=l.id===level.id;
+    return `<li class="garden-level-row${isCurrent?' is-current':''}" ${isCurrent?'aria-current="step"':''}>${BotanicalBouquet.icon(l.kind,i,'rank')}<div><strong>${l.label}</strong><span>${l.max===Infinity?l.min+'+':l.min+'–'+l.max} 題</span></div>${isCurrent?'<em>目前</em>':''}</li>`;
   }).join('');
+  const flowerGuide=BotanicalBouquet.flowerNames.map((name,i)=>`<div>${BotanicalBouquet.icon(i,i,'guide')}<span>${name}</span></div>`).join('');
+  const themePreference=lsGet('speakup_garden_theme','system');
 
   const masteredCount=list.filter(it=>isItemMastered(it.en)).length;
   const dueCount=list.filter(it=>!(typeof it.dueAt==='number')||it.dueAt<=Date.now()).length;
@@ -1812,17 +1779,27 @@ function renderReview(){
       <div class="garden-stat"><span>已練習題數</span><strong>${list.length}<small> 題</small></strong></div>
       <div class="garden-stat"><span>已熟練題數</span><strong>${masteredCount}<small> 題</small></strong></div>
       <div class="garden-stat"><span>花朵收藏</span><strong>${totalFlowers}<small> 朵</small></strong></div>
-      <button class="garden-stat garden-level" id="levelStatCard"><span>目前等級 · 點選查看</span><strong>${level.label.replace(/^\S+\s/,'')}</strong></button>
+      <button class="garden-stat garden-level" id="levelStatCard"><span>目前等級 · 點選查看</span><strong>${BotanicalBouquet.icon(level.kind,levelDefs.indexOf(level),'stat')}<span>${level.label}</span></strong></button>
     </div>
     <div class="garden-growth"><div><span>下一朵花</span><strong>還差 ${toNextFlower} 題</strong></div><progress value="${progressToFlower}" max="100" aria-label="下一朵花進度"></progress><small>${remainder}／5 題 · 練習新的題目可累積花朵</small></div>
     <div class="garden-practice"><div><strong>繼續培養</strong><span>今日 ${todayCount} 題 · 到期 ${dueCount} 題</span></div><div class="garden-practice-actions"><button id="gardenDailyBtn">今日練習</button><button id="gardenDueBtn" ${dueCount?'':'disabled'}>到期複習${dueCount?' ('+dueCount+')':''}</button></div></div>
     <details class="garden-share"><summary>分享成果 ▾</summary><div><button id="shareGardenBtn">花園小卡</button><button id="shareWeeklyBtn">本週週報</button></div><small>選擇花園小卡或週報，分享或下載圖片。</small></details>
-    <div id="gardenRules" class="practice-overlay" hidden><section class="practice-sheet" role="dialog" aria-modal="true" aria-labelledby="gardenRulesTitle"><div class="sheet-heading"><h2 id="gardenRulesTitle">等級與獎勵規則</h2><button id="gardenRulesClose" class="sheet-close" aria-label="關閉花室規則">✕</button></div><p>每練習 5 道不同題目累積 1 朵花，每 15 朵收進一瓶。花型、色彩與枝葉會隨機搭配；花束會保存，重新整理不會改變。重複跟讀可鞏固題目，不會重複增加花朵。</p><p>已熟練：辨識文字一致度達 85%，且連續兩次達標。花朵與等級依已練習題數累積，原有收藏保留。</p><p>練習當下連續開口達 7 天的題目，可帶來獎勵花。</p><table class="garden-level-table"><tbody>${levelModalRows}</tbody></table></section></div>
+    <div id="gardenRules" class="practice-overlay" hidden><section class="practice-sheet garden-rule-sheet" role="dialog" aria-modal="true" aria-labelledby="gardenRulesTitle">
+      <div class="sheet-heading"><h2 id="gardenRulesTitle">花室成長手冊</h2><button id="gardenRulesClose" class="sheet-close" aria-label="關閉花室規則">✕</button></div>
+      <label class="garden-theme-control">花室外觀<select id="gardenThemeSelect" aria-label="花室外觀"><option value="system">跟隨系統</option><option value="light">淺色紙張</option><option value="dark">深色花室</option></select></label>
+      <div class="garden-rule-current">${BotanicalBouquet.icon(level.kind,levelDefs.indexOf(level),'current')}<div><small>目前等級</small><strong>${level.label}</strong><span>${nextLevel?'再練 '+(nextLevel.min-list.length)+' 道新題目，成為「'+nextLevel.label+'」':'所有花室等級已達成'}</span></div></div>
+      <div class="garden-rule-basics"><p><strong>培養花朵</strong>每練習 5 道不同題目，累積 1 朵花；15 朵成為一瓶收藏。重複練習可鞏固語感，不會重複增加花朵。</p><p><strong>累積等級</strong>以已練習的不同題目數提升等級。熟練度另外計算：辨識文字一致度達 85%，並連續兩次達標。</p><p><strong>收藏獎勵</strong>連續開口達 7 天時練習的新題目，可帶來帶金色點綴的獎勵花。花型與配色隨機搭配，收藏會保存。</p></div>
+      <details class="garden-flower-guide"><summary>花型圖鑑 · ${BotanicalBouquet.flowerNames.length} 種花</summary><div>${flowerGuide}</div></details>
+      <h3 class="garden-rank-title">你的花室旅程 · 15 階</h3><ol class="garden-level-list">${levelModalRows}</ol>
+    </section></div>
   </section>`;
 
   let html = gardenHtml;
   container.innerHTML = html;
 
+  const themeSelect=container.querySelector('#gardenThemeSelect');
+  themeSelect.value=themePreference;
+  themeSelect.onchange=()=>{lsSet('speakup_garden_theme',themeSelect.value);applyGardenTheme();};
   const shareWeeklyBtn = container.querySelector('#shareWeeklyBtn');
   if(shareWeeklyBtn){
     shareWeeklyBtn.onclick = () => shareWeeklyCard();

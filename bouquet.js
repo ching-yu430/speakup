@@ -30,6 +30,66 @@ const BotanicalBouquet = (() => {
       const dx=Math.cos(a)*rx*jitter,dy=Math.sin(a)*ry*jitter;
       return [x+dx*Math.cos(angle)-dy*Math.sin(angle),y+dx*Math.sin(angle)+dy*Math.cos(angle)];}));
   }
+  const flowerNames=['虞美人','波斯菊','鬱金香','牡丹','玫瑰','雛菊','向日葵','銀蓮花','桔梗','大麗花'];
+  const levels=[
+    [0,9,'初遇花種',2],[10,24,'破土新芽',2],[25,49,'晨露含苞',8],
+    [50,79,'雛菊初綻',5],[80,119,'風中波斯菊',1],[120,179,'鬱金香時光',2],
+    [180,249,'向陽盛放',6],[250,349,'玫瑰花語',4],[350,499,'牡丹滿枝',3],
+    [500,699,'大麗花庭',9],[700,999,'四季花集',7],[1000,1299,'花藝工坊',0],
+    [1300,1699,'百花庭院',8],[1700,1999,'繁花長廊',9],[2000,Infinity,'花語典藏',3]
+  ].map(([min,max,label,kind],i)=>({min,max,label,kind,id:'botanical-'+i,color:['#c38378','#59878a','#bd9148'][i%3]}));
+  function paintFlower(add,x,y,r,kind,color,accent,own,isRare=false){
+    const dark='#36483c';
+    if(kind===2){
+      add(`M${f(x-r*.72)} ${f(y-r*.65)} Q${f(x-r*.9)} ${f(y+r*.7)} ${f(x)} ${f(y+r*.65)} Q${f(x+r*.9)} ${f(y+r*.7)} ${f(x+r*.72)} ${f(y-r*.65)} L${f(x+r*.22)} ${f(y-r*.25)} L${f(x)} ${f(y-r*.75)} L${f(x-r*.22)} ${f(y-r*.25)}Z`,color,null,1,1,true);
+      add(`M${f(x-r*.22)} ${f(y-r*.25)} Q${f(x-r*.45)} ${f(y+r*.3)} ${f(x)} ${f(y+r*.5)} M${f(x+r*.22)} ${f(y-r*.25)} Q${f(x+r*.4)} ${f(y+r*.2)} ${f(x)} ${f(y+r*.5)}`,null,accent,1,.45);
+      return;
+    }
+    if(kind===5||kind===6){
+      const n=kind===5?12:10;
+      for(let j=0;j<n;j++){
+        const a=j*Math.PI*2/n;
+        add(ellipse(x+Math.cos(a)*r*.57,y+Math.sin(a)*r*.57,r*.19,r*.49,a+Math.PI/2,own),kind===6?'#e0a336':color,null,1,1,true);
+      }
+      add(ellipse(x,y,r*(kind===6?.36:.23),r*(kind===6?.36:.23),0,own),kind===6?'#655538':accent,null,1,1,true);
+      if(kind===6)for(let j=0;j<15;j++){const a=j*2.4,rr=r*.27*Math.sqrt(j/15);add(ellipse(x+Math.cos(a)*rr,y+Math.sin(a)*rr,.8,.8,0,own),'#d1ad5f');}
+    }else{
+      const petals=[5,8,0,14,7,0,0,6,5,12][kind],phase=own()*Math.PI*2;
+      const pts=Array.from({length:90},(_,j)=>{const a=j*Math.PI*2/90;
+        const rr=r*(kind===8?.7+.27*Math.cos(a*5+phase):.83+.14*Math.cos(a*petals+phase))*(.96+own()*.08);
+        return [x+Math.cos(a)*rr,y+Math.sin(a)*rr];});
+      add(smooth(pts),color,null,1,1,true);
+      if(kind===4){
+        for(let ring=0;ring<4;ring++){
+          const rr=r*(.16+ring*.18),start=ring*.9;
+          const points=Array.from({length:19},(_,j)=>{const a=start+j*Math.PI*1.65/18;return [x+Math.cos(a)*rr,y+Math.sin(a)*rr];});
+          add('M'+points.map(p=>p.map(f).join(' ')).join('L'),null,accent,1.5,.58);
+        }
+      }else if(kind===9){
+        for(let ring=1;ring<4;ring++)for(let j=0;j<10;j++){
+          const a=j*Math.PI/5+ring*.25,rr=r*ring*.2;
+          add(ellipse(x+Math.cos(a)*rr,y+Math.sin(a)*rr,r*.095,r*.17,a+Math.PI/2,own),ring%2?accent:color,null,1,.64,true);
+        }
+      }else{
+        const n=kind===1?8:petals*2;
+        for(let j=0;j<n;j++){
+          const a=j*Math.PI*2/n,inner=r*.17,outer=r*(kind===1?.38:.52+own()*.13);
+          add(`M${f(x+Math.cos(a)*inner)} ${f(y+Math.sin(a)*inner)} Q${f(x+Math.cos(a+.1)*outer*.7)} ${f(y+Math.sin(a+.1)*outer*.7)} ${f(x+Math.cos(a+.05)*outer)} ${f(y+Math.sin(a+.05)*outer)}`,null,kind===0||kind===7?dark:accent,kind===0?1.7:1.1,.8);
+        }
+        add(ellipse(x,y,r*(kind===7?.23:.13),r*(kind===7?.23:.13),0,own),kind===0||kind===7?dark:accent,null,1,1,true);
+      }
+    }
+    if(isRare)add(ellipse(x+r*.82,y-r*.62,2.4,4,-.4,own),'#c49b38');
+  }
+  function leaf(add,x,y,angle,length,width,color,random){
+    const tx=x+Math.cos(angle)*length,ty=y+Math.sin(angle)*length;
+    const px=-Math.sin(angle)*width,py=Math.cos(angle)*width;
+    add(`M${f(x)} ${f(y)} Q${f((x+tx)/2+px)} ${f((y+ty)/2+py)} ${f(tx)} ${f(ty)} Q${f((x+tx)/2-px)} ${f((y+ty)/2-py)} ${f(x)} ${f(y)}Z`,color,null,1,.91,true);
+    add(`M${f(x)} ${f(y)} L${f(tx)} ${f(ty)}`,null,'#f3efdb',.5,.26);
+  }
+  function branchPoint(start,control,end,t){
+    return [0,1].map(i=>(1-t)**2*start[i]+2*(1-t)*t*control[i]+t*t*end[i]);
+  }
   function scene(count,offset,rare=[]) {
     count=Math.max(0,Math.min(15,count));
     const random=rng(seed() ^ Math.imul(Math.floor(offset/15)+1,2654435761));
@@ -38,12 +98,12 @@ const BotanicalBouquet = (() => {
     // Paper-grounded shadow, followed by stems and leaves behind the blossoms.
     add(ellipse(180,338,55,4,0,random),'#c8c0ad',null,1,.24);
     if(count) {
-      for(let b=0;b<Math.min(5,Math.ceil(count/3)+1);b++) {
-        const side=b%2?-1:1, x=180+side*(56+random()*24), y=166+random()*60;
-        add(`M180 259 Q${180+side*12} 207 ${f(x)} ${f(y-52)}`,null,colors[3],2.6);
-        for(let l=0;l<5;l++) {
-          const ly=y-l*13, lx=180+(x-180)*(1-(l*13+30)/105);
-          add(ellipse(lx+side*10,ly,7,22,side*(.6+l*.13),random),colors[b%3===0?4:3],null,1,.94,true);
+      for(let b=0;b<Math.min(4,Math.ceil(count/5));b++) {
+        const side=b%2?-1:1,start=[180,241],control=[180+side*32,207],end=[180+side*(60+random()*17),148+random()*28];
+        add(`M${start.join(' ')} Q${control.join(' ')} ${end.map(f).join(' ')}`,null,colors[3],1.7);
+        for(let l=0;l<4;l++) {
+          const t=.28+l*.19,[lx,ly]=branchPoint(start,control,end,t);
+          leaf(add,lx,ly,side>0?-.6:Math.PI+.6,16+random()*10,4+random()*2,colors[b%2?4:3],random);
         }
       }
     }
@@ -51,13 +111,16 @@ const BotanicalBouquet = (() => {
     for(let i=0;i<count;i++) {
       const own=rng(seed() ^ Math.imul(offset+i+1,1597334677));
       const [sx,sy,sr]=slots[i];
-      const x=180+sx+(own()-.5)*13,y=254+sy+(own()-.5)*12,r=sr*(.88+own()*.23);
-      const kind=rare[i]?3:Math.floor(own()*4), color=colors[rare[i]?1:i<4?[0,1,2,1][i]:Math.floor(own()*3)];
-      const rootX=180+(own()-.5)*23;
-      add(`M${f(rootX)} 324 Q${f(180+(x-180)*.18)} 236 ${f(x)} ${f(y)}`,null,colors[i%3===0?3:4],2+own());
-      // A pair of small leaves on each individual stem connects the bloom to the vase.
-      const ly=(y+254)/2,lx=(x+180)/2;
-      add(ellipse(lx+9,ly,5,17,.65,own),colors[4],null,1,.92,true);
+      const x=180+sx+(own()-.5)*13,y=254+sy*.70+(own()-.5)*12,r=sr*(.88+own()*.23);
+      const kind=rare[i]?3:Math.floor(own()*flowerNames.length), color=colors[rare[i]?1:i<4?[0,1,2,1][i]:Math.floor(own()*3)];
+      const rootX=180+(own()-.5)*25,neckX=180+(own()-.5)*7;
+      const start=[neckX,240],control=[neckX+(x-neckX)*.22,y+(240-y)*.4],end=[x,y];
+      // Bare, fine stems below the neck. Leaves attach only above the waterline.
+      add(`M${f(rootX)} 325 L${f(neckX)} 240`,null,colors[i%3===0?3:4],1.35,.65);
+      add(`M${f(neckX)} 240 Q${control.map(f).join(' ')} ${end.map(f).join(' ')}`,null,colors[i%3===0?3:4],1.6);
+      const [lx,ly]=branchPoint(start,control,end,.32+own()*.16);
+      const angle=x>=180?-.7:Math.PI+.7;
+      leaf(add,lx,ly,angle,16+own()*9,4+own()*2,colors[4],own);
       flowers.push({x,y,r,kind,color,own,rare:rare[i]});
     }
     // The glass overlays visible stems. Its uneven outline suggests painted glass.
@@ -67,45 +130,35 @@ const BotanicalBouquet = (() => {
     add('M144 279 L140 322',null,'#fffdf5',3,.5);
     // Rear flowers first, broad lower blossoms in front: a natural overlapping bouquet.
     flowers.sort((a,b)=>a.y-b.y).forEach(({x,y,r,kind,color,own,rare:isRare})=>{
-      if(kind===2) {
-        add(`M${f(x-r*.8)} ${f(y-r*.4)} Q${f(x-r)} ${f(y+r)} ${f(x)} ${f(y+r*.7)} Q${f(x+r)} ${f(y+r)} ${f(x+r*.8)} ${f(y-r*.4)} L${f(x+r*.3)} ${f(y-r*.05)} L${f(x)} ${f(y-r*.7)} L${f(x-r*.25)} ${f(y-r*.1)}Z`,color,null,1,1,true);
-        add(`M${f(x-r*.5)} ${f(y+r*.4)} Q${f(x)} ${f(y+r*.9)} ${f(x+r*.5)} ${f(y+r*.4)}`,null,colors[4],2.5);
-        return;
-      }
-      const petals=kind===0?5:kind===1?10:14, phase=own()*6.28;
-      const pts=Array.from({length:80},(_,j)=>{const a=j*Math.PI/40;
-        const rr=r*(.82+.16*Math.cos(a*petals+phase))*(.95+own()*.1);
-        return [x+Math.cos(a)*rr,y+Math.sin(a)*rr];});
-      add(smooth(pts),color,null,1,1,true);
-      for(let j=0;j<petals*2;j++) {
-        const a=j*Math.PI/petals,inner=r*(.14+own()*.12),outer=r*(.42+own()*.2);
-        add(`M${f(x+Math.cos(a)*inner)} ${f(y+Math.sin(a)*inner)} Q${f(x+Math.cos(a+.13)*outer*.7)} ${f(y+Math.sin(a+.13)*outer*.7)} ${f(x+Math.cos(a+.06)*outer)} ${f(y+Math.sin(a+.06)*outer)}`,null,kind===0?'#293c30':colors[2],kind===0?1.8:1.2,.86);
-      }
-      add(ellipse(x,y,r*.13,r*.12,0,own),kind===0?'#283b2d':colors[2],null,1,1,true);
-      if(isRare) add(ellipse(x+r*.82,y-r*.62,2.4,4,-.4,own),'#c49b38');
+      paintFlower(add,x,y,r,kind,color,colors[2],own,isRare);
     });
     // Repeatable dry-brush flecks, clipped inside the painted shapes.
     shapes.forEach((shape,i)=>{
-      // Broader, compact silhouette suited to the phone's central illustration area.
       const numbers=shape.d.match(/-?\d+(?:\.\d+)?/g).map(Number);
-      let coordinate=0;
-      shape.d=shape.d.replace(/-?\d+(?:\.\d+)?/g,value=>f(coordinate++%2 ? 341-(341-Number(value))*.75 : 180+(Number(value)-180)*1.12));
       if(!shape.grain)return;
       const rr=rng(i*7717+offset+seed());
-      const xs=numbers.filter((_,n)=>n%2===0).map(x=>180+(x-180)*1.12),ys=numbers.filter((_,n)=>n%2===1).map(y=>341-(341-y)*.75);
+      const xs=numbers.filter((_,n)=>n%2===0),ys=numbers.filter((_,n)=>n%2===1);
       const x=Math.min(...xs),y=Math.min(...ys),w=Math.max(...xs)-x,h=Math.max(...ys)-y;
       shape.flecks=Array.from({length:70},()=>({x:f(x+rr()*w),y:f(y+rr()*h),r:f(.22+rr()*.55)}));
     });
     return shapes;
   }
-  function svg(count,offset,rare=[]) {
-    const shapes=scene(count,offset,rare),prefix='bouquet-'+offset;
+  function markup(shapes,prefix) {
     const defs=shapes.map((s,i)=>s.grain?`<clipPath id="${prefix}-${i}"><path d="${s.d}"/></clipPath>`:'').join('');
     const body=shapes.map((s,i)=>`<g opacity="${s.opacity}"><path d="${s.d}" fill="${s.fill||'none'}" stroke="${s.stroke||'none'}" stroke-width="${s.width}" stroke-linecap="round" stroke-linejoin="round"/>${s.flecks?`<g clip-path="url(#${prefix}-${i})" fill="${paper}" opacity=".5"><path d="${s.flecks.map(p=>`M${p.x} ${p.y}h${p.r}v${p.r}h-${p.r}z`).join('')}"/></g>`:''}</g>`).join('');
-    return `<svg class="botanical-bouquet" viewBox="65 113 230 231" role="img" aria-label="${count?count+' 朵花的手繪花束':'等待第一朵花的玻璃花瓶'}" xmlns="http://www.w3.org/2000/svg"><defs>${defs}</defs>${body}</svg>`;
+    return `<defs>${defs}</defs>${body}`;
+  }
+  function icon(kind,index,prefix='level'){
+    const shapes=[],colors=palettes[index%palettes.length],own=rng(13579+index*771);
+    paintFlower((d,fill,stroke=null,width=1,opacity=1,grain=false)=>shapes.push({d,fill,stroke,width,opacity,grain}),40,40,28,kind,kind===6?colors[2]:colors[index%2],colors[2],own);
+    return `<svg class="garden-flower-icon" viewBox="0 0 80 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${markup(shapes,prefix+'-'+index)}</svg>`;
+  }
+  function svg(count,offset,rare=[]) {
+    const art=markup(scene(count,offset,rare),'bouquet-'+offset);
+    return `<svg class="botanical-bouquet" viewBox="60 90 240 255" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${count?count+' 朵花的手繪花束':'等待第一朵花的玻璃花瓶'}" xmlns="http://www.w3.org/2000/svg">${art}</svg>`;
   }
   function draw(ctx,cx,baseY,count,offset,rare=[]) {
-    const scale=1.18;
+    const scale=.88;
     ctx.save();ctx.translate(cx-180*scale,baseY-341*scale);ctx.scale(scale,scale);
     scene(count,offset,rare).forEach(s=>{
       ctx.save();ctx.globalAlpha=s.opacity;
@@ -116,5 +169,12 @@ const BotanicalBouquet = (() => {
       ctx.restore();
     });ctx.restore();
   }
-  return {svg,draw,scene};
+  return {svg,draw,scene,icon,levels,flowerNames};
 })();
+
+// Theme is stored with the learning backup; system changes update an open room.
+function applyGardenTheme(){
+  const preference=lsGet('speakup_garden_theme','system');
+  document.body.dataset.gardenTheme=preference==='dark'||(preference!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',applyGardenTheme);
