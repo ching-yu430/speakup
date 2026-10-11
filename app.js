@@ -2268,7 +2268,7 @@ let accentPref = 'us';
 async function fetchWordData(word){
   const clean = word.toLowerCase().trim();
   const url = DICT_API + encodeURIComponent(clean);
-  const res = await fetch(url);
+  const res = await fetch(url, { signal: AbortSignal.timeout(12000) });
   if(!res.ok) throw new Error('查詢失敗 (' + res.status + ')');
   const data = await res.json();
   if(!Array.isArray(data) || !data.length) throw new Error('無資料');
@@ -2277,7 +2277,7 @@ async function fetchWordData(word){
   const variants = {};
   const phonetics = entry.phonetics || [];
   // 全域性音標
-  const globalPhon = entry.phonetic || '';
+  const globalPhon = entry.phonetic || phonetics.find(p => p.text)?.text || '';
   phonetics.forEach(p => {
     if(!p.audio) return;
     const audioUrl = p.audio;
@@ -2297,6 +2297,7 @@ async function fetchWordData(word){
   if(!variants.us && !variants.uk && globalPhon){
     variants.us = { audio: '', phon: globalPhon };
   }
+  if(!Object.values(variants).some(v => v.phon)) throw new Error("字典沒有提供音標");
   return { zh: null, variants };
 }
 
@@ -2362,17 +2363,27 @@ function playAudio(item, rate = 0.9){
 }
 
 // 背景查詢單字資料（音檔、音標），完成後如果還在看同一題就重繪
-function fetchAndEnrich(item){
-  if(item._fetching || item._fetched) return;
+function fetchAndEnrich(item, force = false){
+  if(item._fetching || (item._fetched && !force)) return;
+  const key = 'speakup_phon_' + item.en.toLowerCase().trim();
+  const cached = safeParse(lsGet(key), null);
+  const fallback = OFFLINE_PHONETICS[item.en.toLowerCase().trim()];
+  if(!force && cached && typeof cached === 'object') item.variants = {...item.variants, ...cached};
+  if(!getVariant(item)?.phon && fallback) item.variants = {...item.variants, ...fallback};
+  const stillCurrent = () => currentItem() === item;
   item._fetching = true;
-  fetchWordData(item.en).then(data => {
-    item.variants = data.variants;
-    item._fetched = true;
+  if(stillCurrent()) renderPhonetics(getVariant(item)?.phon || null);
+  return fetchWordData(item.en).then(data => {
+    item.variants = {...item.variants, ...data.variants};
+    item._fetched = true; item._phonError = '';
+    lsSet(key, JSON.stringify(item.variants));
   }).catch(() => {
-    item._fetched = true;
+    // Allow retry and retain offline/cached transcriptions when the network fails.
+    item._fetched = false;
+    item._phonError = getVariant(item)?.phon ? '目前使用已保存的音標。' : '暫時查不到音標，請連網後重試。';
   }).finally(() => {
     item._fetching = false;
-    if(currentItem() === item) render();
+    if(stillCurrent()) renderPhonetics(getVariant(item)?.phon || null);
   });
 }
 
@@ -2463,7 +2474,14 @@ function renderPhonetics(phon){
   const visual = el('phonVisual');
   const zhuyin = el('phonZhuyin');
   const rawRow = el('phonRawRow');
-  if(!phon){ block.style.display = 'none'; visual.innerHTML = ''; if(zhuyin) zhuyin.innerHTML = ''; if(rawRow) rawRow.textContent = ''; return; }
+  const item = currentItem();
+  const status = el('phonStatus');
+  if(!phon){
+    block.style.display = 'none'; visual.textContent = ''; if(zhuyin) zhuyin.textContent = ''; if(rawRow) rawRow.textContent = '';
+    if(status) status.textContent = item && /\s/.test(item.en) ? '片語與句子可選取下方單字查看音標。' : item?._fetching ? '正在查詢音標…' : '這個字暫無音標，可按「重新查詢」再試一次。';
+    return;
+  }
+  if(status) status.textContent = item?._phonError || '音標與注音近似提示';
   block.style.display = 'block';
   const clean = phon.replace(/^\/|\/$/g,'').trim().replace(/ɹ/g, 'r').replace(/ɡ/g, 'g');
 
@@ -2489,14 +2507,14 @@ function renderPhonetics(phon){
   visual.innerHTML = syllables.map(s => {
     const cls = s.stressed ? ' stressed' : (s.secondary ? ' secondary' : '');
     const plain = ipaToPlain(s.raw) || s.raw;
-    return '<span class="syl' + cls + '">' + plain + '</span>';
+    return '<span class="syl' + cls + '">' + escapeHtml(plain) + '</span>';
   }).join('<span class="dot">-</span>');
 
   if(zhuyin){
     zhuyin.innerHTML = syllables.map(s => {
       const cls = s.stressed ? ' stressed' : (s.secondary ? ' secondary' : '');
       const zy = ipaToZhuyin(s.raw) || s.raw;
-      return '<span class="syl' + cls + '">' + zy + '</span>';
+      return '<span class="syl' + cls + '">' + escapeHtml(zy) + '</span>';
     }).join('<span class="dot">·</span>');
   }
 
@@ -2871,7 +2889,8 @@ function render(skipTargetAnim = false){
   el('recBtn').classList.remove('recording');
   el('liveTranscript').textContent = '';
 
-  renderPhonetics(getVariant(item) ? getVariant(item).phon : null);
+  if(!getVariant(item)?.phon && OFFLINE_PHONETICS[item.en.toLowerCase().trim()]) item.variants = OFFLINE_PHONETICS[item.en.toLowerCase().trim()];
+  renderPhonetics(getVariant(item)?.phon || null);
 
   // 對所有單字（不含空格的英文）自動查字典取得音標
   if(!/\s/.test(item.en) && !item._fetched && !item._fetching){
@@ -3752,6 +3771,8 @@ if(el('settingsBtn')) {
   let settingsOpen = false;
   function setSettingsOpen(open){
     settingsOpen = open;
+    document.body.classList.toggle('settings-open', open);
+    if(open && typeof setDailyVisible === 'function') setDailyVisible(false);
     const panel = el('settingsPage');
     const tripleBar = document.querySelector('.triple-bar');
 
@@ -3767,17 +3788,11 @@ if(el('settingsBtn')) {
       void panel.offsetWidth;
       panel.classList.add('anim-gentle-in');
     } else {
-      panel.classList.remove('anim-gentle-in');
-      void panel.offsetWidth;
-      panel.classList.add('anim-gentle-out');
-      panel.addEventListener('animationend', function onEnd(){
-        panel.style.display = 'none';
-        panel.classList.remove('anim-gentle-out');
-        el('mainAppContent').style.display = '';
-        if(tripleBar) tripleBar.style.display = 'flex';
-        el('searchBtn').style.display = 'inline-block';
-        panel.removeEventListener('animationend', onEnd);
-      }, { once: true });
+      panel.style.display = 'none';
+      panel.classList.remove('anim-gentle-out');
+      el('mainAppContent').style.display = '';
+      if(tripleBar) tripleBar.style.display = 'flex';
+      el('searchBtn').style.display = 'inline-block';
     }
   }
   el('settingsBtn').onclick = () => setSettingsOpen(!settingsOpen);

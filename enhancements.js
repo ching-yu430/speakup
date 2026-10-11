@@ -1,10 +1,10 @@
 /* Speak Up: clearer navigation, daily practice and editable conversation drafts. */
 (() => {
   const sections = {
-    practice: ['general', 'ai', 'news'], conversation: ['roleplay'],
+    practice: ['general', 'phonetics', 'ai', 'news'], conversation: ['roleplay'],
     review: ['random', 'weak', 'completed', 'favorites', 'weakpractice'], personal: ['progress', 'review']
   };
-  const modeIds = { general:'tabGeneral', ai:'tabAI', news:'tabNews', roleplay:'tabRoleplay', random:'tabRandom', weak:'tabWeak', completed:'tabCompleted', favorites:'tabFavorites', progress:'tabProgress', review:'tabReview' };
+  const modeIds = { general:'tabGeneral', phonetics:'tabPhonetics', ai:'tabAI', news:'tabNews', roleplay:'tabRoleplay', random:'tabRandom', weak:'tabWeak', completed:'tabCompleted', favorites:'tabFavorites', progress:'tabProgress', review:'tabReview' };
   let section = Object.keys(sections).find(key => sections[key].includes(appMode)) || 'practice';
   const originalMode = setAppMode;
   function updateNavigation() {
@@ -14,11 +14,14 @@
     });
     Object.entries(modeIds).forEach(([mode,id]) => { el(id).hidden = !sections[section].includes(mode); });
     el('modeDropdown').classList.add('section-menu');
-    el('dailyHome').hidden = section !== 'practice' && !dailySession;
+    el('dailyHome').hidden = !dailyVisible;
+    document.body.classList.toggle('practice-focus', ['general','ai','random','weakpractice','phonetics'].includes(appMode));
+    document.body.classList.toggle('ipa-screen', appMode === 'phonetics');
+    el('ipaContainer').hidden = appMode !== 'phonetics';
   }
   setAppMode = function(mode, ...args) {
     section = Object.keys(sections).find(key => sections[key].includes(mode)) || 'practice';
-    originalMode(mode, ...args);
+    if(mode === 'phonetics') { originalMode('general', ...args); appMode = 'phonetics'; el('mainCard').style.display = 'none'; el('tabGeneral').classList.remove('active'); el('tabPhonetics').classList.add('active'); } else { originalMode(mode, ...args); el('tabPhonetics').classList.remove('active'); }
     updateNavigation();
   };
   document.querySelectorAll('[data-section]').forEach(button => {
@@ -29,7 +32,8 @@
     };
   });
   el('modeTrigger').hidden = true;
-  el('continueBtn').onclick = () => { setAppMode('general'); el('mainCard').scrollIntoView({behavior:'smooth',block:'start'}); };
+  el('tabPhonetics').onclick = () => setAppMode('phonetics');
+  el('continueBtn').onclick = () => { setDailyVisible(false); setAppMode('general'); el('mainCard').scrollIntoView({behavior:'smooth',block:'start'}); };
 
   const originalRender = render;
   render = function(...args) {
@@ -47,13 +51,19 @@
       lsSet('speakup_daily_session',JSON.stringify(dailySession));
     }
     if(item) { el('itemLearningState').textContent = isItemMastered(item.en) ? '已熟練 · 持續鞏固' : '已練過 · 待鞏固'; updateCatProgress(filteredItems()); }
+    if(dailySession && dailySession.done.length >= dailySession.items.length) setDailyVisible(false);
     updateDaily();
   };
 
+  let dailyVisible = false;
+  window.setDailyVisible = function(open) { dailyVisible = open; el('dailyHome').hidden = !open; el('todayToggleBtn').setAttribute('aria-expanded', String(open)); };
+  el('todayToggleBtn').onclick = () => setDailyVisible(!dailyVisible);
+  el('closeDailyBtn').onclick = () => setDailyVisible(false);
   let dailySession = safeParse(lsGet('speakup_daily_session'),null);
   if(dailySession?.date !== localDateStr() || !Array.isArray(dailySession?.items) || !Array.isArray(dailySession?.done)) dailySession = null;
   function updateDaily() {
     const due = Object.values(practiced).filter(it => (it.dueAt || 0) <= Date.now()).length;
+    el('todayToggleBtn').textContent = dailySession ? `今日 ${dailySession.done.length}/${dailySession.items.length}` : '今日練習';
     el('dailySummary').textContent = `今天有 ${due} 題到期複習。先複習 3 題，再練 3 個新句子，最後試著對話。`;
     const panel = el('dailySession');
     panel.hidden = !dailySession;
@@ -66,12 +76,13 @@
     const next = document.createElement('button'); next.className='settings-btn settings-btn-secondary';
     next.textContent = count >= dailySession.items.length ? '進入短對話' : '繼續今日練習';
     next.onclick = () => {
-      if(count >= dailySession.items.length) { setAppMode('roleplay'); el('rpScenarioInput').value='在咖啡店點餐，進行三輪簡短英文對話'; return; }
+      if(count >= dailySession.items.length) { setDailyVisible(false); setAppMode('roleplay'); el('rpScenarioInput').value='在咖啡店點餐，進行三輪簡短英文對話'; return; }
       enterDaily();
     };
     panel.appendChild(next);
   }
   function enterDaily() {
+    setDailyVisible(false);
     randomReviewItems = dailySession.items;
     randomSessionDone = Object.fromEntries(dailySession.done.map(en => [en,true]));
     setAppMode('random'); activeCat='all'; itemIdx=Math.max(0,randomReviewItems.findIndex(it => !randomSessionDone[it.en])); render(true);

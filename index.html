@@ -10,11 +10,11 @@
 <link rel="icon" href="apple-touch-icon.jpg">
 <link rel="manifest" href="manifest.json">
 <title>開口練習 Speak Up</title>
-<link rel="stylesheet" href="style.css?v=20261011">
-<link rel="stylesheet" href="improvements.css?v=20261011">
+<link rel="stylesheet" href="style.css?v=20261011d">
+<link rel="stylesheet" href="improvements.css?v=20261011d">
 </head>
 <body>
-<script src="word_bank.js?v=20261011" charset="utf-8"></script>
+<script src="word_bank.js?v=20261011d" charset="utf-8"></script>
 
 <div class="wrap">
 
@@ -25,7 +25,7 @@
   <div class="topbar">
     <div class="brand">
       <span>🗣️ Speak Up</span>
-      <div style="display:flex; align-items:center; gap:4px;">
+      <div style="display:flex; align-items:center; gap:4px;"><button id="todayToggleBtn" class="today-toggle">今日練習</button>
         <button id="searchBtn" style="background:none; border:none; padding:4px; font-size:18px; cursor:pointer; color:var(--muted);" title="搜尋單字或片語">🔍</button>
         <button id="settingsBtn" style="background:none; border:none; padding:4px; font-size:18px; cursor:pointer; color:var(--muted);" title="設定與資料">⚙️</button>
       </div>
@@ -44,13 +44,13 @@
   </div>
 
   <nav class="primary-nav" aria-label="主要功能"><button data-section="practice" class="active">📚 練習</button><button data-section="conversation">💬 對話</button><button data-section="review">🔁 複習</button><button data-section="personal">🌱 我的</button></nav>
-<section id="dailyHome" class="daily-home"><div><span class="eyebrow">每天一點，慢慢說得更自在</span><h1>今天，開口 5 分鐘</h1><p id="dailySummary">先複習，再學新句子，最後試著聊一聊。</p></div><div class="daily-actions"><button id="startDailyBtn" class="settings-btn settings-btn-primary">開始今日練習</button><button id="continueBtn" class="settings-btn settings-btn-secondary">繼續上次</button></div><div id="dailySession" role="status" hidden></div></section>
-<div id="mainAppContent">
+<section id="dailyHome" class="daily-home" hidden role="dialog" aria-modal="true" aria-labelledby="dailyTitle"><button id="closeDailyBtn" class="sheet-close" aria-label="關閉今日練習">✕</button><div><span class="eyebrow">每天一點，慢慢說得更自在</span><h1 id="dailyTitle">今天，開口 5 分鐘</h1><p id="dailySummary">先複習，再學新句子，最後試著聊一聊。</p></div><div class="daily-actions"><button id="startDailyBtn" class="settings-btn settings-btn-primary">開始今日練習</button><button id="continueBtn" class="settings-btn settings-btn-secondary">繼續上次</button></div><div id="dailySession" role="status" hidden></div></section>
+<div id="mainAppContent"><section id="ipaContainer" class="card ipa-container" hidden></section>
 
   <div class="dropdown-panel" id="modeDropdown">
     <nav class="app-tabs">
       <button class="app-tab active" id="tabGeneral"><span class="tab-icon">📚</span><span class="tab-label">系統題庫</span></button>
-      <button class="app-tab" id="tabAI"><span class="tab-icon">✨</span><span class="tab-label">AI 情境</span></button>
+      <button class="app-tab" id="tabPhonetics"><span class="tab-icon">🔤</span><span class="tab-label">音標練習</span></button><button class="app-tab" id="tabAI"><span class="tab-icon">✨</span><span class="tab-label">AI 情境</span></button>
       <button class="app-tab" id="tabNews"><span class="tab-icon">📰</span><span class="tab-label">每日新聞</span></button>
       <button class="app-tab" id="tabRoleplay"><span class="tab-icon">💬</span><span class="tab-label">實戰對話</span></button>
       <button class="app-tab" id="tabCompleted"><span class="tab-icon">✅</span><span class="tab-label">練習紀錄</span></button>
@@ -140,23 +140,10 @@
     <div class="target" id="target">Loading...</div>
     <div class="target-zh" id="targetZh"></div><div id="itemLearningState" class="learning-state"></div>
 
-    <details class="phon-details"><summary>發音提示 · 音標與注音</summary><div class="phon-block" id="phonBlock" style="display:none;">
-      <div class="phon-cols">
-        <div class="phon-col">
-          <div class="phon-label">🔤 英文拼法</div>
-          <div class="phon-visual" id="phonVisual"></div>
-        </div>
-        <div class="phon-col">
-          <div class="phon-label">ㄅㄆ 注音近似</div>
-          <div class="phon-visual phon-zhuyin" id="phonZhuyin"></div>
-        </div>
-      </div>
-      <div class="phon-hint">大字／深色 = 重音節・注音為近似發音，部分英文特有音（如 th、v）無法完全對應，僅供輔助參考</div>
-      <div class="phon-raw-row" id="phonRawRow"></div>
-    </div></details>
+    <button id="openPhonBtn" class="phon-open-btn">音標與注音 ↗</button>
     </div>
 
-    <div style="display:inline-flex; flex-direction:column; gap:10px; margin-bottom:10px; width:100%; max-width:200px;">
+    <div class="audio-preferences" style="display:inline-flex; flex-direction:column; gap:10px; margin-bottom:10px; width:100%; max-width:200px;">
       <div class="accent-row" style="margin-bottom:0; width:100%;">
         <button class="accent-btn active" id="accentUS" type="button" style="flex:1;">🇺🇸 美式</button>
         <button class="accent-btn" id="accentUK" type="button" style="flex:1;">🇬🇧 英式</button>
@@ -233,7 +220,7 @@
 
   <div id="settingsPage" style="display:none; background:var(--paper); border-radius:16px; padding:20px 18px;">
     <h2 style="margin:0 0 10px; color:var(--sage-dark); font-size:19px;">⚙️ 設定</h2>
-    <div class="settings-intro">這裡管理題庫備份、雲端同步與提醒。找 Gemini API Key？那個要在「✨ AI 情境」視窗裡貼上，不在這一頁。</div>
+    <div class="settings-intro">這裡管理 AI 連線、自訂題庫、備份、同步與提醒。</div>
 
     <button id="openGuideBtn" class="settings-btn settings-btn-secondary" style="margin-bottom:18px;">📖 快速上手指南</button>
 
@@ -378,8 +365,24 @@
   <footer>沒有標準答案,只有講出口的你。</footer>
 </div>
 
-<script src="helpers.js?v=20261011"></script>
-<script src="app.js?v=20261011"></script>
-<script src="enhancements.js?v=20261011"></script>
+<div id="phonModal" class="practice-overlay" hidden><section class="practice-sheet" role="dialog" aria-modal="true" aria-labelledby="phonModalTitle"><div class="sheet-heading"><h2 id="phonModalTitle">發音提示</h2><button id="closePhonBtn" class="sheet-close" aria-label="關閉發音提示">✕</button></div><p id="phonStatus" role="status"></p><div class="phon-block" id="phonBlock" >
+      <div class="phon-cols">
+        <div class="phon-col">
+          <div class="phon-label">🔤 英文拼法</div>
+          <div class="phon-visual" id="phonVisual"></div>
+        </div>
+        <div class="phon-col">
+          <div class="phon-label">ㄅㄆ 注音近似</div>
+          <div class="phon-visual phon-zhuyin" id="phonZhuyin"></div>
+        </div>
+      </div>
+      <div class="phon-hint">大字／深色 = 重音節・注音為近似發音，部分英文特有音（如 th、v）無法完全對應，僅供輔助參考</div>
+      <div class="phon-raw-row" id="phonRawRow"></div>
+    </div><button id="retryPhonBtn" class="settings-btn settings-btn-secondary">重新查詢音標</button><p class="settings-hint">注音只提供近似提示；請搭配例字聲音，留意英文特有音。</p></section></div>
+<script src="phonetics-data.js?v=20261011d"></script>
+<script src="helpers.js?v=20261011d"></script>
+<script src="app.js?v=20261011d"></script>
+<script src="enhancements.js?v=20261011d"></script>
+<script src="iphone.js?v=20261011d"></script>
 </body>
 </html>
