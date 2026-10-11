@@ -2,7 +2,7 @@
 (() => {
   const sections = {
     practice: ['general', 'phonetics', 'ai', 'news'], conversation: ['roleplay'],
-    review: ['random', 'weak', 'completed', 'favorites', 'weakpractice'], personal: ['progress', 'review']
+    review: ['completed', 'random', 'weak', 'favorites', 'weakpractice'], personal: ['progress', 'review']
   };
   const modeIds = { general:'tabGeneral', phonetics:'tabPhonetics', ai:'tabAI', news:'tabNews', roleplay:'tabRoleplay', random:'tabRandom', weak:'tabWeak', completed:'tabCompleted', favorites:'tabFavorites', progress:'tabProgress', review:'tabReview' };
   let section = Object.keys(sections).find(key => sections[key].includes(appMode)) || 'practice';

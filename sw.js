@@ -1,5 +1,5 @@
-const CACHE_NAME='speakup-cache-20261012a';
-const CORE_ASSETS=['./','./index.html','./style.css?v=20261012a','./improvements.css?v=20261012a','./helpers.js?v=20261012a','./bouquet.js?v=20261012a','./flower-cards.js?v=20261012a','./app.js?v=20261012a','./enhancements.js?v=20261012a','./word_bank.js?v=20261012a','./phonetics-data.js?v=20261012a','./iphone.js?v=20261012a','./practice-polish.js?v=20261012a','./paper-grain.svg','./manifest.json','./apple-touch-icon.jpg'];
+const CACHE_NAME='speakup-cache-20261012e';
+const CORE_ASSETS=['./','./index.html','./style.css?v=20261012e','./improvements.css?v=20261012e','./helpers.js?v=20261012e','./bouquet.js?v=20261012e','./flower-cards.js?v=20261012e','./app.js?v=20261012e','./enhancements.js?v=20261012e','./word_bank.js?v=20261012e','./phonetics-data.js?v=20261012e','./iphone.js?v=20261012e','./practice-polish.js?v=20261012e','./paper-grain.svg','./manifest.json','./apple-touch-icon.jpg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE_ASSETS))));
 self.addEventListener('message',e=>{if(e.data?.type==='ACTIVATE_UPDATE')self.skipWaiting();});
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('speakup-cache-')&&k!==CACHE_NAME).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

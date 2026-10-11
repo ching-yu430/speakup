@@ -774,7 +774,7 @@ function generateRandomReview() {
   randomSessionDone = {}; // 重新抽一輪，進度條也跟著歸零重算
   const list = Object.values(practiced);
   if (list.length === 0) {
-    randomReviewItems = [{en: 'Practice more', zh: '請先在其他模式練習', cat: '提示'}];
+    randomReviewItems = [];
     return;
   }
   const now = Date.now();
@@ -979,6 +979,7 @@ if(el('tabWeak')) el('tabWeak').onclick = () => setAppMode('weak');
 if(el('tabProgress')) el('tabProgress').onclick = () => setAppMode('progress');
 el('tabRandom').onclick = () => {
   generateRandomReview();
+  if(!randomReviewItems.length){ setAppMode('completed'); return; }
   setAppMode('random');
   activeCat = 'all';
   itemIdx = 0;
@@ -1058,7 +1059,7 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
     window.currentNewsItems = translatedItems;
     
   } catch (e) {
-    listEl.innerHTML = '<div class="anim-gentle-in" style="text-align:center; padding: 20px; color:#8a4a26;">⚠️ ' + escapeHtml(e.message) + '</div>';
+    listEl.innerHTML = '<div class="anim-gentle-in" style="text-align:center; padding: 20px; color:var(--warn-text);">⚠️ ' + escapeHtml(e.message) + '</div>';
     console.error(e);
   }
 }
@@ -2260,9 +2261,14 @@ function render(skipTargetAnim = false){
   
   const items = filteredItems();
   const item = items[itemIdx];
-  if(!item){ 
-    el('target').textContent = '找不到題庫資料，請確認是否已上傳 word_bank.js！'; 
-    el('targetZh').textContent=''; el('targetCat').textContent=''; el('counter').textContent=''; renderPhonetics(null); return; 
+  el('mainCard').classList.toggle('practice-empty',!item);
+  if(!item){
+    el('target').textContent = appMode==='ai' ? '還沒有 AI 情境' : '目前沒有可練習的題目';
+    el('target').classList.remove('blind','revealed');
+    el('targetZh').textContent=appMode==='ai' ? '點上方「＋ 新情境」建立你的第一組練習。' : '請切換分類，或到系統題庫開始練習。';
+    el('targetCat').textContent=''; el('counter').textContent='';
+    el('result').classList.remove('show'); el('liveTranscript').textContent='';
+    renderPhonetics(null); return;
   }
   
   el('target').innerHTML = '';
@@ -3214,8 +3220,8 @@ if(el('blindToggleBtn')) {
     isBlindMode = !isBlindMode;
     el('blindToggleBtn').textContent = isBlindMode ? '👁️ 盲測: 開' : '👁️ 盲測: 關';
     if(isBlindMode) {
-      el('blindToggleBtn').style.background = 'var(--sage)';
-      el('blindToggleBtn').style.color = '#fff';
+      el('blindToggleBtn').style.background = 'var(--action)';
+      el('blindToggleBtn').style.color = 'var(--on-action)';
       el('blindToggleBtn').style.borderColor = 'var(--sage)';
       el('target').classList.add('blind');
       el('target').classList.remove('revealed');
@@ -3813,8 +3819,8 @@ function updateReminderUI(){
   if(timeInput) timeInput.value = reminderTime();
   if(btn){
     btn.textContent = enabled ? '🔔 提醒: 開' : '🔕 提醒: 關';
-    btn.style.background = enabled ? 'var(--sage)' : 'var(--card)';
-    btn.style.color = enabled ? '#fff' : 'var(--muted)';
+    btn.style.background = enabled ? 'var(--action)' : 'var(--card)';
+    btn.style.color = enabled ? 'var(--on-action)' : 'var(--muted)';
     btn.style.borderColor = enabled ? 'var(--sage)' : 'var(--line)';
   }
   const status = el('reminderStatus');

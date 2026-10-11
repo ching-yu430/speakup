@@ -9,7 +9,7 @@
     el('inlinePhonRetry').hidden=!!phon || !!phrase || !!item?._fetching;
     node.classList.toggle('phon-unavailable',!phon);
     // Hidden prompts must not be revealed through their phonetic transcription.
-    node.hidden=typeof isBlindMode!=='undefined' && isBlindMode && !el('target').classList.contains('revealed');
+    node.hidden=!item || typeof isBlindMode!=='undefined' && isBlindMode && !el('target').classList.contains('revealed');
     el('targetCat').hidden=appMode==='ai';
     el('catTrigger').title=el('catTriggerText').textContent;
   }
