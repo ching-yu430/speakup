@@ -4,29 +4,35 @@
   function setPhonOpen(open) {
     const modal=el('phonModal');modal.hidden=!open;
     if(open){previousFocus=document.activeElement;el('closePhonBtn').focus();}
-    else previousFocus?.focus?.();
+    else {phonPanelWord='';previousFocus?.focus?.();}
   }
   const tokens=document.createElement('div');tokens.className='phon-word-picker';tokens.id='phonWordPicker';
   el('phonStatus').after(tokens);
   let selectedPhonWord='';
+  let phonRequestSequence=0;
   function showWordPhonetics(word,force=false) {
-    word=normalizePhonWord(word);selectedPhonWord=word;
+    word=normalizePhonWord(word);selectedPhonWord=word;phonPanelWord=word;
+    const request=++phonRequestSequence;
     const item=STAGES.flatMap(stage=>stage.items).find(item=>item.en.toLowerCase()===word.toLowerCase()) || {en:word};
     const key='speakup_phon_'+word.toLowerCase();
     const cached=safeParse(lsGet(key),null);
     const fallback=OFFLINE_PHONETICS[word.toLowerCase()];
-    const phon=(cached?.[accentPref]||cached?.us||fallback?.[accentPref]||fallback?.us||getVariant(item))?.phon;
+    if(cached)item.variants={...item.variants,...cached};
+    if(!getVariant(item)?.phon&&fallback)item.variants={...item.variants,...fallback};
+    const phon=getVariant(item)?.phon;
     el('phonModalTitle').textContent=word+' · 音標與注音';
-    renderPhonetics(phon||null);
+    renderPhonetics(phon||null,word);
+    el('retryPhonBtn').disabled=false;
     if(phon&&!force)return;
     el('phonStatus').textContent='正在查詢 '+word+' 的音標…';
     el('retryPhonBtn').disabled=true;
     fetchWordData(word).then(data=>{
       lsSet(key,JSON.stringify(data.variants));item.variants={...item.variants,...data.variants};
-      if(selectedPhonWord===word){renderPhonetics(getVariant(item)?.phon||null);el('phonStatus').textContent='音標與注音近似提示';}
+      item._phonError='';
+      if(request===phonRequestSequence){renderPhonetics(getVariant(item)?.phon||null,word);el('phonStatus').textContent='音標與注音近似提示';}
     }).catch(err=>{
-      if(selectedPhonWord===word)el('phonStatus').textContent=phon?'線上查詢失敗，仍顯示已保存的音標。':err.message || '暫時查不到音標，請重試。';
-    }).finally(()=>{if(selectedPhonWord===word)el('retryPhonBtn').disabled=false;});
+      if(request===phonRequestSequence)el('phonStatus').textContent=phon?'線上查詢失敗，仍顯示已保存的音標。':err.message || '暫時查不到音標，請重試。';
+    }).finally(()=>{if(request===phonRequestSequence)el('retryPhonBtn').disabled=false;});
   }
   el('openPhonBtn').onclick=()=>{
     const item=currentItem();if(!item)return;

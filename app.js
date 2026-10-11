@@ -356,7 +356,7 @@ function celebrateMilestone(count){
     overlay.appendChild(p);
   }
   const banner = document.createElement('div');
-  banner.textContent = `🎉 已掌握 ${count} 詞！`;
+  banner.textContent = `🎉 已練習 ${count} 題！`;
   banner.style.cssText = 'position:absolute; top:32%; left:50%; background:var(--sage); color:#fff; padding:12px 22px; border-radius:999px; font-weight:800; font-size:16px; box-shadow:0 8px 24px rgba(0,0,0,0.25); animation:milestonePop 2.6s ease forwards; white-space:nowrap;';
   overlay.appendChild(banner);
   document.body.appendChild(overlay);
@@ -513,11 +513,11 @@ function drawVaseIllustration(ctx, cx, baseY, flowerTypes, globalIdxOffset = 0){
 
   // 花朵:三層扇形排列,常數、抖動、旋轉、疊層順序都跟主畫面完全一致
   const PER_LAYER = 5;
-  const SLOT_GAP = 9;
-  const LAYER_X_OFFSET = [0, 0, 0]; // 移除寫死的偏移，讓花朵根據真實數量自然置中對齊
-  const LAYER_STEM = [6, 18, 30], LAYER_STEM_JITTER = 2; // 將第二、第三層的高度拉高，避免無莖花朵被遮擋太多
-  const LAYER_ARC = 15;
-  const LAYER_SIZE = [21, 19, 17], LAYER_SIZE_JITTER = 2;
+  const SLOT_GAP = 12;
+  const LAYER_X_OFFSET = [0, -3, 2];
+  const LAYER_STEM = [6, 19, 32], LAYER_STEM_JITTER = 2;
+  const LAYER_ARC = 13;
+  const LAYER_SIZE = [24, 22, 20], LAYER_SIZE_JITTER = 2;
 
   const flowerDraws = flowerTypes.map((fType, i) => {
     const globalIdx = globalIdxOffset + i;
@@ -678,7 +678,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     ctx.fillStyle = '#9a9488';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`🌱 再練 ${toNextFlower} 詞就會開出第一朵花`, W / 2, cardY + 308);
+    ctx.fillText(`🌱 再練 ${toNextFlower} 題就會開出第一朵花`, W / 2, cardY + 308);
   }
 
   // 統計卡(三個並排的圓角小卡)——文字比原本放大約1.35倍,方框也一起等比調整避免裁切
@@ -686,7 +686,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
   const totalW = pillW * 3 + gap * 2;
   const startX = W / 2 - totalW / 2;
   const pillY = cardY + 520;
-  drawStatPill(ctx, startX, pillY, pillW, pillH, '🌷', '已掌握', `${wordCount} 詞`, '#5aa06a');
+  drawStatPill(ctx, startX, pillY, pillW, pillH, '🌷', '已練習', `${wordCount} 題`, '#5aa06a');
   drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '🏅', '等級', levelLabel, levelColor || '#c98a4b');
   drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '🔥', '連續天數', renderStreak > 0 ? `${renderStreak} 天` : '今天開始', '#e0703f');
 
@@ -721,7 +721,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     ctx.fillStyle = '#9a9488';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`距離下一階「${nextLvl.label}」還需 ${nextLvl.min - wordCount} 詞`, W / 2, barY - 12);
+    ctx.fillText(`距離下一階「${nextLvl.label}」還需 ${nextLvl.min - wordCount} 題`, W / 2, barY - 12);
     
     ctx.save();
     canvasRoundRect(ctx, barX, barY, barW, barH, barH / 2);
@@ -754,7 +754,7 @@ async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, r
     const file = new File([blob], 'speakup-garden.png', { type: 'image/png' });
     if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
       try {
-        await navigator.share({ files: [file], title: '我的語感花室', text: `已掌握 ${wordCount} 詞！` });
+        await navigator.share({ files: [file], title: '我的語感花室', text: `已練習 ${wordCount} 題！` });
         return;
       } catch(e) { /* 使用者取消分享,不需額外處理 */ }
     }
@@ -894,7 +894,7 @@ async function shareWeeklyCard(){
   const row1W = pillW * 3 + gap * 2;
   const startX1 = W / 2 - row1W / 2;
   const pillY1 = cardY + 450; // 下移，增加與上方長條圖的距離
-  drawStatPill(ctx, startX1, pillY1, pillW, pillH, '🌱', '本週新學', `${stats.newWordsThisWeek} 詞`, '#5aa06a');
+  drawStatPill(ctx, startX1, pillY1, pillW, pillH, '🌱', '本週新練', `${stats.newWordsThisWeek} 題`, '#5aa06a');
   drawStatPill(ctx, startX1 + (pillW + gap), pillY1, pillW, pillH, '🎙️', '複習次數', `${stats.practiceCount} 次`, '#4a90c2');
   drawStatPill(ctx, startX1 + (pillW + gap) * 2, pillY1, pillW, pillH, '🎯', '平均正確率', stats.avgScore !== null ? `${stats.avgScore}%` : '無', '#e0703f');
 
@@ -922,7 +922,7 @@ async function shareWeeklyCard(){
   ctx.fillStyle = '#8a8f86';
   const encourage = stats.practiceCount === 0
     ? '這週還沒開始練習,現在動手正是時候！'
-    : (stats.newWordsThisWeek > 0 ? `這週又多會了 ${stats.newWordsThisWeek} 個詞,保持下去！` : '持續複習也是進步,繼續加油！');
+    : (stats.newWordsThisWeek > 0 ? `這週又多練了 ${stats.newWordsThisWeek} 道題目,保持下去！` : '持續複習也是進步,繼續加油！');
   ctx.fillText(encourage, W / 2, pillY2 + pillH + 56);
 
   ctx.font = '13px Inter, sans-serif';
@@ -935,7 +935,7 @@ async function shareWeeklyCard(){
     const file = new File([blob], 'speakup-weekly.png', { type: 'image/png' });
     if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
       try {
-        await navigator.share({ files: [file], title: '本週學習週報', text: `這週新學了 ${stats.newWordsThisWeek} 個詞！` });
+        await navigator.share({ files: [file], title: '本週學習週報', text: `這週新練了 ${stats.newWordsThisWeek} 道題目！` });
         return;
       } catch(e) { /* 使用者取消分享,不需額外處理 */ }
     }
@@ -1761,7 +1761,7 @@ function renderWeak(){
 
 // 點一個弱點單字之後,開一輪「弱點單字連續練習」:
 // 上一題/下一題會在同一份弱點清單裡移動,練完一題不用回弱點單字本重新選下一個。
-function startWeakPractice(en, orderedList){
+function startWeakPractice(en, orderedList, kind='weak'){
   if(!orderedList || orderedList.length === 0) return;
 
   // orderedList 裡的每一筆只是 practiced 記錄(en/zh/cat 等統計欄位),
@@ -1777,6 +1777,7 @@ function startWeakPractice(en, orderedList){
     if(found) resolved.push(found);
   });
   if(resolved.length === 0) return;
+  reviewSessionKind=kind;
 
   const targetIdx = resolved.findIndex(x => x.en === en);
 
@@ -1800,10 +1801,6 @@ function startWeakPractice(en, orderedList){
 function renderReview(){
   const container = el('reviewContainer');
   const list = Object.values(practiced);
-  if(list.length === 0){
-    container.innerHTML = '<div class="review-empty">還沒有練習紀錄。<br>回「系統題庫」開口練習,講過的題目會自動出現在這裡。</div>';
-    return;
-  }
 
   const groups = {};
   list.forEach(it => {
@@ -1849,17 +1846,15 @@ function renderReview(){
     let flowersHtml = '';
     const n = flowersInThisVase;
 
-    // 扇形三層排列:由靠近花瓶開始算第一層,每層最多5朵花。
-    // 同一層內用「固定水平間距的格子」排花,保證同層絕對不會疊在一起;
-    // 層與層之間再用高度(莖長)差 + 左右錯位,做出交錯又不重疊的層次感。
-    // 莖長整體壓低,即使三層都滿(15朵)也確保不會超出容器範圍,且花會更靠近瓶口的葉子。
+    // 花束以瓶口為中心：花瓣相互重疊，後排稍高且錯位，前排遮住後排的根部。
+    // 保持矮而飽滿的輪廓，讓最下排與瓶口葉叢接合，而非分散成三排花朵。
     const PER_LAYER = 5;
-    const SLOT_GAP = 9;                    // 張開用 slotX 計算：5朵的總寬度 = 4×9 = 36px，最外側共±18px
-    const LAYER_X_OFFSET = [0, 0, 0];    // 移除寫死的偏移，讓花朵根據真實數量自然置中對齊
-    const LAYER_STEM = [6, 18, 30];
+    const SLOT_GAP = 12;
+    const LAYER_X_OFFSET = [0, -3, 2];
+    const LAYER_STEM = [6, 19, 32];
     const LAYER_STEM_JITTER = 2;
-    const LAYER_ARC = 15;                  // 微縮弧幅，不讓中間花跟外側花建差太大
-    const LAYER_SIZE = [21, 19, 17];
+    const LAYER_ARC = 13;
+    const LAYER_SIZE = [24, 22, 20];
     const LAYER_SIZE_JITTER = 2;
 
     for (let i = 0; i < flowersInThisVase; i++) {
@@ -1897,7 +1892,7 @@ function renderReview(){
         : `animation:popIn 0.4s both; animation-delay:${delay}s;`;
       
       // 將動畫與座標定位分離，解決 iOS Safari 的 CSS 變數動畫 bug
-      flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; transform-origin:50% 100%; transform:translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) rotate(${flowerRot.toFixed(1)}deg); z-index:${zIdx};" title="${isRareFlower ? '連續練習7天以上的獎勵花!' : ''}"><div style="${animStyle}; transform-origin:50% 100%;">${fType}</div></div>`;
+      flowersHtml += `<div style="position:absolute; bottom:${NECK_TOP_Y}px; left:50%; margin-left:${-(size / 2)}px; font-size:${size.toFixed(0)}px; line-height:1; transform-origin:50% 100%; transform:translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) rotate(${flowerRot.toFixed(1)}deg); z-index:${zIdx};" title="${isRareFlower ? '連續練習 7 天以上的獎勵花' : ''}"><div style="${animStyle}; transform-origin:50% 100%;">${fType}</div></div>`;
     }
 
     // 瓶口貼一圈葉子:彼此左右緊靠、部分重疊,牢牢貼在瓶口位置,像是花插進葉叢裡的底座。
@@ -1935,7 +1930,7 @@ function renderReview(){
 
     vasesHtml += `
       <div class="vase-slide" style="flex:0 0 100%; scroll-snap-align:center; position:relative; width:100%; height:240px; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; padding-bottom:8px; gap:8px;">
-        <div style="position:relative; width:100%; height:165px; transform:scale(1.3); transform-origin:bottom center;">
+        <div style="position:relative; width:100%; height:190px;">
           ${flowersHtml}
           ${leavesHtml}
           <svg class="anim-fade-in" viewBox="0 0 60 100" width="58" height="${VASE_H}" style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); z-index:1; overflow:visible;">
@@ -1951,8 +1946,8 @@ function renderReview(){
             <ellipse cx="30" cy="2" rx="6.2" ry="1.7" fill="#efece3" stroke="#ddd7c9" stroke-width="0.6"/>
           </svg>
         </div>
-        ${flowersInThisVase > 0 ? `<div style="background:rgba(255,255,255,0.85); border:1px solid var(--line); border-radius:999px; padding:3px 12px; font-size:11px; font-weight:700; color:var(--sage-dark); box-shadow:0 1px 4px rgba(0,0,0,0.06); z-index:5;">第${v + 1}瓶${vaseDateLabel ? ' · ' + vaseDateLabel : ''}</div>` : ''}
-        ${flowersInThisVase === 0 ? `<div style="font-size:13px; color:var(--muted); position:absolute; top:40px; width:100%; text-align:center; z-index:2;">🌱 再練 ${5 - (list.length % 5)} 詞<br>會開出第一朵花</div>` : ''}
+        ${flowersInThisVase > 0 ? `<div class="vase-date" style="background:rgba(255,255,255,0.85); border:1px solid var(--line); border-radius:999px; padding:3px 12px; font-size:11px; font-weight:700; color:var(--sage-dark); box-shadow:0 1px 4px rgba(0,0,0,0.06); z-index:5;">第${v + 1}瓶${vaseDateLabel ? ' · ' + vaseDateLabel : ''}</div>` : ''}
+        ${flowersInThisVase === 0 ? `<div style="font-size:13px; color:var(--muted); position:absolute; top:40px; width:100%; text-align:center; z-index:2;">🌱 再練 ${5 - (list.length % 5)} 題<br>會開出第一朵花</div>` : ''}
       </div>
     `;
   }
@@ -2017,81 +2012,39 @@ function renderReview(){
   const remainder = list.length % 5;
   const toNextFlower = remainder === 0 ? 5 : (5 - remainder);
 
-  const statCard = (icon, label, value, color) =>
-    `<div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; text-align:left;">
-      <div style="font-size:10px; color:var(--muted); margin-bottom:2px;">${icon} ${label}</div>
-      <div style="font-size:15px; font-weight:700; color:${color || 'var(--sage-dark)'};">${value}</div>
-    </div>`;
-
   const levelModalRows = levelDefs.map((l, i) => {
     const isCurrent = list.length >= l.min && list.length <= l.max;
     return `<tr style="background:${isCurrent ? 'rgba(123,174,127,0.12)' : 'transparent'}; font-weight:${isCurrent ? '700' : '400'}">
       <td style="padding:5px 8px; font-size:13px;">${l.label}</td>
-      <td style="padding:5px 8px; font-size:12px; color:var(--muted); text-align:right;">${l.max === Infinity ? `${l.min}+` : `${l.min}–${l.max}`} 詞</td>
+      <td style="padding:5px 8px; font-size:12px; color:var(--muted); text-align:right;">${l.max === Infinity ? `${l.min}+` : `${l.min}–${l.max}`} 題</td>
       ${isCurrent ? `<td style="padding:5px 4px; font-size:11px; color:#7BAE7F;">← 你在這</td>` : '<td></td>'}
     </tr>`;
   }).join('');
 
-  const levelCardHtml = `
-    <div id="levelStatCard" onclick="openLevelModal()" style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; text-align:left; cursor:pointer; user-select:none;">
-      <div style="font-size:11px; color:var(--muted); margin-bottom:2px; white-space:nowrap;">🏅 等級 <span style="font-size:9px; opacity:0.6;">（點選檢視）</span></div>
-      <div style="font-size:16px; font-weight:700; color:${level.color};">${level.label}</div>
-      ${nextLevel ? `<div style="font-size:10px; color:var(--muted); margin-top:1px;">下一階：${nextLevel.label}</div>` : `<div style="font-size:10px; color:#c0a000; margin-top:1px;">已達最高階！</div>`}
-    </div>
-    <div id="levelModal" onclick="if(event.target===this)closeLevelModal()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:9999; align-items:center; justify-content:center; padding:20px;">
-      <div id="levelModalBox" style="background:var(--card); border-radius:16px; padding:20px; max-width:320px; width:100%; max-height:80vh; overflow-y:auto; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-          <div style="font-size:15px; font-weight:700; color:var(--sage-dark);">🌸 等級表</div>
-          <button onclick="closeLevelModal()" style="border:none; background:none; font-size:20px; color:var(--muted); cursor:pointer; line-height:1;">×</button>
-        </div>
-        <table style="width:100%; border-collapse:collapse;">
-          ${levelModalRows}
-        </table>
-        <div style="margin-top:12px; font-size:11px; color:var(--muted); text-align:center;">目前已掌握 ${list.length} 詞</div>
-      </div>
-    </div>`;
-
+  const masteredCount=list.filter(it=>isItemMastered(it.en)).length;
+  const dueCount=list.filter(it=>!(typeof it.dueAt==='number')||it.dueAt<=Date.now()).length;
+  const latestVaseIdx=totalVases-1;
+  const progressToFlower=remainder*20;
   let gardenHtml = `
-  <style>.vase-carousel::-webkit-scrollbar { display: none; }</style>
-  <div style="background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
-    <div style="font-size:18px; color:var(--sage-dark); font-weight:800; text-align:left; letter-spacing:0.5px; padding-left:4px; margin-bottom:12px;">
-      💐 語感花室
+  <section class="garden-page" aria-labelledby="gardenTitle">
+    <div class="garden-heading"><div><h2 id="gardenTitle">💐 語感花室</h2><p>把每次開口，累積成一朵花。</p></div><button id="gardenRulesBtn" class="garden-text-btn">等級與規則</button></div>
+    <div class="garden-stage" style="background:${gardenBg}">
+      <span class="garden-streak">${renderStreak ? '🔥 連續 '+renderStreak+' 天' : '🌱 今天也來澆水吧'}</span>
+      <div id="vaseCarousel" class="vase-carousel" aria-label="花瓶收藏" tabindex="0">${vasesHtml}</div>
+      <div class="garden-vase-nav"><button id="vasePrevBtn" class="garden-arrow" aria-label="上一瓶" ${totalVases===1?'disabled':''}>‹</button><span id="vaseCounter" aria-live="polite">第 ${totalVases} 瓶／共 ${totalVases} 瓶</span><button id="vaseNextBtn" class="garden-arrow" aria-label="下一瓶" disabled>›</button></div>
+      <p class="garden-swipe-hint">${totalVases>1?'左右滑動或按箭頭，查看收藏':'每練習 5 道不同題目，開出一朵花'}</p>
     </div>
-    <div style="display:flex; gap:12px; align-items:stretch;">
-      <!-- 左欄：花瓶漸層背景 -->
-      <div style="flex:1; min-width:0; position:relative; display:flex; flex-direction:column; justify-content:center; align-items:center; background:${gardenBg}; border-radius:12px; padding:24px 4px 10px; border:1px solid var(--line); transition: background 0.5s ease;">
-        <div style="position:absolute; top:8px; right:10px; font-size:12px; font-weight:700; color:${gardenColor};" class="${renderStreak > 0 ? 'anim-flame' : ''}">${streakText}</div>
-        <div style="position:relative; display:flex; align-items:center; width:100%;">
-          <button id="vasePrevBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8249;</button>
-          <div id="vaseCarousel" class="vase-carousel" style="flex:1; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:0; scrollbar-width:none; scroll-behavior:smooth;">
-            ${vasesHtml}
-          </div>
-          <button id="vaseNextBtn" style="flex-shrink:0; width:24px; height:24px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:${totalVases > 1 ? 'var(--sage-dark)' : 'var(--line)'}; font-size:14px; cursor:${totalVases > 1 ? 'pointer' : 'default'}; display:flex; align-items:center; justify-content:center;" ${totalVases <= 1 ? 'disabled' : ''}>&#8250;</button>
-        </div>
-        ${totalVases > 1 ? `<div style="font-size:10px; color:var(--sage); margin-top:8px;">共 ${totalVases} 瓶，滑動檢視</div>` : ''}
-      </div>
-      <!-- 右欄：統計 (4個卡片) -->
-      <div style="width:115px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
-        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px;">
-          <div style="font-size:11px; color:var(--muted); margin-bottom:2px;">🌷 已掌握</div>
-          <div style="font-size:22px; font-weight:700; color:var(--sage-dark); line-height:1.1;">${list.length} <span style="font-size:14px; font-weight:500;">詞</span></div>
-        </div>
-        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px;">
-          <div style="font-size:11px; color:var(--muted); margin-bottom:2px;">🌱 下一朵花</div>
-          <div style="font-size:15px; font-weight:700; color:#7BAE7F; line-height:1.2;">還需 ${toNextFlower} 詞</div>
-        </div>
-        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:8px 10px;">
-          <div style="font-size:11px; color:var(--muted); margin-bottom:2px;">✏️ 今日練習</div>
-          <div style="font-size:15px; font-weight:700; color:#e8a24b; line-height:1.2;">${todayCount > 0 ? `+${todayCount} 題` : '尚未開始'}</div>
-        </div>
-        ${levelCardHtml}
-      </div>
+    <div class="garden-stats">
+      <div class="garden-stat"><span>已練習題數</span><strong>${list.length}<small> 題</small></strong></div>
+      <div class="garden-stat"><span>已熟練題數</span><strong>${masteredCount}<small> 題</small></strong></div>
+      <div class="garden-stat"><span>花朵收藏</span><strong>${totalFlowers}<small> 朵</small></strong></div>
+      <button class="garden-stat garden-level" id="levelStatCard"><span>目前等級 · 點選查看</span><strong>${level.label}</strong></button>
     </div>
-    <div style="display:flex; gap:8px; margin-top:12px;">
-      <button id="shareGardenBtn" style="flex:1; padding:10px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--sage-dark); font-weight:700; font-size:13px; cursor:pointer;">📤 分享花園小卡</button>
-      <button id="shareWeeklyBtn" style="flex:1; padding:10px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--sage-dark); font-weight:700; font-size:13px; cursor:pointer;">📅 分享本週週報</button>
-    </div>
-  </div>`;
+    <div class="garden-growth"><div><span>下一朵花</span><strong>還差 ${toNextFlower} 題</strong></div><progress value="${progressToFlower}" max="100" aria-label="下一朵花進度"></progress><small>${remainder}／5 題 · 練習新的題目可累積花朵</small></div>
+    <div class="garden-practice"><div><strong>繼續培養</strong><span>今日 ${todayCount} 題 · 到期 ${dueCount} 題</span></div><div class="garden-practice-actions"><button id="gardenDailyBtn">今日練習</button><button id="gardenDueBtn" ${dueCount?'':'disabled'}>到期複習${dueCount?' ('+dueCount+')':''}</button></div></div>
+    <details class="garden-share"><summary>分享成果 ▾</summary><div><button id="shareGardenBtn">花園小卡</button><button id="shareWeeklyBtn">本週週報</button></div><small>選擇花園小卡或週報，分享或下載圖片。</small></details>
+    <div id="gardenRules" class="practice-overlay" hidden><section class="practice-sheet" role="dialog" aria-modal="true" aria-labelledby="gardenRulesTitle"><div class="sheet-heading"><h2 id="gardenRulesTitle">等級與獎勵規則</h2><button id="gardenRulesClose" class="sheet-close" aria-label="關閉花室規則">✕</button></div><p>每練習 5 道不同題目累積 1 朵花，每 15 朵收進一瓶。重複跟讀可鞏固題目，不會重複增加花朵。</p><p>已熟練：辨識文字一致度達 85%，且連續兩次達標。花朵與等級依已練習題數累積，原有收藏保留。</p><p>練習當下連續開口達 7 天的題目，可帶來獎勵花。</p><table class="garden-level-table"><tbody>${levelModalRows}</tbody></table></section></div>
+  </section>`;
 
   let html = gardenHtml;
   container.innerHTML = html;
@@ -2101,16 +2054,26 @@ function renderReview(){
     shareWeeklyBtn.onclick = () => shareWeeklyCard();
   }
 
-  const shareGardenBtn = container.querySelector('#shareGardenBtn');
-  if(shareGardenBtn){
-    const latestVaseIdx = totalVases - 1;
-    const flowersInLatestVase = Math.max(0, Math.min(totalFlowers - latestVaseIdx * VASE_CAPACITY, VASE_CAPACITY));
-    const shareFlowerTypes = [];
-    for(let i = 0; i < flowersInLatestVase; i++){
-      shareFlowerTypes.push(getFlowerType(latestVaseIdx * VASE_CAPACITY + i));
-    }
-    shareGardenBtn.onclick = () => shareGardenCard(shareFlowerTypes, list.length, level.label, level.color, renderStreak, toNextFlower, latestVaseIdx * VASE_CAPACITY);
-  }
+  let activeSlide=0;
+  const shareGardenBtn=container.querySelector('#shareGardenBtn');
+  if(shareGardenBtn)shareGardenBtn.onclick=()=>{
+    const selectedVase=totalVases-1-activeSlide;
+    const count=Math.max(0,Math.min(totalFlowers-selectedVase*VASE_CAPACITY,VASE_CAPACITY));
+    const flowerTypes=Array.from({length:count},(_,i)=>getFlowerType(selectedVase*VASE_CAPACITY+i));
+    shareGardenCard(flowerTypes,list.length,level.label,level.color,renderStreak,toNextFlower,selectedVase*VASE_CAPACITY);
+  };
+  const rules=container.querySelector('#gardenRules');
+  const rulesOpen=container.querySelector('#gardenRulesBtn'),rulesClose=container.querySelector('#gardenRulesClose');
+  const openRules=()=>{rules.hidden=false;rulesClose.focus();};
+  rulesOpen.onclick=openRules;container.querySelector('#levelStatCard').onclick=openRules;
+  rulesClose.onclick=()=>{rules.hidden=true;rulesOpen.focus();};
+  rules.onclick=e=>{if(e.target===rules)rulesClose.click();};
+  rules.onkeydown=e=>{if(e.key==='Escape')rulesClose.click();};
+  container.querySelector('#gardenDailyBtn').onclick=()=>el('startDailyBtn').click();
+  container.querySelector('#gardenDueBtn').onclick=()=>{
+    const due=list.filter(it=>!(typeof it.dueAt==='number')||it.dueAt<=Date.now()).sort((a,b)=>(a.dueAt||0)-(b.dueAt||0));
+    if(due.length)startWeakPractice(due[0].en,due,'due');
+  };
 
   const vaseCarousel = container.querySelector('#vaseCarousel');
   const vasePrevBtn = container.querySelector('#vasePrevBtn');
@@ -2121,8 +2084,17 @@ function renderReview(){
       const step = slide ? slide.getBoundingClientRect().width : vaseCarousel.clientWidth;
       vaseCarousel.scrollBy({ left: dir * step, behavior: 'smooth' });
     };
+    const syncVase=()=>{
+      const width=vaseCarousel.clientWidth||1;
+      activeSlide=Math.max(0,Math.min(totalVases-1,Math.round(vaseCarousel.scrollLeft/width)));
+      container.querySelector('#vaseCounter').textContent=`第 ${totalVases-activeSlide} 瓶／共 ${totalVases} 瓶`;
+      vasePrevBtn.disabled=activeSlide===0;vaseNextBtn.disabled=activeSlide===totalVases-1;
+    };
     vasePrevBtn.onclick = () => scrollByOneVase(-1);
     vaseNextBtn.onclick = () => scrollByOneVase(1);
+    vaseCarousel.addEventListener('scroll',syncVase,{passive:true});
+    vaseCarousel.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();scrollByOneVase(e.key==='ArrowLeft'?-1:1);}});
+    syncVase();
   }
 }
 
@@ -2271,10 +2243,9 @@ function normalizePhonWord(word){
 const ipaDictionaryLoads={};
 async function loadLocalIPADictionary(accent){
   if(!ipaDictionaryLoads[accent]) ipaDictionaryLoads[accent]=(async()=>{
-    const res=await fetch('ipa-data/en_'+(accent==='uk'?'UK':'US')+'.txt',{signal:AbortSignal.timeout(10000)});
-    if(!res.ok) throw new Error('本機音標字庫未載入');
+    if(typeof BUNDLED_IPA_TEXT==='undefined' || !BUNDLED_IPA_TEXT[accent]) throw new Error('音標字庫未載入，請更新網頁或重新查詢。');
     const map=new Map();
-    for(const line of (await res.text()).split(/\r?\n/)){
+    for(const line of BUNDLED_IPA_TEXT[accent].split(/\r?\n/)){
       const tab=line.indexOf('\t');if(tab<1)continue;
       const word=line.slice(0,tab).toLowerCase(),phon=line.slice(tab+1).trim();
       if(phon)map.set(word,phon.split(', ')[0]);
@@ -2314,7 +2285,7 @@ async function fetchWordData(word){
       missing=true;
     }catch(err){networkError=err;}
   }
-  if(networkError)throw new Error('網路或字典服務暫時無法連線，請重試。');
+  if(networkError)throw new Error(local.some(r=>r.status==='rejected')?'音標字庫未載入，線上查詢也無法連線。請更新網頁後重試。':'網路或字典服務暫時無法連線，請重試。');
   throw new Error(missing?'字庫未收錄此拼字的音標；請確認拼字或選擇其他單字。':'音標字庫載入失敗，請重新整理後重試。');
 }
 
@@ -2380,8 +2351,9 @@ function playAudio(item, rate = 0.9){
 }
 
 // 背景查詢單字資料（音檔、音標），完成後如果還在看同一題就重繪
+const phonRequestsPending=new WeakSet();
 function fetchAndEnrich(item, force = false){
-  if(item._fetching || (item._fetched && getVariant(item)?.phon && !force)) return;
+  if(phonRequestsPending.has(item) || (item._fetched && getVariant(item)?.phon && !force)) return;
   const key = 'speakup_phon_' + normalizePhonWord(item.en);
   const cached = safeParse(lsGet(key), null);
   const fallback = OFFLINE_PHONETICS[normalizePhonWord(item.en)];
@@ -2389,6 +2361,7 @@ function fetchAndEnrich(item, force = false){
   if(!getVariant(item)?.phon && fallback) item.variants = {...item.variants, ...fallback};
   const stillCurrent = () => currentItem() === item;
   item._fetching = true;
+  phonRequestsPending.add(item);
   if(stillCurrent()) renderPhonetics(getVariant(item)?.phon || null);
   return fetchWordData(item.en).then(data => {
     item.variants = {...item.variants, ...data.variants};
@@ -2400,6 +2373,7 @@ function fetchAndEnrich(item, force = false){
     item._phonError = getVariant(item)?.phon ? '目前使用已保存的音標。' : err.message || '暫時查不到音標，請重試。';
   }).finally(() => {
     item._fetching = false;
+    phonRequestsPending.delete(item);
     if(stillCurrent()) renderPhonetics(getVariant(item)?.phon || null);
   });
 }
@@ -2486,7 +2460,8 @@ function ipaToZhuyin(syl){
 }
 
 // 把音標字串拆成音節，轉換成白話拼音，並把重音節放大加粗
-function renderPhonetics(phon){
+function renderPhonetics(phon, word=currentItem()?.en){
+  if(phonPanelWord && !el('phonModal').hidden && normalizePhonWord(word)!==phonPanelWord)return;
   const block = el('phonBlock');
   const visual = el('phonVisual');
   const zhuyin = el('phonZhuyin');
@@ -2707,8 +2682,8 @@ function updateCatProgress(items){
         : `本輪抽考還剩 ${remaining} 題 (已複習 ${doneCount}/${total})`;
     } else if(appMode === 'weakpractice'){
       label.textContent = remaining <= 0
-        ? `這輪弱點單字都練完了 🎉 (${doneCount}/${total})`
-        : `這輪弱點單字還剩 ${remaining} 題 (已練 ${doneCount}/${total})`;
+        ? `這輪${reviewSessionKind==='due'?'到期複習':'弱點單字'}都練完了 🎉 (${doneCount}/${total})`
+        : `這輪${reviewSessionKind==='due'?'到期複習':'弱點單字'}還剩 ${remaining} 題 (已練 ${doneCount}/${total})`;
     } else {
       label.textContent = remaining <= 0
         ? `這個分類已練過 ${doneCount}/${total}；熟練 ${items.filter(it => isItemMastered(it.en)).length}/${total}`
@@ -2815,6 +2790,7 @@ function render(skipTargetAnim = false){
   updateTriggerTexts();
   
   el('targetLabel').textContent = appMode === 'ai' ? 'AI 專屬情境' : (stage.label === '自由回答' ? '看情境,講一句' : '跟著念');
+  if(appMode==='weakpractice'&&reviewSessionKind==='due')el('targetLabel').textContent='到期複習';
   
   const items = filteredItems();
   const item = items[itemIdx];
@@ -2912,7 +2888,7 @@ function render(skipTargetAnim = false){
   renderPhonetics(getVariant(item)?.phon || null);
 
   // 對所有單字（不含空格的英文）自動查字典取得音標
-  if(!/\s/.test(item.en) && (!item._fetched || !getVariant(item)?.phon) && !item._fetching){
+  if(!/\s/.test(item.en) && (!item._fetched || !getVariant(item)?.phon) && !phonRequestsPending.has(item)){
     fetchAndEnrich(item);
   }
 }

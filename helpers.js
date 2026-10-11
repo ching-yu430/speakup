@@ -1,5 +1,7 @@
 // Shared helpers load before the existing app; credentials never enter backup payloads.
 let rpRequestBusy = false;
+let phonPanelWord = '';
+let reviewSessionKind = 'weak';
 function getAiModel() {
   const value = lsGet('speakup_ai_model', 'gemini-3.6-flash');
   return /^[a-zA-Z0-9._-]+$/.test(value) ? value : 'gemini-3.6-flash';

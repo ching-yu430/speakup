@@ -4,7 +4,9 @@
   function updateInlinePhon() {
     const item=currentItem(),node=el('inlinePhon');
     const phon=getVariant(item)?.phon;
-    node.textContent=phon || (item && /\s/.test(item.en.trim()) ? '片語音標：點「音標與注音」選字' : item?._fetching ? '音標查詢中…' : '音標待查詢 · 點下方重試');
+    const phrase=item && /\s/.test(item.en.trim());
+    el('inlinePhonText').textContent=phon || (phrase ? '片語音標：點「音標與注音」選字' : item?._fetching ? '音標查詢中…' : item?._phonError || '音標待查詢');
+    el('inlinePhonRetry').hidden=!!phon || !!phrase || !!item?._fetching;
     node.classList.toggle('phon-unavailable',!phon);
     // Hidden prompts must not be revealed through their phonetic transcription.
     node.hidden=typeof isBlindMode!=='undefined' && isBlindMode && !el('target').classList.contains('revealed');
@@ -32,6 +34,7 @@
   el('closeResultDetails').onclick=()=>{el('resultDetails').open=false;el('resultDetails').querySelector('summary').focus();};
   el('resultDetails').addEventListener('toggle',()=>{if(el('resultDetails').open)el('closeResultDetails').focus();});
   el('resultDetails').querySelector('.result-detail-overlay').onclick=e=>{if(e.target.classList.contains('result-detail-overlay'))el('closeResultDetails').click();};
+  el('inlinePhonRetry').onclick=()=>{const item=currentItem();if(item)fetchAndEnrich(item,true);};
   document.addEventListener('keydown',e=>{if(e.key==='Escape')el('resultDetails').open=false;});
   updateInlinePhon();
 })();
