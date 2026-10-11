@@ -322,3 +322,6 @@ body.botanical-room{background-color:var(--paper);background-image:radial-gradie
 @media(prefers-reduced-motion:reduce){.garden-page .vase-carousel{scroll-behavior:auto}}
 .garden-rule-sheet .sheet-heading{position:sticky;top:-18px;margin:-18px -18px 0;padding:14px 18px;background:var(--card);border-bottom:1px solid var(--line);z-index:4}
 @media(max-width:600px){.garden-rule-sheet .sheet-heading{top:-14px;margin:-14px -14px 0;padding:12px 14px}}
+.botanical-room[data-garden-theme=dark] .bouquet-backdrop-arch{fill:#314943}
+.botanical-room[data-garden-theme=dark] .bouquet-backdrop-wash{fill:#735849}
+.botanical-room[data-garden-theme=dark] .bouquet-backdrop-shelf{fill:#61766a}

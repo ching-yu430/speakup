@@ -402,6 +402,7 @@ const hash01 = (n) => {
 const RARE_TYPE = '💮'; // 連續練習7天以上時學會的詞,開出的花會是這種稀有花當獎勵
 
 function canvasRoundRect(ctx, x, y, w, h, r){
+  r=Math.max(0,Math.min(r,w/2,h/2));
   ctx.beginPath();
   ctx.moveTo(x + r, y);
   ctx.arcTo(x + w, y, x + w, y + h, r);
@@ -456,176 +457,25 @@ function drawVaseIllustration(ctx, cx, baseY, flowerTypes, globalIdxOffset = 0){
     flowerTypes.map(type => type === RARE_TYPE));
 }
 
-// 花園小卡分享:用 canvas 畫一張成果卡,支援手機原生分享或直接下載。
-// flowerTypes 是「目前這一瓶實際擁有的花」陣列(可能是空陣列),不是寫死畫 5 朵。
-async function shareGardenCard(flowerTypes, wordCount, levelLabel, levelColor, renderStreak, toNextFlower, globalIdxOffset = 0){
-  // 先確保字型載入完成,匯出的圖片才不會臨時吃到瀏覽器預設字型
-  try {
-    await Promise.all([
-      document.fonts.load('700 40px Fraunces'),
-      document.fonts.load('500 14px Inter'),
-      document.fonts.load('700 19px Inter')
-    ]);
-  } catch(e) { /* 字型載入失敗就用系統預設,不影響功能 */ }
-
-  const W = 640, H = 860;
-  const dpr = 2; // 用兩倍解析度匯出,圖片文字才夠銳利
-  const canvas = document.createElement('canvas');
-  canvas.width = W * dpr;
-  canvas.height = H * dpr;
-  const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
-
-  ctx.fillStyle='#eee5d9';ctx.fillRect(0,0,W,H);
-  // Subtle paper specks, generated independently of the flower collection.
-  ctx.fillStyle='rgba(117,101,79,.09)';
-  for(let i=0;i<1500;i++){ctx.fillRect(hash01(i*3+1)*W,hash01(i*3+2)*H,.6,.6);}
-
-  // 卡片主體:圓角白卡 + 柔和陰影
-  const pad = 28;
-  const cardX = pad, cardY = pad, cardW = W - pad * 2, cardH = H - pad * 2;
-  ctx.save();
-  ctx.shadowColor = 'rgba(60,50,30,0.18)';
-  ctx.shadowBlur = 34;
-  ctx.shadowOffsetY = 14;
-  canvasRoundRect(ctx, cardX, cardY, cardW, cardH, 28);
-  ctx.fillStyle = '#fffdf8';
-  ctx.fill();
-  ctx.restore();
-  canvasRoundRect(ctx, cardX, cardY, cardW, cardH, 28);
-  ctx.strokeStyle = 'rgba(125,160,128,0.28)';
-  ctx.lineWidth = 1.5;
-  ctx.stroke();
-
-  // 標題
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#3f5c43';
-  ctx.font = '700 36px Fraunces, serif';
-  ctx.fillText('我的語感花室', W / 2, cardY + 64);
-  ctx.font = '500 13px Inter, sans-serif';
-  ctx.fillStyle = '#9a9488';
-  ctx.fillText('S P E A K   U P   ·   V O C A B   G A R D E N', W / 2, cardY + 90);
-
-  // 花瓶+花朵(依實際數量畫,可能是空花瓶)
-  drawVaseIllustration(ctx, W / 2, cardY + 420, flowerTypes, globalIdxOffset);
-
-  if(flowerTypes.length > 0) {
-    const list = Object.values(practiced);
-    const vaseWordStart = globalIdxOffset * 5;
-    const vaseWordEnd = Math.min(list.length, vaseWordStart + flowerTypes.length * 5);
-    const vaseWords = list.slice(vaseWordStart, vaseWordEnd);
-    let vaseDateLabel = '';
-    if (vaseWords.length > 0) {
-      const times = vaseWords.map(w => w.lastPracticed).filter(Boolean);
-      if(times.length){
-        const fmtDate = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()}`; };
-        const minT = Math.min(...times), maxT = Math.max(...times);
-        vaseDateLabel = (fmtDate(minT) === fmtDate(maxT)) ? fmtDate(minT) : `${fmtDate(minT)}~${fmtDate(maxT)}`;
-      }
+// Share posters render from the same collection and theme as the flower room.
+async function prepareFlowerCardFonts(){
+  try{await Promise.all([document.fonts.load('600 32px Inter'),document.fonts.load('400 14px Inter')]);}catch(e){}
+}
+function shareFlowerCanvas(canvas,filename,title,message){
+  canvas.toBlob(async blob=>{
+    if(!blob)return;
+    const file=new File([blob],filename,{type:'image/png'});
+    if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+      try{await navigator.share({files:[file],title,text:message});return;}catch(e){if(e.name==='AbortError')return;}
     }
-    const vNum = Math.floor(globalIdxOffset / 15) + 1;
-    const pillText = `第${vNum}瓶${vaseDateLabel ? ' · ' + vaseDateLabel : ''}`;
-
-    ctx.font = '700 15px Inter, "Noto Sans TC", sans-serif';
-    const tw = ctx.measureText(pillText).width;
-    const ph = 32;
-    const pw = tw + 32;
-    const px = W / 2 - pw / 2;
-    const py = cardY + 420 + 24;
-
-    ctx.save();
-    ctx.shadowColor = 'rgba(60,50,30,0.08)';
-    ctx.shadowBlur = 12;
-    ctx.shadowOffsetY = 4;
-    canvasRoundRect(ctx, px, py, pw, ph, ph / 2);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-    ctx.fill();
-    ctx.restore();
-
-    canvasRoundRect(ctx, px, py, pw, ph, ph / 2);
-    ctx.strokeStyle = 'rgba(125,160,128,0.25)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.fillStyle = '#3f5c43';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(pillText, W / 2, py + ph / 2 + 1.5);
-    ctx.textBaseline = 'alphabetic'; // Reset baseline for subsequent rendering
-  } else {
-    ctx.font = '500 15px Inter, "Noto Sans TC", sans-serif';
-    ctx.fillStyle = '#9a9488';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`🌱 再練 ${toNextFlower} 題就會開出第一朵花`, W / 2, cardY + 308);
-  }
-
-  // 統計卡(三個並排的圓角小卡)——文字比原本放大約1.35倍,方框也一起等比調整避免裁切
-  const pillW = 168, pillH = 110, gap = 14;
-  const totalW = pillW * 3 + gap * 2;
-  const startX = W / 2 - totalW / 2;
-  const pillY = cardY + 520;
-  drawStatPill(ctx, startX, pillY, pillW, pillH, '01', '已練習', `${wordCount} 題`, '#5aa06a');
-  drawStatPill(ctx, startX + (pillW + gap), pillY, pillW, pillH, '02', '等級', levelLabel, '#28565b');
-  drawStatPill(ctx, startX + (pillW + gap) * 2, pillY, pillW, pillH, '03', '連續天數', renderStreak > 0 ? `${renderStreak} 天` : '今天開始', '#e0703f');
-
-  // 升級進度條
-  const levelDefs = BotanicalBouquet.levels;
-  const currentLvl = levelDefs.find(l => wordCount >= l.min && wordCount <= l.max) || levelDefs[0];
-  const nextLvl = levelDefs[levelDefs.indexOf(currentLvl) + 1];
-  
-  if (nextLvl) {
-    const barW = totalW;
-    const barH = 10;
-    const barX = startX;
-    const barY = cardY + 690;
-    
-    ctx.font = '500 13px Inter, "Noto Sans TC", sans-serif';
-    ctx.fillStyle = '#9a9488';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`距離下一階「${nextLvl.label}」還需 ${nextLvl.min - wordCount} 題`, W / 2, barY - 12);
-    
-    ctx.save();
-    canvasRoundRect(ctx, barX, barY, barW, barH, barH / 2);
-    ctx.fillStyle = '#efece3';
-    ctx.fill();
-    ctx.restore();
-    
-    const progress = Math.max(0, Math.min(1, (wordCount - currentLvl.min) / (nextLvl.min - currentLvl.min)));
-    if (progress > 0) {
-      canvasRoundRect(ctx, barX, barY, barW * progress, barH, barH / 2);
-      ctx.fillStyle = '#be8471';
-      ctx.fill();
-    }
-  } else {
-    ctx.font = '700 14px Inter, "Noto Sans TC", sans-serif';
-    ctx.fillStyle = '#c0a000';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillText(`👑 你已達成最高等級！`, W / 2, cardY + 690);
-  }
-
-  // 底部footer
-  ctx.font = '13px Inter, sans-serif';
-  ctx.fillStyle = '#b0aa9a';
-  const dateStr = new Date().toLocaleDateString('zh-TW', { year:'numeric', month:'2-digit', day:'2-digit' });
-  ctx.fillText(`Speak Up · 開口練習英文 · ${dateStr}`, W / 2, cardY + cardH - 24);
-
-  canvas.toBlob(async (blob) => {
-    if(!blob) return;
-    const file = new File([blob], 'speakup-garden.png', { type: 'image/png' });
-    if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
-      try {
-        await navigator.share({ files: [file], title: '我的語感花室', text: `已練習 ${wordCount} 題！` });
-        return;
-      } catch(e) { /* 使用者取消分享,不需額外處理 */ }
-    }
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'speakup-garden.png'; a.click();
-    URL.revokeObjectURL(url);
-  }, 'image/png');
+    const url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  },'image/png');
+}
+async function shareGardenCard(flowerTypes,wordCount,levelLabel,levelColor,renderStreak,toNextFlower,globalIdxOffset=0){
+  await prepareFlowerCardFonts();
+  const canvas=FlowerCards.garden(flowerTypes,wordCount,levelLabel,renderStreak,toNextFlower,globalIdxOffset);
+  shareFlowerCanvas(canvas,'speakup-garden.png','我的語感花室',`已練習 ${wordCount} 題！`);
 }
 
 // 每日練習次數的歷史紀錄(供週報統計用)，只保留最近60天避免資料無限增長
@@ -662,151 +512,16 @@ function getWeeklyStats(){
   return { days, practiceCount, newWordsThisWeek, avgScore };
 }
 
-// 週報小卡:延伸花園小卡的畫法,改成長條圖呈現這七天的練習量,一樣支援原生分享或直接下載
+// Weekly practice counts include both new prompts and repeat practice.
 async function shareWeeklyCard(){
-  try {
-    await Promise.all([
-      document.fonts.load('700 40px Fraunces'),
-      document.fonts.load('500 14px Inter'),
-      document.fonts.load('700 19px Inter')
-    ]);
-  } catch(e) { /* 字型載入失敗就用系統預設,不影響功能 */ }
-
-  const stats = getWeeklyStats();
-  const W = 640, H = 860;
-  const dpr = 2;
-  const canvas = document.createElement('canvas');
-  canvas.width = W * dpr;
-  canvas.height = H * dpr;
-  const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
-
-  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
-  bgGrad.addColorStop(0, '#eef2ea');
-  bgGrad.addColorStop(1, '#dde8e0');
-  ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, W, H);
-
-  ctx.save();
-  ctx.globalAlpha = 0.12;
-  ctx.font = '70px serif';
-  ctx.textAlign = 'left';
-  ctx.fillText('📅', -14, 66);
-  ctx.save();
-  ctx.translate(W + 14, H - 10);
-  ctx.rotate(Math.PI);
-  ctx.fillText('🌿', 0, 0);
-  ctx.restore();
-  ctx.restore();
-
-  const pad = 28, cardX = pad, cardY = pad, cardW = W - pad * 2, cardH = H - pad * 2;
-  ctx.save();
-  ctx.shadowColor = 'rgba(60,50,30,0.18)';
-  ctx.shadowBlur = 34;
-  ctx.shadowOffsetY = 14;
-  canvasRoundRect(ctx, cardX, cardY, cardW, cardH, 28);
-  ctx.fillStyle = '#fffdf8';
-  ctx.fill();
-  ctx.restore();
-  canvasRoundRect(ctx, cardX, cardY, cardW, cardH, 28);
-  ctx.strokeStyle = 'rgba(125,160,128,0.28)';
-  ctx.lineWidth = 1.5;
-  ctx.stroke();
-
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#3f5c43';
-  ctx.font = '700 36px Fraunces, serif';
-  ctx.fillText('📅 本週學習週報', W / 2, cardY + 90);
-  ctx.font = '500 13px Inter, sans-serif';
-  ctx.fillStyle = '#9a9488';
-  ctx.fillText('S P E A K   U P   ·   W E E K L Y   R E P O R T', W / 2, cardY + 126);
-
-  // 長條圖:這七天每天的練習次數
-  const chartX = cardX + 40, chartW = cardW - 80;
-  const chartBaseY = cardY + 390;
-  const chartH = 180;
-  const maxCount = Math.max(1, ...stats.days.map(d => d.count));
-  const barGap = 16;
-  const barW = (chartW - barGap * 6) / 7;
-  stats.days.forEach((d, i) => {
-    const bx = chartX + i * (barW + barGap);
-    const bh = Math.round((d.count / maxCount) * chartH);
-    const by = chartBaseY - bh;
-    const isToday = i === 6;
-    canvasRoundRect(ctx, bx, by, barW, Math.max(bh, 4), 6);
-    ctx.fillStyle = d.count > 0 ? (isToday ? '#5aa06a' : '#8fba9c') : '#eee9db';
-    ctx.fill();
-    ctx.font = '600 12px Inter, sans-serif';
-    ctx.fillStyle = '#9a9488';
-    ctx.fillText(d.label, bx + barW / 2, chartBaseY + 24);
-    if(d.count > 0){
-      ctx.font = '700 13px Inter, sans-serif';
-      ctx.fillStyle = '#3f5c43';
-      ctx.fillText(String(d.count), bx + barW / 2, by - 8);
-    }
-  });
-  ctx.strokeStyle = '#e6ddc7';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(chartX - 10, chartBaseY + 0.5);
-  ctx.lineTo(chartX + chartW + 10, chartBaseY + 0.5);
-  ctx.stroke();
-
-  // 統計卡(5個並排的圓角小卡，分兩排)
-  const pillW = 168, pillH = 104, gap = 14;
-  const row1W = pillW * 3 + gap * 2;
-  const startX1 = W / 2 - row1W / 2;
-  const pillY1 = cardY + 450; // 下移，增加與上方長條圖的距離
-  drawStatPill(ctx, startX1, pillY1, pillW, pillH, '🌱', '本週新練', `${stats.newWordsThisWeek} 題`, '#5aa06a');
-  drawStatPill(ctx, startX1 + (pillW + gap), pillY1, pillW, pillH, '🎙️', '複習次數', `${stats.practiceCount} 次`, '#4a90c2');
-  drawStatPill(ctx, startX1 + (pillW + gap) * 2, pillY1, pillW, pillH, '🎯', '平均正確率', stats.avgScore !== null ? `${stats.avgScore}%` : '無', '#e0703f');
-
-  const row2W = row1W; // 下排總寬度與上排相同
-  const pillW2 = (row2W - gap) / 2; // 下排方塊的各自寬度
-  const startX2 = W / 2 - row2W / 2;
-  const pillY2 = pillY1 + pillH + gap;
-  
-  let streak = streakData.count;
-  const todayStr = localDateStr();
-  if(streakData.lastActive && streakData.lastActive !== todayStr) {
-    const diff = Math.floor((new Date(todayStr) - new Date(streakData.lastActive)) / (1000*60*60*24));
-    if(diff > 1) streak = 0;
+  await prepareFlowerCardFonts();
+  let streak=streakData.count;
+  if(streakData.lastActive&&streakData.lastActive!==localDateStr()){
+    const diff=Math.floor((new Date(localDateStr())-new Date(streakData.lastActive))/86400000);
+    if(diff>1)streak=0;
   }
-  
-  const maxCountVal = Math.max(0, ...stats.days.map(d => d.count));
-  const bestDays = stats.days.filter(d => d.count === maxCountVal && d.count > 0);
-  const bestDayLabel = bestDays.length > 0 ? bestDays[bestDays.length - 1].label : '無紀錄';
-
-  drawStatPill(ctx, startX2, pillY2, pillW2, pillH, '👑', '本週最佳', bestDayLabel, '#f0c040', true);
-  drawStatPill(ctx, startX2 + (pillW2 + gap), pillY2, pillW2, pillH, '🔥', '目前連勝', `${streak} 天`, '#e0703f', true);
-
-  ctx.textAlign = 'center';
-  ctx.font = '500 16px Inter, "Noto Sans TC", sans-serif';
-  ctx.fillStyle = '#8a8f86';
-  const encourage = stats.practiceCount === 0
-    ? '這週還沒開始練習,現在動手正是時候！'
-    : (stats.newWordsThisWeek > 0 ? `這週又多練了 ${stats.newWordsThisWeek} 道題目,保持下去！` : '持續複習也是進步,繼續加油！');
-  ctx.fillText(encourage, W / 2, pillY2 + pillH + 56);
-
-  ctx.font = '13px Inter, sans-serif';
-  ctx.fillStyle = '#b0aa9a';
-  const rangeLabel = `${stats.days[0].label} – ${stats.days[6].label}`;
-  ctx.fillText(`Speak Up · 開口練習英文 · ${rangeLabel}`, W / 2, cardY + cardH - 32);
-
-  canvas.toBlob(async (blob) => {
-    if(!blob) return;
-    const file = new File([blob], 'speakup-weekly.png', { type: 'image/png' });
-    if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })){
-      try {
-        await navigator.share({ files: [file], title: '本週學習週報', text: `這週新練了 ${stats.newWordsThisWeek} 道題目！` });
-        return;
-      } catch(e) { /* 使用者取消分享,不需額外處理 */ }
-    }
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'speakup-weekly.png'; a.click();
-    URL.revokeObjectURL(url);
-  }, 'image/png');
+  const stats=getWeeklyStats(),canvas=FlowerCards.weekly(stats,streak);
+  shareFlowerCanvas(canvas,'speakup-weekly.png','本週開口週報',`這週新練了 ${stats.newWordsThisWeek} 道題目！`);
 }
 
 function recordPracticed(item, stageIdx, score){
