@@ -258,3 +258,42 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,t
  .garden-practice{padding:8px 0}
  .garden-practice>div:first-child{margin-bottom:6px}
 }
+/* Botanical atelier: warm paper, coral ink and blue-green glass. */
+body.botanical-room{background-color:#f0e9dd;background-image:radial-gradient(ellipse at 5% 20%,#efd6cc66,transparent 55%),radial-gradient(ellipse at 95% 75%,#c9dcda66,transparent 55%),url("paper-grain.svg");background-size:auto,auto,180px 180px}
+.botanical-room .header,.botanical-room .topbar{background:transparent}
+.garden-page{--sage-dark:#28565b;--sage:#73989a;--line:#dcd1c0;--card:#fcf9f2;--muted:#817567;--sage-light:#e7eeea}
+.garden-eyebrow{display:block;font-size:9px;letter-spacing:2px;color:#9f7768;margin-bottom:4px;font-weight:600}
+.garden-heading h2{font-family:Georgia,'Noto Serif TC',serif;font-size:23px;letter-spacing:2px;font-weight:600;color:#28565b}
+.garden-heading p{color:#887565;font-size:12px}
+.garden-text-btn{border-radius:20px;background:#fcf9f299;min-height:38px}
+.garden-stage{position:relative;background:#f7f3eb;border-color:#e0d6c7;border-radius:70px 70px 16px 16px;padding:10px 12px 8px;box-shadow:inset 0 0 55px #decfc526;max-width:500px}
+.garden-stage:before{content:'';position:absolute;inset:0;pointer-events:none;background-image:url("paper-grain.svg");background-size:180px 180px}
+.garden-art-label{position:absolute;left:0;right:0;top:16px;font-size:10px;letter-spacing:2px;color:#aa8070}
+.garden-streak{position:absolute;top:39px;left:0;right:0;text-align:center;font-size:10px;color:#817567;z-index:2}
+.garden-page .vase-slide{position:relative;flex:0 0 100%;scroll-snap-align:center;width:100%;height:302px!important;display:flex;align-items:center;justify-content:center;padding:48px 0 2px!important}
+.bouquet-art{height:100%;width:100%;display:flex;justify-content:center;align-items:flex-end}
+.botanical-bouquet{display:block;height:100%;width:auto;max-width:100%;overflow:visible}
+.garden-page .vase-date{display:none}
+.bouquet-empty{position:absolute;top:60px;left:0;right:0;color:#887565;font-size:12px;line-height:1.8;text-align:center;margin:0}
+.garden-vase-nav{position:relative;gap:18px;margin-top:0}
+.garden-arrow{background:#fcf9f2cc;border-color:#e3d8c8;color:#376369;width:44px;height:44px;font-size:24px}
+#vaseCounter{font-size:11px;letter-spacing:1px;color:#7b6c5f}
+.garden-stats{gap:0;border:1px solid #ded3c2;border-radius:14px;background:#fcf9f2cc;overflow:hidden;margin:10px 0}
+.garden-stat{background:transparent;border:0;border-radius:0;padding:10px 13px}
+.garden-stat:nth-child(even){border-left:1px solid #e6ddcf}
+.garden-stat:nth-child(n+3){border-top:1px solid #e6ddcf}
+.garden-stat strong{color:#28565b;font-family:Georgia,'Noto Serif TC',serif;font-size:24px;font-weight:500}
+.garden-level strong{font-family:inherit;font-size:17px}
+.garden-stat>span{font-size:11px;color:#87796a}
+.garden-growth{background:#ead9ce77;border-color:#dfccbd;border-radius:14px}
+.garden-growth progress::-webkit-progress-value{background:#be8471}
+.garden-growth progress::-moz-progress-bar{background:#be8471}
+.garden-practice-actions button{border-radius:22px;background:#28565b;color:#fff9ef;border-color:#28565b;min-height:44px;font-weight:500}
+.garden-practice-actions button+button{background:#faf7f0;color:#28565b;border-color:#b6c5c0}
+.garden-share{background:transparent;border:0;border-top:1px solid #dcd1c0;border-radius:0;padding:0 4px}
+.garden-share summary{font-size:12px;color:#887565}
+@media(min-width:700px){.garden-stat:nth-child(n+3){border-top:0}.garden-stat+.garden-stat{border-left:1px solid #e6ddcf}}
+@media(max-width:600px){.garden-heading{margin:3px 0 10px}.garden-heading h2{font-size:22px}.garden-page .vase-slide{height:235px!important;padding-top:43px!important}.garden-streak{top:36px;right:0;font-size:10px}.garden-stage{padding:7px 10px}.garden-stat{padding:8px 12px}.garden-stat strong{font-size:21px}.garden-level strong{font-size:16px}.garden-growth{padding:8px 12px}.garden-practice{padding:9px 0}.garden-share summary{padding:10px 0}}
+@media(prefers-reduced-motion:reduce){.garden-page .vase-carousel{scroll-behavior:auto}}
+
+.botanical-room{--ink:#243f42;--sage:#537d7e;--sage-dark:#28565b;--sage-light:#e3ebe5;--card:#fcf9f2;--paper:#f0e9dd;--line:#dcd1c0;--muted:#817567}
