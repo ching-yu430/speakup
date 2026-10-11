@@ -59,7 +59,7 @@
   container.innerHTML=`<div class="ipa-heading"><h2>音標練習</h2><div class="ipa-mode"><button id="ipaLearnBtn">認識音標</button><button id="ipaQuizBtn">辨識測驗</button></div></div>
     <div class="ipa-toolbar"><label for="ipaGroup">分類</label><select id="ipaGroup"><option>全部</option><option>母音</option><option>雙母音</option><option>子音</option></select><button id="ipaPickerBtn">選音標</button></div>
     <div id="ipaContent" class="ipa-content"></div><div id="ipaResult" class="ipa-result" role="status"></div>
-    <div class="ipa-controls"><button id="ipaPrevBtn" class="nav-arrow" aria-label="上一個音標">←</button><span id="ipaCounter"></span><button id="ipaNextBtn" class="nav-arrow" aria-label="下一個音標">→</button></div>
+    <p class="ipa-gesture-hint">左右滑動換音標</p><div class="ipa-controls"><button id="ipaPrevBtn" class="nav-arrow" aria-label="上一個音標">←</button><span id="ipaCounter"></span><button id="ipaNextBtn" class="nav-arrow" aria-label="下一個音標">→</button></div>
     <div id="ipaPicker" class="practice-overlay" hidden><section class="practice-sheet" role="dialog" aria-modal="true" aria-label="選擇音標"><div class="sheet-heading"><h2>選擇音標</h2><button id="ipaPickerClose" class="sheet-close" aria-label="關閉音標選擇">✕</button></div><div id="ipaSymbolGrid" class="ipa-symbol-grid"></div></section></div>`;
   document.body.appendChild(el('ipaPicker'));
   const filtered=()=>IPA_LESSONS.filter(it=>group==='全部'||it.group===group);
@@ -112,6 +112,19 @@
     }
   }
   function move(step) {if(testing&&answer===null){el('ipaResult').textContent='請先選擇一個音標。';return;}index=(index+step+filtered().length)%filtered().length;renderLesson();}
+  // Keep vertical reading scroll native; a deliberate horizontal gesture changes the lesson.
+  let swipeStart=null;
+  container.addEventListener('touchstart',e=>{
+    if(e.touches.length!==1 || e.target.closest('button,input,select,textarea,.practice-overlay')) {swipeStart=null;return;}
+    const touch=e.touches[0];swipeStart={x:touch.clientX,y:touch.clientY,time:Date.now()};
+  },{passive:true});
+  container.addEventListener('touchend',e=>{
+    const start=swipeStart;swipeStart=null;if(!start||e.changedTouches.length!==1)return;
+    const touch=e.changedTouches[0],dx=touch.clientX-start.x,dy=touch.clientY-start.y;
+    if(Date.now()-start.time>900 || Math.abs(dx)<48 || Math.abs(dx)<Math.abs(dy)*1.5)return;
+    move(dx<0?1:-1);
+  },{passive:true});
+  container.addEventListener('touchcancel',()=>{swipeStart=null;},{passive:true});
   el('ipaPrevBtn').onclick=()=>move(-1);el('ipaNextBtn').onclick=()=>move(1);
   el('ipaLearnBtn').onclick=()=>{testing=false;renderLesson();};el('ipaQuizBtn').onclick=()=>{testing=true;renderLesson();};
   el('ipaGroup').onchange=e=>{group=e.target.value;index=0;renderLesson();};
