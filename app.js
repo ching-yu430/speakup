@@ -183,7 +183,7 @@ function renderSearchResults(query){
     return `
     <div class="search-result-item anim-gentle-in" style="padding:10px 12px; border-radius:8px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:8px; animation-delay:${Math.min(idx * 0.03, 0.3)}s; opacity:0;" data-en="${it.en.replace(/"/g, '&quot;')}">
       <div style="min-width:0;">
-        <div style="font-weight:600; font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.en}</div>
+        <div style="font-weight:600; font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(it.en)}</div>
         <div style="font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.zh || ''}</div>
         <div style="display:flex; gap:4px; margin-top:4px; flex-wrap:wrap;">${statusBadges}</div>
       </div>
@@ -996,6 +996,7 @@ function recordPracticed(item, stageIdx, score){
     firstPracticed: (prevRecord && prevRecord.firstPracticed) ? prevRecord.firstPracticed : now,
     // 保留第一次練會這個詞當下的連續天數,之後重複練習不會被洗掉
     streakAtPractice: (prevRecord && prevRecord.streakAtPractice !== undefined) ? prevRecord.streakAtPractice : streakData.count,
+    masteryReps: typeof score === 'number' ? (score >= 0.85 ? ((prevRecord && prevRecord.masteryReps) || 0) + 1 : 0) : ((prevRecord && prevRecord.masteryReps) || 0),
     lastScore: (typeof score === 'number') ? score : (prevRecord ? prevRecord.lastScore : undefined),
     weakCount,
     mistakeTotal,
@@ -1410,7 +1411,7 @@ async function fetchBBCNews() {
   const listEl = el('newsList');
   const statusEl = el('newsStatus');
   if(!geminiApiKey){
-    listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--muted);">請先在「✨ AI情境」設定 Gemini API Key,才能使用新聞雙語翻譯功能。</div>';
+    listEl.innerHTML = '<div style="text-align:center; padding: 20px; color:var(--muted);">請先到右上角設定輸入 Gemini API Key,才能使用新聞雙語翻譯功能。</div>';
     return;
   }
   const shimmerHTML = `
@@ -1435,8 +1436,9 @@ async function fetchBBCNews() {
 新聞內容：
 ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
     
-    const aiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+    const aiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(getAiModel())}:generateContent`, {
       method: 'POST',
+      signal: AbortSignal.timeout(45000),
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
       body: JSON.stringify({
         contents: [{role: "user", parts: [{text: prompt}]}],
@@ -1456,15 +1458,15 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
     const translatedItems = JSON.parse(text);
     
     let html = '';
-    const makeClickable = (txt) => txt.split(' ').map(w => `<span class="clickable-word" style="cursor:pointer;" onclick="playAudio({en:'${w.replace(/[^a-zA-Z0-9'-]/g, '').replace(/'/g, "\\'")}'})">${w}</span>`).join(' ');
+    const makeClickable = (txt) => txt.split(' ').map(w => `<span class="clickable-word" style="cursor:pointer;" onclick="playAudio({en:'${w.replace(/[^a-zA-Z0-9'-]/g, '').replace(/'/g, "\\'")}'})">${escapeHtml(w)}</span>`).join(' ');
     
     translatedItems.forEach((item, idx) => {
       html += `
         <div class="news-item anim-gentle-in" style="cursor:default; animation-delay:${Math.min(idx * 0.08, 0.4)}s; opacity:0;">
           <div class="news-title" style="margin-bottom:4px;">${makeClickable(item.enTitle)}</div>
-          <div style="font-size:14px; font-weight:700; color:var(--sage-dark); margin-bottom:10px;">${item.zhTitle}</div>
+          <div style="font-size:14px; font-weight:700; color:var(--sage-dark); margin-bottom:10px;">${escapeHtml(item.zhTitle)}</div>
           <div class="news-desc" style="display:block; margin-bottom:4px;">${makeClickable(item.enDesc)}</div>
-          <div style="font-size:13px; color:var(--muted); margin-bottom:14px;">${item.zhDesc}</div>
+          <div style="font-size:13px; color:var(--muted); margin-bottom:14px;">${escapeHtml(item.zhDesc)}</div>
           <div style="display:flex; gap:8px;">
             <button class="accent-btn" style="flex:1; padding:0 8px;" onclick="generateNewsVocab(${idx})">📝 單字與句型</button>
             <button class="accent-btn" style="flex:1; padding:0 8px; background:var(--sage-light); color:var(--sage-dark); border:none;" onclick="generateNewsRP(${idx})">💬 實戰對話</button>
@@ -1476,7 +1478,7 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
     window.currentNewsItems = translatedItems;
     
   } catch (e) {
-    listEl.innerHTML = '<div class="anim-gentle-in" style="text-align:center; padding: 20px; color:#8a4a26;">⚠️ ' + e.message + '</div>';
+    listEl.innerHTML = '<div class="anim-gentle-in" style="text-align:center; padding: 20px; color:#8a4a26;">⚠️ ' + escapeHtml(e.message) + '</div>';
     console.error(e);
   }
 }
@@ -1484,7 +1486,7 @@ ${JSON.stringify(items.map(it => ({title: it.title, desc: it.description})))}`;
 async function generateNewsVocab(idx) {
   const item = window.currentNewsItems[idx];
   const statusEl = el('newsStatus');
-  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先在「✨ AI情境」設定 Gemini API Key'; triggerAnim('newsStatus', 'anim-gentle-in'); return; }
+  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先到右上角設定輸入 Gemini API Key'; triggerAnim('newsStatus', 'anim-gentle-in'); return; }
   statusEl.textContent = '📝 AI 正在萃取單字與句型...'; triggerAnim('newsStatus', 'anim-gentle-in');
   try {
     const prompt = `請根據以下新聞，萃取 3 個重要單字與 2 個實用句型。
@@ -1492,8 +1494,9 @@ async function generateNewsVocab(idx) {
 摘要：${item.enDesc}
 請只回傳 JSON 格式，包含這5個專案，不需要 markdown 標籤。
 格式：{"words": [{"en":"單字或句型", "zh":"繁體中文意思"}]}`;
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(getAiModel())}:generateContent`, {
       method: 'POST',
+      signal: AbortSignal.timeout(45000),
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
       body: JSON.stringify({
         contents: [{role: "user", parts: [{text: prompt}]}],
@@ -1538,7 +1541,7 @@ async function generateNewsVocab(idx) {
 async function generateNewsRP(idx) {
   const item = window.currentNewsItems[idx];
   const statusEl = el('newsStatus');
-  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先在「✨ AI情境」設定 Gemini API Key'; triggerAnim('newsStatus', 'anim-gentle-in'); return; }
+  if(!geminiApiKey){ statusEl.textContent = '⚠️ 請先到右上角設定輸入 Gemini API Key'; triggerAnim('newsStatus', 'anim-gentle-in'); return; }
   statusEl.textContent = '💬 AI 正在設計實戰對話情境...'; triggerAnim('newsStatus', 'anim-gentle-in');
   try {
     const prompt = `請根據這則新聞，設計一個日常口語的「實戰對話情境」描述 (例如：你正在和朋友聊這則新聞...)。
@@ -1546,8 +1549,9 @@ async function generateNewsRP(idx) {
 摘要：${item.enDesc}
 請只回傳 JSON 格式，不需要 markdown 標籤。
 格式：{"scenario": "情境描述"}`;
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(getAiModel())}:generateContent`, {
       method: 'POST',
+      signal: AbortSignal.timeout(45000),
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
       body: JSON.stringify({
         contents: [{role: "user", parts: [{text: prompt}]}],
@@ -1640,17 +1644,17 @@ function renderCompleted(){
   });
 
   const sortedCats = Object.keys(groups).sort();
-  let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);text-align:center;">這裡是你所有練習過的單字與句子</div>';
+  let html = '<div style="margin-bottom:14px;font-size:13px;color:var(--muted);text-align:center;">練過不等於熟練。文字一致度達 85% 且連續兩次達標，才標示為熟練。</div>';
   sortedCats.forEach((cat, gIdx) => {
     const items = groups[cat];
     html += `<details class="review-group anim-gentle-in" style="animation-delay:${Math.min(gIdx * 0.05, 0.3)}s; opacity:0;">
-      <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
+      <summary><div class="review-group-title-left"><span>${escapeHtml(cat)}</span></div><span class="review-group-count">${items.length} 題</span></summary>
       <div class="review-group-items">`;
     items.forEach(it => {
-      html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
+      html += `<div class="review-item" data-en="${escapeHtml(it.en)}">
         <div>
-          <div class="review-item-en">${it.en}</div>
-          ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
+          <div class="review-item-en">${escapeHtml(it.en)}</div><span class="learning-state">${isItemMastered(it.en) ? "已熟練" : "已練過 · 待鞏固"}</span>
+          ${it.zh ? `<div class="review-item-zh">${escapeHtml(it.zh)}</div>` : ''}
         </div>
         <div style="color:var(--muted);">▶</div>
       </div>`;
@@ -1711,14 +1715,14 @@ function renderWeak(){
     Object.keys(groups).forEach((cat, gIdx) => {
       const items = groups[cat];
       html += `<details class="review-group anim-gentle-in" open style="animation-delay:${Math.min(gIdx * 0.05, 0.3)}s; opacity:0;">
-        <summary><div class="review-group-title-left"><span>${cat}</span></div><span class="review-group-count">${items.length} 題</span></summary>
+        <summary><div class="review-group-title-left"><span>${escapeHtml(cat)}</span></div><span class="review-group-count">${items.length} 題</span></summary>
         <div class="review-group-items">`;
       items.forEach(it => {
         const mistakeLabel = it.mistakeTotal ? `<span style="color:var(--clay);">累計答錯 ${it.mistakeTotal} 次</span>` : '';
-        html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
+        html += `<div class="review-item" data-en="${escapeHtml(it.en)}">
           <div>
-            <div class="review-item-en">${it.en}</div>
-            ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
+            <div class="review-item-en">${escapeHtml(it.en)}</div><span class="learning-state">${isItemMastered(it.en) ? "已熟練" : "已練過 · 待鞏固"}</span>
+            ${it.zh ? `<div class="review-item-zh">${escapeHtml(it.zh)}</div>` : ''}
             <div style="font-size:11px;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;"><span style="color:var(--danger);font-weight:700;">🔴 該複習了</span>${mistakeLabel}</div>
           </div>
           <div style="color:var(--muted);">▶</div>
@@ -1735,10 +1739,10 @@ function renderWeak(){
     scheduledList.forEach(it => {
       const daysLeft = Math.max(1, Math.ceil((it.dueAt - now) / 86400000));
       const mistakeLabel = it.mistakeTotal ? `<span style="color:var(--clay);">累計答錯 ${it.mistakeTotal} 次</span>` : '';
-      html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
+      html += `<div class="review-item" data-en="${escapeHtml(it.en)}">
         <div>
-          <div class="review-item-en">${it.en}</div>
-          ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
+          <div class="review-item-en">${escapeHtml(it.en)}</div><span class="learning-state">${isItemMastered(it.en) ? "已熟練" : "已練過 · 待鞏固"}</span>
+          ${it.zh ? `<div class="review-item-zh">${escapeHtml(it.zh)}</div>` : ''}
           <div style="font-size:11px;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;"><span style="color:var(--muted);">⏳ ${daysLeft} 天後複習</span>${mistakeLabel}<span style="color:var(--muted);">${it.cat || '未分類'}</span></div>
         </div>
         <div style="color:var(--muted);">▶</div>
@@ -2142,15 +2146,15 @@ function renderFavorites(){
   sortedCats.forEach((cat, gIdx) => {
     const items = groups[cat];
     html += `<div class="review-group anim-gentle-in" style="animation-delay:${Math.min(gIdx * 0.05, 0.3)}s; opacity:0;">
-      <div class="review-group-title"><span>${cat}</span><span class="review-group-count">${items.length} \u984c</span></div>`;
+      <div class="review-group-title"><span>${escapeHtml(cat)}</span><span class="review-group-count">${items.length} \u984c</span></div>`;
     items.forEach(it => {
-      html += `<div class="review-item" data-en="${it.en.replace(/"/g,'&quot;')}">
+      html += `<div class="review-item" data-en="${escapeHtml(it.en)}">
         <div style="flex:1;min-width:0;">
-          <div class="review-item-en">${it.en}</div>
-          ${it.zh ? `<div class="review-item-zh">${it.zh}</div>` : ''}
+          <div class="review-item-en">${escapeHtml(it.en)}</div><span class="learning-state">${isItemMastered(it.en) ? "已熟練" : "已練過 · 待鞏固"}</span>
+          ${it.zh ? `<div class="review-item-zh">${escapeHtml(it.zh)}</div>` : ''}
         </div>
         <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-          <button class="fav-remove-btn" data-en="${it.en.replace(/"/g,'&quot;')}" title="\u53d6消收藏" style="background:none;border:none;cursor:pointer;font-size:20px;padding:6px;line-height:1;min-width:36px;min-height:36px;">⭐</button>
+          <button class="fav-remove-btn" data-en="${escapeHtml(it.en)}" title="\u53d6消收藏" style="background:none;border:none;cursor:pointer;font-size:20px;padding:6px;line-height:1;min-width:36px;min-height:36px;">⭐</button>
           <span style="color:var(--muted);font-size:14px;">→</span>
         </div>
       </div>`;
@@ -2306,8 +2310,9 @@ async function fetchZhViaGemini(text){
   if(!geminiApiKey) return '';
   const prompt = `請給出英文「${text}」最常用、最自然的繁體中文(臺灣)翻譯。只要輸出翻譯本身,不要加任何解釋、標點或多餘文字,控制在12個字以內。`;
   try{
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(getAiModel())}:generateContent`, {
       method: 'POST',
+      signal: AbortSignal.timeout(45000),
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
       body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }] })
     });
@@ -2586,7 +2591,7 @@ function renderCats(){
     
     const p = document.createElement('div');
     p.className = 'cat-pill anim-gentle-in' + (activeCat === c ? ' active' : '');
-    p.innerHTML = displayName + (isAll ? '' : getProgressHint(c));
+    p.innerHTML = escapeHtml(displayName) + (isAll ? '' : getProgressHint(c));
     
     p.onclick = () => { 
       clearReturnSnapshot(); 
@@ -2671,8 +2676,8 @@ function updateCatProgress(items){
         : `這輪弱點單字還剩 ${remaining} 題 (已練 ${doneCount}/${total})`;
     } else {
       label.textContent = remaining <= 0
-        ? `這個分類已經全部練完了 🎉 (${doneCount}/${total})`
-        : `這個分類還剩 ${remaining} 題 (已完成 ${doneCount}/${total})`;
+        ? `這個分類已練過 ${doneCount}/${total}；熟練 ${items.filter(it => isItemMastered(it.en)).length}/${total}`
+        : `這個分類還剩 ${remaining} 題 (已練 ${doneCount}/${total}；熟練 ${items.filter(it => isItemMastered(it.en)).length}/${total})`;
     }
   }
   wrap.style.display = 'block';
@@ -2862,7 +2867,7 @@ function render(skipTargetAnim = false){
   el('coachFeedback').textContent = '';
   if(el('coachVocabArea')) el('coachVocabArea').style.display = 'none';
   
-  el('recBtn').innerHTML = '🎙';
+  el('recBtn').innerHTML = '🎙<span>開始說話</span>';
   el('recBtn').classList.remove('recording');
   el('liveTranscript').textContent = '';
 
@@ -2893,7 +2898,7 @@ function normalize(s){
 }
 
 function escapeHtml(s){
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 // 用最長共同子序列(LCS)找出「目標句子」裡哪些字有在使用者講的話裡對上,
@@ -2991,7 +2996,7 @@ function showResult(heardText){
   if(diffBox) diffBox.innerHTML = '';
 
   if(isFree){
-    if(heardText){ recordPracticed(item, stageIdx); markSessionProgress(item); }
+    if(heardText){ recordPracticed(item, typeof item.stage === 'number' ? item.stage : stageIdx); markSessionProgress(item); }
     fb.className = 'feedback';
     fb.textContent = heardText ? '你講出來了——這就是重點,內容不用完美。' : '再試一次,講出你想到的任何一句話就好。';
     return;
@@ -3010,15 +3015,15 @@ function showResult(heardText){
   const closeness = 1 - dist / Math.max(a.length, b.length, 1);
 
   // 先算出這次的分數,再記錄練習(這樣間隔複習才能依分數判斷這個字「講得好不好」)
-  recordPracticed(item, stageIdx, closeness);
+  recordPracticed(item, typeof item.stage === 'number' ? item.stage : stageIdx, closeness);
   markSessionProgress(item);
 
   // 逐字比對:目標句子裡,講對的字綠色、講錯或漏掉的字紅色
   if(diffBox) diffBox.innerHTML = renderWordDiff(item.en, heardText);
 
-  if(closeness > 0.85){
+  if(closeness >= 0.85){
     fb.className = 'feedback';
-    fb.textContent = '非常棒，完全正確！';
+    fb.textContent = '辨識文字與題目高度一致！可再聽一次，留意重音與語調。';
     el('coachBtn').style.display = 'none';
     if(typeof isBlindMode !== 'undefined' && isBlindMode) el('target').classList.add('revealed');
     celebrateCorrectAnswer();
@@ -3063,7 +3068,7 @@ function setupRecognition(){
 
 function buildRecognition(){
   const r = new SRClass();
-  r.lang = 'en-US';
+  r.lang = accentPref === 'uk' ? 'en-GB' : 'en-US';
   r.interimResults = true;
   r.continuous = false;
   r.maxAlternatives = 1;
@@ -3114,7 +3119,7 @@ function buildRecognition(){
   r.onend = () => {
     clearTimeout(recTimeoutTimer);
     isRecording = false;
-    el('recBtn').innerHTML = '🎙';
+    el('recBtn').innerHTML = '🎙<span>開始說話</span>';
     el('recBtn').classList.remove('recording');
     el('liveTranscript').textContent = '';
     // 關鍵修正：只要 finalTranscript 有內容就視為成功
@@ -3189,7 +3194,7 @@ function startRecording(){
   recognition = buildRecognition();
   try{ recognition.start(); }catch(e){
     isRecording = false;
-    el('recBtn').innerHTML = '🎙';
+    el('recBtn').innerHTML = '🎙<span>開始說話</span>';
     el('recBtn').classList.remove('recording');
     el('liveTranscript').textContent = '';
     showErrorMsg('無法啟動麥克風，重新整理頁面後再試一次。');
@@ -3299,7 +3304,7 @@ document.addEventListener('keydown', (e) => {
   if(e.key !== ' ' && e.key !== 'Spacebar' && e.key !== 'Enter') return;
 
   const activeTag = document.activeElement ? document.activeElement.tagName : '';
-  const isTypingField = ['INPUT', 'TEXTAREA', 'SELECT'].includes(activeTag) ||
+  const isTypingField = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'SUMMARY', 'A'].includes(activeTag) ||
     (document.activeElement && document.activeElement.isContentEditable);
   if(isTypingField) return;
 
@@ -3350,7 +3355,7 @@ el('addBtn').onclick = async () => {
   // 拼字很接近但不完全一樣,還是讓使用者加進去,只是先提醒一下,可能是想加的字打錯,也可能就是刻意要練的相似字。
   const existing = findSimilarWord(en);
   if(existing && existing.en.trim().toLowerCase() === en.trim().toLowerCase()){
-    if(addStatus) addStatus.innerHTML = `⚠️ 「${en}」題庫裡已經有了,沒有重複加入。`;
+    if(addStatus) addStatus.innerHTML = `⚠️ 「${escapeHtml(en)}」題庫裡已經有了,沒有重複加入。`;
     return;
   }
   let similarNote = '';
@@ -3437,8 +3442,8 @@ function renderCustomMgmtList(){
     row.innerHTML = `
       <input type="checkbox" class="cm-check">
       <div class="cm-fields">
-        <input type="text" class="cm-en" value="${(ci.en || '').replace(/"/g,'&quot;')}" placeholder="英文">
-        <input type="text" class="cm-zh" value="${(ci.zh || '').replace(/"/g,'&quot;')}" placeholder="中文">
+        <input type="text" class="cm-en" value="${escapeHtml(ci.en || "")}" placeholder="英文">
+        <input type="text" class="cm-zh" value="${escapeHtml(ci.zh || "")}" placeholder="中文">
         <select class="cm-stage">${stageOptions}</select>
       </div>
       <button class="cm-del-btn" title="刪除這一題">🗑️</button>
@@ -3635,8 +3640,9 @@ zh (中文) 必須是繁體中文(臺灣)。
 不要輸出任何 Markdown 語法（例如 \`\`\`json ），只要純 JSON 文字陣列即可。`;
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(getAiModel())}:generateContent`, {
       method: 'POST',
+      signal: AbortSignal.timeout(45000),
       headers: {'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey},
       body: JSON.stringify({
         contents: [{ role: "user", parts: [{text: prompt}] }],
@@ -3695,7 +3701,7 @@ zh (中文) 必須是繁體中文(臺灣)。
     lsSet('speakup_ai_items', JSON.stringify(aiGeneratedItems));
     
     if(similarWarnings.length){
-      el('aiStatus').innerHTML = `✅ 生成成功！已幫你切換到新類別。<br><span style="color:var(--muted); font-size:12px;">⚠️ ${similarWarnings.slice(0, 4).join('；')}</span>`;
+      el('aiStatus').innerHTML = `✅ 生成成功！已幫你切換到新類別。<br><span style="color:var(--muted); font-size:12px;">⚠️ ${escapeHtml(similarWarnings.slice(0, 4).join('；'))}</span>`;
     } else {
       el('aiStatus').textContent = '✅ 生成成功！已幫你切換到新類別。';
     }
@@ -3807,7 +3813,7 @@ if(el('settingsBtn')) {
   // 所有需要納入「完整備份」的 localStorage key(不包含 speakup_custom,
   // 因為那是舊版題庫覆寫用的快取,匯入時交給 word_bank.js 本身管理即可)
   const BACKUP_KEYS = [
-    'speakup_ai_items', 'speakup_apikey', 'speakup_appMode', 'speakup_cat',
+    'speakup_ai_items', 'speakup_appMode', 'speakup_cat',
     'speakup_cat_progress', 'speakup_custom_items', 'speakup_daily',
     'speakup_favorites', 'speakup_practiced', 'speakup_stageIdx',
     'speakup_streak', 'speakup_last_cat', 'speakup_last_celebrated', 'speakup_last_level',
@@ -3821,7 +3827,7 @@ if(el('settingsBtn')) {
       const v = lsGet(k);
       if(v !== null && v !== undefined) data[k] = v;
     });
-    return { app: 'SpeakUp', version: 1, exportedAt: new Date().toISOString(), data };
+    return sanitizeBackup({ app: 'SpeakUp', version: 2, exportedAt: new Date().toISOString(), data });
   }
 
   // 還原備份資料,回傳實際還原的項目數;匯入檔案與從 Gist 下載共用同一份邏輯
@@ -3929,7 +3935,7 @@ if(el('settingsBtn')) {
     if(manual && btn) btn.disabled = true;
     if(manual) setGhStatus('上傳中...');
     try {
-      const payload = payloadOverride || buildBackupPayload();
+      const payload = sanitizeBackup(payloadOverride || buildBackupPayload());
       const body = {
         description: 'Speak Up 開口練習 - 雲端備份(自動產生,請勿手動編輯)',
         public: false,
@@ -4228,7 +4234,7 @@ if(el('settingsBtn')) {
 
   el('clearDataBtn').onclick = () => {
     if(confirm('⚠️ 確定要清除所有學習紀錄、收藏與快取單字嗎？\n如果你沒有點選上方按鈕匯出，你的自訂與 AI 生成單字將會永久遺失！')) {
-      try{localStorage.clear()}catch(e){};
+      try{ Object.keys(localStorage).filter(k => k.startsWith('speakup_')).forEach(k => localStorage.removeItem(k)); }catch(e){};
       alert('已清除所有資料，網頁即將重新載入。');
       location.reload();
     }
@@ -4401,11 +4407,12 @@ el('coachBtn').onclick = async () => {
   btn.textContent = '✨ 分析中...';
   btn.classList.add('anim-soft-pulse');
   
-  const prompt = `目標英文句子: "${item.en}"\n使用者唸成了: "${heard}"\n請分析使用者可能的發音錯誤。請回傳嚴格的 JSON 格式，包含兩個欄位：\n1. "feedback": (字串) 給使用者的簡單反饋，3句以內。\n2. "vocab": (陣列) 從目標句子或發音錯誤中，挑出 1~3 個有價值的單字或片語，每個包含 "en" (英文), "zh" (繁體中文), "cat" (類別名稱，例如'AI糾音')。\n\n請務必只回傳 JSON，不要加 markdown 標記。`;
+  const prompt = `目標英文句子: "${item.en}"\n使用者唸成了: "${heard}"\n請比較辨識文字與目標句子的用字差異。你沒有收到音訊，不可判定發音、音素、重音或語調是否正確。請回傳嚴格的 JSON 格式，包含兩個欄位：\n1. "feedback": (字串) 給使用者的簡單反饋，3句以內。\n2. "vocab": (陣列) 從目標句子或用字差異中，挑出 1~3 個有價值的單字或片語，每個包含 "en" (英文), "zh" (繁體中文), "cat" (類別名稱，例如'AI用字')。\n\n請務必只回傳 JSON，不要加 markdown 標記。`;
   
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(getAiModel())}:generateContent`, {
       method: 'POST',
+      signal: AbortSignal.timeout(45000),
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
       body: JSON.stringify({
         contents: [{ role: "user", parts: [{ text: prompt }] }]
@@ -4456,7 +4463,7 @@ el('coachBtn').onclick = async () => {
         initBank(); // 立即把新單字補進 STAGES,不用重新整理頁面才看得到
         if (typeof generateRandomReview === 'function') generateRandomReview();
         const warnHtml = similarWarnings.length
-          ? `<div style="color:var(--muted); font-size:11px; margin-top:4px;">⚠️ ${similarWarnings.slice(0, 4).join('；')}</div>`
+          ? `<div style="color:var(--muted); font-size:11px; margin-top:4px;">⚠️ ${escapeHtml(similarWarnings.slice(0, 4).join('；'))}</div>`
           : '';
         vocabArea.innerHTML = `<div class="anim-gentle-in" style="text-align:center; color:var(--sage); font-size:13px; font-weight:bold; padding:8px;">✅ 已成功加入你的專屬題庫！${warnHtml}</div>`;
       };
@@ -4489,7 +4496,7 @@ el('rpRandomBtn').onclick = () => {
 };
 
 el('rpStartBtn').onclick = async () => {
-  if(!geminiApiKey) { alert('請先在「✨ AI情境」輸入你的 Gemini API Key！'); return; }
+  if(!geminiApiKey) { alert('請先到右上角設定輸入 Gemini API Key。'); return; }
   const scenario = el('rpScenarioInput').value.trim();
   if(!scenario) return;
   
@@ -4504,13 +4511,14 @@ el('rpStartBtn').onclick = async () => {
   
   const prompt = `我們現在來進行英文對話演練。情境是：「${scenario}」。你先開始跟我對話，說第一句話。請強制回傳 JSON 格式：{"next_response_en": "英文回覆", "next_response_zh": "中文翻譯", "feedback": ""}`;
   
-  await fetchRpResponse([{role: "user", parts: [{text: prompt}]}]);
+  await runRpRequest([{role: "user", parts: [{text: prompt}]}]);
 };
 
 async function fetchRpResponse(contents) {
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(getAiModel())}:generateContent`, {
       method: 'POST',
+      signal: AbortSignal.timeout(45000),
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
       body: JSON.stringify({
         contents: contents,
@@ -4544,6 +4552,9 @@ async function fetchRpResponse(contents) {
       throw new Error('AI 回傳的內容不是有效 JSON,可能是模型格式跑掉了。原始內容:' + text.slice(0, 80));
     }
     
+    if(typeof parsed.next_response_en !== 'string' || !parsed.next_response_en.trim()) throw new Error('AI 回覆格式不完整，請重試。');
+    parsed.next_response_zh = typeof parsed.next_response_zh === 'string' ? parsed.next_response_zh : '';
+    parsed.feedback = typeof parsed.feedback === 'string' ? parsed.feedback : '';
     // Add AI message to history
     rpHistory.push(contents[contents.length-1]); 
     rpHistory.push({role: "model", parts: [{text: text}]});
@@ -4551,9 +4562,9 @@ async function fetchRpResponse(contents) {
     // UI update
     const div = document.createElement('div');
     div.className = 'msg-ai anim-bubble-in';
-    div.innerHTML = `<strong>AI:</strong> ${parsed.next_response_en}<div style="font-size:12px;opacity:0.7;margin-top:4px;">${parsed.next_response_zh}</div>`;
+    div.innerHTML = `<strong>AI:</strong> ${escapeHtml(parsed.next_response_en)}<div style="font-size:12px;opacity:0.7;margin-top:4px;">${escapeHtml(parsed.next_response_zh)}</div>`;
     if(parsed.feedback) {
-      div.innerHTML += `<div class="msg-tip">💡 教練提示：${parsed.feedback}</div>`;
+      div.innerHTML += `<div class="msg-tip">💡 教練提示：${escapeHtml(parsed.feedback)}</div>`;
     }
     el('rpChat').appendChild(div);
     
@@ -4569,16 +4580,18 @@ async function fetchRpResponse(contents) {
     el('rpStatus').textContent = '請按下麥克風開始說話'; triggerAnim('rpStatus', 'anim-status-fade');
     el('rpHintBox').style.display = 'none';
     el('rpHintBox').innerHTML = '';
+    return true;
   } catch(err) {
     console.error('Roleplay API error:', err);
     el('rpStatus').textContent = '⚠️ ' + friendlyNetErrorMsg(err); triggerAnim('rpStatus', 'anim-status-fade');
+    return false;
   }
 }
 
 function initRpSR() {
   if(!SRClass) return;
   rpSR = new SRClass();
-  rpSR.lang = 'en-US';
+  rpSR.lang = accentPref === 'uk' ? 'en-GB' : 'en-US';
   rpSR.continuous = false;
   rpSR.interimResults = false;
   
@@ -4592,17 +4605,9 @@ function initRpSR() {
     const heard = e.results[0][0].transcript;
     if(!heard) return;
     
-    const div = document.createElement('div');
-    div.className = 'msg-user anim-bubble-in';
-    div.innerHTML = `<strong>你:</strong> ${heard}`;
-    el('rpChat').appendChild(div);
-    el('rpChat').scrollTop = el('rpChat').scrollHeight;
-    
-    el('rpStatus').textContent = 'AI 思考中...'; triggerAnim('rpStatus', 'anim-status-fade');
-    
-    const prompt = `我說了："${heard}"。請評估這句話是否符合情境與文法，給予簡單的繁體中文回饋(feedback)，並順著對話繼續回覆我(next_response_en)。請強制回傳 JSON 格式：{"next_response_en": "", "next_response_zh": "", "feedback": "中文提示"}`;
-    
-    await fetchRpResponse([...rpHistory, {role: "user", parts: [{text: prompt}]}]);
+    el('rpReplyInput').value = heard;
+    el('rpStatus').textContent = '辨識完成，請確認文字後送出。';
+    el('rpReplyInput').focus();
   };
   
   rpSR.onerror = (e) => {
@@ -4627,7 +4632,7 @@ el('rpRecBtn').onclick = () => {
   if(!SRClass) { alert('您的瀏覽器不支援語音辨識'); return; }
   if(!rpSR) initRpSR();
   
-  if(el('rpStatus').textContent === 'AI 思考中...') return;
+  if(rpRequestBusy) return;
   
   if(rpIsRecording && rpSR) {
     try { rpSR.stop(); } catch(e){}
@@ -4651,8 +4656,9 @@ el('rpHintBtn').onclick = async () => {
   
   try {
     const prompt = `請根據我們以上的對話，提供 3 個簡短、口語化的英文回覆選項（附帶中文翻譯），讓使用者可以直接照著念來推進對話。回傳 JSON 格式：{"hints": [{"en":"...", "zh":"..."}, ...]}`;
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(getAiModel())}:generateContent`, {
       method: 'POST',
+      signal: AbortSignal.timeout(45000),
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': geminiApiKey },
       body: JSON.stringify({
         contents: [...rpHistory, {role: "user", parts: [{text: prompt}]}],
@@ -4672,7 +4678,7 @@ el('rpHintBtn').onclick = async () => {
     
     hintBox.style.display = 'block';
     hintBox.innerHTML = '<div style="color:var(--sage-dark); font-weight:bold; margin-bottom:6px;">你可以這樣說：</div>' + 
-      parsed.hints.map(h => `<div style="margin-bottom:6px;">• <b>${h.en}</b> <br><span style="color:var(--muted); font-size:12px;">(${h.zh})</span></div>`).join('');
+      parsed.hints.map(h => `<div style="margin-bottom:6px;">• <b>${escapeHtml(h.en)}</b> <br><span style="color:var(--muted); font-size:12px;">(${escapeHtml(h.zh)})</span></div>`).join('');
     triggerAnim('rpHintBox', 'anim-gentle-in');
   } catch(e) {
     hintBox.style.display = 'block';

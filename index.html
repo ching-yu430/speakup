@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Speak Up">
@@ -10,10 +10,11 @@
 <link rel="icon" href="apple-touch-icon.jpg">
 <link rel="manifest" href="manifest.json">
 <title>開口練習 Speak Up</title>
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=20261011">
+<link rel="stylesheet" href="improvements.css?v=20261011">
 </head>
 <body>
-<script src="word_bank.js?v=20240726" charset="utf-8"></script>
+<script src="word_bank.js?v=20261011" charset="utf-8"></script>
 
 <div class="wrap">
 
@@ -42,7 +43,9 @@
     </div>
   </div>
 
-  <div id="mainAppContent">
+  <nav class="primary-nav" aria-label="主要功能"><button data-section="practice" class="active">📚 練習</button><button data-section="conversation">💬 對話</button><button data-section="review">🔁 複習</button><button data-section="personal">🌱 我的</button></nav>
+<section id="dailyHome" class="daily-home"><div><span class="eyebrow">每天一點，慢慢說得更自在</span><h1>今天，開口 5 分鐘</h1><p id="dailySummary">先複習，再學新句子，最後試著聊一聊。</p></div><div class="daily-actions"><button id="startDailyBtn" class="settings-btn settings-btn-primary">開始今日練習</button><button id="continueBtn" class="settings-btn settings-btn-secondary">繼續上次</button></div><div id="dailySession" role="status" hidden></div></section>
+<div id="mainAppContent">
 
   <div class="dropdown-panel" id="modeDropdown">
     <nav class="app-tabs">
@@ -50,7 +53,7 @@
       <button class="app-tab" id="tabAI"><span class="tab-icon">✨</span><span class="tab-label">AI 情境</span></button>
       <button class="app-tab" id="tabNews"><span class="tab-icon">📰</span><span class="tab-label">每日新聞</span></button>
       <button class="app-tab" id="tabRoleplay"><span class="tab-icon">💬</span><span class="tab-label">實戰對話</span></button>
-      <button class="app-tab" id="tabCompleted"><span class="tab-icon">✅</span><span class="tab-label">已完成</span></button>
+      <button class="app-tab" id="tabCompleted"><span class="tab-icon">✅</span><span class="tab-label">練習紀錄</span></button>
       <button class="app-tab" id="tabRandom"><span class="tab-icon">🔁</span><span class="tab-label">隨機抽考</span></button>
       <button class="app-tab" id="tabWeak"><span class="tab-icon">🧠<span class="tab-due-badge" id="weakDueBadge" style="display:none;"></span></span><span class="tab-label">弱點單字</span></button>
       <button class="app-tab" id="tabProgress"><span class="tab-icon">📊</span><span class="tab-label">學習進度</span></button>
@@ -96,7 +99,7 @@
       </div>
       <div id="rpHintBox" style="display:none; margin-bottom:12px; text-align:left; background:var(--card); border:1px dashed var(--sage); border-radius:8px; padding:10px; font-size:13px; color:var(--ink); line-height:1.5;"></div>
       <div id="rpStatus" style="font-size:13px; color:var(--muted); text-align:center; margin-bottom:8px;">請按下麥克風開始說話</div>
-      <button class="btn-mic" id="rpRecBtn" style="margin:0 auto;">🎙</button>
+      <button class="btn-mic" id="rpRecBtn" style="margin:0 auto;">🎙<span>開始說話</span></button><label class="reply-label" for="rpReplyInput">你的回覆 · 可打字或修改辨識結果</label><textarea id="rpReplyInput" rows="3" placeholder="Type your reply in English..."></textarea><div class="reply-actions"><button id="rpSendBtn" class="settings-btn settings-btn-primary">確認並送出</button><button id="rpRetryBtn" class="settings-btn settings-btn-secondary" hidden>重試上一則</button></div><p class="settings-hint">語音辨識後先確認文字，再送給 AI。教練回饋分析用字、文法與情境。</p>
     </div>
   </div>
 
@@ -135,9 +138,9 @@
       </div>
     </div>
     <div class="target" id="target">Loading...</div>
-    <div class="target-zh" id="targetZh"></div>
+    <div class="target-zh" id="targetZh"></div><div id="itemLearningState" class="learning-state"></div>
 
-    <div class="phon-block" id="phonBlock" style="display:none;">
+    <details class="phon-details"><summary>發音提示 · 音標與注音</summary><div class="phon-block" id="phonBlock" style="display:none;">
       <div class="phon-cols">
         <div class="phon-col">
           <div class="phon-label">🔤 英文拼法</div>
@@ -150,7 +153,7 @@
       </div>
       <div class="phon-hint">大字／深色 = 重音節・注音為近似發音，部分英文特有音（如 th、v）無法完全對應，僅供輔助參考</div>
       <div class="phon-raw-row" id="phonRawRow"></div>
-    </div>
+    </div></details>
     </div>
 
     <div style="display:inline-flex; flex-direction:column; gap:10px; margin-bottom:10px; width:100%; max-width:200px;">
@@ -165,17 +168,17 @@
     </div>
 
     <div class="controls" style="margin-top:16px;">
-      <button class="btn-play btn-play-slow" id="slowPlayBtn" title="慢速發音">🐢</button>
-      <button class="btn-mic" id="recBtn" title="點選錄音">🎙</button>
-      <button class="btn-play" id="playBtn" title="正常發音">🔊</button>
+      <button class="btn-play btn-play-slow" id="slowPlayBtn" title="慢速發音">🐢<span>慢速聽</span></button>
+      <button class="btn-mic" id="recBtn" title="點選錄音">🎙<span>開始說話</span></button>
+      <button class="btn-play" id="playBtn" title="正常發音">🔊<span>正常聽</span></button>
     </div>
-    <div class="live-transcript" id="liveTranscript"></div>
+    <div class="live-transcript" id="liveTranscript" role="status" aria-live="polite"></div>
 
     <div class="result" id="result">
       <div class="you-said">你講的是</div>
       <div class="heard" id="heard"></div>
       <div id="wordDiff" style="margin-top:8px;"></div>
-      <div class="feedback" id="feedback"></div>
+      <div class="feedback" id="feedback" role="status"></div>
       <button id="coachBtn" style="display:none; margin-top:12px; background:var(--sage); color:var(--card); border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">✨ 請 AI 教練抓漏</button>
       <div id="coachFeedback" style="display:none; margin-top:12px; font-size:14px; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); line-height:1.5;"></div>
       <div id="coachVocabArea" style="display:none; margin-top:8px;"></div>
@@ -196,8 +199,8 @@
     <div class="ai-modal">
       <button class="ai-modal-close" id="closeAiModalBtn">×</button>
       <h2 style="margin-top:0; color:var(--ai-dark); font-size: 20px;">✨ AI 無限情境生成器</h2>
-      <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">利用最新 Gemini 3.6 Flash 模型，立刻為你生成專屬的實用對話與單字。</p>
-      <input type="password" id="apiKeyInput" placeholder="輸入你的 Gemini API Key (僅存在本地)" style="width:100%; margin-bottom: 8px; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
+      <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">利用設定的 Gemini 模型，立刻為你生成專屬的實用對話與單字。</p>
+<button class="settings-btn settings-btn-secondary" id="aiSettingsLink">⚙️ 設定 AI 連線</button>
       <div style="display:flex; gap:8px; margin-bottom: 16px;">
         <input type="text" id="aiScenarioInput" placeholder="想練習的情境？例如：在機場跟地勤吵架" style="flex:1; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
         <button id="aiRandomBtn" style="background:var(--sage-light); border:1px solid var(--line); padding:0 14px; border-radius:8px; cursor:pointer; color:var(--ink);" title="隨機情境">🎲 隨機</button>
@@ -234,7 +237,7 @@
 
     <button id="openGuideBtn" class="settings-btn settings-btn-secondary" style="margin-bottom:18px;">📖 快速上手指南</button>
 
-    <div class="settings-group">
+    <div class="settings-group"><div class="settings-card" id="aiConnectionCard"><div class="settings-section-title">✨ AI 連線</div><label for="apiKeyInput">Gemini API Key</label>      <input type="password" id="apiKeyInput" placeholder="輸入你的 Gemini API Key (僅存在本地)" style="width:100%; margin-bottom: 8px; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';"><label for="aiModelInput">模型名稱</label><input id="aiModelInput" class="settings-input" value="gemini-3.6-flash"><button id="testAiBtn" class="settings-btn settings-btn-primary">測試連線</button><p id="aiConnectionStatus" class="settings-hint" role="status">金鑰只保存在此瀏覽器，不納入備份或同步。測試只檢查模型存取，不生成內容。</p></div>
       <div class="settings-group-label">資料備份與管理</div>
 
       <div class="settings-card">
@@ -255,7 +258,7 @@
         <button id="exportBackupBtn" class="settings-btn settings-btn-primary">📦 匯出完整備份 (.json)</button>
         <button id="importBackupBtn" class="settings-btn settings-btn-secondary">📤 匯入備份還原</button>
         <input type="file" id="importBackupFile" accept="application/json,.json" style="display:none;">
-        <div class="settings-hint">含收藏、進度、自訂單字與 API Key，換裝置前記得先匯出。⚠️ 匯入會直接覆蓋目前資料，且無法復原。</div>
+        <div class="settings-hint">含收藏、進度與自訂單字；不包含 API Key 或 GitHub Token。換裝置前記得先匯出。⚠️ 匯入會直接覆蓋目前資料，且無法復原。</div>
       </div>
     </div>
 
@@ -265,7 +268,7 @@
       <div class="settings-card">
         <div class="settings-section-title">🔗 GitHub Gist 雲端同步</div>
         <div class="settings-hint" style="margin-top:0; margin-bottom:10px;">
-          用你自己的 GitHub 帳號建立一個私人 Gist 存放備份，就能在多台裝置間同步進度，不用每次手動匯出／匯入檔案。<br>
+          用你自己的 GitHub 帳號建立一個未公開列出的 Gist 存放備份，就能在多台裝置間同步進度，不用每次手動匯出／匯入檔案。<br>
           請先到<a href="https://github.com/settings/tokens/new?scopes=gist&amp;description=SpeakUp%20Sync" target="_blank" rel="noopener">這裡產生 GitHub Token</a>，記得勾選 <code>gist</code> 權限（要選 classic token，不是 fine-grained token）。
         </div>
         <input type="password" id="ghTokenInput" class="settings-input" placeholder="貼上你的 GitHub Token（僅存在本地瀏覽器）" style="margin-bottom:8px;">
@@ -330,13 +333,13 @@
         前往 Google AI Studio 免費申請 Gemini API Key，並在「✨ AI 情境」視窗中貼上，即可解鎖「自訂情境生成」、「BBC 新聞每日對話」與「麥克風實戰角色扮演 (Roleplay)」的強大功能！<br><br>
 
         <strong style="color:var(--sage-dark);">5. 🔗 GitHub Gist 雲端同步</strong><br>
-        在設定裡貼上自己的 GitHub Token,就能把學習進度上傳到一個只有你自己看得到的私人 Gist,在另一台裝置貼上同一組 Token 後按「下載雲端還原」即可同步過去,不用再手動傳檔案。<br><br>
+        在設定裡貼上自己的 GitHub Token,就能把學習進度上傳到一個取得網址者仍可查看的未公開列出的 Gist,在另一台裝置貼上同一組 Token 後按「下載雲端還原」即可同步過去,不用再手動傳檔案。<br><br>
 
         <strong style="color:var(--sage-dark);">6. 🔔 每日練習提醒</strong><br>
         在設定裡開啟提醒並選好時間,只要當天還沒開口練習,系統就會跳出通知提醒你。提醒需要瀏覽器分頁或已安裝的 App 留在背景執行才會跳出來,完全關閉瀏覽器是收不到的——這是純前端網站(沒有後端伺服器)能做到的極限。<br><br>
 
         <strong style="color:var(--sage-dark);">7. 🔒 隱私安全與跨平台支援</strong><br>
-        所有的學習資料、連勝紀錄和 API Key 都只會安全地儲存於你的瀏覽器中。完美支援 Android、Chrome 以及 iOS 系統的語音引擎。
+        API Key 儲存在本機瀏覽器；使用 AI 時，輸入內容會送至 Google Gemini。啟用 Gist 同步後，學習資料會上傳至 GitHub。語音辨識支援依瀏覽器與裝置而異；實戰對話亦提供文字輸入。備份與雲端同步不含金鑰。
       </div>
     </div>
   </div>
@@ -375,6 +378,8 @@
   <footer>沒有標準答案,只有講出口的你。</footer>
 </div>
 
-<script src="app.js?v=10"></script>
+<script src="helpers.js?v=20261011"></script>
+<script src="app.js?v=20261011"></script>
+<script src="enhancements.js?v=20261011"></script>
 </body>
 </html>
