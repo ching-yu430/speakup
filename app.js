@@ -2265,45 +2265,62 @@ let accentPref = 'us';
 
 /* ---------- 字典 API 串接 (Free Dictionary API) ---------- */
 
-async function fetchWordData(word){
-  const clean = word.toLowerCase().trim();
-  const url = DICT_API + encodeURIComponent(clean);
-  const res = await fetch(url, { signal: AbortSignal.timeout(12000) });
-  if(!res.ok) throw new Error('查詢失敗 (' + res.status + ')');
-  const data = await res.json();
-  if(!Array.isArray(data) || !data.length) throw new Error('無資料');
-  const entry = data[0];
-  // 擷取音標與音檔
-  const variants = {};
-  const phonetics = entry.phonetics || [];
-  // 全域性音標
-  const globalPhon = entry.phonetic || phonetics.find(p => p.text)?.text || '';
-  phonetics.forEach(p => {
-    if(!p.audio) return;
-    const audioUrl = p.audio;
-    const isUS = audioUrl.includes('-us') || audioUrl.includes('_us');
-    const isUK = audioUrl.includes('-uk') || audioUrl.includes('_uk');
-    const key = isUS ? 'us' : isUK ? 'uk' : null;
-    if(key && !variants[key]){
-      variants[key] = { audio: audioUrl, phon: p.text || globalPhon };
+function normalizePhonWord(word){
+  return String(word||'').normalize('NFKC').toLowerCase().trim().replace(/[’‘]/g,"'").replace(/^[^a-z]+|[^a-z]+$/g,'');
+}
+const ipaDictionaryLoads={};
+async function loadLocalIPADictionary(accent){
+  if(!ipaDictionaryLoads[accent]) ipaDictionaryLoads[accent]=(async()=>{
+    const res=await fetch('ipa-data/en_'+(accent==='uk'?'UK':'US')+'.txt',{signal:AbortSignal.timeout(10000)});
+    if(!res.ok) throw new Error('本機音標字庫未載入');
+    const map=new Map();
+    for(const line of (await res.text()).split(/\r?\n/)){
+      const tab=line.indexOf('\t');if(tab<1)continue;
+      const word=line.slice(0,tab).toLowerCase(),phon=line.slice(tab+1).trim();
+      if(phon)map.set(word,phon.split(', ')[0]);
     }
-  });
-  // 如果只有一個音檔但沒被分類
-  if(!variants.us && !variants.uk && phonetics.length > 0){
-    const p = phonetics.find(x => x.audio) || phonetics[0];
-    variants.us = { audio: p.audio || '', phon: p.text || globalPhon };
+    return map;
+  })().catch(err=>{delete ipaDictionaryLoads[accent];throw err;});
+  return ipaDictionaryLoads[accent];
+}
+const PHON_SPELLINGS={flavourful:'flavorful',flavorful:'flavourful',colour:'color',color:'colour',favourite:'favorite',favorite:'favourite',organise:'organize',organize:'organise',centre:'center',center:'centre',travelling:'traveling',traveling:'travelling'};
+async function fetchWordData(word){
+  const clean=normalizePhonWord(word);
+  if(!clean || /\s/.test(clean)) throw new Error('請選擇單一英文單字查詢');
+  const variants={};
+  const local=await Promise.allSettled(['us','uk'].map(async accent=>{
+    const map=await loadLocalIPADictionary(accent);
+    const phon=map.get(clean)||map.get(PHON_SPELLINGS[clean]);
+    if(phon)variants[accent]={phon,audio:'',source:'ipa-dict'};
+  }));
+  if(Object.keys(variants).length)return {zh:null,variants};
+  let networkError=null,missing=false;
+  for(const query of [...new Set([clean,PHON_SPELLINGS[clean]].filter(Boolean))]){
+    try{
+      const res=await fetch(DICT_API+encodeURIComponent(query),{signal:AbortSignal.timeout(10000)});
+      if(res.status===404){missing=true;continue;}
+      if(!res.ok)throw new Error('字典服務回應 '+res.status);
+      const data=await res.json();if(!Array.isArray(data))continue;
+      for(const entry of data){
+        const list=entry.phonetics||[],globalPhon=entry.phonetic||list.find(p=>p.text)?.text;
+        for(const p of list){
+          const audio=p.audio||'',phon=p.text||globalPhon;if(!phon)continue;
+          const key=/-uk|_uk/.test(audio)?'uk':/-us|_us/.test(audio)?'us':null;
+          if(key&&!variants[key])variants[key]={audio,phon,source:'Dictionary API'};
+        }
+        if(globalPhon&&!Object.keys(variants).length)variants.us={audio:'',phon:globalPhon,source:'Dictionary API'};
+      }
+      if(Object.keys(variants).length)return {zh:null,variants};
+      missing=true;
+    }catch(err){networkError=err;}
   }
-  // 如果連音檔都沒有，至少給音標
-  if(!variants.us && !variants.uk && globalPhon){
-    variants.us = { audio: '', phon: globalPhon };
-  }
-  if(!Object.values(variants).some(v => v.phon)) throw new Error("字典沒有提供音標");
-  return { zh: null, variants };
+  if(networkError)throw new Error('網路或字典服務暫時無法連線，請重試。');
+  throw new Error(missing?'字庫未收錄此拼字的音標；請確認拼字或選擇其他單字。':'音標字庫載入失敗，請重新整理後重試。');
 }
 
 function getVariant(item){
   if(!item || !item.variants) return null;
-  return item.variants[accentPref] || item.variants.us || item.variants.uk || null;
+  return [item.variants[accentPref],item.variants.us,item.variants.uk].find(v=>v?.phon) || item.variants[accentPref] || item.variants.us || item.variants.uk || null;
 }
 
 /* ---------- 用 Gemini 自動翻譯中文(當使用者沒填中文時) ---------- */
@@ -2364,10 +2381,10 @@ function playAudio(item, rate = 0.9){
 
 // 背景查詢單字資料（音檔、音標），完成後如果還在看同一題就重繪
 function fetchAndEnrich(item, force = false){
-  if(item._fetching || (item._fetched && !force)) return;
-  const key = 'speakup_phon_' + item.en.toLowerCase().trim();
+  if(item._fetching || (item._fetched && getVariant(item)?.phon && !force)) return;
+  const key = 'speakup_phon_' + normalizePhonWord(item.en);
   const cached = safeParse(lsGet(key), null);
-  const fallback = OFFLINE_PHONETICS[item.en.toLowerCase().trim()];
+  const fallback = OFFLINE_PHONETICS[normalizePhonWord(item.en)];
   if(!force && cached && typeof cached === 'object') item.variants = {...item.variants, ...cached};
   if(!getVariant(item)?.phon && fallback) item.variants = {...item.variants, ...fallback};
   const stillCurrent = () => currentItem() === item;
@@ -2377,10 +2394,10 @@ function fetchAndEnrich(item, force = false){
     item.variants = {...item.variants, ...data.variants};
     item._fetched = true; item._phonError = '';
     lsSet(key, JSON.stringify(item.variants));
-  }).catch(() => {
+  }).catch(err => {
     // Allow retry and retain offline/cached transcriptions when the network fails.
     item._fetched = false;
-    item._phonError = getVariant(item)?.phon ? '目前使用已保存的音標。' : '暫時查不到音標，請連網後重試。';
+    item._phonError = getVariant(item)?.phon ? '目前使用已保存的音標。' : err.message || '暫時查不到音標，請重試。';
   }).finally(() => {
     item._fetching = false;
     if(stillCurrent()) renderPhonetics(getVariant(item)?.phon || null);
@@ -2478,12 +2495,12 @@ function renderPhonetics(phon){
   const status = el('phonStatus');
   if(!phon){
     block.style.display = 'none'; visual.textContent = ''; if(zhuyin) zhuyin.textContent = ''; if(rawRow) rawRow.textContent = '';
-    if(status) status.textContent = item && /\s/.test(item.en) ? '片語與句子可選取下方單字查看音標。' : item?._fetching ? '正在查詢音標…' : '這個字暫無音標，可按「重新查詢」再試一次。';
+    if(status) status.textContent = item && /\s/.test(item.en) ? '片語與句子可選取下方單字查看音標。' : item?._fetching ? '正在查詢音標…' : item?._phonError || '這個字暫無音標，可按「重新查詢」再試一次。';
     return;
   }
   if(status) status.textContent = item?._phonError || '音標與注音近似提示';
   block.style.display = 'block';
-  const clean = phon.replace(/^\/|\/$/g,'').trim().replace(/ɹ/g, 'r').replace(/ɡ/g, 'g');
+  const clean = phon.replace(/^\/|\/$/g,'').trim().replace(/ɹ/g, 'r').replace(/ɡ/g, 'g').replace(/ɫ/g,'l');
 
   // 確保重音符號和句點都可以作為音節分隔
   let marked = clean.replace(/([ˈˌ])/g, '.$1');
@@ -2889,11 +2906,13 @@ function render(skipTargetAnim = false){
   el('recBtn').classList.remove('recording');
   el('liveTranscript').textContent = '';
 
-  if(!getVariant(item)?.phon && OFFLINE_PHONETICS[item.en.toLowerCase().trim()]) item.variants = OFFLINE_PHONETICS[item.en.toLowerCase().trim()];
+  const savedPhon=safeParse(lsGet('speakup_phon_'+normalizePhonWord(item.en)),null);
+  if(savedPhon)item.variants={...item.variants,...savedPhon};
+  if(!getVariant(item)?.phon && OFFLINE_PHONETICS[normalizePhonWord(item.en)]) item.variants = OFFLINE_PHONETICS[normalizePhonWord(item.en)];
   renderPhonetics(getVariant(item)?.phon || null);
 
   // 對所有單字（不含空格的英文）自動查字典取得音標
-  if(!/\s/.test(item.en) && !item._fetched && !item._fetching){
+  if(!/\s/.test(item.en) && (!item._fetched || !getVariant(item)?.phon) && !item._fetching){
     fetchAndEnrich(item);
   }
 }

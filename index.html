@@ -10,11 +10,11 @@
 <link rel="icon" href="apple-touch-icon.jpg">
 <link rel="manifest" href="manifest.json">
 <title>開口練習 Speak Up</title>
-<link rel="stylesheet" href="style.css?v=20261011g">
-<link rel="stylesheet" href="improvements.css?v=20261011g">
+<link rel="stylesheet" href="style.css?v=20261011i">
+<link rel="stylesheet" href="improvements.css?v=20261011i">
 </head>
 <body>
-<script src="word_bank.js?v=20261011g" charset="utf-8"></script>
+<script src="word_bank.js?v=20261011i" charset="utf-8"></script>
 
 <div class="wrap">
 
@@ -75,7 +75,7 @@
   </div>
 
   <div class="ai-actions" id="aiActions" style="display:none;">
-    <button class="ai-create-btn" id="openAiModalBtn">🚀 ＋ 請 AI 生成新情境...</button>
+    <button class="ai-create-btn" id="openAiModalBtn">＋ 新情境</button>
   </div>
 
   <div class="roleplay-container card" id="rpContainer" style="display:none; padding: 24px;">
@@ -138,10 +138,9 @@
       </div>
     </div>
     <div class="target" id="target">Loading...</div>
-    <div class="target-zh" id="targetZh"></div><div id="itemLearningState" class="learning-state"></div>
+    <div id="inlinePhon" class="inline-phon" role="status"></div><div class="target-zh" id="targetZh"></div></div><div class="practice-info-row"><div id="itemLearningState" class="learning-state"></div>
 
-    <button id="openPhonBtn" class="phon-open-btn">音標與注音 ↗</button>
-    </div>
+    <button id="openPhonBtn" class="phon-open-btn">音標與注音 ↗</button></div>
 
     <div class="audio-preferences" style="display:inline-flex; flex-direction:column; gap:10px; margin-bottom:10px; width:100%; max-width:200px;">
       <div class="accent-row" style="margin-bottom:0; width:100%;">
@@ -162,13 +161,13 @@
     <div class="live-transcript" id="liveTranscript" role="status" aria-live="polite"></div>
 
     <div class="result" id="result">
-      <div class="you-said">你講的是</div>
-      <div class="heard" id="heard"></div>
-      <div id="wordDiff" style="margin-top:8px;"></div>
+      <div class="result-summary"><span class="you-said">辨識：</span>
+      <div class="heard" id="heard"></div></div><div id="resultStatus" class="result-status" role="status"></div><details id="resultDetails" class="result-details"><summary>查看詳情</summary><div class="result-detail-overlay"><section class="practice-sheet" role="dialog" aria-modal="true" aria-labelledby="resultDetailTitle"><div class="sheet-heading"><h2 id="resultDetailTitle">跟讀詳情</h2><button id="closeResultDetails" class="sheet-close" aria-label="關閉跟讀詳情">✕</button></div>
+      <p id="detailTranscript" style="font-size:15px;line-height:1.5;overflow-wrap:anywhere"></p><div id="wordDiff" style="margin-top:8px;"></div>
       <div class="feedback" id="feedback" role="status"></div>
       <button id="coachBtn" style="display:none; margin-top:12px; background:var(--sage); color:var(--card); border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600;">✨ 請 AI 教練抓漏</button>
       <div id="coachFeedback" style="display:none; margin-top:12px; font-size:14px; background:var(--card); border:1px solid var(--line); padding:12px; border-radius:10px; color:var(--ink); line-height:1.5;"></div>
-      <div id="coachVocabArea" style="display:none; margin-top:8px;"></div>
+      <div id="coachVocabArea" style="display:none; margin-top:8px;"></div></section></div></details>
     </div>
 
     <div class="quick-nav" id="quickNav">
@@ -379,10 +378,11 @@
       <div class="phon-hint">大字／深色 = 重音節・注音為近似發音，部分英文特有音（如 th、v）無法完全對應，僅供輔助參考</div>
       <div class="phon-raw-row" id="phonRawRow"></div>
     </div><button id="retryPhonBtn" class="settings-btn settings-btn-secondary">重新查詢音標</button><p class="settings-hint">注音只提供近似提示；請搭配例字聲音，留意英文特有音。</p></section></div>
-<script src="phonetics-data.js?v=20261011g"></script>
-<script src="helpers.js?v=20261011g"></script>
-<script src="app.js?v=20261011g"></script>
-<script src="enhancements.js?v=20261011g"></script>
-<script src="iphone.js?v=20261011g"></script>
+<script src="phonetics-data.js?v=20261011i"></script>
+<script src="helpers.js?v=20261011i"></script>
+<script src="app.js?v=20261011i"></script>
+<script src="enhancements.js?v=20261011i"></script>
+<script src="iphone.js?v=20261011i"></script>
+<script src="practice-polish.js?v=20261011i"></script>
 </body>
 </html>
