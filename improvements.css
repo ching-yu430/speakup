@@ -69,3 +69,34 @@ button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible,t
  .practice-focus .ipa-toolbar{margin:4px 0}
  .practice-focus .ipa-toolbar select,.practice-focus .ipa-toolbar button{min-height:38px}
 }
+/* v4: use taller iPhone screens for readable spacing between practice groups. */
+@media(max-width:600px) and (min-height:720px){
+ .practice-focus #mainCard{padding:18px 16px}
+ .practice-focus .target-meta{margin-bottom:12px}
+ .practice-focus .target{font-size:clamp(26px,7vw,32px);margin-bottom:8px}
+ .practice-focus .target-zh{font-size:15px;line-height:1.5;margin-bottom:8px}
+ .practice-focus .learning-state{margin:4px 0 8px}
+ .practice-focus .phon-open-btn{margin:8px 0;min-height:38px}
+ .practice-focus .audio-preferences{margin:10px 0!important}
+ .practice-focus .controls{margin-top:12px!important;margin-bottom:8px;gap:22px}
+ .practice-focus .quick-nav{margin-top:12px;padding-top:10px}
+ .practice-focus .cat-progress-wrap{margin-top:10px}
+}
+@media(max-width:600px) and (min-height:820px){
+ .practice-focus #mainCard{padding:24px 20px}
+ .practice-focus .target-meta{margin-bottom:20px}
+ .practice-focus .target{font-size:clamp(30px,8vw,36px);margin-bottom:12px}
+ .practice-focus .target-zh{font-size:16px;margin-bottom:12px}
+ .practice-focus .learning-state{font-size:12px;margin:6px 0 10px}
+ .practice-focus .phon-open-btn{margin:12px 0;min-height:40px;font-size:13px}
+ .practice-focus .audio-preferences{margin:16px 0!important;gap:12px!important}
+ .practice-focus .accent-btn{height:40px;min-height:40px;font-size:13px}
+ .practice-focus .controls{margin-top:18px!important;margin-bottom:12px;gap:26px}
+ .practice-focus .btn-play{width:70px;height:70px;font-size:27px}
+ .practice-focus .btn-mic{width:82px;height:82px;font-size:32px}
+ .practice-focus .btn-mic span,.practice-focus .btn-play span{font-size:12px}
+ .practice-focus .quick-nav{margin-top:18px;padding-top:14px}
+ .practice-focus .nav-arrow{width:44px;height:44px;min-height:44px}
+ .practice-focus .cat-progress-wrap{margin-top:12px}
+ .practice-focus .cat-progress-label{font-size:12px;line-height:1.5;margin-top:8px}
+}

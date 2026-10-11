@@ -1,5 +1,5 @@
-const CACHE_NAME='speakup-cache-20261011f';
-const CORE_ASSETS=['./','./index.html','./style.css?v=20261011f','./improvements.css?v=20261011f','./helpers.js?v=20261011f','./app.js?v=20261011f','./enhancements.js?v=20261011f','./word_bank.js?v=20261011f','./phonetics-data.js?v=20261011f','./iphone.js?v=20261011f','./manifest.json','./apple-touch-icon.jpg'];
+const CACHE_NAME='speakup-cache-20261011g';
+const CORE_ASSETS=['./','./index.html','./style.css?v=20261011g','./improvements.css?v=20261011g','./helpers.js?v=20261011g','./app.js?v=20261011g','./enhancements.js?v=20261011g','./word_bank.js?v=20261011g','./phonetics-data.js?v=20261011g','./iphone.js?v=20261011g','./manifest.json','./apple-touch-icon.jpg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE_ASSETS))));
 self.addEventListener('message',e=>{if(e.data?.type==='ACTIVATE_UPDATE')self.skipWaiting();});
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('speakup-cache-')&&k!==CACHE_NAME).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
