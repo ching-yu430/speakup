@@ -10,17 +10,18 @@
 <link rel="icon" href="apple-touch-icon.jpg">
 <link rel="manifest" href="manifest.json">
 <title>開口練習 Speak Up</title>
-<link rel="stylesheet" href="style.css?v=20261012i">
-<link rel="stylesheet" href="improvements.css?v=20261012i">
-<script defer src="word_bank.js?v=20261012i" charset="utf-8"></script>
-<script defer src="phonetics-data.js?v=20261012i"></script>
-<script defer src="helpers.js?v=20261012i"></script>
-<script defer src="bouquet.js?v=20261012i"></script>
-<script defer src="flower-cards.js?v=20261012i"></script>
-<script defer src="app.js?v=20261012i"></script>
-<script defer src="enhancements.js?v=20261012i"></script>
-<script defer src="iphone.js?v=20261012i"></script>
-<script defer src="practice-polish.js?v=20261012i"></script>
+<link rel="stylesheet" href="style.css?v=20261013a">
+<link rel="stylesheet" href="improvements.css?v=20261013a">
+<script defer src="word_bank.js?v=20261013a" charset="utf-8"></script>
+<script defer src="phonetics-data.js?v=20261013a"></script>
+<script defer src="helpers.js?v=20261013a"></script>
+<script defer src="bouquet.js?v=20261013a"></script>
+<script defer src="flower-cards.js?v=20261013a"></script>
+<script defer src="app.js?v=20261013a"></script>
+<script defer src="enhancements.js?v=20261013a"></script>
+<script defer src="iphone.js?v=20261013a"></script>
+<script defer src="practice-polish.js?v=20261013a"></script>
+<script defer src="roleplay-coach.js?v=20261013a"></script>
 </head>
 <body>
 
@@ -88,27 +89,32 @@
 
   <div class="roleplay-container card" id="rpContainer" style="display:none; padding: 24px;">
     <div class="rp-setup" id="rpSetup">
-      <div style="font-size:14px; margin-bottom:12px; color:var(--muted);">輸入你想練習的對話情境，AI 會開啟話題與你進行語音對談。</div>
+      <div style="font-size:14px; margin-bottom:12px; color:var(--muted);">🎯 用一段短對話完成任務。角色與情境變化每次不同，說完可重說並留下複習句。</div>
       <div style="display:flex; gap:8px; margin-bottom: 16px;">
         <input type="text" id="rpScenarioInput" placeholder="例如：在速食店點餐" style="flex:1; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
         <button id="rpRandomBtn" style="background:var(--sage-light); border:1px solid var(--line); padding:0 14px; border-radius:8px; cursor:pointer; color:var(--ink);" title="隨機情境">🎲 隨機</button>
       </div>
-      <button id="rpStartBtn" style="background:var(--sage); border:none; padding: 12px; border-radius: 8px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">開啟對話</button>
+      <div class="rp-task-options"><label for="rpDifficulty">起始難度<select id="rpDifficulty"><option value="0">🌱 入門</option><option value="1" selected>🌿 日常</option><option value="2">🌷 挑戰</option></select></label><label for="rpRounds">練習長度<select id="rpRounds"><option value="3">3 回合</option><option value="4" selected>4 回合</option><option value="5">5 回合</option></select></label></div>
+      <label class="rp-adaptive"><input type="checkbox" id="rpAdaptive" checked>依連續表現調整難度與提示</label>
+      <button id="rpStartBtn" style="background:var(--sage); border:none; padding: 12px; border-radius: 8px; color:var(--card); cursor:pointer; width:100%; font-weight: bold; font-size: 14px;">開始短任務</button>
     </div>
     
-    <div class="rp-chat" id="rpChat" style="display:none; flex-direction:column; gap:16px;">
+    <div id="rpMission" class="rp-mission" hidden aria-live="polite"></div>
+    <div class="rp-chat" id="rpChat" style="display:none; flex-direction:column; gap:16px;" role="log" aria-label="對話與教練回饋" aria-live="polite">
       <!-- Chat messages -->
     </div>
     
     <div class="rp-controls" id="rpControls" style="display:none; margin-top:20px; border-top:1px solid var(--line); padding-top:20px; text-align:center;">
       <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px;">
         <button id="rpRestartBtn" style="background:transparent; border:1px solid var(--line); color:var(--muted); padding:6px 10px; border-radius:6px; cursor:pointer; font-size:12px;">↺ 重啟對話</button>
+        <button id="rpRedoBtn" class="settings-btn settings-btn-secondary" hidden>↻ 重說這一句</button><button id="rpContinueBtn" class="settings-btn settings-btn-secondary" hidden>繼續對話</button>
         <button id="rpHintBtn" style="background:var(--sage-light); border:1px solid var(--sage); color:var(--sage-dark); padding:6px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:600;">💡 提示怎麼回</button>
       </div>
       <div id="rpHintBox" style="display:none; margin-bottom:12px; text-align:left; background:var(--card); border:1px dashed var(--sage); border-radius:8px; padding:10px; font-size:13px; color:var(--ink); line-height:1.5;"></div>
       <div id="rpStatus" style="font-size:13px; color:var(--muted); text-align:center; margin-bottom:8px;">請按下麥克風開始說話</div>
-      <button class="btn-mic" id="rpRecBtn" style="margin:0 auto;">🎙<span>開始說話</span></button><label class="reply-label" for="rpReplyInput">你的回覆 · 可打字或修改辨識結果</label><textarea id="rpReplyInput" rows="3" placeholder="Type your reply in English..."></textarea><div class="reply-actions"><button id="rpSendBtn" class="settings-btn settings-btn-primary">確認並送出</button><button id="rpRetryBtn" class="settings-btn settings-btn-secondary" hidden>重試上一則</button></div><p class="settings-hint">語音辨識後先確認文字，再送給 AI。教練回饋分析用字、文法與情境。</p>
+      <div class="rp-reply-compose"><button class="btn-mic" id="rpRecBtn" style="margin:0 auto;">🎙<span>開始說話</span></button><div class="rp-reply-field"><label class="reply-label" for="rpReplyInput">你的回覆 · 可打字或修改辨識結果</label><textarea id="rpReplyInput" rows="2" maxlength="1200" placeholder="Type your reply in English..."></textarea></div></div><div class="reply-actions"><button id="rpSendBtn" class="settings-btn settings-btn-primary">確認並送出</button><button id="rpRetryBtn" class="settings-btn settings-btn-secondary" hidden>重試上一則</button></div><p class="settings-hint rp-text-note">教練分析用字、文法與情境；語音辨識後請先確認文字。</p>
     </div>
+    <div id="rpSummary" class="rp-summary" hidden></div>
   </div>
 
   <div class="review-container" id="favoritesContainer" style="display:none;"></div>

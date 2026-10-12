@@ -1691,7 +1691,7 @@ async function loadLocalIPADictionary(accent,word=''){
   if(!word || map.has(word))return map;
   const bucket=ipaBucket(word),key=accent+'-'+bucket;
   if(!ipaChunkLoads[key])ipaChunkLoads[key]=(async()=>{
-    const res=await fetch('ipa-data/chunks/'+key+'.txt?v=20261012i',{signal:AbortSignal.timeout(6000)});
+    const res=await fetch('ipa-data/chunks/'+key+'.txt?v=20261013a',{signal:AbortSignal.timeout(6000)});
     if(!res.ok)throw new Error('音標分庫回應 '+res.status);
     return parseIPAText(await res.text(),map);
   })().catch(err=>{delete ipaChunkLoads[key];throw err;});
@@ -3261,7 +3261,7 @@ if(el('settingsBtn')) {
   // 所有需要納入「完整備份」的 localStorage key(不包含 speakup_custom,
   // 因為那是舊版題庫覆寫用的快取,匯入時交給 word_bank.js 本身管理即可)
   const BACKUP_KEYS = [
-    'speakup_ai_items', 'speakup_appMode', 'speakup_cat',
+    'speakup_ai_items', 'speakup_rp_options', 'speakup_appMode', 'speakup_cat',
     'speakup_cat_progress', 'speakup_custom_items', 'speakup_daily',
     'speakup_favorites', 'speakup_practiced', 'speakup_stageIdx',
     'speakup_streak', 'speakup_last_cat', 'speakup_last_celebrated', 'speakup_last_level',

@@ -445,3 +445,32 @@ button:active,.review-item:active,.cat-pill:active{transform:scale(.98)}
 @media(prefers-reduced-motion:reduce){.achievement-toast{animation:none!important}}
 
 .audio-preferences input[type=range]{min-width:0;width:0!important;flex:1 1 0!important}
+.rp-task-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}.rp-task-options label{display:grid;gap:6px;color:var(--muted);font-size:13px}.rp-task-options select{width:100%;min-width:0;min-height:44px;padding:8px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:16px}.rp-adaptive{display:flex;align-items:center;gap:8px;font-size:13px;margin:12px 0 18px}.rp-adaptive input,.rp-review-choice input{width:20px;height:20px;flex-shrink:0;accent-color:var(--sage)}.rp-mission,.rp-summary,.rp-review-queue{padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);margin:12px 0}.rp-mission-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}.rp-mission-top strong{font-size:15px}.rp-mission-top span{font-size:12px;color:var(--muted)}.rp-mission ul{list-style:none;padding:0;margin:8px 0;font-size:13px;line-height:1.6}.rp-feedback{font-size:14px;line-height:1.6}.rp-feedback p{margin:6px 0;overflow-wrap:anywhere}.rp-feedback small,.rp-feedback-tag{color:var(--muted);font-size:12px}.rp-feedback-tag{display:inline-block;border:1px solid var(--line);border-radius:8px;padding:1px 5px}.rp-feedback details{margin:8px 0}.rp-feedback summary{cursor:pointer;color:var(--sage-dark);min-height:30px}.rp-good{color:var(--sage-dark)}.rp-role-line{border-top:1px solid var(--line);padding-top:10px;margin-top:10px;overflow-wrap:anywhere}.rp-role-line:first-child{border-top:0;margin-top:0;padding-top:0}.rp-redo-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px}.rp-redo-actions button{min-height:44px;margin:0!important}.rp-summary h3{margin:0;font-size:19px;color:var(--sage-dark)}.rp-summary p{font-size:13px;color:var(--muted);line-height:1.6}.rp-review-choice{display:flex;align-items:flex-start;gap:10px;margin:12px 0;padding:10px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:14px;line-height:1.6;overflow-wrap:anywhere}.rp-review-choice small{display:block;color:var(--muted);font-size:12px}.rp-summary>.settings-btn{width:100%}.rp-review-queue p{margin-top:0;color:var(--sage-dark)}.rp-review-queue .settings-btn{width:100%}
+@media(max-width:600px){#rpContainer{padding:14px!important}#rpChat{max-height:34vh;max-height:34dvh;gap:10px!important}.msg-ai,.msg-user{max-width:96%;padding:10px 12px;font-size:14px}#rpControls{margin-top:12px!important;padding-top:12px!important}#rpControls .btn-mic{width:64px;height:64px;font-size:27px}#rpReplyInput{min-height:64px;resize:vertical;padding:8px;line-height:1.4}.reply-label{margin-top:8px;font-size:13px}.rp-mission{padding:10px;margin:8px 0}.rp-mission .settings-hint{font-size:11px}.rp-mission ul{margin:4px 0}.rp-summary{padding:12px}}
+/* Keep the reply controls visible; long feedback scrolls inside the conversation. */
+.rp-reply-compose{display:flex;align-items:center;gap:12px;margin:8px 0}.rp-reply-field{flex:1;min-width:0}.rp-reply-compose .reply-label{margin:0 0 4px}.rp-mission details{font-size:12px;margin-top:6px}.rp-mission summary{cursor:pointer;color:var(--muted);padding:4px 0}.rp-finished #rpSummary{display:block}.rp-text-note{margin:8px 0 0!important}
+@media(max-width:600px){
+ body.conversation-focus:not(.settings-open){overflow:hidden;height:100dvh;height:var(--practice-height,100dvh)}
+ .conversation-focus:not(.settings-open) .wrap{height:100dvh;height:var(--practice-height,100dvh);padding:calc(6px + env(safe-area-inset-top)) 10px calc(64px + env(safe-area-inset-bottom));display:flex;flex-direction:column;overflow:hidden}
+ .conversation-focus #mainAppContent{display:flex;flex-direction:column;flex:1;min-height:0;gap:6px}
+ .conversation-focus .topbar{flex-shrink:0}.conversation-focus footer{display:none}
+ .conversation-focus #rpContainer{display:flex!important;flex-direction:column;flex:1;min-height:0;margin:0;overflow:auto;overscroll-behavior:contain}
+ .conversation-focus #rpSetup{overflow:auto}.conversation-focus #rpMission{flex-shrink:0}
+ .conversation-focus #rpChat{flex:1;min-height:72px;max-height:none;overflow:auto}
+ .conversation-focus #rpControls{flex-shrink:0;margin-top:6px!important;padding-top:6px!important}
+ #rpControls>div:first-child{margin-bottom:4px!important;align-items:center!important}
+ #rpControls>div:first-child button{min-height:44px}
+ .rp-redo-actions{margin-bottom:4px}.rp-redo-actions button{padding:6px 10px;font-size:12px}
+ .rp-reply-compose{gap:10px;margin:6px 0}.rp-reply-compose .btn-mic{flex-shrink:0}
+ .rp-reply-compose .reply-label{font-size:11px;margin:0 0 3px}
+ #rpReplyInput{height:64px;min-height:64px;resize:none;display:block}
+ .rp-text-note{font-size:10px!important;line-height:1.4!important}
+ .conversation-focus .rp-finished #rpChat{display:none!important}
+ .conversation-focus .rp-finished #rpSummary{flex:1;min-height:0;overflow:auto;order:1}
+ .conversation-focus .rp-finished #rpControls{order:2}
+ .rp-finished .rp-reply-compose,.rp-finished .reply-actions,.rp-finished #rpHintBtn,.rp-finished .rp-text-note,.rp-finished #rpStatus{display:none!important}
+ #rpHintBox{max-height:64px;overflow:auto;margin-bottom:6px!important;padding:8px!important}
+}
+@media(max-width:600px) and (max-height:620px){.conversation-focus #rpContainer{padding:10px!important}.conversation-focus .rp-mission{margin:0 0 4px;padding:6px 8px}.rp-mission-top strong{font-size:13px}.rp-mission-top span{font-size:11px}.conversation-focus #rpChat{min-height:60px}.rp-text-note{display:none}.rp-mission summary{padding:2px 0}.rp-redo-actions button{min-height:36px}}#rpControls>div:first-child{gap:6px;flex-wrap:wrap}#rpControls>div:first-child .settings-btn{margin:0!important;font-size:12px;padding:6px 10px}
+@media(max-width:600px){#rpControls>div:first-child{flex-wrap:nowrap}#rpControls>div:first-child button{flex:1;min-width:0;padding:6px!important;font-size:11px!important;white-space:nowrap}}
+.rp-transcript{margin:12px 0;font-size:13px}.rp-transcript>summary{padding:10px 0;cursor:pointer;color:var(--sage-dark)}.rp-transcript>div{display:flex;flex-direction:column;gap:10px}.rp-transcript .msg-ai,.rp-transcript .msg-user{max-width:100%}

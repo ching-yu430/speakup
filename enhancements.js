@@ -18,6 +18,7 @@
     el('dailyHome').hidden = !dailyVisible;
     document.body.classList.toggle('practice-focus', ['general','ai','random','weakpractice','phonetics'].includes(appMode));
     document.body.classList.toggle('ipa-screen', appMode === 'phonetics');
+    document.body.classList.toggle('conversation-focus', appMode === 'roleplay');
     document.body.classList.toggle('has-practice-filters', ['general','ai'].includes(appMode));
     el('ipaContainer').hidden = appMode !== 'phonetics';
   }
