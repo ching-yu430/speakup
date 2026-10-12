@@ -385,3 +385,63 @@ button:disabled{opacity:.5;cursor:default;transform:none!important}
 .practice-empty .target-zh{font-size:14px!important;line-height:1.7}
 .practice-focus #mainCard.practice-empty{min-height:180px}
 @media(max-width:600px){#updateBanner{gap:8px;padding:8px!important;font-size:12px}#updateBanner button{width:auto;flex:0 0 auto;padding:8px 10px}}
+/* Fast, purposeful motion and illustrated navigation. */
+:root{--motion-fast:140ms;--motion-panel:180ms;--motion-ease:cubic-bezier(.2,.7,.3,1)}
+.section-menu .tab-icon{display:inline-block!important;font-size:16px;line-height:1;flex:none}
+.section-menu .app-tab{transition:background-color var(--motion-fast),border-color var(--motion-fast),color var(--motion-fast)}
+.section-menu .tab-label{font-weight:600}
+.trigger-btn{transition:background-color var(--motion-fast),border-color var(--motion-fast),color var(--motion-fast)}
+button:active,.review-item:active,.cat-pill:active{transform:scale(.98)}
+.anim-gentle-in,.anim-slide-up-fade,.anim-fade-in{animation:pageReveal var(--motion-panel) var(--motion-ease) both;animation-delay:0s!important}
+.anim-bubble-in{animation:messageReveal 180ms var(--motion-ease) both}
+.anim-gentle-modal{animation:sheetReveal 180ms var(--motion-ease) both}
+.anim-gentle-modal-out,.anim-gentle-out{animation:fadeOut 100ms ease-out both}
+.anim-pop{animation:quietPop 160ms ease-out both}
+.anim-bounce{animation:pageReveal 140ms ease-out both}
+.anim-slide-in-right{animation:promptFromRight 140ms var(--motion-ease) both}
+.anim-slide-in-left{animation:promptFromLeft 140ms var(--motion-ease) both}
+.anim-slide-out-left,.anim-slide-out-right{animation:none}
+.anim-status-fade{animation:pageReveal 100ms ease-out both}
+.anim-flame{animation:none}
+.anim-soft-pulse{animation:quietListening 1600ms ease-in-out infinite}
+.btn-mic.recording{animation:quietListening 1600ms ease-in-out infinite;box-shadow:0 0 0 4px var(--danger-bg);outline:1px solid var(--danger-border)}
+.btn-mic:hover{transform:none}
+.dropdown-panel.open{animation:pageReveal 140ms ease-out both}
+@keyframes pageReveal{from{opacity:.72}to{opacity:1}}
+@keyframes messageReveal{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes sheetReveal{from{opacity:.6;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes quietPop{0%{transform:scale(.94)}100%{transform:none}}
+@keyframes promptFromRight{from{opacity:.6;transform:translateX(7px)}to{opacity:1;transform:none}}
+@keyframes promptFromLeft{from{opacity:.6;transform:translateX(-7px)}to{opacity:1;transform:none}}
+@keyframes quietListening{0%,100%{opacity:1}50%{opacity:.78}}
+@media(max-width:600px){
+ .section-menu .app-tab{height:46px;min-height:46px;flex-direction:column;gap:3px;padding:4px}
+ .section-menu .tab-label{font-size:12px!important;line-height:1.15;overflow:visible;text-overflow:clip;white-space:nowrap}
+ .section-menu .tab-icon{font-size:16px!important}
+ .practice-focus .target-meta{margin-bottom:10px}
+ .practice-focus .nav-arrow{width:44px;height:44px;min-height:44px}
+ .practice-focus .quick-nav{gap:24px}
+ .practice-focus .cat-progress-label{font-size:11px;line-height:1.5}
+ .practice-focus .phon-open-btn{padding:7px 10px}
+ .practice-focus .audio-preferences{gap:10px!important}
+}
+@media(max-width:360px){
+ .section-menu .tab-label{font-size:11px!important}
+ .practice-focus #mainCard{padding:12px}
+ .practice-focus .quick-nav{padding-top:6px;margin-top:6px}
+ .practice-focus .cat-progress-wrap{margin-top:5px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;animation-delay:0s!important;transition:none!important;scroll-behavior:auto!important}
+ [class*="anim-"]{opacity:1!important;transform:none!important}
+}
+
+.achievement-toast{position:fixed;left:50%;bottom:calc(82px + env(safe-area-inset-bottom));z-index:180;transform:translateX(-50%);display:flex;align-items:center;gap:12px;width:max-content;max-width:calc(100vw - 28px);padding:12px 18px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 24px #0002;pointer-events:none;animation:achievementReveal 200ms ease-out}
+.achievement-toast .garden-flower-icon{width:36px;height:36px;flex-basis:36px}
+.achievement-toast strong,.achievement-toast span{display:block}
+.achievement-toast strong{font-size:14px;color:var(--sage-dark)}
+.achievement-toast span{font-size:12px;color:var(--muted);margin-top:2px}
+@keyframes achievementReveal{from{opacity:0;translate:0 5px}to{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){.achievement-toast{animation:none!important}}
+
+.audio-preferences input[type=range]{min-width:0;width:0!important;flex:1 1 0!important}

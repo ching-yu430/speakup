@@ -338,55 +338,16 @@ function updateStreak(todayStr) {
   bumpLocalDirty();
 }
 
-// 裡程碑慶祝動畫:每累積 25 個新單字就撒一次花瓣,給一個小小的儀式感
-function celebrateMilestone(count){
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed; inset:0; pointer-events:none; z-index:9998; overflow:hidden;';
-  const petals = ['🌸', '🌷', '🌼', '🌻', '✨'];
-  for(let i = 0; i < 22; i++){
-    const p = document.createElement('div');
-    const emoji = petals[i % petals.length];
-    const left = Math.random() * 100;
-    const duration = (2.2 + Math.random() * 1.4).toFixed(2);
-    const delay = (Math.random() * 0.5).toFixed(2);
-    const size = Math.round(16 + Math.random() * 14);
-    const drift = Math.round((Math.random() - 0.5) * 80);
-    p.textContent = emoji;
-    p.style.cssText = `position:absolute; top:-40px; left:${left}%; font-size:${size}px; --drift:${drift}px; animation:milestoneFall ${duration}s ease-in ${delay}s forwards;`;
-    overlay.appendChild(p);
-  }
-  const banner = document.createElement('div');
-  banner.textContent = `🎉 已練習 ${count} 題！`;
-  banner.style.cssText = 'position:absolute; top:32%; left:50%; background:var(--sage); color:#fff; padding:12px 22px; border-radius:999px; font-weight:800; font-size:16px; box-shadow:0 8px 24px rgba(0,0,0,0.25); animation:milestonePop 2.6s ease forwards; white-space:nowrap;';
-  overlay.appendChild(banner);
-  document.body.appendChild(overlay);
-  setTimeout(() => overlay.remove(), 4000);
+// Brief collection feedback stays clear of the practice controls.
+function showAchievement(title,detail,flower=4){
+  document.querySelector('.achievement-toast')?.remove();
+  const toast=document.createElement('div');toast.className='achievement-toast';
+  toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');
+  toast.innerHTML=BotanicalBouquet.icon(flower)+`<div><strong>${escapeHtml(title)}</strong><span>${escapeHtml(detail)}</span></div>`;
+  document.body.appendChild(toast);setTimeout(()=>toast.remove(),2600);
 }
-
-// 升級的慶祝效果:比一般里程碑更隆重一點,花瓣飄落速度放慢、橫幅用漸入漸出取代快速彈出，整體步調更和緩優雅
-function celebrateLevelUp(levelLabel, levelColor){
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed; inset:0; pointer-events:none; z-index:9998; overflow:hidden;';
-  const petals = ['🌸', '🌼', '✨', '🌟', '💫'];
-  for(let i = 0; i < 18; i++){
-    const p = document.createElement('div');
-    const emoji = petals[i % petals.length];
-    const left = Math.random() * 100;
-    const duration = (3.4 + Math.random() * 1.8).toFixed(2); // 比里程碑更慢,飄落更久、更悠然
-    const delay = (Math.random() * 0.8).toFixed(2);
-    const size = Math.round(18 + Math.random() * 14);
-    const drift = Math.round((Math.random() - 0.5) * 60);
-    p.textContent = emoji;
-    p.style.cssText = `position:absolute; top:-40px; left:${left}%; font-size:${size}px; --drift:${drift}px; animation:milestoneFall ${duration}s ease-in-out ${delay}s forwards;`;
-    overlay.appendChild(p);
-  }
-  const banner = document.createElement('div');
-  banner.innerHTML = `🎉 升級了！<br><span style="font-size:22px;">${levelLabel}</span>`;
-  banner.style.cssText = `position:absolute; top:34%; left:50%; background:linear-gradient(135deg, ${levelColor || 'var(--sage)'}, var(--sage-dark)); color:#fff; padding:18px 28px; border-radius:20px; font-weight:800; font-size:15px; text-align:center; line-height:1.6; box-shadow:0 10px 30px rgba(0,0,0,0.25); white-space:nowrap; opacity:0; animation:gentleModalIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards, gentleOut 0.7s cubic-bezier(0.4,0,1,1) 3.4s forwards;`;
-  overlay.appendChild(banner);
-  document.body.appendChild(overlay);
-  setTimeout(() => overlay.remove(), 5200);
-}
+function celebrateMilestone(count){showAchievement(`已練習 ${count} 題`,'花室又多了一點成長。',1);}
+function celebrateLevelUp(levelLabel,levelColor){showAchievement('花室升級',levelLabel,4);}
 
 // -- 花園小卡的畫圖小工具 --
 
@@ -809,7 +770,7 @@ function generateRandomReview() {
 
 function triggerAnim(elId, animClass) {
   const elem = el(elId);
-  if (!elem || elem.style.display === 'none') return;
+  if (!elem || elem.style.display === 'none' || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
   elem.classList.remove(animClass);
   void elem.offsetWidth;
   elem.classList.add(animClass);
@@ -1685,11 +1646,14 @@ function initBank(){
   });
 
   // 復原已練習但遺失的專案 (例如未存入 aiGeneratedItems 的舊新聞單字)
+  const existingByStage=new Map(STAGES.map(stage=>[stage,existingEnSet(stage)]));
   Object.values(practiced).forEach(p => {
+    if(!p.en)return;
     const stage = STAGES[p.stage] || STAGES[0];
-    const existing = existingEnSet(stage);
+    const existing = existingByStage.get(stage);
     if (!existing.has(p.en.toLowerCase())) {
       stage.items.push({ en: p.en, zh: p.zh, cat: p.cat });
+      existing.add(p.en.toLowerCase());
     }
   });
 }
@@ -1708,18 +1672,30 @@ function normalizePhonWord(word){
   return String(word||'').normalize('NFKC').toLowerCase().trim().replace(/[’‘]/g,"'").replace(/^[^a-z]+|[^a-z]+$/g,'');
 }
 const ipaDictionaryLoads={};
-async function loadLocalIPADictionary(accent){
-  if(!ipaDictionaryLoads[accent]) ipaDictionaryLoads[accent]=(async()=>{
-    if(typeof BUNDLED_IPA_TEXT==='undefined' || !BUNDLED_IPA_TEXT[accent]) throw new Error('音標字庫未載入，請更新網頁或重新查詢。');
-    const map=new Map();
-    for(const line of BUNDLED_IPA_TEXT[accent].split(/\r?\n/)){
-      const tab=line.indexOf('\t');if(tab<1)continue;
-      const word=line.slice(0,tab).toLowerCase(),phon=line.slice(tab+1).trim();
-      if(phon)map.set(word,phon.split(', ')[0]);
-    }
-    return map;
-  })().catch(err=>{delete ipaDictionaryLoads[accent];throw err;});
-  return ipaDictionaryLoads[accent];
+const ipaChunkLoads={};
+function ipaBucket(word){let h=0;for(const ch of word)h=(h*31+ch.charCodeAt(0))>>>0;return (h%16).toString(16);}
+function parseIPAText(text,map=new Map()){
+  for(const line of text.split(/\r?\n/)){
+    const tab=line.indexOf('\t');if(tab<1)continue;
+    const word=line.slice(0,tab).toLowerCase(),phon=line.slice(tab+1).trim();
+    if(phon)map.set(word,phon.split(', ')[0]);
+  }
+  return map;
+}
+async function loadLocalIPADictionary(accent,word=''){
+  if(!ipaDictionaryLoads[accent])ipaDictionaryLoads[accent]=Promise.resolve().then(()=>{
+    if(typeof BUNDLED_IPA_TEXT==='undefined'||!BUNDLED_IPA_TEXT[accent])throw new Error('音標字庫未載入，請更新網頁或重新查詢。');
+    return parseIPAText(BUNDLED_IPA_TEXT[accent]);
+  }).catch(err=>{delete ipaDictionaryLoads[accent];throw err;});
+  const map=await ipaDictionaryLoads[accent];
+  if(!word || map.has(word))return map;
+  const bucket=ipaBucket(word),key=accent+'-'+bucket;
+  if(!ipaChunkLoads[key])ipaChunkLoads[key]=(async()=>{
+    const res=await fetch('ipa-data/chunks/'+key+'.txt?v=20261012i',{signal:AbortSignal.timeout(6000)});
+    if(!res.ok)throw new Error('音標分庫回應 '+res.status);
+    return parseIPAText(await res.text(),map);
+  })().catch(err=>{delete ipaChunkLoads[key];throw err;});
+  return ipaChunkLoads[key];
 }
 const PHON_SPELLINGS={flavourful:'flavorful',flavorful:'flavourful',colour:'color',color:'colour',favourite:'favorite',favorite:'favourite',organise:'organize',organize:'organise',centre:'center',center:'centre',travelling:'traveling',traveling:'travelling'};
 async function fetchWordData(word){
@@ -1728,7 +1704,9 @@ async function fetchWordData(word){
   const variants={};
   const local=await Promise.allSettled(['us','uk'].map(async accent=>{
     const map=await loadLocalIPADictionary(accent);
-    const phon=map.get(clean)||map.get(PHON_SPELLINGS[clean]);
+    let phon=map.get(clean)||map.get(PHON_SPELLINGS[clean]);
+    if(!phon){await loadLocalIPADictionary(accent,clean);phon=map.get(clean);}
+    if(!phon&&PHON_SPELLINGS[clean]){await loadLocalIPADictionary(accent,PHON_SPELLINGS[clean]);phon=map.get(PHON_SPELLINGS[clean]);}
     if(phon)variants[accent]={phon,audio:'',source:'ipa-dict'};
   }));
   if(Object.keys(variants).length)return {zh:null,variants};
@@ -2154,7 +2132,7 @@ function updateCatProgress(items){
     } else {
       label.textContent = remaining <= 0
         ? `這個分類已練過 ${doneCount}/${total}；熟練 ${items.filter(it => isItemMastered(it.en)).length}/${total}`
-        : `這個分類還剩 ${remaining} 題 (已練 ${doneCount}/${total}；熟練 ${items.filter(it => isItemMastered(it.en)).length}/${total})`;
+        : `剩 ${remaining} 題 · 已練 ${doneCount} · 熟練 ${items.filter(it => isItemMastered(it.en)).length}`;
     }
   }
   wrap.style.display = 'block';
@@ -2718,26 +2696,15 @@ recBtn.addEventListener('click', (e) => {
 // 上一題/下一題時,讓卡片內容像翻頁一樣先滑出、換好內容後再從另一側滑入,
 // 而不是內容瞬間跳掉——速度刻意放得和緩,滑出快、滑入稍微慢一點更有「輕輕落定」的感覺。
 function navigateItem(direction){
-  const content = el('cardContent');
-  const items = filteredItems();
-  if(!items.length) return;
-
-  const outClass = direction === 1 ? 'anim-slide-out-left' : 'anim-slide-out-right';
-  const inClass = direction === 1 ? 'anim-slide-in-right' : 'anim-slide-in-left';
-
-  content.classList.remove('anim-slide-in-left', 'anim-slide-in-right', outClass, inClass);
-  void content.offsetWidth; // 強制重新計算樣式,確保動畫每次都能重新觸發
-  content.classList.add(outClass);
-
-  setTimeout(() => {
-    itemIdx = (itemIdx + direction + items.length) % items.length;
-    saveProgress();
-    render(true);
-
-    content.classList.remove(outClass);
-    void content.offsetWidth;
-    content.classList.add(inClass);
-  }, 180);
+  const content=el('cardContent'),items=filteredItems();
+  if(!items.length)return;
+  // Commit immediately: rapid taps cannot queue delayed or stale page changes.
+  itemIdx=(itemIdx+direction+items.length)%items.length;
+  saveProgress();render(true);
+  content.classList.remove('anim-slide-in-left','anim-slide-in-right','anim-slide-out-left','anim-slide-out-right');
+  if(!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){
+    triggerAnim('cardContent',direction===1?'anim-slide-in-right':'anim-slide-in-left');
+  }
 }
 
 el('skipBtn').onclick = () => navigateItem(1);
@@ -3211,7 +3178,6 @@ zh (中文) 必須是繁體中文(臺灣)。
 };
 
 checkMobile();
-initBank();
 
 /* ---------- 盲測模式與設定管理 ---------- */
 let isBlindMode = false;
@@ -3726,7 +3692,7 @@ if(el('settingsBtn')) {
 /* ---------- Service Worker 註冊(離線快取 + 背景通知用) ---------- */
 let swRegistration = null;
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js')
+  navigator.serviceWorker.register('sw.js',{updateViaCache:'none'})
     .then(reg => { swRegistration = reg; })
     .catch(() => {}); // 註冊失敗(例如不支援)就靜靜略過,不影響其他功能
 }

@@ -5,7 +5,7 @@
     const item=currentItem(),node=el('inlinePhon');
     const phon=getVariant(item)?.phon;
     const phrase=item && /\s/.test(item.en.trim());
-    el('inlinePhonText').textContent=phon || (phrase ? '片語音標：點「音標與注音」選字' : item?._fetching ? '音標查詢中…' : item?._phonError || '音標待查詢');
+    el('inlinePhonText').textContent=phon || (phrase ? '點「發音提示」選字查看音標' : item?._fetching ? '音標查詢中…' : item?._phonError || '音標待查詢');
     el('inlinePhonRetry').hidden=!!phon || !!phrase || !!item?._fetching;
     node.classList.toggle('phon-unavailable',!phon);
     // Hidden prompts must not be revealed through their phonetic transcription.

@@ -6,6 +6,7 @@
   };
   const modeIds = { general:'tabGeneral', phonetics:'tabPhonetics', ai:'tabAI', news:'tabNews', roleplay:'tabRoleplay', random:'tabRandom', weak:'tabWeak', completed:'tabCompleted', favorites:'tabFavorites', progress:'tabProgress', review:'tabReview' };
   let section = Object.keys(sections).find(key => sections[key].includes(appMode)) || 'practice';
+  const lastSectionMode=safeParse(lsGet('speakup_section_modes'),{});
   const originalMode = setAppMode;
   function updateNavigation() {
     document.querySelectorAll('[data-section]').forEach(button => {
@@ -23,12 +24,14 @@
   setAppMode = function(mode, ...args) {
     section = Object.keys(sections).find(key => sections[key].includes(mode)) || 'practice';
     if(mode === 'phonetics') { originalMode('general', ...args); appMode = 'phonetics'; el('mainCard').style.display = 'none'; el('tabGeneral').classList.remove('active'); el('tabPhonetics').classList.add('active'); } else { originalMode(mode, ...args); el('tabPhonetics').classList.remove('active'); }
+    if(modeIds[mode]){lastSectionMode[section]=mode;lsSet('speakup_section_modes',JSON.stringify(lastSectionMode));}
     updateNavigation();
   };
   document.querySelectorAll('[data-section]').forEach(button => {
     button.onclick = () => {
       if(section === button.dataset.section) return;
-      const first = sections[button.dataset.section][0];
+      const modes=sections[button.dataset.section],saved=lastSectionMode[button.dataset.section];
+      const first=modes.includes(saved)&&modeIds[saved]?saved:modes[0];
       el(modeIds[first]).click();
     };
   });

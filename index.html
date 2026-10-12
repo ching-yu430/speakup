@@ -10,11 +10,19 @@
 <link rel="icon" href="apple-touch-icon.jpg">
 <link rel="manifest" href="manifest.json">
 <title>開口練習 Speak Up</title>
-<link rel="stylesheet" href="style.css?v=20261012e">
-<link rel="stylesheet" href="improvements.css?v=20261012e">
+<link rel="stylesheet" href="style.css?v=20261012i">
+<link rel="stylesheet" href="improvements.css?v=20261012i">
+<script defer src="word_bank.js?v=20261012i" charset="utf-8"></script>
+<script defer src="phonetics-data.js?v=20261012i"></script>
+<script defer src="helpers.js?v=20261012i"></script>
+<script defer src="bouquet.js?v=20261012i"></script>
+<script defer src="flower-cards.js?v=20261012i"></script>
+<script defer src="app.js?v=20261012i"></script>
+<script defer src="enhancements.js?v=20261012i"></script>
+<script defer src="iphone.js?v=20261012i"></script>
+<script defer src="practice-polish.js?v=20261012i"></script>
 </head>
 <body>
-<script src="word_bank.js?v=20261012e" charset="utf-8"></script>
 
 <div class="wrap">
 
@@ -49,17 +57,17 @@
 
   <div class="dropdown-panel" id="modeDropdown">
     <nav class="app-tabs">
-      <button class="app-tab active" id="tabGeneral"><span class="tab-icon">📚</span><span class="tab-label">系統題庫</span></button>
-      <button class="app-tab" id="tabPhonetics"><span class="tab-icon">🔤</span><span class="tab-label">音標練習</span></button><button class="app-tab" id="tabAI"><span class="tab-icon">✨</span><span class="tab-label">AI 情境</span></button>
-      <button class="app-tab" id="tabNews"><span class="tab-icon">📰</span><span class="tab-label">每日新聞</span></button>
-      <button class="app-tab" id="tabRoleplay"><span class="tab-icon">💬</span><span class="tab-label">實戰對話</span></button>
-      <button class="app-tab" id="tabCompleted"><span class="tab-icon">✅</span><span class="tab-label">練習紀錄</span></button>
-      <button class="app-tab" id="tabRandom"><span class="tab-icon">🔁</span><span class="tab-label">隨機抽考</span></button>
-      <button class="app-tab" id="tabWeak"><span class="tab-icon">🧠<span class="tab-due-badge" id="weakDueBadge" style="display:none;"></span></span><span class="tab-label">弱點單字</span></button>
-      <button class="app-tab" id="tabProgress"><span class="tab-icon">📊</span><span class="tab-label">學習進度</span></button>
+      <button class="app-tab active" id="tabGeneral"><span class="tab-icon" aria-hidden="true">📚</span><span class="tab-label">系統題庫</span></button>
+      <button class="app-tab" id="tabPhonetics"><span class="tab-icon" aria-hidden="true">🔤</span><span class="tab-label">音標練習</span></button><button class="app-tab" id="tabAI"><span class="tab-icon" aria-hidden="true">✨</span><span class="tab-label">AI 情境</span></button>
+      <button class="app-tab" id="tabNews"><span class="tab-icon" aria-hidden="true">📰</span><span class="tab-label">每日新聞</span></button>
+      <button class="app-tab" id="tabRoleplay"><span class="tab-icon" aria-hidden="true">💬</span><span class="tab-label">實戰對話</span></button>
+      <button class="app-tab" id="tabCompleted"><span class="tab-icon" aria-hidden="true">✅</span><span class="tab-label">練習紀錄</span></button>
+      <button class="app-tab" id="tabRandom"><span class="tab-icon" aria-hidden="true">🔁</span><span class="tab-label">隨機抽考</span></button>
+      <button class="app-tab" id="tabWeak"><span class="tab-icon" aria-hidden="true">🧠<span class="tab-due-badge" id="weakDueBadge" style="display:none;"></span></span><span class="tab-label">弱點單字</span></button>
+      <button class="app-tab" id="tabProgress"><span class="tab-icon" aria-hidden="true">📊</span><span class="tab-label">學習進度</span></button>
 
-      <button class="app-tab" id="tabFavorites"><span class="tab-icon">⭐</span><span class="tab-label">收藏</span></button>
-      <button class="app-tab" id="tabReview"><span class="tab-icon">🏺</span><span class="tab-label">語感花室</span></button>
+      <button class="app-tab" id="tabFavorites"><span class="tab-icon" aria-hidden="true">⭐</span><span class="tab-label">收藏</span></button>
+      <button class="app-tab" id="tabReview"><span class="tab-icon" aria-hidden="true">🏺</span><span class="tab-label">語感花室</span></button>
     </nav>
   </div>
   <div class="dropdown-panel" id="stageDropdown">
@@ -140,7 +148,7 @@
     <div class="target" id="target">Loading...</div>
     <div id="inlinePhon" class="inline-phon" role="status"><span id="inlinePhonText"></span><button id="inlinePhonRetry" class="phon-retry-inline" hidden>重試</button></div><div class="target-zh" id="targetZh"></div></div><div class="practice-info-row"><div id="itemLearningState" class="learning-state"></div>
 
-    <button id="openPhonBtn" class="phon-open-btn">音標與注音 ↗</button></div>
+    <button id="openPhonBtn" class="phon-open-btn">發音提示 ↗</button></div>
 
     <div class="audio-preferences" style="display:inline-flex; flex-direction:column; gap:10px; margin-bottom:10px; width:100%; max-width:200px;">
       <div class="accent-row" style="margin-bottom:0; width:100%;">
@@ -378,13 +386,5 @@
       <div class="phon-hint">大字／深色 = 重音節・注音為近似發音，部分英文特有音（如 th、v）無法完全對應，僅供輔助參考</div>
       <div class="phon-raw-row" id="phonRawRow"></div>
     </div><button id="retryPhonBtn" class="settings-btn settings-btn-secondary">重新查詢音標</button><p class="settings-hint">注音只提供近似提示；請搭配例字聲音，留意英文特有音。</p></section></div>
-<script src="phonetics-data.js?v=20261012e"></script>
-<script src="helpers.js?v=20261012e"></script>
-<script src="bouquet.js?v=20261012e"></script>
-<script src="flower-cards.js?v=20261012e"></script>
-<script src="app.js?v=20261012e"></script>
-<script src="enhancements.js?v=20261012e"></script>
-<script src="iphone.js?v=20261012e"></script>
-<script src="practice-polish.js?v=20261012e"></script>
 </body>
 </html>

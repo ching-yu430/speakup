@@ -3,11 +3,16 @@
   "short_name": "Speak Up",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#161815",
-  "theme_color": "#7da080",
+  "background_color": "#f0e9dd",
+  "theme_color": "#28565b",
   "icons": [
     {
       "src": "apple-touch-icon.jpg",
+      "sizes": "180x180",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "app-icon-512.jpg",
       "sizes": "512x512",
       "type": "image/jpeg"
     }
