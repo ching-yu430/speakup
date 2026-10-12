@@ -193,7 +193,27 @@ const BotanicalBouquet = (() => {
       ctx.restore();
     });ctx.restore();
   }
-  return {svg,draw,scene,icon,levels,flowerNames};
+  // Decorative sprigs share the room's petals, attached leaves and dry-brush marks.
+  // They have fixed seeds and never touch the learner's earned bouquet seed.
+  function sprig(kind,index,prefix='sprig') {
+    const shapes=[],colors=palettes[index%palettes.length],own=rng(9041+index*771);
+    const add=(d,fill,stroke=null,width=1,opacity=1,grain=false)=>{const s={d,fill,stroke,width,opacity,grain};shapes.push(s);return s;};
+    add('M77 166 Q78 105 95 47',null,colors[4],2.2);
+    add('M79 151 Q55 122 42 90',null,colors[4],1.7);
+    leaf(add,80,135,-.7,33,8,colors[3],own);
+    leaf(add,85,106,-2.6,26,7,colors[4],own);
+    leaf(add,64,132,-2.8,28,8,colors[4],own);
+    paintFlower((d,...args)=>add(rotatePath(d,95,47,.12),...args),95,47,30,kind,colors[0],colors[2],own);
+    paintFlower((d,...args)=>add(rotatePath(d,42,90,-.3),...args),42,90,18,2,colors[1],colors[2],own);
+    shapes.forEach((s,i)=>{
+      if(!s.grain)return;
+      const coords=s.d.match(/-?\d+(?:\.\d+)?/g).map(Number),xs=coords.filter((_,n)=>n%2===0),ys=coords.filter((_,n)=>n%2===1);
+      const x=Math.min(...xs),y=Math.min(...ys),w=Math.max(...xs)-x,h=Math.max(...ys)-y,rr=rng(818+i*771+index);
+      s.flecks=Array.from({length:24},()=>({x:f(x+rr()*w),y:f(y+rr()*h),r:f(.3+rr()*.5)}));
+    });
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 180" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${markup(shapes,prefix+'-'+index)}</svg>`;
+  }
+  return {svg,draw,scene,icon,sprig,levels,flowerNames};
 })();
 
 // Theme is stored with the learning backup; system changes update an open room.

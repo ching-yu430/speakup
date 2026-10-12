@@ -1691,7 +1691,7 @@ async function loadLocalIPADictionary(accent,word=''){
   if(!word || map.has(word))return map;
   const bucket=ipaBucket(word),key=accent+'-'+bucket;
   if(!ipaChunkLoads[key])ipaChunkLoads[key]=(async()=>{
-    const res=await fetch('ipa-data/chunks/'+key+'.txt?v=20261013a',{signal:AbortSignal.timeout(6000)});
+    const res=await fetch('ipa-data/chunks/'+key+'.txt?v=20261013c',{signal:AbortSignal.timeout(6000)});
     if(!res.ok)throw new Error('音標分庫回應 '+res.status);
     return parseIPAText(await res.text(),map);
   })().catch(err=>{delete ipaChunkLoads[key];throw err;});
@@ -2167,6 +2167,7 @@ function renderProgress(){
     // 第一層:單字 / 片語 / 句子
     const title = document.createElement('div');
     title.textContent = '📊 學習進度';
+    title.className = 'botanical-heading';
     title.style.cssText = 'font-size:16px; font-weight:700; color:var(--sage-dark); margin-bottom:6px;';
     wrap.appendChild(title);
     const hint = document.createElement('div');

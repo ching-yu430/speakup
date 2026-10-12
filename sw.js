@@ -1,5 +1,5 @@
-const CACHE_NAME='speakup-cache-20261013a';
-const CORE_ASSETS=['./','./index.html','./style.css?v=20261013a','./improvements.css?v=20261013a','./helpers.js?v=20261013a','./bouquet.js?v=20261013a','./flower-cards.js?v=20261013a','./app.js?v=20261013a','./enhancements.js?v=20261013a','./word_bank.js?v=20261013a','./phonetics-data.js?v=20261013a','./iphone.js?v=20261013a','./practice-polish.js?v=20261013a','./roleplay-coach.js?v=20261013a','./paper-grain.svg','./manifest.json','./apple-touch-icon.jpg','./app-icon-512.jpg'];
+const CACHE_NAME='speakup-cache-20261013c';
+const CORE_ASSETS=['./','./index.html','./style.css?v=20261013c','./improvements.css?v=20261013c','./helpers.js?v=20261013c','./bouquet.js?v=20261013c','./flower-cards.js?v=20261013c','./app.js?v=20261013c','./enhancements.js?v=20261013c','./word_bank.js?v=20261013c','./phonetics-data.js?v=20261013c','./iphone.js?v=20261013c','./practice-polish.js?v=20261013c','./roleplay-coach.js?v=20261013c','./paper-grain.svg','./floral-poppy.svg','./floral-cosmos.svg','./floral-daisy.svg','./manifest.json','./apple-touch-icon.jpg','./app-icon-512.jpg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(CORE_ASSETS))));
 self.addEventListener('message',e=>{if(e.data?.type==='ACTIVATE_UPDATE')self.skipWaiting();});
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('speakup-cache-')&&k!==CACHE_NAME).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

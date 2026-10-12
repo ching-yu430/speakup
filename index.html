@@ -10,18 +10,18 @@
 <link rel="icon" href="apple-touch-icon.jpg">
 <link rel="manifest" href="manifest.json">
 <title>開口練習 Speak Up</title>
-<link rel="stylesheet" href="style.css?v=20261013a">
-<link rel="stylesheet" href="improvements.css?v=20261013a">
-<script defer src="word_bank.js?v=20261013a" charset="utf-8"></script>
-<script defer src="phonetics-data.js?v=20261013a"></script>
-<script defer src="helpers.js?v=20261013a"></script>
-<script defer src="bouquet.js?v=20261013a"></script>
-<script defer src="flower-cards.js?v=20261013a"></script>
-<script defer src="app.js?v=20261013a"></script>
-<script defer src="enhancements.js?v=20261013a"></script>
-<script defer src="iphone.js?v=20261013a"></script>
-<script defer src="practice-polish.js?v=20261013a"></script>
-<script defer src="roleplay-coach.js?v=20261013a"></script>
+<link rel="stylesheet" href="style.css?v=20261013c">
+<link rel="stylesheet" href="improvements.css?v=20261013c">
+<script defer src="word_bank.js?v=20261013c" charset="utf-8"></script>
+<script defer src="phonetics-data.js?v=20261013c"></script>
+<script defer src="helpers.js?v=20261013c"></script>
+<script defer src="bouquet.js?v=20261013c"></script>
+<script defer src="flower-cards.js?v=20261013c"></script>
+<script defer src="app.js?v=20261013c"></script>
+<script defer src="enhancements.js?v=20261013c"></script>
+<script defer src="iphone.js?v=20261013c"></script>
+<script defer src="practice-polish.js?v=20261013c"></script>
+<script defer src="roleplay-coach.js?v=20261013c"></script>
 </head>
 <body>
 
@@ -33,7 +33,7 @@
 
   <div class="topbar">
     <div class="brand">
-      <span>🗣️ Speak Up</span>
+      <span class="botanical-brand"><img src="floral-cosmos.svg" class="brand-bloom" alt="" aria-hidden="true" width="28" height="34">Speak Up</span>
       <div style="display:flex; align-items:center; gap:4px;"><button id="todayToggleBtn" class="today-toggle">今日練習</button>
         <button id="searchBtn" style="background:none; border:none; padding:4px; font-size:18px; cursor:pointer; color:var(--muted);" title="搜尋單字或片語">🔍</button>
         <button id="settingsBtn" style="background:none; border:none; padding:4px; font-size:18px; cursor:pointer; color:var(--muted);" title="設定與資料">⚙️</button>
@@ -89,7 +89,7 @@
 
   <div class="roleplay-container card" id="rpContainer" style="display:none; padding: 24px;">
     <div class="rp-setup" id="rpSetup">
-      <div style="font-size:14px; margin-bottom:12px; color:var(--muted);">🎯 用一段短對話完成任務。角色與情境變化每次不同，說完可重說並留下複習句。</div>
+      <div class="botanical-intro" style="font-size:14px; margin-bottom:12px; color:var(--muted);">🎯 用一段短對話完成任務。角色與情境變化每次不同，說完可重說並留下複習句。</div>
       <div style="display:flex; gap:8px; margin-bottom: 16px;">
         <input type="text" id="rpScenarioInput" placeholder="例如：在速食店點餐" style="flex:1; border: 1px solid var(--line); padding:10px; border-radius: 8px; font-family: 'Inter';">
         <button id="rpRandomBtn" style="background:var(--sage-light); border:1px solid var(--line); padding:0 14px; border-radius:8px; cursor:pointer; color:var(--ink);" title="隨機情境">🎲 隨機</button>
